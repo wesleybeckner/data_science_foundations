@@ -311,7 +311,7 @@
         
           <li class="md-nav__item">
   <a href="#exercise-1-rudimentary-eda" class="md-nav__link">
-    Exercise 1: rudimentary EDA
+    🏋️ Exercise 1: rudimentary EDA
   </a>
   
 </li>
@@ -684,7 +684,7 @@
         
           <li class="md-nav__item">
   <a href="#exercise-1-rudimentary-eda" class="md-nav__link">
-    Exercise 1: rudimentary EDA
+    🏋️ Exercise 1: rudimentary EDA
   </a>
   
 </li>
@@ -918,7 +918,7 @@
 </p>
 
 <h2 id="12-linear-regression-fitting-with-scikit-learn">1.2  Linear regression fitting with scikit-learn<a class="headerlink" href="#12-linear-regression-fitting-with-scikit-learn" title="Permanent link">&para;</a></h2>
-<h4 id="exercise-1-rudimentary-eda">Exercise 1: rudimentary EDA<a class="headerlink" href="#exercise-1-rudimentary-eda" title="Permanent link">&para;</a></h4>
+<h4 id="exercise-1-rudimentary-eda">🏋️ Exercise 1: rudimentary EDA<a class="headerlink" href="#exercise-1-rudimentary-eda" title="Permanent link">&para;</a></h4>
 <p>What does the data look like? Remember how to visualize data in a pandas dataframe (Sessions 3 and 4) </p>
 <ol>
 <li> for every column calculate the
@@ -1460,7 +1460,7 @@ I have gone ahead and repeated this exercise with the red vs white wine types:
 
 
 
-#### Question 1: Discussion Around EDA Plot
+#### 🙋 Question 1: Discussion Around EDA Plot
 
 What do we think of this plot?
 
@@ -1620,7 +1620,7 @@ $$\epsilon (m,b) =SS_{\sf res}=\sum_{i=1}^{N}\left(y^{\sf exact}_i - y^{\sf calc
 To find out more see e.g. https://en.wikipedia.org/wiki/Simple_linear_regression
 
 
-#### Question 2: linear regression loss function
+#### 🙋 Question 2: linear regression loss function
 > Do we always want *m* and *b* to be large positive numbers so as to minimize eq. 2? 
 
 
@@ -1696,7 +1696,7 @@ What happens when we try to fit the data as is?
 
 
 
-#### Exercise 2: drop Null Values (and practice pandas operations)
+#### 🏋️ Exercise 2: drop Null Values (and practice pandas operations)
 
 Let's look back at our dataset description dataframe above, what do we notice, what contains null values?
 
@@ -1759,7 +1759,7 @@ Now that we have our x and y arrays we can fit using ScikitLearn
     Scikit learn - Slope:  616.0131428066102 Intercept:  -605.6880086750525
 
 
-#### Exercise 3: calculating y_pred
+#### 🏋️ Exercise 3: calculating y_pred
 Estimate the values of $y$ by using your fitted parameters. Hint: Use your <code>model.coef_</code> and <code>model.intercept_</code> parameters to estimate y_pred following equation 1
 
 
@@ -1854,7 +1854,7 @@ In eq. 4, $\bar{y}=\sum_i y^{\sf exact}_i/N$ is the average value of y for $N$ p
 
 See all the different regression metrics [here](https://scikit-learn.org/stable/modules/model_evaluation.html).
 
-#### Question 3
+#### 🙋 Question 3
 > Do we need a large value of $SS_{\sf tot}$ to minimize $R^2$ - is this something which we have the power to control?
 
 
@@ -2241,7 +2241,7 @@ else:
     All good! The number of coefficients matches the number of input features.
 
 
-### 1.4.2 Exercise 4: evaluate the error
+### 🏋️ Exercise 4: evaluate the error
 
 Let's **evaluate the error** by computing the MSE and $R^2$ metrics (see eq. 3 and 6).
 
@@ -2284,7 +2284,7 @@ print(&#39;Coefficient of determination: {:.2f}&#39;.format(r2)
     Coefficient of determination: 0.84
 
 
-### 1.4.3 Exercise 5: make a plot of y actual vs y predicted
+### 🏋️ Exercise 5: make a plot of y actual vs y predicted
 
 We can also look at how well the computed values match the true values graphically by generating a scatterplot.
 
@@ -2529,7 +2529,7 @@ print(&#39;Coefficient of determination: %.2f&#39; % r2_score(y_test, y_calc_tes
     Coefficient of determination: 0.87
 
 
-#### Exercise 6: Tune Hyperparameter for Ridge Regression
+#### 🏋️ Exercise 6: Tune Hyperparameter for Ridge Regression
 
 Use the docstring to peak into the hyperparameters for Ridge Regression. What is the optimal value of lambda?
 
