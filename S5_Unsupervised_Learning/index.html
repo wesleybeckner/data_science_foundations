@@ -568,7 +568,7 @@
                 
 
 <p><a href="https://colab.research.google.com/github/ronva-h/technology_fundamentals/blob/main/C3%20Machine%20Learning%20I/Tech%20Fun%20C3%20E1%20Unsupervised%20Learning.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
-<h1 id="technology-fundamentals-course-3-enrichment-1-unsupervised-learning-clustering-dimensionality-reduction">Technology Fundamentals, Course 3 Enrichment 1: Unsupervised Learning: Clustering, Dimensionality Reduction<a class="headerlink" href="#technology-fundamentals-course-3-enrichment-1-unsupervised-learning-clustering-dimensionality-reduction" title="Permanent link">&para;</a></h1>
+<h1 id="technology-fundamentals-course-3-enrichment-1-unsupervised-learning-clustering-dimensionality-reduction">Technology Fundamentals, Course 3 Enrichment 1: Unsupervised Learning: Clustering, Dimensionality Reduction</h1>
 <p><strong>Instructor</strong>: Wesley Beckner</p>
 <p><strong>Contact</strong>: wesleybeckner@gmail.com</p>
 <p><strong>Teaching Assistants</strong>: Varsha Bang, Harsha Vardhan</p>
@@ -582,7 +582,7 @@
 <hr />
 <p><br></p>
 <p><a name='top'></a></p>
-<h1 id="contents">Contents<a class="headerlink" href="#contents" title="Permanent link">&para;</a></h1>
+<h1 id="contents">Contents</h1>
 <ul>
 <li>3.0 <a href="#3.0">Preparing Environment and Importing Data</a></li>
 <li>3.0.1 <a href="#x.0.1">Import Packages</a></li>
@@ -607,95 +607,89 @@
 <p><br></p>
 <hr />
 <p><a name='3.0'></a></p>
-<h2 id="30-preparing-environment-and-importing-data">3.0 Preparing Environment and Importing Data<a class="headerlink" href="#30-preparing-environment-and-importing-data" title="Permanent link">&para;</a></h2>
+<h2 id="30-preparing-environment-and-importing-data">3.0 Preparing Environment and Importing Data</h2>
 <p><a href="#top">back to top</a></p>
 <p><a name='x.0.1'></a></p>
-<h3 id="301-import-packages">3.0.1 Import Packages<a class="headerlink" href="#301-import-packages" title="Permanent link">&para;</a></h3>
+<h3 id="301-import-packages">3.0.1 Import Packages</h3>
 <p><a href="#top">back to top</a></p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">datetime</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
-<span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
-<span class="kn">from</span> <span class="nn">statsmodels.stats.outliers_influence</span> <span class="kn">import</span> <span class="n">variance_inflation_factor</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
-<span class="kn">from</span> <span class="nn">sklearn.mixture</span> <span class="kn">import</span> <span class="n">GaussianMixture</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span><span class="p">;</span> <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
-<span class="kn">import</span> <span class="nn">copy</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>/usr/local/lib/python3.7/dist-packages/statsmodels/tools/_testing.py:19: FutureWarning:
+<pre><code class="language-python">import pandas as pd
+import numpy as np
+import datetime
+import matplotlib.pyplot as plt
+import plotly.express as px
+import random
+import scipy.stats
+from sklearn.preprocessing import OneHotEncoder
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.mixture import GaussianMixture
+import seaborn as sns; sns.set()
+import copy
+</code></pre>
+<pre><code>/usr/local/lib/python3.7/dist-packages/statsmodels/tools/_testing.py:19: FutureWarning:
 
 pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
-</code></pre></div>
-
+</code></pre>
 <p><a name='x.0.2'></a></p>
-<h3 id="302-load-dataset">3.0.2 Load Dataset<a class="headerlink" href="#302-load-dataset" title="Permanent link">&para;</a></h3>
+<h3 id="302-load-dataset">3.0.2 Load Dataset</h3>
 <p><a href="#top">back to top</a></p>
-<div class="codehilite"><pre><span></span><code><span class="n">wine</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/wesleybeckner/&quot;</span>\
-      <span class="s2">&quot;ds_for_engineers/main/data/wine_quality/winequalityN.csv&quot;</span><span class="p">)</span>
+<pre><code class="language-python">wine = pd.read_csv(&quot;https://raw.githubusercontent.com/wesleybeckner/&quot;\
+      &quot;ds_for_engineers/main/data/wine_quality/winequalityN.csv&quot;)
 
-<span class="n">wine</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">wine</span><span class="p">[</span><span class="s1">&#39;quality_label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wine</span><span class="p">[</span><span class="s1">&#39;quality&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;low&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span><span class="mi">5</span> <span class="k">else</span>
-                                              <span class="s1">&#39;med&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">7</span> <span class="k">else</span> <span class="s1">&#39;high&#39;</span><span class="p">)</span>
+wine.dropna(inplace=True)
+wine['quality_label'] = wine['quality'].apply(lambda x: 'low' if x &lt;=5 else
+                                              'med' if x &lt;= 7 else 'high')
 
-<span class="n">wine</span><span class="p">[</span><span class="s1">&#39;type_encoding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wine</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;red&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
-<span class="n">wine</span><span class="p">[</span><span class="s1">&#39;quality_encoding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wine</span><span class="p">[</span><span class="s1">&#39;quality_label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;low&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> 
-                                                      <span class="s1">&#39;med&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;high&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+wine['type_encoding'] = wine['type'].map({'red': 0, 'white': 1})
+wine['quality_encoding'] = wine['quality_label'].map({'low':0, 
+                                                      'med': 1, 'high': 2})
 
-<span class="n">wine</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+wine.columns = wine.columns.str.replace(' ', '_')
 
-<span class="n">features</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">wine</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
-<span class="n">features</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;quality_label&#39;</span><span class="p">)</span>
-<span class="n">features</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;quality&#39;</span><span class="p">)</span>
-</code></pre></div>
-
+features = list(wine.columns[1:-1].values)
+features.remove('quality_label')
+features.remove('quality')
+</code></pre>
 <p><a name='3.1'></a></p>
-<h2 id="31-principal-component-analysis">3.1 Principal Component Analysis<a class="headerlink" href="#31-principal-component-analysis" title="Permanent link">&para;</a></h2>
+<h2 id="31-principal-component-analysis">3.1 Principal Component Analysis</h2>
 <p><a href="#top">back to top</a></p>
 <p>Principle Component Analysis or PCA is one of the most wide spread implementations of dimensionality reduction. In PCA, we find the principle components, or linear recombinations of the dimensions of the data, that best explain the variance of the data. </p>
 <p>There are mathematical arguments abound for describing how we analytically solve for the principle components and how they relate to other concepts in mathematics (like pythagorean theorem). We'll sidestep that conversation for now, and proceed to our pragmatic demonstrations, as we have done in the past.</p>
 <p><a name='x.1.1'></a></p>
-<h3 id="311-introduction-to-pca">3.1.1 Introduction to PCA<a class="headerlink" href="#311-introduction-to-pca" title="Permanent link">&para;</a></h3>
+<h3 id="311-introduction-to-pca">3.1.1 Introduction to PCA</h3>
 <p><a href="#top">back to top</a></p>
 <p>In the cell below, we have plotted acidity and density from our familiar wine dataset.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">wine</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">wine</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;fixed_acidity&#39;</span><span class="p">,</span> 
-                                     <span class="n">y</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">,</span> 
-                                     <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> 
-                                     <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f8cd1401910&gt;
-</code></pre></div>
-
+<pre><code class="language-python">fig, ax = plt.subplots(1, 1, figsize=(5,5))
+wine.loc[wine['type'] == 'red'].plot(x='fixed_acidity', 
+                                     y='density', 
+                                     ax=ax, 
+                                     ls='', marker='.')
+</code></pre>
+<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f8cd1401910&gt;
+</code></pre>
 <p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_9_1.png" /></p>
-<div class="codehilite"><pre><span></span><code><span class="n">X</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">wine</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">][[</span><span class="s1">&#39;fixed_acidity&#39;</span><span class="p">,</span> <span class="s1">&#39;density&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
-<span class="n">X</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>array([[ 7.4   ,  0.9978],
+<pre><code class="language-python">X = wine.loc[wine['type'] == 'red'][['fixed_acidity', 'density']].values
+X[:5]
+</code></pre>
+<pre><code>array([[ 7.4   ,  0.9978],
        [ 7.8   ,  0.9968],
        [ 7.8   ,  0.997 ],
        [11.2   ,  0.998 ],
        [ 7.4   ,  0.9978]])
-</code></pre></div>
-
+</code></pre>
 <p>The principal components, are actually the eigenvectors of the covariance matrix of the standardized data. </p>
 <p>We will perform this by hand to get an understanding.</p>
 <p>First we standardize the data</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
-<span class="n">X_std</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">from sklearn.preprocessing import StandardScaler
+X_std = StandardScaler().fit_transform(X)
+</code></pre>
 <p>Then we compute the covariance matrix. There is a nice demonstration of computing covariance on <a href="https://www.youtube.com/watch?v=qtaqvPAeEJY">stats quest</a>.</p>
 <p>The covariance can be expressed as:</p>
-<p>$$ cov(X,Y) = \frac{1}{n^2}\sum\sum(x_i - x_j)(y_i - y_j) $$</p>
+<p>
+<script type="math/tex; mode=display"> cov(X,Y) = \frac{1}{n^2}\sum\sum(x_i - x_j)(y_i - y_j) </script>
+</p>
 <p>Every $(x_i - x_j)(y_i - y_j) $ is the area described by the rectangle between points $i$ and $j$, and we if we deem to color positive changes as red and negative ones as blue, we get a picture like the following: </p>
 <p align=center>
 <img src="https://i.stack.imgur.com/XPGjN.png"></img>
@@ -712,12 +706,11 @@ $$\rho_{x,y} = \frac{cov(X,Y)}{\sigma_x\sigma_y}$$
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">mean_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_std</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">cov_mat</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_std</span> <span class="o">-</span> <span class="n">mean_vec</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">((</span><span class="n">X_std</span> <span class="o">-</span> <span class="n">mean_vec</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">X_std</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Covariance matrix </span><span class="se">\n</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span><span class="n">cov_mat</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">import numpy as np
+mean_vec = np.mean(X_std, axis=0)
+cov_mat = (X_std - mean_vec).T.dot((X_std - mean_vec)) / (X_std.shape[0]-1)
+print('Covariance matrix \n%s' %cov_mat)
+</code></pre>
 
 
     Covariance matrix 
@@ -731,16 +724,15 @@ There is a mathematical proof [1](https://stats.stackexchange.com/questions/2179
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">cov_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">X_std</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<pre><code class="language-python">cov_mat = np.cov(X_std.T)
 
-<span class="c1"># we can solve for the eigenvalues/vectors of our covariance</span>
-<span class="c1"># matrix using numpy!</span>
-<span class="n">eig_vals</span><span class="p">,</span> <span class="n">eig_vecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">cov_mat</span><span class="p">)</span>
+# we can solve for the eigenvalues/vectors of our covariance
+# matrix using numpy!
+eig_vals, eig_vecs = np.linalg.eig(cov_mat)
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Eigenvectors </span><span class="se">\n</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span><span class="n">eig_vecs</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Eigenvalues </span><span class="se">\n</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span><span class="n">eig_vals</span><span class="p">)</span>
-</code></pre></div>
-
+print('Eigenvectors \n%s' %eig_vecs)
+print('\nEigenvalues \n%s' %eig_vals)
+</code></pre>
 
 
     Eigenvectors 
@@ -755,18 +747,17 @@ And now we are just going to sort our vectors by their eigenvalues to get the pr
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="c1"># Make a list of (eigenvalue, eigenvector) tuples</span>
-<span class="n">eig_pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">eig_vals</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">eig_vecs</span><span class="p">[:,</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">eig_vals</span><span class="p">))]</span>
+<pre><code class="language-python"># Make a list of (eigenvalue, eigenvector) tuples
+eig_pairs = [(np.abs(eig_vals[i]), eig_vecs[:,i]) for i in range(len(eig_vals))]
 
-<span class="c1"># Sort the (eigenvalue, eigenvector) tuples from high to low</span>
-<span class="n">eig_pairs</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+# Sort the (eigenvalue, eigenvector) tuples from high to low
+eig_pairs.sort(key=lambda x: x[0], reverse=True)
 
-<span class="c1"># Visually confirm that the list is correctly sorted by decreasing eigenvalues</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Eigenvalues in descending order:&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">eig_pairs</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</code></pre></div>
-
+# Visually confirm that the list is correctly sorted by decreasing eigenvalues
+print('Eigenvalues in descending order:')
+for i in eig_pairs:
+    print(i[0])
+</code></pre>
 
 
     Eigenvalues in descending order:
@@ -778,29 +769,28 @@ For those of us who are familiar with eigenvectors, we should recognize that the
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<pre><code class="language-python">fig, ax = plt.subplots(1,1,figsize=(7,7))
 
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+ax.plot(X_std[:,0],X_std[:,1],ls='',marker='.', alpha=0.5)
 
-<span class="k">for</span> <span class="n">vec</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">eig_vecs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),[</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">]):</span>
+for vec, color in zip(range(eig_vecs.shape[0]),['orange', 'green']):
 
-  <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]),</span>
-           <span class="p">(</span><span class="n">eig_pairs</span><span class="p">[</span><span class="n">vec</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]))</span><span class="o">*-</span><span class="n">eig_pairs</span><span class="p">[</span><span class="n">vec</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span>
-          <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]),</span>
-           <span class="p">(</span><span class="n">eig_pairs</span><span class="p">[</span><span class="n">vec</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]))</span><span class="o">*-</span><span class="n">eig_pairs</span><span class="p">[</span><span class="n">vec</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span>
-          <span class="n">color</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;tab:</span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+  ax.plot([np.mean(X_std[:,0]),
+           (eig_pairs[vec][1][0]+np.mean(X_std[:,0]))*-eig_pairs[vec][0]],
+          [np.mean(X_std[:,1]),
+           (eig_pairs[vec][1][1]+np.mean(X_std[:,1]))*-eig_pairs[vec][0]],
+          color=f'tab:{color}', linewidth=4)
 
-  <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]),</span>
-           <span class="p">(</span><span class="n">eig_pairs</span><span class="p">[</span><span class="n">vec</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]))</span><span class="o">*</span><span class="n">eig_pairs</span><span class="p">[</span><span class="n">vec</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span>
-          <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]),</span>
-           <span class="p">(</span><span class="n">eig_pairs</span><span class="p">[</span><span class="n">vec</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]))</span><span class="o">*</span><span class="n">eig_pairs</span><span class="p">[</span><span class="n">vec</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span>
-          <span class="n">color</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;tab:</span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+  ax.plot([np.mean(X_std[:,0]),
+           (eig_pairs[vec][1][0]+np.mean(X_std[:,0]))*eig_pairs[vec][0]],
+          [np.mean(X_std[:,1]),
+           (eig_pairs[vec][1][1]+np.mean(X_std[:,1]))*eig_pairs[vec][0]],
+          color=f'tab:{color}', linewidth=4)
 
-<span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]),</span><span class="nb">max</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]),</span><span class="nb">max</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]))</span>
-</code></pre></div>
-
+ax.set_aspect('equal')
+ax.set_ylim(min(X_std[:,1]),max(X_std[:,1]))
+ax.set_xlim(min(X_std[:,0]),max(X_std[:,0]))
+</code></pre>
 
 
 
@@ -822,29 +812,27 @@ We indeed see that these vectors are orthogonal
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">tot</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">eig_vals</span><span class="p">)</span>
-<span class="n">var_exp</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span> <span class="o">/</span> <span class="n">tot</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">eig_vals</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
-<span class="n">cum_var_exp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">var_exp</span><span class="p">)</span>
-</code></pre></div>
+<pre><code class="language-python">tot = sum(eig_vals)
+var_exp = [(i / tot)*100 for i in sorted(eig_vals, reverse=True)]
+cum_var_exp = np.cumsum(var_exp)
+</code></pre>
 
 
 
 
+<pre><code class="language-python">with plt.style.context('seaborn-whitegrid'):
+    plt.figure(figsize=(7, 4))
 
-<div class="codehilite"><pre><span></span><code><span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s1">&#39;seaborn-whitegrid&#39;</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    plt.bar(range(2), var_exp, alpha=0.5, align='center',
+            label='individual explained variance')
+    plt.step(range(2), cum_var_exp, where='mid',
+             label='cumulative explained variance')
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">var_exp</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;individual explained variance&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">cum_var_exp</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="s1">&#39;mid&#39;</span><span class="p">,</span>
-             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;cumulative explained variance&#39;</span><span class="p">)</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Explained variance ratio&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Principal components&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center right&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-</code></pre></div>
-
+    plt.ylabel('Explained variance ratio')
+    plt.xlabel('Principal components')
+    plt.legend(loc='center right')
+    plt.tight_layout()
+</code></pre>
 
 
 
@@ -857,12 +845,11 @@ Here I'm just putting my eigenvectors into the proper shape:
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">matrix_w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">eig_pairs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
-                      <span class="n">eig_pairs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
+<pre><code class="language-python">matrix_w = np.hstack((eig_pairs[0][1].reshape(2,1),
+                      eig_pairs[1][1].reshape(2,1)))
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Matrix W:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">matrix_w</span><span class="p">)</span>
-</code></pre></div>
-
+print('Matrix W:\n', matrix_w)
+</code></pre>
 
 
     Matrix W:
@@ -874,16 +861,14 @@ In order to take the dot product, project, `X_std` onto the first two principal 
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">Y</span> <span class="o">=</span> <span class="n">X_std</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">matrix_w</span><span class="p">)</span>
-</code></pre></div>
+<pre><code class="language-python">Y = X_std.dot(matrix_w)
+</code></pre>
 
 
 
 
-
-<div class="codehilite"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">Y</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">Y</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span>
-</code></pre></div>
-
+<pre><code class="language-python">plt.scatter(Y[:,0],Y[:,1])
+</code></pre>
 
 
 
@@ -903,11 +888,10 @@ But we can avoid the fancy footwork and do all this in sklearn!
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
-<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_std</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">from sklearn.decomposition import PCA
+pca = PCA(n_components=2)
+pca.fit(X_std)
+</code></pre>
 
 
 
@@ -922,9 +906,8 @@ We see that the values we get are the same as for the hand-calculated eigenvalue
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">components_</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">print(pca.components_)
+</code></pre>
 
 
     [[ 0.70710678  0.70710678]
@@ -935,9 +918,8 @@ And the eigenvalues are under `pca.explained_variance_`
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">print(pca.explained_variance_)
+</code></pre>
 
 
     [1.66894027 0.33231601]
@@ -953,11 +935,10 @@ One obvious use case for PCA, is to drop the dimensions with lowest explained va
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
-<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_std</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">from sklearn.decomposition import PCA
+pca = PCA(n_components=2)
+pca.fit(X_std)
+</code></pre>
 
 
 
@@ -970,40 +951,39 @@ One obvious use case for PCA, is to drop the dimensions with lowest explained va
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<pre><code class="language-python">fig, ax = plt.subplots(1,2,figsize=(10,5))
 
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+ax[0].plot(X_std[:,0],X_std[:,1],ls='',marker='.', alpha=0.5)
 
-<span class="k">for</span> <span class="n">vec</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">eig_vecs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),[</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">]):</span>
+for vec, color in zip(range(eig_vecs.shape[0]),['orange', 'green']):
 
-  <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]),</span>
-           <span class="p">(</span><span class="n">eig_pairs</span><span class="p">[</span><span class="n">vec</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]))</span><span class="o">*-</span><span class="n">eig_pairs</span><span class="p">[</span><span class="n">vec</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span>
-          <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]),</span>
-           <span class="p">(</span><span class="n">eig_pairs</span><span class="p">[</span><span class="n">vec</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]))</span><span class="o">*-</span><span class="n">eig_pairs</span><span class="p">[</span><span class="n">vec</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span>
-          <span class="n">color</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;tab:</span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+  ax[0].plot([np.mean(X_std[:,0]),
+           (eig_pairs[vec][1][0]+np.mean(X_std[:,0]))*-eig_pairs[vec][0]],
+          [np.mean(X_std[:,1]),
+           (eig_pairs[vec][1][1]+np.mean(X_std[:,1]))*-eig_pairs[vec][0]],
+          color=f'tab:{color}', linewidth=4)
 
-  <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]),</span>
-           <span class="p">(</span><span class="n">eig_pairs</span><span class="p">[</span><span class="n">vec</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]))</span><span class="o">*</span><span class="n">eig_pairs</span><span class="p">[</span><span class="n">vec</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span>
-          <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]),</span>
-           <span class="p">(</span><span class="n">eig_pairs</span><span class="p">[</span><span class="n">vec</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]))</span><span class="o">*</span><span class="n">eig_pairs</span><span class="p">[</span><span class="n">vec</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span>
-          <span class="n">color</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;tab:</span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+  ax[0].plot([np.mean(X_std[:,0]),
+           (eig_pairs[vec][1][0]+np.mean(X_std[:,0]))*eig_pairs[vec][0]],
+          [np.mean(X_std[:,1]),
+           (eig_pairs[vec][1][1]+np.mean(X_std[:,1]))*eig_pairs[vec][0]],
+          color=f'tab:{color}', linewidth=4)
 
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]),</span><span class="nb">max</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]))</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]),</span><span class="nb">max</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]))</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Normalized density&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Normalized acidity&#39;</span><span class="p">)</span>
+ax[0].set_aspect('equal')
+ax[0].set_ylim(min(X_std[:,1]),max(X_std[:,1]))
+ax[0].set_xlim(min(X_std[:,0]),max(X_std[:,0]))
+ax[0].set_ylabel('Normalized density')
+ax[0].set_xlabel('Normalized acidity')
 
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">var_exp</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Individual&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">cum_var_exp</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="s1">&#39;mid&#39;</span><span class="p">,</span>
-          <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Cumulative&#39;</span><span class="p">)</span>
+ax[1].bar(range(2), var_exp, alpha=0.5, align='center',
+        label='Individual')
+ax[1].step(range(2), cum_var_exp, where='mid',
+          label='Cumulative')
 
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Explained variance ratio&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Principal components&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-</code></pre></div>
-
+ax[1].set_ylabel('Explained variance ratio')
+ax[1].set_xlabel('Principal components')
+ax[1].legend()
+</code></pre>
 
 
 
@@ -1023,23 +1003,22 @@ We can capture 80% of the explained variance along just the first principal comp
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="c1"># we set our components to 1</span>
-<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_std</span><span class="p">)</span>
+<pre><code class="language-python"># we set our components to 1
+pca = PCA(n_components=1)
+pca.fit(X_std)
 
-<span class="c1"># we then project the data onto the first PC</span>
-<span class="c1"># and then rebroadcast this transformation </span>
-<span class="c1"># back onto the orginal dimensions to see </span>
-<span class="c1"># what this looks like in terms of acidity/density</span>
-<span class="n">X_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_std</span><span class="p">))</span>
+# we then project the data onto the first PC
+# and then rebroadcast this transformation 
+# back onto the orginal dimensions to see 
+# what this looks like in terms of acidity/density
+X_pca = pca.inverse_transform(pca.transform(X_std))
 
-<span class="c1"># original data</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_std</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_std</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+# original data
+plt.scatter(X_std[:, 0], X_std[:, 1], alpha=0.2)
 
-<span class="c1"># projected data</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
-</code></pre></div>
-
+# projected data
+plt.scatter(X_pca[:, 0], X_pca[:, 1], alpha=0.8)
+</code></pre>
 
 
 
@@ -1057,9 +1036,8 @@ We can capture 80% of the explained variance along just the first principal comp
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">X_pca</span>
-</code></pre></div>
-
+<pre><code class="language-python">X_pca
+</code></pre>
 
 
 
@@ -1087,18 +1065,17 @@ With our wine dataset, we see that the wine types fall out nicely along the firs
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">X</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;object&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">values</span>
-<span class="n">X_std</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_std</span><span class="p">)</span>
-<span class="n">X_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_std</span><span class="p">)</span>
+<pre><code class="language-python">X = wine.select_dtypes(exclude=['object']).values
+X_std = StandardScaler().fit_transform(X)
+pca = PCA(n_components=2)
+pca.fit(X_std)
+X_pca = pca.transform(X_std)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">wine</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
-            <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;First PC&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Second PC&#39;</span><span class="p">)</span>
-</code></pre></div>
-
+plt.scatter(X_pca[:, 0], X_pca[:, 1], alpha=0.2, c=wine['type'].values,
+            edgecolor='grey')
+plt.xlabel('First PC')
+plt.ylabel('Second PC')
+</code></pre>
 
 
 
@@ -1136,10 +1113,9 @@ Using the wine data, select any number of the first principal components and att
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">features</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;type_encoding&#39;</span><span class="p">)</span>
-<span class="n">wine</span><span class="p">[</span><span class="n">features</span><span class="p">]</span>
-</code></pre></div>
-
+<pre><code class="language-python">features.remove('type_encoding')
+wine[features]
+</code></pre>
 
 
 
@@ -1328,20 +1304,19 @@ Using the wine data, select any number of the first principal components and att
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="c1"># Code Cell for Exercise 3.1.5.1</span>
+<pre><code class="language-python"># Code Cell for Exercise 3.1.5.1
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">wine</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-<span class="n">X_std</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_std</span><span class="p">)</span>
-<span class="n">X_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_std</span><span class="p">)</span>
+X = wine[features].values
+X_std = StandardScaler().fit_transform(X)
+pca = PCA(n_components=2)
+pca.fit(X_std)
+X_pca = pca.transform(X_std)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">wine</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
-            <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;First PC&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Second PC&#39;</span><span class="p">)</span>
-</code></pre></div>
-
+plt.scatter(X_pca[:, 0], X_pca[:, 1], alpha=0.2, c=wine['type'].values,
+            edgecolor='grey')
+plt.xlabel('First PC')
+plt.ylabel('Second PC')
+</code></pre>
 
 
 
@@ -1359,17 +1334,15 @@ Using the wine data, select any number of the first principal components and att
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">y</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">wine</span><span class="p">[</span><span class="s1">&#39;density&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-<span class="n">lr</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_pca</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</code></pre></div>
+<pre><code class="language-python">y = StandardScaler().fit_transform(wine['density'].values.reshape(-1,1))
+lr = LinearRegression().fit(X_pca, y)
+</code></pre>
 
 
 
 
-
-<div class="codehilite"><pre><span></span><code><span class="n">r2_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_pca</span><span class="p">)),</span>
-</code></pre></div>
-
+<pre><code class="language-python">r2_score(y, lr.predict(X_pca)),
+</code></pre>
 
 
 
@@ -1395,17 +1368,16 @@ Let's turn back to our wine dataset:
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">X</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;object&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">values</span>
-<span class="n">X_std</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_std</span><span class="p">)</span>
-<span class="n">X_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_std</span><span class="p">)</span>
+<pre><code class="language-python">X = wine.select_dtypes(exclude=['object']).values
+X_std = StandardScaler().fit_transform(X)
+pca = PCA(n_components=2)
+pca.fit(X_std)
+X_pca = pca.transform(X_std)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;First PC&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Second PC&#39;</span><span class="p">)</span>
-</code></pre></div>
-
+plt.scatter(X_pca[:, 0], X_pca[:, 1], alpha=0.2, c='grey')
+plt.xlabel('First PC')
+plt.ylabel('Second PC')
+</code></pre>
 
 
 
@@ -1425,23 +1397,21 @@ It is fairly obvious under these two dimensions that there are two clusters. The
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
-<span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">kmeans</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_pca</span><span class="p">)</span>
-<span class="n">y_kmeans</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_pca</span><span class="p">)</span>
-</code></pre></div>
+<pre><code class="language-python">from sklearn.cluster import KMeans
+kmeans = KMeans(n_clusters=2)
+kmeans.fit(X_pca)
+y_kmeans = kmeans.predict(X_pca)
+</code></pre>
 
 
 
 
+<pre><code class="language-python">plt.scatter(X_pca[:, 0], X_pca[:, 1], c=y_kmeans, s=50, 
+            alpha=0.5, edgecolor='grey', cmap='viridis')
 
-<div class="codehilite"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y_kmeans</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> 
-            <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
-
-<span class="n">centers</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">cluster_centers_</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">centers</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">centers</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
-</code></pre></div>
-
+centers = kmeans.cluster_centers_
+plt.scatter(centers[:, 0], centers[:, 1], c='black', s=200, alpha=0.5);
+</code></pre>
 
 
 
@@ -1496,14 +1466,13 @@ in the simplest case, GMMs can be used in the same way as K-means
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.mixture</span> <span class="kn">import</span> <span class="n">GaussianMixture</span>
-<span class="n">gmm</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_pca</span><span class="p">)</span>
-<span class="n">labels</span> <span class="o">=</span> <span class="n">gmm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_pca</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> 
-            <span class="n">c</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
-            <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">);</span>
-</code></pre></div>
-
+<pre><code class="language-python">from sklearn.mixture import GaussianMixture
+gmm = GaussianMixture(n_components=2).fit(X_pca)
+labels = gmm.predict(X_pca)
+plt.scatter(X_pca[:, 0], X_pca[:, 1], 
+            c=labels, s=40, cmap='viridis',
+            alpha=0.2, edgecolor='grey');
+</code></pre>
 
 
 
@@ -1516,10 +1485,9 @@ But because GMM is a probablistic model, we can visualize the certainty with whi
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">probs</span> <span class="o">=</span> <span class="n">gmm</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_pca</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">probs</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-</code></pre></div>
-
+<pre><code class="language-python">probs = gmm.predict_proba(X_pca)
+print(probs[5:20].round(3))
+</code></pre>
 
 
     [[1.    0.   ]
@@ -1541,10 +1509,9 @@ But because GMM is a probablistic model, we can visualize the certainty with whi
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="c1"># convert probs to 1 dimension</span>
-<span class="n">probs</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python"># convert probs to 1 dimension
+probs.max(1)
+</code></pre>
 
 
 
@@ -1557,11 +1524,10 @@ But because GMM is a probablistic model, we can visualize the certainty with whi
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> 
-            <span class="n">c</span><span class="o">=</span><span class="n">probs</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span>
-            <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">);</span>
-</code></pre></div>
-
+<pre><code class="language-python">plt.scatter(X_pca[:, 0], X_pca[:, 1], 
+            c=probs.max(1), s=40, cmap='Blues',
+            alpha=0.5, edgecolor='grey');
+</code></pre>
 
 
 
@@ -1598,53 +1564,51 @@ We're going to use sklearn make_circles function to create some arbitrary data t
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="c1"># some helper functions borrowed from Jake Vanderplas with a few minor tweaks</span>
-<span class="c1"># https://jakevdp.github.io/PythonDataScienceHandbook/05.12-gaussian-mixtures.html</span>
+<pre><code class="language-python"># some helper functions borrowed from Jake Vanderplas with a few minor tweaks
+# https://jakevdp.github.io/PythonDataScienceHandbook/05.12-gaussian-mixtures.html
 
-<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Ellipse</span>
+from matplotlib.patches import Ellipse
 
-<span class="k">def</span> <span class="nf">draw_ellipse</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">covariance</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Draw an ellipse with a given position and covariance&quot;&quot;&quot;</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+def draw_ellipse(position, covariance, ax=None, **kwargs):
+    &quot;&quot;&quot;Draw an ellipse with a given position and covariance&quot;&quot;&quot;
+    ax = ax or plt.gca()
 
-    <span class="c1"># Convert covariance to principal axes</span>
-    <span class="k">if</span> <span class="n">covariance</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
-        <span class="n">U</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">Vt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">covariance</span><span class="p">)</span>
-        <span class="n">angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">U</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">U</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
-        <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">angle</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">covariance</span><span class="p">)</span>
+    # Convert covariance to principal axes
+    if covariance.shape == (2, 2):
+        U, s, Vt = np.linalg.svd(covariance)
+        angle = np.degrees(np.arctan2(U[1, 0], U[0, 0]))
+        width, height = 2 * np.sqrt(s)
+    else:
+        angle = 0
+        width, height = 2 * np.sqrt(covariance)
 
-    <span class="c1"># Draw the Ellipse</span>
-    <span class="k">for</span> <span class="n">nsig</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">Ellipse</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">nsig</span> <span class="o">*</span> <span class="n">width</span><span class="p">,</span> <span class="n">nsig</span> <span class="o">*</span> <span class="n">height</span><span class="p">,</span>
-                             <span class="n">angle</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+    # Draw the Ellipse
+    for nsig in range(1, 4):
+        ax.add_patch(Ellipse(position, nsig * width, nsig * height,
+                             angle, **kwargs))
 
-<span class="k">def</span> <span class="nf">plot_gmm</span><span class="p">(</span><span class="n">gmm</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
-    <span class="n">labels</span> <span class="o">=</span> <span class="n">gmm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">label</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                   <span class="n">alpha</span><span class="o">=</span><span class="n">data_alpha</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">data_alpha</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+def plot_gmm(gmm, X, label=True, ax=None, data_alpha=1):
+    ax = ax or plt.gca()
+    labels = gmm.fit(X).predict(X)
+    if label:
+        ax.scatter(X[:, 0], X[:, 1], c=labels, s=40, cmap='viridis', zorder=2,
+                   alpha=data_alpha)
+    else:
+        ax.scatter(X[:, 0], X[:, 1], s=40, zorder=2, alpha=data_alpha)
+    ax.axis('equal')
 
-    <span class="n">w_factor</span> <span class="o">=</span> <span class="mf">0.2</span> <span class="o">/</span> <span class="n">gmm</span><span class="o">.</span><span class="n">weights_</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">pos</span><span class="p">,</span> <span class="n">covar</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">gmm</span><span class="o">.</span><span class="n">means_</span><span class="p">,</span> <span class="n">gmm</span><span class="o">.</span><span class="n">covariances_</span><span class="p">,</span> <span class="n">gmm</span><span class="o">.</span><span class="n">weights_</span><span class="p">):</span>
-        <span class="n">draw_ellipse</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">covar</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">w</span> <span class="o">*</span> <span class="n">w_factor</span><span class="p">)</span>
-</code></pre></div>
-
-
+    w_factor = 0.2 / gmm.weights_.max()
+    for pos, covar, w in zip(gmm.means_, gmm.covariances_, gmm.weights_):
+        draw_ellipse(pos, covar, alpha=w * w_factor)
+</code></pre>
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_circles</span> <span class="k">as</span> <span class="n">gen</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">gen</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]);</span>
-</code></pre></div>
 
+<pre><code class="language-python">from sklearn.datasets import make_circles as gen
+X, y = gen(200, noise=0.02, random_state=42)
+plt.scatter(X[:, 0], X[:, 1]);
+</code></pre>
 
 
 
@@ -1657,16 +1621,14 @@ As a side note, as a clustering model, the GMM is not particularly useful:
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">gmm2</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">covariance_type</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-</code></pre></div>
+<pre><code class="language-python">gmm2 = GaussianMixture(n_components=2, covariance_type='full', random_state=0)
+</code></pre>
 
 
 
 
-
-<div class="codehilite"><pre><span></span><code><span class="n">plot_gmm</span><span class="p">(</span><span class="n">gmm2</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">plot_gmm(gmm2, X)
+</code></pre>
 
 
 
@@ -1679,10 +1641,9 @@ But if we use the GMM as a density estimator on the underlying data, rather than
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">gmm16</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">covariance_type</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">plot_gmm</span><span class="p">(</span><span class="n">gmm16</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">gmm16 = GaussianMixture(n_components=16, covariance_type='full', random_state=0)
+plot_gmm(gmm16, X, label=False)
+</code></pre>
 
 
 
@@ -1695,10 +1656,9 @@ Now, with the distributions drawn, we can assemble entirely new data:
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">Xnew</span> <span class="o">=</span> <span class="n">gmm16</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">400</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">Xnew</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">Xnew</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]);</span>
-</code></pre></div>
-
+<pre><code class="language-python">Xnew = gmm16.sample(400)[0]
+plt.scatter(Xnew[:, 0], Xnew[:, 1]);
+</code></pre>
 
 
 
@@ -1719,17 +1679,16 @@ A couple analytic approaches that we have not much yet discussed, are the **Akai
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">n_components</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
-<span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">covariance_type</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-          <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">n_components</span><span class="p">]</span>
+<pre><code class="language-python">n_components = np.arange(1, 42)
+models = [GaussianMixture(n, covariance_type='full', random_state=42).fit(X)
+          for n in n_components]
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">bic</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">models</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;BIC&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">aic</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">models</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;AIC&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;n_components&#39;</span><span class="p">);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;est. prediction error&#39;</span><span class="p">)</span>
-</code></pre></div>
-
+plt.plot(n_components, [m.bic(X) for m in models], label='BIC')
+plt.plot(n_components, [m.aic(X) for m in models], label='AIC')
+plt.legend(loc='best')
+plt.xlabel('n_components');
+plt.ylabel('est. prediction error')
+</code></pre>
 
 
 
@@ -1749,10 +1708,9 @@ Both AIC and BIC capture a local minimum on the order of 6 Gaussians. This is wh
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">gmmNew</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">covariance_type</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">plot_gmm</span><span class="p">(</span><span class="n">gmmNew</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">data_alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">gmmNew = GaussianMixture(n_components=40, covariance_type='full', random_state=0)
+plot_gmm(gmmNew, X, label=True, data_alpha=0)
+</code></pre>
 
 
 
@@ -1763,10 +1721,9 @@ Both AIC and BIC capture a local minimum on the order of 6 Gaussians. This is wh
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">Xnew</span> <span class="o">=</span> <span class="n">gmmNew</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">400</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">Xnew</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">Xnew</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]);</span>
-</code></pre></div>
-
+<pre><code class="language-python">Xnew = gmmNew.sample(400)[0]
+plt.scatter(Xnew[:, 0], Xnew[:, 1]);
+</code></pre>
 
 
 
@@ -1781,21 +1738,20 @@ Repeat the above, this time using `sklearn.datasets.make_moons`
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="c1"># Code Cell for Exercise 3.3.2.2</span>
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_moons</span> <span class="k">as</span> <span class="n">gen</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">gen</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<pre><code class="language-python"># Code Cell for Exercise 3.3.2.2
+from sklearn.datasets import make_moons as gen
+X, y = gen(200, noise=0.02, random_state=42)
 
-<span class="n">n_components</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
-<span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">covariance_type</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-          <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">n_components</span><span class="p">]</span>
+n_components = np.arange(1, 42)
+models = [GaussianMixture(n, covariance_type='full', random_state=42).fit(X)
+          for n in n_components]
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">bic</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">models</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;BIC&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">aic</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">models</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;AIC&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;n_components&#39;</span><span class="p">);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;est. prediction error&#39;</span><span class="p">)</span>
-</code></pre></div>
-
+plt.plot(n_components, [m.bic(X) for m in models], label='BIC')
+plt.plot(n_components, [m.aic(X) for m in models], label='AIC')
+plt.legend(loc='best')
+plt.xlabel('n_components');
+plt.ylabel('est. prediction error')
+</code></pre>
 
 
 
@@ -1813,16 +1769,14 @@ Repeat the above, this time using `sklearn.datasets.make_moons`
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">gmm_moon</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">covariance_type</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-</code></pre></div>
+<pre><code class="language-python">gmm_moon = GaussianMixture(n_components=40, covariance_type='full', random_state=0)
+</code></pre>
 
 
 
 
-
-<div class="codehilite"><pre><span></span><code><span class="n">plot_gmm</span><span class="p">(</span><span class="n">gmm_moon</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">plot_gmm(gmm_moon, X)
+</code></pre>
 
 
 
@@ -1833,10 +1787,9 @@ Repeat the above, this time using `sklearn.datasets.make_moons`
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">Xnew</span> <span class="o">=</span> <span class="n">gmm_moon</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">400</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">Xnew</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">Xnew</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]);</span>
-</code></pre></div>
-
+<pre><code class="language-python">Xnew = gmm_moon.sample(400)[0]
+plt.scatter(Xnew[:, 0], Xnew[:, 1]);
+</code></pre>
 
 
 
@@ -1927,6 +1880,8 @@ Repeat the above, this time using `sklearn.datasets.make_moons`
     
     
       <script src="../assets/javascripts/bundle.6baa0517.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       
     
   </body>

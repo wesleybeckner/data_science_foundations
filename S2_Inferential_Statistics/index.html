@@ -1048,7 +1048,7 @@
                 
 
 <p><a href="https://colab.research.google.com/github/wesleybeckner/technology_fundamentals/blob/main/C2%20Statistics%20and%20Model%20Creation/Tech_Fun_C2_S3_Inferential_Statistics.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
-<h1 id="technology-fundamentals-course-2-session-3-inferential-statistics">Technology Fundamentals Course 2, Session 3: Inferential Statistics<a class="headerlink" href="#technology-fundamentals-course-2-session-3-inferential-statistics" title="Permanent link">&para;</a></h1>
+<h1 id="technology-fundamentals-course-2-session-3-inferential-statistics">Technology Fundamentals Course 2, Session 3: Inferential Statistics</h1>
 <p><strong>Instructor</strong>: Wesley Beckner</p>
 <p><strong>Contact</strong>: wesleybeckner@gmail.com</p>
 <p><strong>Teaching Assitants</strong>: Varsha Bang, Harsha Vardhan</p>
@@ -1060,37 +1060,34 @@
 <p><br></p>
 <hr />
 <p><a name='x.0'></a></p>
-<h2 id="60-preparing-environment-and-importing-data">6.0 Preparing Environment and Importing Data<a class="headerlink" href="#60-preparing-environment-and-importing-data" title="Permanent link">&para;</a></h2>
+<h2 id="60-preparing-environment-and-importing-data">6.0 Preparing Environment and Importing Data</h2>
 <p><a href="#top">back to top</a></p>
 <p><a name='x.0.1'></a></p>
-<h3 id="601-import-packages">6.0.1 Import Packages<a class="headerlink" href="#601-import-packages" title="Permanent link">&para;</a></h3>
+<h3 id="601-import-packages">6.0.1 Import Packages</h3>
 <p><a href="#top">back to top</a></p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># The modules we&#39;ve seen before</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<pre><code class="language-python"># The modules we've seen before
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import plotly.express as px
+import seaborn as sns
 
-<span class="c1"># our stats modules</span>
-<span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
-<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
-<span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">ols</span>
-<span class="kn">import</span> <span class="nn">scipy</span>
-</code></pre></div>
-
+# our stats modules
+import random
+import scipy.stats as stats
+import statsmodels.api as sm
+from statsmodels.formula.api import ols
+import scipy
+</code></pre>
 <p><a name='x.0.2'></a></p>
-<h3 id="602-load-dataset">6.0.2 Load Dataset<a class="headerlink" href="#602-load-dataset" title="Permanent link">&para;</a></h3>
+<h3 id="602-load-dataset">6.0.2 Load Dataset</h3>
 <p><a href="#top">back to top</a></p>
 <p>For this session, we will use dummy datasets from sklearn.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/wesleybeckner/&#39;</span>\
-                 <span class="s1">&#39;ds_for_engineers/main/data/truffle_margin/truffle_margin_customer.csv&#39;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">df</span>
-</code></pre></div>
-
+<pre><code class="language-python">df = pd.read_csv('https://raw.githubusercontent.com/wesleybeckner/'\
+                 'ds_for_engineers/main/data/truffle_margin/truffle_margin_customer.csv')
+</code></pre>
+<pre><code class="language-python">df
+</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1258,43 +1255,40 @@
 <p>1668 rows × 9 columns</p>
 </div>
 
-<div class="codehilite"><pre><span></span><code><span class="n">descriptors</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]:</span>
-  <span class="nb">print</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
-  <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
-  <span class="nb">print</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>Base Cake
-[&#39;Butter&#39; &#39;Cheese&#39; &#39;Chiffon&#39; &#39;Pound&#39; &#39;Sponge&#39; &#39;Tiramisu&#39;]
+<pre><code class="language-python">descriptors = df.columns[:-2]
+</code></pre>
+<pre><code class="language-python">for col in df.columns[:-5]:
+  print(col)
+  print(df[col].unique())
+  print()
+</code></pre>
+<pre><code>Base Cake
+['Butter' 'Cheese' 'Chiffon' 'Pound' 'Sponge' 'Tiramisu']
 
 Truffle Type
-[&#39;Candy Outer&#39; &#39;Chocolate Outer&#39; &#39;Jelly Filled&#39;]
+['Candy Outer' 'Chocolate Outer' 'Jelly Filled']
 
 Primary Flavor
-[&#39;Butter Pecan&#39; &#39;Ginger Lime&#39; &#39;Margarita&#39; &#39;Pear&#39; &#39;Pink Lemonade&#39;
- &#39;Raspberry Ginger Ale&#39; &#39;Sassafras&#39; &#39;Spice&#39; &#39;Wild Cherry Cream&#39;
- &#39;Cream Soda&#39; &#39;Horchata&#39; &#39;Kettle Corn&#39; &#39;Lemon Bar&#39; &#39;Orange Pineapple\tP&#39;
- &#39;Plum&#39; &#39;Orange&#39; &#39;Butter Toffee&#39; &#39;Lemon&#39; &#39;Acai Berry&#39; &#39;Apricot&#39;
- &#39;Birch Beer&#39; &#39;Cherry Cream Spice&#39; &#39;Creme de Menthe&#39; &#39;Fruit Punch&#39;
- &#39;Ginger Ale&#39; &#39;Grand Mariner&#39; &#39;Orange Brandy&#39; &#39;Pecan&#39; &#39;Toasted Coconut&#39;
- &#39;Watermelon&#39; &#39;Wintergreen&#39; &#39;Vanilla&#39; &#39;Bavarian Cream&#39; &#39;Black Licorice&#39;
- &#39;Caramel Cream&#39; &#39;Cheesecake&#39; &#39;Cherry Cola&#39; &#39;Coffee&#39; &#39;Irish Cream&#39;
- &#39;Lemon Custard&#39; &#39;Mango&#39; &#39;Sour&#39; &#39;Amaretto&#39; &#39;Blueberry&#39; &#39;Butter Milk&#39;
- &#39;Chocolate Mint&#39; &#39;Coconut&#39; &#39;Dill Pickle&#39; &#39;Gingersnap&#39; &#39;Chocolate&#39;
- &#39;Doughnut&#39;]
+['Butter Pecan' 'Ginger Lime' 'Margarita' 'Pear' 'Pink Lemonade'
+ 'Raspberry Ginger Ale' 'Sassafras' 'Spice' 'Wild Cherry Cream'
+ 'Cream Soda' 'Horchata' 'Kettle Corn' 'Lemon Bar' 'Orange Pineapple\tP'
+ 'Plum' 'Orange' 'Butter Toffee' 'Lemon' 'Acai Berry' 'Apricot'
+ 'Birch Beer' 'Cherry Cream Spice' 'Creme de Menthe' 'Fruit Punch'
+ 'Ginger Ale' 'Grand Mariner' 'Orange Brandy' 'Pecan' 'Toasted Coconut'
+ 'Watermelon' 'Wintergreen' 'Vanilla' 'Bavarian Cream' 'Black Licorice'
+ 'Caramel Cream' 'Cheesecake' 'Cherry Cola' 'Coffee' 'Irish Cream'
+ 'Lemon Custard' 'Mango' 'Sour' 'Amaretto' 'Blueberry' 'Butter Milk'
+ 'Chocolate Mint' 'Coconut' 'Dill Pickle' 'Gingersnap' 'Chocolate'
+ 'Doughnut']
 
 Secondary Flavor
-[&#39;Toffee&#39; &#39;Banana&#39; &#39;Rum&#39; &#39;Tutti Frutti&#39; &#39;Vanilla&#39; &#39;Mixed Berry&#39;
- &#39;Whipped Cream&#39; &#39;Apricot&#39; &#39;Passion Fruit&#39; &#39;Peppermint&#39; &#39;Dill Pickle&#39;
- &#39;Black Cherry&#39; &#39;Wild Cherry Cream&#39; &#39;Papaya&#39; &#39;Mango&#39; &#39;Cucumber&#39; &#39;Egg Nog&#39;
- &#39;Pear&#39; &#39;Rock and Rye&#39; &#39;Tangerine&#39; &#39;Apple&#39; &#39;Black Currant&#39; &#39;Kiwi&#39; &#39;Lemon&#39;
- &#39;Hazelnut&#39; &#39;Butter Rum&#39; &#39;Fuzzy Navel&#39; &#39;Mojito&#39; &#39;Ginger Beer&#39;]
-</code></pre></div>
-
-<h2 id="61-many-flavors-of-statistical-tests">6.1 Many Flavors of Statistical Tests<a class="headerlink" href="#61-many-flavors-of-statistical-tests" title="Permanent link">&para;</a></h2>
+['Toffee' 'Banana' 'Rum' 'Tutti Frutti' 'Vanilla' 'Mixed Berry'
+ 'Whipped Cream' 'Apricot' 'Passion Fruit' 'Peppermint' 'Dill Pickle'
+ 'Black Cherry' 'Wild Cherry Cream' 'Papaya' 'Mango' 'Cucumber' 'Egg Nog'
+ 'Pear' 'Rock and Rye' 'Tangerine' 'Apple' 'Black Currant' 'Kiwi' 'Lemon'
+ 'Hazelnut' 'Butter Rum' 'Fuzzy Navel' 'Mojito' 'Ginger Beer']
+</code></pre>
+<h2 id="61-many-flavors-of-statistical-tests">6.1 Many Flavors of Statistical Tests</h2>
 <p align="center">
 <img src="https://luminousmen.com/media/descriptive-and-inferential-statistics.jpeg" width=400px></img>
 <br>
@@ -1315,7 +1309,7 @@ Secondary Flavor
 <li>Factorial ANOVA</li>
 </ul>
 <p>When do I use each of these? We will talk about this as we proceed through the examples. <a href="https://support.minitab.com/en-us/minitab/20/help-and-how-to/statistics/nonparametrics/supporting-topics/which-test-should-i-use/">This page</a> from minitab has good rules of thumb on the subject.</p>
-<h3 id="611-what-is-moods-median">6.1.1 What is Mood's Median?<a class="headerlink" href="#611-what-is-moods-median" title="Permanent link">&para;</a></h3>
+<h3 id="611-what-is-moods-median">6.1.1 What is Mood's Median?</h3>
 <blockquote>
 <p>You can use Chi-Square to test for a goodness of fit (whether a sample of data represents a distribution) or whether two variables are related (using a contingency table, which we will create below!)</p>
 </blockquote>
@@ -1325,102 +1319,82 @@ Secondary Flavor
 <p>$x^2 = \sum{\frac{(O-E)^2}{E}}$</p>
 <p>Where $O$ is the observed frequency and $E$ is the expected frequency.</p>
 <p><strong>Let's take an example</strong>, say we have three shifts with the following production rates:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">shift_one</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]</span>
-<span class="n">shift_two</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">shift_one</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">shift_two</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>[17, 16, 18, 21, 15, 15, 21, 18, 15, 18]
+<pre><code class="language-python">np.random.seed(42)
+shift_one = [round(i) for i in np.random.normal(16, 3, 10)]
+shift_two = [round(i) for i in np.random.normal(21, 3, 10)]
+</code></pre>
+<pre><code class="language-python">print(shift_one)
+print(shift_two)
+</code></pre>
+<pre><code>[17, 16, 18, 21, 15, 15, 21, 18, 15, 18]
 [20, 20, 22, 15, 16, 19, 18, 22, 18, 17]
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">stat</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">table</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">median_test</span><span class="p">(</span><span class="n">shift_one</span><span class="p">,</span> <span class="n">shift_two</span><span class="p">,</span> <span class="n">correction</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</code></pre></div>
-
+</code></pre>
+<pre><code class="language-python">stat, p, m, table = scipy.stats.median_test(shift_one, shift_two, correction=False)
+</code></pre>
 <p>what is <code>median_test</code> returning?</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The perasons chi-square test statistic: </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stat</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;p-value of the test: </span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;the grand median: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>The perasons chi-square test statistic: 1.98
+<pre><code class="language-python">print(&quot;The perasons chi-square test statistic: {:.2f}&quot;.format(stat))
+print(&quot;p-value of the test: {:.3f}&quot;.format(p))
+print(&quot;the grand median: {}&quot;.format(m))
+</code></pre>
+<pre><code>The perasons chi-square test statistic: 1.98
 p-value of the test: 0.160
 the grand median: 18.0
-</code></pre></div>
-
+</code></pre>
 <p>Let's evaluate that test statistic ourselves by taking a look at the contingency table:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">table</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>array([[2, 5],
+<pre><code class="language-python">table
+</code></pre>
+<pre><code>array([[2, 5],
        [8, 5]])
-</code></pre></div>
-
+</code></pre>
 <p>This is easier to make sense of if we order the shift times</p>
-<div class="codehilite"><pre><span></span><code><span class="n">shift_one</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-<span class="n">shift_one</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>[15, 15, 15, 16, 17, 18, 18, 18, 21, 21]
-</code></pre></div>
-
+<pre><code class="language-python">shift_one.sort()
+shift_one
+</code></pre>
+<pre><code>[15, 15, 15, 16, 17, 18, 18, 18, 21, 21]
+</code></pre>
 <p>When we look at shift one, we see that 8 values are at or below the grand median.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">shift_two</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-<span class="n">shift_two</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>[15, 16, 17, 18, 18, 19, 20, 20, 22, 22]
-</code></pre></div>
-
+<pre><code class="language-python">shift_two.sort()
+shift_two
+</code></pre>
+<pre><code>[15, 16, 17, 18, 18, 19, 20, 20, 22, 22]
+</code></pre>
 <p>For shift two, only two are at or below the grand median.</p>
 <p>Since the sample sizes are the same, the expected value for both groups is the same, 5 above and 5 below the grand median. The chi-square is then:</p>
 <p>$X^2 = \frac{(2-5)^2}{5} + \frac{(8-5)^2}{5} + \frac{(8-5)^2}{5} + \frac{(2-5)^2}{5}$</p>
-<div class="codehilite"><pre><span></span><code><span class="p">(</span><span class="mi">3</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">5</span> <span class="o">+</span> <span class="p">(</span><span class="mi">7</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">5</span> <span class="o">+</span> <span class="p">(</span><span class="mi">7</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">5</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">5</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>3.2
-</code></pre></div>
-
+<pre><code class="language-python">(3-5)**2/5 + (7-5)**2/5 + (7-5)**2/5 + (3-5)**2/5
+</code></pre>
+<pre><code>3.2
+</code></pre>
 <p>Our p-value, or the probability of observing the null-hypothsis, is under 0.05. We can conclude that these shift performances were drawn under seperate distributions.</p>
 <p>For comparison, let's do this analysis again with shifts of equal performances</p>
-<div class="codehilite"><pre><span></span><code><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">shift_three</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]</span>
-<span class="n">shift_four</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]</span>
-<span class="n">stat</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">table</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">median_test</span><span class="p">(</span><span class="n">shift_three</span><span class="p">,</span> <span class="n">shift_four</span><span class="p">,</span>
-                                            <span class="n">correction</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The pearsons chi-square test statistic: </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stat</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;p-value of the test: </span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;the grand median: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>The pearsons chi-square test statistic: 0.00
+<pre><code class="language-python">np.random.seed(3)
+shift_three = [round(i) for i in np.random.normal(16, 3, 10)]
+shift_four = [round(i) for i in np.random.normal(16, 3, 10)]
+stat, p, m, table = scipy.stats.median_test(shift_three, shift_four,
+                                            correction=False)
+print(&quot;The pearsons chi-square test statistic: {:.2f}&quot;.format(stat))
+print(&quot;p-value of the test: {:.3f}&quot;.format(p))
+print(&quot;the grand median: {}&quot;.format(m))
+</code></pre>
+<pre><code>The pearsons chi-square test statistic: 0.00
 p-value of the test: 1.000
 the grand median: 15.5
-</code></pre></div>
-
+</code></pre>
 <p>and the shift raw values:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">shift_three</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-<span class="n">shift_four</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">shift_three</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">shift_four</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>[10, 14, 15, 15, 15, 16, 16, 16, 17, 21]
+<pre><code class="language-python">shift_three.sort()
+shift_four.sort()
+print(shift_three)
+print(shift_four)
+</code></pre>
+<pre><code>[10, 14, 15, 15, 15, 16, 16, 16, 17, 21]
 [11, 12, 13, 14, 15, 16, 19, 19, 19, 21]
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">table</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>array([[5, 5],
+</code></pre>
+<pre><code class="language-python">table
+</code></pre>
+<pre><code>array([[5, 5],
        [5, 5]])
-</code></pre></div>
-
-<h3 id="612-when-to-use-moods">6.1.2 When to Use Mood's?<a class="headerlink" href="#612-when-to-use-moods" title="Permanent link">&para;</a></h3>
+</code></pre>
+<h3 id="612-when-to-use-moods">6.1.2 When to Use Mood's?</h3>
 <p><strong>Mood's Median Test is highly flexible</strong> but has the following assumptions:</p>
 <ul>
 <li>Considers only one categorical factor</li>
@@ -1433,21 +1407,19 @@ the grand median: 15.5
 <ul>
 <li>Not as powerful as Kruskal-Wallis Test but still useful for small sample sizes or when there are outliers</li>
 </ul>
-<h4 id="6121-exercise-use-moods-median-test">6.1.2.1 Exercise: Use Mood's Median Test<a class="headerlink" href="#6121-exercise-use-moods-median-test" title="Permanent link">&para;</a></h4>
-<h5 id="part-a-perform-moods-median-test-on-base-cake-in-truffle-data"><strong>Part A</strong> Perform moods median test on Base Cake in Truffle data<a class="headerlink" href="#part-a-perform-moods-median-test-on-base-cake-in-truffle-data" title="Permanent link">&para;</a></h5>
+<h4 id="6121-exercise-use-moods-median-test">6.1.2.1 Exercise: Use Mood's Median Test</h4>
+<h5 id="part-a-perform-moods-median-test-on-base-cake-in-truffle-data"><strong>Part A</strong> Perform moods median test on Base Cake in Truffle data</h5>
 <p>We're also going to get some practice with pandas groupby.</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># what is returned by this groupby?</span>
-<span class="n">gp</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Base Cake&#39;</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python"># what is returned by this groupby?
+gp = df.groupby('Base Cake')
+</code></pre>
 <p>How do we find out? We could iterate through it:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># seems to be a tuple of some sort</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">gp</span><span class="p">:</span>
-  <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-  <span class="k">break</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>(&#39;Butter&#39;,      Base Cake     Truffle Type  ...             KG EBITDA/KG
+<pre><code class="language-python"># seems to be a tuple of some sort
+for i in gp:
+  print(i)
+  break
+</code></pre>
+<pre><code>('Butter',      Base Cake     Truffle Type  ...             KG EBITDA/KG
 0       Butter      Candy Outer  ...   53770.342593  0.500424
 1       Butter      Candy Outer  ...  466477.578125  0.220395
 2       Butter      Candy Outer  ...   80801.728070  0.171014
@@ -1461,16 +1433,14 @@ the grand median: 15.5
 1566    Butter     Jelly Filled  ...   15617.489115  0.185070
 
 [456 rows x 9 columns])
-</code></pre></div>
+</code></pre>
+<pre><code class="language-python"># the first object appears to be the group
+print(i[0])
 
-<div class="codehilite"><pre><span></span><code><span class="c1"># the first object appears to be the group</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-
-<span class="c1"># the second object appears to be the df belonging to that group</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>Butter
+# the second object appears to be the df belonging to that group
+print(i[1])
+</code></pre>
+<pre><code>Butter
      Base Cake     Truffle Type  ...             KG EBITDA/KG
 0       Butter      Candy Outer  ...   53770.342593  0.500424
 1       Butter      Candy Outer  ...  466477.578125  0.220395
@@ -1485,44 +1455,38 @@ the grand median: 15.5
 1566    Butter     Jelly Filled  ...   15617.489115  0.185070
 
 [456 rows x 9 columns]
-</code></pre></div>
-
+</code></pre>
 <p>going back to our diagram from our earlier pandas session. It looks like whenever we split in the groupby method, we create separate dataframes as well as their group label:</p>
 <p><img src="https://swcarpentry.github.io/r-novice-gapminder/fig/12-plyr-fig1.png" width=500></img></p>
 <p>Ok, so we know <code>gp</code> is separate dataframes. How do we turn them into arrays to then pass to <code>median_test</code>?</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># complete this for loop</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">gp</span><span class="p">:</span>
-  <span class="c1"># turn j into an array using the .values attribute</span>
-  <span class="c1"># print this to the screen</span>
-</code></pre></div>
-
+<pre><code class="language-python"># complete this for loop
+for i, j in gp:
+  # turn j into an array using the .values attribute
+  # print this to the screen
+</code></pre>
 <p>After you've completed the previous step, turn this into a list comprehension and pass the result to a variable called <code>margins</code></p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># complete the code below</span>
-<span class="c1"># margins = [# YOUR LIST COMPREHENSION HERE]</span>
-</code></pre></div>
-
+<pre><code class="language-python"># complete the code below
+# margins = [# YOUR LIST COMPREHENSION HERE]
+</code></pre>
 <p>Remember the list unpacking we did for the tic tac toe project? We're going to do the same thing here. Unpack the margins list for <code>median_test</code> and run the cell below!</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># complete the following line</span>
-<span class="c1"># stat, p, m, table = scipy.stats.median_test(&lt;UNPACK MARGINS HERE&gt;, correction=False)</span>
+<pre><code class="language-python"># complete the following line
+# stat, p, m, table = scipy.stats.median_test(&lt;UNPACK MARGINS HERE&gt;, correction=False)
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The pearsons chi-square test statistic: </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stat</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;p-value of the test: </span><span class="si">{:.2e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;the grand median: </span><span class="si">{:.2e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>The pearsons chi-square test statistic: 448.81
+print(&quot;The pearsons chi-square test statistic: {:.2f}&quot;.format(stat))
+print(&quot;p-value of the test: {:.2e}&quot;.format(p))
+print(&quot;the grand median: {:.2e}&quot;.format(m))
+</code></pre>
+<pre><code>The pearsons chi-square test statistic: 448.81
 p-value of the test: 8.85e-95
 the grand median: 2.16e-01
-</code></pre></div>
-
-<h5 id="part-b-view-the-distributions-of-the-data-using-matplotlib-and-seaborn"><strong>Part B</strong> View the distributions of the data using matplotlib and seaborn<a class="headerlink" href="#part-b-view-the-distributions-of-the-data-using-matplotlib-and-seaborn" title="Permanent link">&para;</a></h5>
+</code></pre>
+<h5 id="part-b-view-the-distributions-of-the-data-using-matplotlib-and-seaborn"><strong>Part B</strong> View the distributions of the data using matplotlib and seaborn</h5>
 <p>What a fantastic statistical result we found! Can we affirm our result with some visualizations? I hope so! Create a boxplot below using pandas. In your call to <code>df.boxplot()</code> the <code>by</code> parameter should be set to <code>Base Cake</code> and the <code>column</code> parameter should be set to <code>EBITDA/KG</code></p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># YOUR BOXPLOT HERE</span>
-</code></pre></div>
+<pre><code class="language-python"># YOUR BOXPLOT HERE
+</code></pre>
+<pre><code>/usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
 
-<div class="codehilite"><pre><span></span><code>/usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
-
-Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify &#39;dtype=object&#39; when creating the ndarray
+Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
 
 
 
@@ -1530,39 +1494,34 @@ Creating an ndarray from ragged nested sequences (which is a list-or-tuple of li
 
 
 &lt;matplotlib.axes._subplots.AxesSubplot at 0x7fb512f782d0&gt;
-</code></pre></div>
-
+</code></pre>
 <p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_44_2.png" /></p>
 <p>For comparison, I've shown the boxplot below using seaborn!</p>
-<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Base Cake&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;EBITDA/KG&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#A0cbe8&#39;</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">fig, ax = plt.subplots(figsize=(10,7))
+ax = sns.boxplot(x='Base Cake', y='EBITDA/KG', data=df, color='#A0cbe8')
+</code></pre>
 <p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_46_0.png" /></p>
-<h5 id="part-c-perform-moods-median-on-all-the-other-groups"><strong>Part C</strong> Perform Moods Median on all the other groups<a class="headerlink" href="#part-c-perform-moods-median-on-all-the-other-groups" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Recall the other descriptors we have</span>
-<span class="n">descriptors</span>
-</code></pre></div>
+<h5 id="part-c-perform-moods-median-on-all-the-other-groups"><strong>Part C</strong> Perform Moods Median on all the other groups</h5>
+<pre><code class="language-python"># Recall the other descriptors we have
+descriptors
+</code></pre>
+<pre><code>Index(['Base Cake', 'Truffle Type', 'Primary Flavor', 'Secondary Flavor',
+       'Color Group', 'Customer', 'Date'],
+      dtype='object')
+</code></pre>
+<pre><code class="language-python">for desc in descriptors:
 
-<div class="codehilite"><pre><span></span><code>Index([&#39;Base Cake&#39;, &#39;Truffle Type&#39;, &#39;Primary Flavor&#39;, &#39;Secondary Flavor&#39;,
-       &#39;Color Group&#39;, &#39;Customer&#39;, &#39;Date&#39;],
-      dtype=&#39;object&#39;)
-</code></pre></div>
+  # YOUR CODE FORM MARGINS BELOW
+  # margins = [&lt;YOUR LIST COMPREHENSION&gt;]
 
-<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">descriptors</span><span class="p">:</span>
-
-  <span class="c1"># YOUR CODE FORM MARGINS BELOW</span>
-  <span class="c1"># margins = [&lt;YOUR LIST COMPREHENSION&gt;]</span>
-
-  <span class="c1"># UNPACK MARGINS INTO MEDIAN_TEST</span>
-  <span class="c1"># stat, p, m, table = scipy.stats.median_test(&lt;YOUR UNPACKING METHOD&gt;, correction=False)</span>
-  <span class="nb">print</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The pearsons chi-square test statistic: </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stat</span><span class="p">))</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;p-value of the test: </span><span class="si">{:e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;the grand median: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">m</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>Base Cake
+  # UNPACK MARGINS INTO MEDIAN_TEST
+  # stat, p, m, table = scipy.stats.median_test(&lt;YOUR UNPACKING METHOD&gt;, correction=False)
+  print(desc)
+  print(&quot;The pearsons chi-square test statistic: {:.2f}&quot;.format(stat))
+  print(&quot;p-value of the test: {:e}&quot;.format(p))
+  print(&quot;the grand median: {}&quot;.format(m), end='\n\n')
+</code></pre>
+<pre><code>Base Cake
 The pearsons chi-square test statistic: 448.81
 p-value of the test: 8.851450e-95
 the grand median: 0.2160487288076019
@@ -1596,24 +1555,21 @@ Date
 The pearsons chi-square test statistic: 5.27
 p-value of the test: 9.175929e-01
 the grand median: 0.2160487288076019
-</code></pre></div>
-
-<h5 id="part-d-many-boxplots"><strong>Part D</strong> Many boxplots<a class="headerlink" href="#part-d-many-boxplots" title="Permanent link">&para;</a></h5>
+</code></pre>
+<h5 id="part-d-many-boxplots"><strong>Part D</strong> Many boxplots</h5>
 <p>And finally, we will confirm these visually. Complete the Boxplot for each group:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">descriptors</span><span class="p">:</span>
-  <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-  <span class="c1"># sns.boxplot(x=&lt;YOUR X VARIABLE HERE&gt;, y=&#39;EBITDA/KG&#39;, data=df, color=&#39;#A0cbe8&#39;, ax=ax)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>/usr/local/lib/python3.7/dist-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning:
+<pre><code class="language-python">for desc in descriptors:
+  fig, ax = plt.subplots(figsize=(10,5))
+  # sns.boxplot(x=&lt;YOUR X VARIABLE HERE&gt;, y='EBITDA/KG', data=df, color='#A0cbe8', ax=ax)
+</code></pre>
+<pre><code>/usr/local/lib/python3.7/dist-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning:
 
 Glyph 9 missing from current font.
 
 /usr/local/lib/python3.7/dist-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning:
 
 Glyph 9 missing from current font.
-</code></pre></div>
-
+</code></pre>
 <p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_1.png" /></p>
 <p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_2.png" /></p>
 <p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_3.png" /></p>
@@ -1621,7 +1577,7 @@ Glyph 9 missing from current font.
 <p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_5.png" /></p>
 <p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_6.png" /></p>
 <p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_7.png" /></p>
-<h3 id="613-enrichment-what-is-a-t-test">6.1.3 <strong>Enrichment</strong>: What is a T-test?<a class="headerlink" href="#613-enrichment-what-is-a-t-test" title="Permanent link">&para;</a></h3>
+<h3 id="613-enrichment-what-is-a-t-test">6.1.3 <strong>Enrichment</strong>: What is a T-test?</h3>
 <p>There are 1-sample and 2-sample T-tests </p>
 <p><em>(note: we would use a 1-sample T-test just to determine if the sample mean is equal to a hypothesized population mean)</em></p>
 <p>Within 2-sample T-tests we have <strong><em>independent</em></strong> and <strong><em>dependent</em></strong> T-tests (uncorrelated or correlated samples)</p>
@@ -1639,63 +1595,52 @@ Glyph 9 missing from current font.
   * <code>scipy.stats.ttest_rel</code></p>
 <p>A full discussion on T-tests is outside the scope of this session, but we can refer to wikipedia for more information, including formulas on how each statistic is computed:
 * <a href="https://en.wikipedia.org/wiki/Student%27s_t-test#Dependent_t-test_for_paired_samples">student's T-test</a></p>
-<h3 id="614-enrichment-demonstration-of-t-tests">6.1.4 <strong>Enrichment</strong>: Demonstration of T-tests<a class="headerlink" href="#614-enrichment-demonstration-of-t-tests" title="Permanent link">&para;</a></h3>
+<h3 id="614-enrichment-demonstration-of-t-tests">6.1.4 <strong>Enrichment</strong>: Demonstration of T-tests</h3>
 <p><a href="#top">back to top</a></p>
 <p>We'll assume our shifts are of <strong><em>equal variance</em></strong> and proceed with the appropriate <strong><em>independent two-sample</em></strong> T-test...</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">shift_one</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">shift_two</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>[15, 15, 15, 16, 17, 18, 18, 18, 21, 21]
+<pre><code class="language-python">print(shift_one)
+print(shift_two)
+</code></pre>
+<pre><code>[15, 15, 15, 16, 17, 18, 18, 18, 21, 21]
 [15, 16, 17, 18, 18, 19, 20, 20, 22, 22]
-</code></pre></div>
-
+</code></pre>
 <p>To calculate the T-test, we follow a slightly different statistical formula:</p>
 <p>$T=\frac{\mu_1 - \mu_2}{s\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}$</p>
 <p>where $\mu$ are the means of the two groups, $n$ are the sample sizes and $s$ is the pooled standard deviation, also known as the cummulative variance (depending on if you square it or not):</p>
 <p>$s= \sqrt{\frac{(n_1-1)\sigma_1^2 + (n_2-1)\sigma_2^2}{n_1 + n_2 - 2}}$</p>
 <p>where $\sigma$ are the standard deviations. What you'll notice here is we are combining the two variances, we can only do this if we assume the variances are somewhat equal, this is known as the <em>equal variances</em> t-test.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">mean_shift_one</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">shift_one</span><span class="p">)</span>
-<span class="n">mean_shift_two</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">shift_two</span><span class="p">)</span>
+<pre><code class="language-python">mean_shift_one = np.mean(shift_one)
+mean_shift_two = np.mean(shift_two)
 
-<span class="nb">print</span><span class="p">(</span><span class="n">mean_shift_one</span><span class="p">,</span> <span class="n">mean_shift_two</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>17.4 18.7
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">com_var</span> <span class="o">=</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([(</span><span class="n">i</span> <span class="o">-</span> <span class="n">mean_shift_one</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">shift_one</span><span class="p">])</span> <span class="o">+</span> 
-            <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([(</span><span class="n">i</span> <span class="o">-</span> <span class="n">mean_shift_two</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">shift_two</span><span class="p">]))</span> <span class="o">/</span>
-            <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">shift_one</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">shift_two</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">com_var</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>5.361111111111111
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">T</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">mean_shift_one</span> <span class="o">-</span> <span class="n">mean_shift_two</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span>
-     <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">com_var</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">shift_one</span><span class="p">)</span> <span class="o">+</span>
-     <span class="n">com_var</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">shift_two</span><span class="p">))))</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">T</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>1.2554544209603191
-</code></pre></div>
-
+print(mean_shift_one, mean_shift_two)
+</code></pre>
+<pre><code>17.4 18.7
+</code></pre>
+<pre><code class="language-python">com_var = ((np.sum([(i - mean_shift_one)**2 for i in shift_one]) + 
+            np.sum([(i - mean_shift_two)**2 for i in shift_two])) /
+            (len(shift_one) + len(shift_two)-2))
+print(com_var)
+</code></pre>
+<pre><code>5.361111111111111
+</code></pre>
+<pre><code class="language-python">T = (np.abs(mean_shift_one - mean_shift_two) / (
+     np.sqrt(com_var/len(shift_one) +
+     com_var/len(shift_two))))
+</code></pre>
+<pre><code class="language-python">T
+</code></pre>
+<pre><code>1.2554544209603191
+</code></pre>
 <p>We see that this hand-computed result matches that of the <code>scipy</code> module:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">shift_two</span><span class="p">,</span> <span class="n">shift_one</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>Ttest_indResult(statistic=1.2554544209603191, pvalue=0.22536782778843117)
-</code></pre></div>
-
-<h3 id="enrichment-615-what-are-f-statistics-and-the-f-test"><strong>Enrichment</strong>: 6.1.5 What are F-statistics and the F-test?<a class="headerlink" href="#enrichment-615-what-are-f-statistics-and-the-f-test" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python">scipy.stats.ttest_ind(shift_two, shift_one, equal_var=True)
+</code></pre>
+<pre><code>Ttest_indResult(statistic=1.2554544209603191, pvalue=0.22536782778843117)
+</code></pre>
+<h3 id="enrichment-615-what-are-f-statistics-and-the-f-test"><strong>Enrichment</strong>: 6.1.5 What are F-statistics and the F-test?</h3>
 <p>The F-statistic is simply a ratio of two variances, or the ratio of <em>mean squares</em></p>
 <p><em>mean squares</em> is the estimate of population variance that accounts for the degrees of freedom to compute that estimate. </p>
 <p>We will explore this in the context of ANOVA</p>
-<h3 id="616-enrichment-what-is-analysis-of-variance">6.1.6 <strong>Enrichment</strong>: What is Analysis of Variance?<a class="headerlink" href="#616-enrichment-what-is-analysis-of-variance" title="Permanent link">&para;</a></h3>
+<h3 id="616-enrichment-what-is-analysis-of-variance">6.1.6 <strong>Enrichment</strong>: What is Analysis of Variance?</h3>
 <p>ANOVA uses the F-test to determine whether the variability between group means is larger than the variability within the groups. If that statistic is large enough, you can conclude that the means of the groups are not equal.</p>
 <p><strong>The caveat is that ANOVA tells us whether there is a difference in means but it does not tell us where the difference is.</strong> To find where the difference is between the groups, we have to conduct post-hoc tests.</p>
 <p>There are two main types:
@@ -1734,19 +1679,19 @@ Glyph 9 missing from current font.
 </tbody>
 </table>
 <p><br></p>
-<h4 id="anova-hypotheses">ANOVA Hypotheses<a class="headerlink" href="#anova-hypotheses" title="Permanent link">&para;</a></h4>
+<h4 id="anova-hypotheses">ANOVA Hypotheses</h4>
 <ul>
 <li><em>Null hypothesis</em>: group means are equal</li>
 <li><em>Alternative hypothesis</em>: at least one group mean is different form the other groups</li>
 </ul>
-<h3 id="anova-assumptions">ANOVA Assumptions<a class="headerlink" href="#anova-assumptions" title="Permanent link">&para;</a></h3>
+<h3 id="anova-assumptions">ANOVA Assumptions</h3>
 <ul>
 <li>Residuals (experimental error) are normally distributed (test with Shapiro-Wilk)</li>
 <li>Homogeneity of variances (variances are equal between groups) (test with Bartlett's)</li>
 <li>Observations are sampled independently from each other</li>
 <li><em>Note: ANOVA assumptions can be checked using test statistics (e.g. Shapiro-Wilk, Bartlett’s, Levene’s test) and the visual approaches such as residual plots (e.g. QQ-plots) and histograms.</em></li>
 </ul>
-<h3 id="steps-for-anova">Steps for ANOVA<a class="headerlink" href="#steps-for-anova" title="Permanent link">&para;</a></h3>
+<h3 id="steps-for-anova">Steps for ANOVA</h3>
 <ul>
 <li>Check sample sizes: equal observations must be in each group</li>
 <li>Calculate Sum of Square between groups and within groups ($SS_B, SS_E$)</li>
@@ -1791,54 +1736,49 @@ Glyph 9 missing from current font.
 </tbody>
 </table>
 <p>Where:
-$$ SS_B = \sum_{i}^{P}{(\bar{y}<em>i-\bar{y})^2} $$
+<script type="math/tex; mode=display"> SS_B = \sum_{i}^{P}{(\bar{y}_i-\bar{y})^2} </script>
 <br>
-$$ SS_E = \sum</em>{ik}^{PN}{(\bar{y}_{ik}-\bar{y}_i)^2} $$
+<script type="math/tex; mode=display"> SS_E = \sum_{ik}^{PN}{(\bar{y}_{ik}-\bar{y}_i)^2} </script>
 <br>
-$$ SS_T = SS_B + SS_E $$</p>
+<script type="math/tex; mode=display"> SS_T = SS_B + SS_E </script>
+</p>
 <p>Let's go  back to our shift data to take an example:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">shifts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">shift_one</span><span class="p">,</span> <span class="n">shift_two</span><span class="p">,</span> <span class="n">shift_three</span><span class="p">,</span> <span class="n">shift_four</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
-<span class="n">shifts</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]</span>
-<span class="n">shifts</span><span class="o">.</span><span class="n">boxplot</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fb5128c6690&gt;
-</code></pre></div>
-
+<pre><code class="language-python">shifts = pd.DataFrame([shift_one, shift_two, shift_three, shift_four]).T
+shifts.columns = ['A', 'B', 'C', 'D']
+shifts.boxplot()
+</code></pre>
+<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fb5128c6690&gt;
+</code></pre>
 <p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_65_1.png" /></p>
-<h4 id="6160-enrichment-sns-boxplot">6.1.6.0 <strong>Enrichment</strong>: SNS Boxplot<a class="headerlink" href="#6160-enrichment-sns-boxplot" title="Permanent link">&para;</a></h4>
+<h4 id="6160-enrichment-sns-boxplot">6.1.6.0 <strong>Enrichment</strong>: SNS Boxplot</h4>
 <p>this is another great way to view boxplot data. Notice how sns also shows us the raw data alongside the box and whiskers using a <em>swarmplot</em>.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">shift_melt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">shifts</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">],</span> 
-                     <span class="n">value_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">])</span>
-<span class="n">shift_melt</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;shift&#39;</span><span class="p">,</span> <span class="s1">&#39;rate&#39;</span><span class="p">]</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;shift&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;rate&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">shift_melt</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#A0cbe8&#39;</span><span class="p">)</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">swarmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;shift&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;rate&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">shift_melt</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#79706e&#39;</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">shift_melt = pd.melt(shifts.reset_index(), id_vars=['index'], 
+                     value_vars=['A', 'B', 'C', 'D'])
+shift_melt.columns = ['index', 'shift', 'rate']
+ax = sns.boxplot(x='shift', y='rate', data=shift_melt, color='#A0cbe8')
+ax = sns.swarmplot(x=&quot;shift&quot;, y=&quot;rate&quot;, data=shift_melt, color='#79706e')
+</code></pre>
 <p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_67_0.png" /></p>
 <p>Anyway back to ANOVA...</p>
-<div class="codehilite"><pre><span></span><code><span class="n">fvalue</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">f_oneway</span><span class="p">(</span><span class="n">shifts</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">],</span> 
-                                <span class="n">shifts</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">],</span>
-                                <span class="n">shifts</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">],</span>
-                                <span class="n">shifts</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">fvalue</span><span class="p">,</span> <span class="n">pvalue</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>2.8666172656539457 0.04998066540684099
-</code></pre></div>
-
+<pre><code class="language-python">fvalue, pvalue = stats.f_oneway(shifts['A'], 
+                                shifts['B'],
+                                shifts['C'],
+                                shifts['D'])
+print(fvalue, pvalue)
+</code></pre>
+<pre><code>2.8666172656539457 0.04998066540684099
+</code></pre>
 <p>We can get this in the format of the table we saw above:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># get ANOVA table </span>
-<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
-<span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">ols</span>
+<pre><code class="language-python"># get ANOVA table 
+import statsmodels.api as sm
+from statsmodels.formula.api import ols
 
-<span class="c1"># Ordinary Least Squares (OLS) model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="s1">&#39;rate ~ C(shift)&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">shift_melt</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">anova_table</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">anova_lm</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">anova_table</span>
-<span class="c1"># output (ANOVA F and p value)</span>
-</code></pre></div>
-
+# Ordinary Least Squares (OLS) model
+model = ols('rate ~ C(shift)', data=shift_melt).fit()
+anova_table = sm.stats.anova_lm(model, typ=2)
+anova_table
+# output (ANOVA F and p value)
+</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1883,92 +1823,82 @@ $$ SS_T = SS_B + SS_E $$</p>
 </div>
 
 <p>The <strong><em>Shapiro-Wilk</em></strong> test can be used to check the <em>normal distribution of residuals</em>. Null hypothesis: data is drawn from normal distribution.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">shapiro</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">resid</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>0.9800916314125061 0.6929556727409363
-</code></pre></div>
-
+<pre><code class="language-python">w, pvalue = stats.shapiro(model.resid)
+print(w, pvalue)
+</code></pre>
+<pre><code>0.9800916314125061 0.6929556727409363
+</code></pre>
 <p>We can use <strong><em>Bartlett’s</em></strong> test to check the <em>Homogeneity of variances</em>. Null hypothesis: samples from populations have equal variances.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">bartlett</span><span class="p">(</span><span class="n">shifts</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">],</span> 
-                           <span class="n">shifts</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">],</span> 
-                           <span class="n">shifts</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">],</span> 
-                           <span class="n">shifts</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>1.9492677462621584 0.5830028540285896
-</code></pre></div>
-
-<h4 id="6161-anova-interpretation">6.1.6.1 ANOVA Interpretation<a class="headerlink" href="#6161-anova-interpretation" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">w, pvalue = stats.bartlett(shifts['A'], 
+                           shifts['B'], 
+                           shifts['C'], 
+                           shifts['D'])
+print(w, pvalue)
+</code></pre>
+<pre><code>1.9492677462621584 0.5830028540285896
+</code></pre>
+<h4 id="6161-anova-interpretation">6.1.6.1 ANOVA Interpretation</h4>
 <p>The <em>p</em> value form ANOVA analysis is significant (<em>p</em> &lt; 0.05) and we can conclude there are significant difference between the shifts. But we do not know which shift(s) are different. For this we need to perform a post hoc test. There are a multitude of these that are beyond the scope of this discussion (<a href="https://www.real-statistics.com/one-way-analysis-of-variance-anova/unplanned-comparisons/tukey-kramer-test/">Tukey-kramer</a> is one such test) </p>
 <p align=center>
 <img src="https://media.tenor.com/images/4da4d46c8df02570a9a1219cac42bf27/tenor.gif"></img>
 </p>
 
-<h3 id="617-putting-it-all-together">6.1.7 Putting it all together<a class="headerlink" href="#617-putting-it-all-together" title="Permanent link">&para;</a></h3>
+<h3 id="617-putting-it-all-together">6.1.7 Putting it all together</h3>
 <p>In summary, there are many statistical tests at our disposal when performing inferential statistical analysis. In times like these, a simple decision tree can be extraordinarily useful!</p>
 <p><img src="https://cdn.scribbr.com/wp-content/uploads//2020/01/flowchart-for-choosing-a-statistical-test.png" width=800px></img></p>
 <p><small>source: <a href="https://www.scribbr.com/statistics/statistical-tests/">scribbr</a></small></p>
-<h2 id="62-evaluate-statistical-significance-of-product-margin-a-snake-in-the-garden">6.2 Evaluate statistical significance of product margin: a snake in the garden<a class="headerlink" href="#62-evaluate-statistical-significance-of-product-margin-a-snake-in-the-garden" title="Permanent link">&para;</a></h2>
-<h3 id="621-moods-median-on-product-descriptors">6.2.1 Mood's Median on product descriptors<a class="headerlink" href="#621-moods-median-on-product-descriptors" title="Permanent link">&para;</a></h3>
+<h2 id="62-evaluate-statistical-significance-of-product-margin-a-snake-in-the-garden">6.2 Evaluate statistical significance of product margin: a snake in the garden</h2>
+<h3 id="621-moods-median-on-product-descriptors">6.2.1 Mood's Median on product descriptors</h3>
 <p>The first issue we run into with moods is... what? </p>
 <p>We can only perform moods on two groups at a time. How can we get around this?</p>
 <p>Let's take a look at the category with the fewest descriptors. If we remember, this was the Truffle Types.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
-</code></pre></div>
+<pre><code class="language-python">df.columns
+</code></pre>
+<pre><code>Index(['Base Cake', 'Truffle Type', 'Primary Flavor', 'Secondary Flavor',
+       'Color Group', 'Customer', 'Date', 'KG', 'EBITDA/KG'],
+      dtype='object')
+</code></pre>
+<pre><code class="language-python">df['Truffle Type'].unique()
+</code></pre>
+<pre><code>array(['Candy Outer', 'Chocolate Outer', 'Jelly Filled'], dtype=object)
+</code></pre>
+<pre><code class="language-python">col = 'Truffle Type'
+moodsdf = pd.DataFrame()
+for truff in df[col].unique():
 
-<div class="codehilite"><pre><span></span><code>Index([&#39;Base Cake&#39;, &#39;Truffle Type&#39;, &#39;Primary Flavor&#39;, &#39;Secondary Flavor&#39;,
-       &#39;Color Group&#39;, &#39;Customer&#39;, &#39;Date&#39;, &#39;KG&#39;, &#39;EBITDA/KG&#39;],
-      dtype=&#39;object&#39;)
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Truffle Type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>array([&#39;Candy Outer&#39;, &#39;Chocolate Outer&#39;, &#39;Jelly Filled&#39;], dtype=object)
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;Truffle Type&#39;</span>
-<span class="n">moodsdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">truff</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
-
-  <span class="c1"># for each </span>
-  <span class="n">group</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="n">truff</span><span class="p">][</span><span class="s1">&#39;EBITDA/KG&#39;</span><span class="p">]</span>
-  <span class="n">pop</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="n">truff</span><span class="p">)][</span><span class="s1">&#39;EBITDA/KG&#39;</span><span class="p">]</span>
-  <span class="n">stat</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">table</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">median_test</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">pop</span><span class="p">)</span>
-  <span class="n">median</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
-  <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
-  <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: N=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">truff</span><span class="p">,</span> <span class="n">size</span><span class="p">))</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Welch&#39;s T-Test for Unequal Variances&quot;</span><span class="p">)</span>
-  <span class="nb">print</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
-  <span class="n">welchp</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">pvalue</span>
-  <span class="nb">print</span><span class="p">()</span>
-  <span class="n">moodsdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">moodsdf</span><span class="p">,</span> 
-                            <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">truff</span><span class="p">,</span> 
-                                          <span class="n">stat</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">median</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span>
-                                          <span class="n">welchp</span><span class="p">,</span> <span class="n">table</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">])</span>
-<span class="n">moodsdf</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="p">,</span> <span class="s1">&#39;pearsons_chi_square&#39;</span><span class="p">,</span> <span class="s1">&#39;p_value&#39;</span><span class="p">,</span> 
-              <span class="s1">&#39;grand_median&#39;</span><span class="p">,</span> <span class="s1">&#39;group_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;group_median&#39;</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="s1">&#39;welch p&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;table&#39;</span><span class="p">]</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>Candy Outer: N=288
-Welch&#39;s T-Test for Unequal Variances
+  # for each 
+  group = df.loc[df[col] == truff]['EBITDA/KG']
+  pop = df.loc[~(df[col] == truff)]['EBITDA/KG']
+  stat, p, m, table = scipy.stats.median_test(group, pop)
+  median = np.median(group)
+  mean = np.mean(group)
+  size = len(group)
+  print(&quot;{}: N={}&quot;.format(truff, size))
+  print(&quot;Welch's T-Test for Unequal Variances&quot;)
+  print(scipy.stats.ttest_ind(group, pop, equal_var=False))
+  welchp = scipy.stats.ttest_ind(group, pop, equal_var=False).pvalue
+  print()
+  moodsdf = pd.concat([moodsdf, 
+                            pd.DataFrame([truff, 
+                                          stat, p, m, mean, median, size,
+                                          welchp, table]).T])
+moodsdf.columns = [col, 'pearsons_chi_square', 'p_value', 
+              'grand_median', 'group_mean', 'group_median', 'size', 'welch p',
+              'table']
+</code></pre>
+<pre><code>Candy Outer: N=288
+Welch's T-Test for Unequal Variances
 Ttest_indResult(statistic=-2.7615297773427527, pvalue=0.005911048922657976)
 
 Chocolate Outer: N=1356
-Welch&#39;s T-Test for Unequal Variances
+Welch's T-Test for Unequal Variances
 Ttest_indResult(statistic=4.409449025092911, pvalue=1.1932685612874952e-05)
 
 Jelly Filled: N=24
-Welch&#39;s T-Test for Unequal Variances
+Welch's T-Test for Unequal Variances
 Ttest_indResult(statistic=-8.4142523067935, pvalue=7.929912531660173e-09)
-</code></pre></div>
-
-<h3 id="question-1-moods-results-on-truffle-type">Question 1: Moods Results on Truffle Type<a class="headerlink" href="#question-1-moods-results-on-truffle-type" title="Permanent link">&para;</a></h3>
+</code></pre>
+<h3 id="question-1-moods-results-on-truffle-type">Question 1: Moods Results on Truffle Type</h3>
 <blockquote>
 <p>What do we notice about the resultant table?</p>
 </blockquote>
@@ -1976,9 +1906,8 @@ Ttest_indResult(statistic=-8.4142523067935, pvalue=7.929912531660173e-09)
 <li><strong><em>p-values</em></strong> Most are quite small (really low probability of achieving these table results under a single distribution)</li>
 <li>group sizes: our Jelly Filled group is relatively small</li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="n">moodsdf</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;p_value&#39;</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">moodsdf.sort_values('p_value')
+</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2050,50 +1979,43 @@ Ttest_indResult(statistic=-8.4142523067935, pvalue=7.929912531660173e-09)
 </div>
 
 <p>We can go ahead and repeat this analysis for all of our product categories:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
-</code></pre></div>
+<pre><code class="language-python">df.columns[:5]
+</code></pre>
+<pre><code>Index(['Base Cake', 'Truffle Type', 'Primary Flavor', 'Secondary Flavor',
+       'Color Group'],
+      dtype='object')
+</code></pre>
+<pre><code class="language-python">moodsdf = pd.DataFrame()
+for col in df.columns[:5]:
+  for truff in df[col].unique():
+    group = df.loc[df[col] == truff]['EBITDA/KG']
+    pop = df.loc[~(df[col] == truff)]['EBITDA/KG']
+    stat, p, m, table = scipy.stats.median_test(group, pop)
+    median = np.median(group)
+    mean = np.mean(group)
+    size = len(group)
+    welchp = scipy.stats.ttest_ind(group, pop, equal_var=False).pvalue
+    moodsdf = pd.concat([moodsdf, 
+                              pd.DataFrame([col, truff, 
+                                            stat, p, m, mean, median, size,
+                                            welchp, table]).T])
+moodsdf.columns = ['descriptor', 'group', 'pearsons_chi_square', 'p_value', 
+                'grand_median', 'group_mean', 'group_median', 'size', 'welch p',
+                'table']
+print(moodsdf.shape)
+</code></pre>
+<pre><code>(101, 10)
+</code></pre>
+<pre><code class="language-python">moodsdf = moodsdf.loc[(moodsdf['welch p'] &lt; 0.005) &amp;
+            (moodsdf['p_value'] &lt; 0.005)].sort_values('group_median')
 
-<div class="codehilite"><pre><span></span><code>Index([&#39;Base Cake&#39;, &#39;Truffle Type&#39;, &#39;Primary Flavor&#39;, &#39;Secondary Flavor&#39;,
-       &#39;Color Group&#39;],
-      dtype=&#39;object&#39;)
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">moodsdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="mi">5</span><span class="p">]:</span>
-  <span class="k">for</span> <span class="n">truff</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
-    <span class="n">group</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="n">truff</span><span class="p">][</span><span class="s1">&#39;EBITDA/KG&#39;</span><span class="p">]</span>
-    <span class="n">pop</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="n">truff</span><span class="p">)][</span><span class="s1">&#39;EBITDA/KG&#39;</span><span class="p">]</span>
-    <span class="n">stat</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">table</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">median_test</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">pop</span><span class="p">)</span>
-    <span class="n">median</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
-    <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
-    <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
-    <span class="n">welchp</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">pvalue</span>
-    <span class="n">moodsdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">moodsdf</span><span class="p">,</span> 
-                              <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">col</span><span class="p">,</span> <span class="n">truff</span><span class="p">,</span> 
-                                            <span class="n">stat</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">median</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span>
-                                            <span class="n">welchp</span><span class="p">,</span> <span class="n">table</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">])</span>
-<span class="n">moodsdf</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;descriptor&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;pearsons_chi_square&#39;</span><span class="p">,</span> <span class="s1">&#39;p_value&#39;</span><span class="p">,</span> 
-                <span class="s1">&#39;grand_median&#39;</span><span class="p">,</span> <span class="s1">&#39;group_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;group_median&#39;</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="s1">&#39;welch p&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;table&#39;</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">moodsdf</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>(101, 10)
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">moodsdf</span> <span class="o">=</span> <span class="n">moodsdf</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">moodsdf</span><span class="p">[</span><span class="s1">&#39;welch p&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.005</span><span class="p">)</span> <span class="o">&amp;</span>
-            <span class="p">(</span><span class="n">moodsdf</span><span class="p">[</span><span class="s1">&#39;p_value&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.005</span><span class="p">)]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;group_median&#39;</span><span class="p">)</span>
-
-<span class="n">moodsdf</span> <span class="o">=</span> <span class="n">moodsdf</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;group_median&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">moodsdf</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>(51, 10)
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">moodsdf</span>
-</code></pre></div>
-
+moodsdf = moodsdf.sort_values('group_median').reset_index(drop=True)
+print(moodsdf.shape)
+</code></pre>
+<pre><code>(51, 10)
+</code></pre>
+<pre><code class="language-python">moodsdf
+</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2792,11 +2714,10 @@ Ttest_indResult(statistic=-8.4142523067935, pvalue=7.929912531660173e-09)
 </table>
 </div>
 
-<h3 id="622-enrichment-broad-analysis-of-categories-anova">6.2.2 <strong>Enrichment</strong>: Broad Analysis of Categories: ANOVA<a class="headerlink" href="#622-enrichment-broad-analysis-of-categories-anova" title="Permanent link">&para;</a></h3>
+<h3 id="622-enrichment-broad-analysis-of-categories-anova">6.2.2 <strong>Enrichment</strong>: Broad Analysis of Categories: ANOVA</h3>
 <p>Recall our "melted" shift data. It will be useful to think of getting our Truffle data in this format:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">shift_melt</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</code></pre></div>
-
+<pre><code class="language-python">shift_melt.head()
+</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2855,18 +2776,16 @@ Ttest_indResult(statistic=-8.4142523067935, pvalue=7.929912531660173e-09)
 </table>
 </div>
 
-<div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="c1"># get ANOVA table </span>
-<span class="c1"># Ordinary Least Squares (OLS) model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="s1">&#39;EBITDA_KG ~ C(Truffle_Type)&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">anova_table</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">anova_lm</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">anova_table</span>
-<span class="c1"># output (ANOVA F and p value)</span>
-</code></pre></div>
-
+<pre><code class="language-python">df.columns = df.columns.str.replace(' ', '_')
+df.columns = df.columns.str.replace('/', '_')
+</code></pre>
+<pre><code class="language-python"># get ANOVA table 
+# Ordinary Least Squares (OLS) model
+model = ols('EBITDA_KG ~ C(Truffle_Type)', data=df).fit()
+anova_table = sm.stats.anova_lm(model, typ=2)
+anova_table
+# output (ANOVA F and p value)
+</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2911,46 +2830,38 @@ Ttest_indResult(statistic=-8.4142523067935, pvalue=7.929912531660173e-09)
 </div>
 
 <p>Recall the <strong><em>Shapiro-Wilk</em></strong> test can be used to check the <em>normal distribution of residuals</em>. Null hypothesis: data is drawn from normal distribution.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">shapiro</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">resid</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>0.9576056599617004 1.2598073820281984e-21
-</code></pre></div>
-
+<pre><code class="language-python">w, pvalue = stats.shapiro(model.resid)
+print(w, pvalue)
+</code></pre>
+<pre><code>0.9576056599617004 1.2598073820281984e-21
+</code></pre>
 <p>And the <strong><em>Bartlett’s</em></strong> test to check the <em>Homogeneity of variances</em>. Null hypothesis: samples from populations have equal variances.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">gb</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Truffle_Type&#39;</span><span class="p">)[</span><span class="s1">&#39;EBITDA_KG&#39;</span><span class="p">]</span>
-<span class="n">gb</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x7fb5127814d0&gt;
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">bartlett</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">gb</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">gb</span><span class="o">.</span><span class="n">groups</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>109.93252546442552 1.344173733366234e-24
-</code></pre></div>
-
+<pre><code class="language-python">gb = df.groupby('Truffle_Type')['EBITDA_KG']
+gb
+</code></pre>
+<pre><code>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x7fb5127814d0&gt;
+</code></pre>
+<pre><code class="language-python">w, pvalue = stats.bartlett(*[gb.get_group(x) for x in gb.groups])
+print(w, pvalue)
+</code></pre>
+<pre><code>109.93252546442552 1.344173733366234e-24
+</code></pre>
 <p>Wow it looks like our data is not drawn from a normal distribution! Let's check this for other categories...</p>
 <p>We can wrap these in a for loop:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="mi">5</span><span class="p">]:</span>
-  <span class="nb">print</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
-  <span class="n">model</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="s1">&#39;EBITDA_KG ~ C(</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">col</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-  <span class="n">anova_table</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">anova_lm</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-  <span class="n">display</span><span class="p">(</span><span class="n">anova_table</span><span class="p">)</span>
-  <span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">shapiro</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">resid</span><span class="p">)</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shapiro: &quot;</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span><span class="p">)</span>
-  <span class="n">gb</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">col</span><span class="p">)[</span><span class="s1">&#39;EBITDA_KG&#39;</span><span class="p">]</span>
-  <span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">bartlett</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">gb</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">gb</span><span class="o">.</span><span class="n">groups</span><span class="p">])</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Bartlett: &quot;</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span><span class="p">)</span>
-  <span class="nb">print</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>Base_Cake
-</code></pre></div>
-
+<pre><code class="language-python">for col in df.columns[:5]:
+  print(col)
+  model = ols('EBITDA_KG ~ C({})'.format(col), data=df).fit()
+  anova_table = sm.stats.anova_lm(model, typ=2)
+  display(anova_table)
+  w, pvalue = stats.shapiro(model.resid)
+  print(&quot;Shapiro: &quot;, w, pvalue)
+  gb = df.groupby(col)['EBITDA_KG']
+  w, pvalue = stats.bartlett(*[gb.get_group(x) for x in gb.groups])
+  print(&quot;Bartlett: &quot;, w, pvalue)
+  print()
+</code></pre>
+<pre><code>Base_Cake
+</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2994,12 +2905,11 @@ Ttest_indResult(statistic=-8.4142523067935, pvalue=7.929912531660173e-09)
 </table>
 </div>
 
-<div class="codehilite"><pre><span></span><code>Shapiro:  0.9634131193161011 4.1681337029688696e-20
+<pre><code>Shapiro:  0.9634131193161011 4.1681337029688696e-20
 Bartlett:  69.83288886114195 1.1102218566053728e-13
 
 Truffle_Type
-</code></pre></div>
-
+</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -3043,12 +2953,11 @@ Truffle_Type
 </table>
 </div>
 
-<div class="codehilite"><pre><span></span><code>Shapiro:  0.9576056599617004 1.2598073820281984e-21
+<pre><code>Shapiro:  0.9576056599617004 1.2598073820281984e-21
 Bartlett:  109.93252546442552 1.344173733366234e-24
 
 Primary_Flavor
-</code></pre></div>
-
+</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -3092,12 +3001,11 @@ Primary_Flavor
 </table>
 </div>
 
-<div class="codehilite"><pre><span></span><code>Shapiro:  0.948470413684845 9.90281706784179e-24
+<pre><code>Shapiro:  0.948470413684845 9.90281706784179e-24
 Bartlett:  210.15130419114894 1.5872504991231547e-21
 
 Secondary_Flavor
-</code></pre></div>
-
+</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -3141,12 +3049,11 @@ Secondary_Flavor
 </table>
 </div>
 
-<div class="codehilite"><pre><span></span><code>Shapiro:  0.9548103213310242 2.649492974953278e-22
+<pre><code>Shapiro:  0.9548103213310242 2.649492974953278e-22
 Bartlett:  420.6274502894803 1.23730070350945e-71
 
 Color_Group
-</code></pre></div>
-
+</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -3190,40 +3097,38 @@ Color_Group
 </table>
 </div>
 
-<div class="codehilite"><pre><span></span><code>Shapiro:  0.969061017036438 1.8926407335144587e-18
+<pre><code>Shapiro:  0.969061017036438 1.8926407335144587e-18
 Bartlett:  136.55525281340468 8.164787784033709e-24
-</code></pre></div>
-
-<h3 id="623-enrichment-visual-analysis-of-residuals-qq-plots">6.2.3 <strong>Enrichment</strong>: Visual Analysis of Residuals: QQ-Plots<a class="headerlink" href="#623-enrichment-visual-analysis-of-residuals-qq-plots" title="Permanent link">&para;</a></h3>
+</code></pre>
+<h3 id="623-enrichment-visual-analysis-of-residuals-qq-plots">6.2.3 <strong>Enrichment</strong>: Visual Analysis of Residuals: QQ-Plots</h3>
 <p>This can be distressing and is often why we want visual methods to see what is going on with our data!</p>
-<div class="codehilite"><pre><span></span><code><span class="n">model</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="s1">&#39;EBITDA_KG ~ C(Truffle_Type)&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<pre><code class="language-python">model = ols('EBITDA_KG ~ C(Truffle_Type)', data=df).fit()
 
-<span class="c1">#create instance of influence</span>
-<span class="n">influence</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_influence</span><span class="p">()</span>
+#create instance of influence
+influence = model.get_influence()
 
-<span class="c1">#obtain standardized residuals</span>
-<span class="n">standardized_residuals</span> <span class="o">=</span> <span class="n">influence</span><span class="o">.</span><span class="n">resid_studentized_internal</span>
+#obtain standardized residuals
+standardized_residuals = influence.resid_studentized_internal
 
-<span class="c1"># res.anova_std_residuals are standardized residuals obtained from ANOVA (check above)</span>
-<span class="n">sm</span><span class="o">.</span><span class="n">qqplot</span><span class="p">(</span><span class="n">standardized_residuals</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="s1">&#39;45&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Theoretical Quantiles&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Standardized Residuals&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+# res.anova_std_residuals are standardized residuals obtained from ANOVA (check above)
+sm.qqplot(standardized_residuals, line='45')
+plt.xlabel(&quot;Theoretical Quantiles&quot;)
+plt.ylabel(&quot;Standardized Residuals&quot;)
+plt.show()
 
-<span class="c1"># histogram</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">resid</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span> 
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Residuals&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div>
-
+# histogram
+plt.hist(model.resid, bins='auto', histtype='bar', ec='k') 
+plt.xlabel(&quot;Residuals&quot;)
+plt.ylabel('Frequency')
+plt.show()
+</code></pre>
 <p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_103_0.png" /></p>
 <p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_103_1.png" /></p>
 <p>We see that a lot of our data is swayed by extremely high and low values, so what can we conclude? </p>
 <blockquote>
 <p>You need the right test statistic for the right job, in this case, we are littered with unequal variance in our groupings so we use the moods median and welch (unequal variance t-test) to make conclusions about our data</p>
 </blockquote>
-<h1 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h1>
+<h1 id="references">References</h1>
 <ul>
 <li><a href="https://www.reneshbedre.com/blog/anova.html">Renesh Bedre ANOVA</a></li>
 <li><a href="https://blog.minitab.com/en/adventures-in-statistics-2/understanding-analysis-of-variance-anova-and-the-f-test">Minitab ANOVA</a></li>
@@ -3301,6 +3206,8 @@ Bartlett:  136.55525281340468 8.164787784033709e-24
     
     
       <script src="../assets/javascripts/bundle.6baa0517.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       
     
   </body>

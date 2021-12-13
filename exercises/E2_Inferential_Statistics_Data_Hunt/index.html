@@ -568,7 +568,7 @@
                 
 
 <p><a href="https://colab.research.google.com/github/wesleybeckner/technology_fundamentals/blob/main/C2%20Statistics%20and%20Model%20Creation/LABS_PROJECT/Tech_Fun_C2_L2_Data_Hunt_II.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
-<h1 id="technology-fundamentals-course-2-lab-2-data-hunt-ii">Technology Fundamentals Course 2, Lab 2: Data Hunt II<a class="headerlink" href="#technology-fundamentals-course-2-lab-2-data-hunt-ii" title="Permanent link">&para;</a></h1>
+<h1 id="technology-fundamentals-course-2-lab-2-data-hunt-ii">Technology Fundamentals Course 2, Lab 2: Data Hunt II</h1>
 <p><strong>Instructor</strong>: Wesley Beckner</p>
 <p><strong>Contact</strong>: wesleybeckner@gmail.com</p>
 <p><br></p>
@@ -596,9 +596,8 @@ That's right you heard correctly. It's the data hunt part TWO.
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">plotly</span>
-</code></pre></div>
-
+<pre><code class="language-python">!pip install -U plotly
+</code></pre>
 
 
     Requirement already satisfied: plotly in /usr/local/lib/python3.7/dist-packages (4.4.1)
@@ -618,46 +617,43 @@ That's right you heard correctly. It's the data hunt part TWO.
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="c1"># our standard libraries</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span>
+<pre><code class="language-python"># our standard libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import plotly.express as px
+import seaborn as sns
+from ipywidgets import interact
 
-<span class="c1"># our stats libraries</span>
-<span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
-<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
-<span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">ols</span>
-<span class="kn">import</span> <span class="nn">scipy</span>
+# our stats libraries
+import random
+import scipy.stats as stats
+import statsmodels.api as sm
+from statsmodels.formula.api import ols
+import scipy
 
-<span class="c1"># our scikit-Learn library for the regression models</span>
-<span class="kn">import</span> <span class="nn">sklearn</span>         
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
-</code></pre></div>
-
+# our scikit-Learn library for the regression models
+import sklearn         
+from sklearn import linear_model
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score
+</code></pre>
 
 
 ## Import and Clean Data
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/wesleybeckner/&quot;</span>\
-                 <span class="s2">&quot;technology_fundamentals/main/assets/truffle_rates.csv&quot;</span><span class="p">)</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rate&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
-</code></pre></div>
+<pre><code class="language-python">df = pd.read_csv(&quot;https://raw.githubusercontent.com/wesleybeckner/&quot;\
+                 &quot;technology_fundamentals/main/assets/truffle_rates.csv&quot;)
+df = df.loc[df['rate'] &gt; 0]
+</code></pre>
 
 
 
 
-
-<div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</code></pre></div>
-
+<pre><code class="language-python">df.head()
+</code></pre>
 
 
 
@@ -743,9 +739,8 @@ That's right you heard correctly. It's the data hunt part TWO.
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">shape</span>
-</code></pre></div>
-
+<pre><code class="language-python">df.shape
+</code></pre>
 
 
 
@@ -773,13 +768,12 @@ Use any number of visualizations. Here is an example to get you started:
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="c1"># Example: a KDE of the truffle_type and base_cake columns</span>
+<pre><code class="language-python"># Example: a KDE of the truffle_type and base_cake columns
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rate&#39;</span><span class="p">],</span> <span class="n">hue</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;truffle_type&#39;</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rate&#39;</span><span class="p">],</span> <span class="n">hue</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;base_cake&#39;</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</code></pre></div>
-
+fig, ax = plt.subplots(2, 1, figsize=(12,12))
+sns.kdeplot(x=df['rate'], hue=df['truffle_type'], fill=True, ax=ax[0])
+sns.kdeplot(x=df['rate'], hue=df['base_cake'], fill=True, ax=ax[1])
+</code></pre>
 
 
 
@@ -797,9 +791,8 @@ Use any number of visualizations. Here is an example to get you started:
 
 
 
-<div class="codehilite"><pre><span></span><code>
-</code></pre></div>
-
+<pre><code class="language-python">
+</code></pre>
 
 
     /usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
@@ -846,11 +839,10 @@ What statistical tests can you perform to evaluate your hypothesis from the visu
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">model</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="s1">&#39;rate ~ C(</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;truffle_type&#39;</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">anova_table</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">anova_lm</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">display</span><span class="p">(</span><span class="n">anova_table</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">model = ols('rate ~ C({})'.format('truffle_type'), data=df).fit()
+anova_table = sm.stats.anova_lm(model, typ=2)
+display(anova_table)
+</code></pre>
 
 
 
@@ -902,9 +894,8 @@ What statistical tests can you perform to evaluate your hypothesis from the visu
 
 
 
-<div class="codehilite"><pre><span></span><code>
-</code></pre></div>
-
+<pre><code class="language-python">
+</code></pre>
 
 
     base_cake
@@ -1208,9 +1199,8 @@ Iterate through every level (i.e. pound, cheese, sponge cakes) of every category
 
 
 
-<div class="codehilite"><pre><span></span><code>
-</code></pre></div>
-
+<pre><code class="language-python">
+</code></pre>
 
 
     (98, 10)
@@ -1220,9 +1210,8 @@ After you've computed a moods median test on every group, filter any data above 
 
 
 
-<div class="codehilite"><pre><span></span><code>
-</code></pre></div>
-
+<pre><code class="language-python">
+</code></pre>
 
 
     (76, 10)
@@ -1232,9 +1221,8 @@ Return the groups with the lowest median performance (your table need not look e
 
 
 
-<div class="codehilite"><pre><span></span><code>
-</code></pre></div>
-
+<pre><code class="language-python">
+</code></pre>
 
 
 
@@ -1540,16 +1528,14 @@ Return the groups with the lowest median performance (your table need not look e
 We would want to cut the following primary flavors. Check to see that you get a similar answer. rip wild cherry cream.
 
 
-<div class="codehilite"><pre><span></span><code>[&#39;Coconut&#39;, &#39;Pink Lemonade&#39;, &#39;Chocolate&#39;, &#39;Wild Cherry Cream&#39;, &#39;Gingersnap&#39;]
-</code></pre></div>
+<pre><code>['Coconut', 'Pink Lemonade', 'Chocolate', 'Wild Cherry Cream', 'Gingersnap']
+</code></pre>
 
 
 
 
-
-<div class="codehilite"><pre><span></span><code>
-</code></pre></div>
-
+<pre><code class="language-python">
+</code></pre>
 
 
 
@@ -1565,17 +1551,16 @@ Let's look at the total profile of the products associated with the five worst p
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="c1"># 1. filter df for only bottom five flavors</span>
-<span class="c1"># 2. groupby all columns besides rate</span>
-<span class="c1"># 3. describe the rate column.</span>
+<pre><code class="language-python"># 1. filter df for only bottom five flavors
+# 2. groupby all columns besides rate
+# 3. describe the rate column.
 
-<span class="c1"># by doing this we can evaluate just how much sampling variety we have for the</span>
-<span class="c1"># worst performing flavors.</span>
+# by doing this we can evaluate just how much sampling variety we have for the
+# worst performing flavors.
 
-<span class="n">bottom_five</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Coconut&#39;</span><span class="p">,</span> <span class="s1">&#39;Pink Lemonade&#39;</span><span class="p">,</span> <span class="s1">&#39;Chocolate&#39;</span><span class="p">,</span> <span class="s1">&#39;Wild Cherry Cream&#39;</span><span class="p">,</span> <span class="s1">&#39;Gingersnap&#39;</span><span class="p">]</span>
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;primary_flavor&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">bottom_five</span><span class="p">)]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))[</span><span class="s1">&#39;rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-</code></pre></div>
-
+bottom_five = ['Coconut', 'Pink Lemonade', 'Chocolate', 'Wild Cherry Cream', 'Gingersnap']
+df.loc[df['primary_flavor'].isin(bottom_five)].groupby(list(df.columns[:-1]))['rate'].describe()
+</code></pre>
 
 
 
@@ -1757,27 +1742,25 @@ Your boss notices the Jelly filled truffles are being produced much faster than 
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">sun</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39;base_cake&#39;</span><span class="p">,</span> <span class="s1">&#39;truffle_type&#39;</span><span class="p">,</span> <span class="s1">&#39;primary_flavor&#39;</span><span class="p">,</span> <span class="s1">&#39;secondary_flavor&#39;</span><span class="p">,</span> <span class="s1">&#39;color_group&#39;</span><span class="p">],</span>
-              <span class="p">[</span><span class="s1">&#39;truffle_type&#39;</span><span class="p">,</span> <span class="s1">&#39;base_cake&#39;</span><span class="p">,</span> <span class="s1">&#39;primary_flavor&#39;</span><span class="p">,</span> <span class="s1">&#39;secondary_flavor&#39;</span><span class="p">,</span> <span class="s1">&#39;color_group&#39;</span><span class="p">]]):</span>
-  <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">sunburst</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> 
-                    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;rate&#39;</span><span class="p">,</span> 
-                    <span class="n">color_continuous_scale</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
-                    <span class="p">)</span>
+<pre><code class="language-python">def sun(path=[['base_cake', 'truffle_type', 'primary_flavor', 'secondary_flavor', 'color_group'],
+              ['truffle_type', 'base_cake', 'primary_flavor', 'secondary_flavor', 'color_group']]):
+  fig = px.sunburst(df, path=path, 
+                    color='rate', 
+                    color_continuous_scale='viridis',
+                    )
 
-  <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
-      <span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">20</span><span class="p">),</span>
-      <span class="n">height</span><span class="o">=</span><span class="mi">650</span>
-  <span class="p">)</span>
-  <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div>
-
-
+  fig.update_layout(
+      margin=dict(l=20, r=20, t=20, b=20),
+      height=650
+  )
+  fig.show()
+</code></pre>
 
 
 
-<div class="codehilite"><pre><span></span><code><span class="n">interact</span><span class="p">(</span><span class="n">sun</span><span class="p">)</span>
-</code></pre></div>
 
+<pre><code class="language-python">interact(sun)
+</code></pre>
 
 
 
@@ -1857,6 +1840,8 @@ Your boss notices the Jelly filled truffles are being produced much faster than 
     
     
       <script src="../../assets/javascripts/bundle.6baa0517.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       
     
   </body>

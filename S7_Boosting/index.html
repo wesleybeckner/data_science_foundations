@@ -568,7 +568,7 @@
                 
 
 <p><a href="https://colab.research.google.com/github/ronva-h/technology_fundamentals/blob/main/C3%20Machine%20Learning%20I/Tech%20Fun%20C3%20E2%20Support%20Vector%20Machines%20and%20Boosting.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
-<h1 id="technology-fundamentals-course-3-enrichment-1-support-vector-machines-and-boosting">Technology Fundamentals, Course 3 Enrichment 1: Support Vector Machines and Boosting<a class="headerlink" href="#technology-fundamentals-course-3-enrichment-1-support-vector-machines-and-boosting" title="Permanent link">&para;</a></h1>
+<h1 id="technology-fundamentals-course-3-enrichment-1-support-vector-machines-and-boosting">Technology Fundamentals, Course 3 Enrichment 1: Support Vector Machines and Boosting</h1>
 <p><strong>Instructor</strong>: Wesley Beckner</p>
 <p><strong>Contact</strong>: wesleybeckner@gmail.com</p>
 <p><strong>Teaching Assistants</strong>: Varsha Bang, Harsha Vardhan</p>
@@ -581,7 +581,7 @@
 <hr />
 <p><br></p>
 <p><a name='top'></a></p>
-<h1 id="contents">Contents<a class="headerlink" href="#contents" title="Permanent link">&para;</a></h1>
+<h1 id="contents">Contents</h1>
 <ul>
 <li>5.0 <a href="#x.0">Preparing Environment and Importing Data</a></li>
 <li>5.0.1 <a href="#x.0.1">Import Packages</a></li>
@@ -596,64 +596,60 @@
 <p><br></p>
 <hr />
 <p><a name='x.0'></a></p>
-<h2 id="50-preparing-environment-and-importing-data">5.0 Preparing Environment and Importing Data<a class="headerlink" href="#50-preparing-environment-and-importing-data" title="Permanent link">&para;</a></h2>
+<h2 id="50-preparing-environment-and-importing-data">5.0 Preparing Environment and Importing Data</h2>
 <p><a href="#top">back to top</a></p>
 <p><a name='x.0.1'></a></p>
-<h3 id="501-import-packages">5.0.1 Import Packages<a class="headerlink" href="#501-import-packages" title="Permanent link">&para;</a></h3>
+<h3 id="501-import-packages">5.0.1 Import Packages</h3>
 <p><a href="#top">back to top</a></p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">svm</span>
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
-<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">AdaBoostClassifier</span><span class="p">,</span> <span class="n">GradientBoostingClassifier</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">FloatSlider</span><span class="p">,</span> <span class="n">interactive</span>
-</code></pre></div>
-
+<pre><code class="language-python">from sklearn import svm
+from sklearn.datasets import make_blobs
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import AdaBoostClassifier, GradientBoostingClassifier
+import matplotlib.pyplot as plt
+import numpy as np
+import plotly.express as px
+from ipywidgets import interact, FloatSlider, interactive
+</code></pre>
 <p><a name='x.0.2'></a></p>
-<h3 id="502-load-dataset">5.0.2 Load Dataset<a class="headerlink" href="#502-load-dataset" title="Permanent link">&para;</a></h3>
+<h3 id="502-load-dataset">5.0.2 Load Dataset</h3>
 <p><a href="#top">back to top</a></p>
 <p>For this session, we will use dummy datasets from sklearn.</p>
 <p><a name='x.1'></a></p>
-<h2 id="51-support-vector-machines">5.1 Support Vector Machines<a class="headerlink" href="#51-support-vector-machines" title="Permanent link">&para;</a></h2>
+<h2 id="51-support-vector-machines">5.1 Support Vector Machines</h2>
 <p><a href="#top">back to top</a></p>
 <p>I want us to think back on Session 3 during our discussion on GMMs. GMMs, we will remember, are what we call a <em>generative</em> method. It is because of this, that GMMs are able to generate new data based on the underlying distribution it assumes. SVMs, on the other hand, are a <em>discriminative</em> model. It's perogative is to find the best way to delineate between data clusters. It does this by concerning itself with <em>margin</em>, something we will explore in the following cells.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
-<span class="n">y</span><span class="p">[</span><span class="mi">25</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">y</span><span class="p">[</span><span class="mi">33</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>&lt;matplotlib.collections.PathCollection at 0x7f91f266b310&gt;
-</code></pre></div>
-
+<pre><code class="language-python">from sklearn.datasets import make_blobs
+X, y = make_blobs(random_state=42, centers=2, cluster_std=2.5)
+y[25] = 1
+y[33] = 1
+plt.scatter(X[:,0], X[:,1], c=y, cmap='viridis')
+</code></pre>
+<pre><code>&lt;matplotlib.collections.PathCollection at 0x7f91f266b310&gt;
+</code></pre>
 <p><img alt="png" src="../S7_Boosting_files/S7_Boosting_7_1.png" /></p>
 <p>We can also view this with an interactive plotly graph:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># making the data labels</span>
-<span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">X</span><span class="p">:</span>
-  <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;X: </span><span class="si">{}</span><span class="se">\n</span><span class="s2">index: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array2string</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">round</span><span class="p">()),</span><span class="n">i</span><span class="p">))</span>
-  <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+<pre><code class="language-python"># making the data labels
+labels = []
+i = 0
+for row in X:
+  labels.append(&quot;X: {}\nindex: {}&quot;.format(np.array2string(row.round()),i))
+  i += 1
 
-<span class="c1"># the scatter plot</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">hover_name</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
-                 <span class="n">labels</span><span class="o">=</span><span class="p">{</span>
-                     <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="s2">&quot;Feat 1&quot;</span><span class="p">,</span>
-                     <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="s2">&quot;Feat 2&quot;</span><span class="p">,</span>
-                     <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;Label&quot;</span><span class="p">,</span>
-                 <span class="p">})</span>
-<span class="c1"># updating fig attributes</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
-  <span class="n">autosize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-  <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span>
-  <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
-  <span class="n">title</span><span class="o">=</span><span class="s1">&#39;A Smattering of Points with Outlier (index 45)&#39;</span>
-  <span class="p">)</span>
-</code></pre></div>
-
+# the scatter plot
+fig = px.scatter(x=X[:,0], y=X[:,1], hover_name=labels, color=y,
+                 labels={
+                     &quot;y&quot;: &quot;Feat 1&quot;,
+                     &quot;x&quot;: &quot;Feat 2&quot;,
+                     &quot;color&quot;: &quot;Label&quot;,
+                 })
+# updating fig attributes
+fig.update_layout(
+  autosize=False,
+  width=800,
+  height=500,
+  title='A Smattering of Points with Outlier (index 45)'
+  )
+</code></pre>
 <p><html>
 <head><meta charset="utf-8" /></head></p>
 <body>
@@ -703,247 +699,225 @@ if (outputEl) {{
         </div>
 </body>
 <p></html></p>
-<div class="codehilite"><pre><span></span><code><span class="n">clf</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">.01</span><span class="p">)</span>
-<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>SVC(C=0.01, break_ties=False, cache_size=200, class_weight=None, coef0=0.0,
-    decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;, kernel=&#39;linear&#39;,
+<pre><code class="language-python">clf = svm.SVC(kernel='linear', C=.01)
+clf.fit(X, y)
+</code></pre>
+<pre><code>SVC(C=0.01, break_ties=False, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma='scale', kernel='linear',
     max_iter=-1, probability=False, random_state=None, shrinking=True,
     tol=0.001, verbose=False)
-</code></pre></div>
+</code></pre>
+<pre><code class="language-python">def plot_boundaries(X, clf, ax=False):
+  plot_step = 0.02
+  x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+  y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+  xx, yy = np.meshgrid(np.arange(x_min, x_max, plot_step),
+                        np.arange(y_min, y_max, plot_step))
 
-<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_boundaries</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-  <span class="n">plot_step</span> <span class="o">=</span> <span class="mf">0.02</span>
-  <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
-  <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
-  <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">plot_step</span><span class="p">),</span>
-                        <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">,</span> <span class="n">plot_step</span><span class="p">))</span>
+  Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
+  Z = Z.reshape(xx.shape)
 
-  <span class="n">Z</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">yy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
-  <span class="n">Z</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+  if ax:
+    cs = ax.contourf(xx, yy, Z, cmap='viridis', alpha=0.2)
+    ax.scatter(X[:,0], X[:,1], c=y, cmap='viridis', edgecolor='grey', alpha=0.9)
+    return ax
+  else:
+    cs = plt.contourf(xx, yy, Z, cmap='viridis', alpha=0.2)
+    plt.scatter(X[:,0], X[:,1], c=y, cmap='viridis', edgecolor='grey', alpha=0.9)
 
-  <span class="k">if</span> <span class="n">ax</span><span class="p">:</span>
-    <span class="n">cs</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">ax</span>
-  <span class="k">else</span><span class="p">:</span>
-    <span class="n">cs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">plot_boundaries</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
-</code></pre></div>
-
+</code></pre>
+<pre><code class="language-python">plot_boundaries(X, clf)
+</code></pre>
 <p><img alt="png" src="../S7_Boosting_files/S7_Boosting_12_0.png" /></p>
 <p><a name='x.1.1'></a></p>
-<h3 id="511-margin-maximization">5.1.1 Margin Maximization<a class="headerlink" href="#511-margin-maximization" title="Permanent link">&para;</a></h3>
+<h3 id="511-margin-maximization">5.1.1 Margin Maximization</h3>
 <p><a href="#top">back to top</a></p>
 <p>We can change how the learner defines the boarders by the 'C' parameter, what is happening here?</p>
-<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">.05</span><span class="p">)</span>
-<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">plot_boundaries</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<pre><code class="language-python">fig, ax = plt.subplots(1, 2, figsize=(10,5))
+clf = svm.SVC(kernel='linear', C=.05)
+clf.fit(X, y)
+plot_boundaries(X, clf, ax[0])
 
-<span class="n">clf</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">plot_boundaries</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f91f0ccf110&gt;
-</code></pre></div>
-
+clf = svm.SVC(kernel='linear', C=1)
+clf.fit(X, y)
+plot_boundaries(X, clf, ax[1])
+</code></pre>
+<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f91f0ccf110&gt;
+</code></pre>
 <p><img alt="png" src="../S7_Boosting_files/S7_Boosting_14_1.png" /></p>
 <p>We can see more clearly what is happening when we view the <em>margin</em> around the decision boundary, where point labels are used to determine the label space.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="k">def</span> <span class="nf">plot_svm</span><span class="p">(</span><span class="n">penalty</span><span class="p">,</span> <span class="n">subplot</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-  <span class="n">clf</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="n">penalty</span><span class="p">)</span>
-  <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<pre><code class="language-python">fig, ax = plt.subplots(1, 2, figsize=(10,5))
+def plot_svm(penalty, subplot, X, y):
+  clf = svm.SVC(kernel='linear', C=penalty)
+  clf.fit(X, y)
 
-  <span class="c1"># get the separating hyperplane</span>
-  <span class="n">w</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-  <span class="n">a</span> <span class="o">=</span> <span class="o">-</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-  <span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-  <span class="n">yy</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">xx</span> <span class="o">-</span> <span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+  # get the separating hyperplane
+  w = clf.coef_[0]
+  a = -w[0] / w[1]
+  xx = np.linspace(-5, 5)
+  yy = a * xx - (clf.intercept_[0]) / w[1]
 
-  <span class="c1"># plot the parallels to the separating hyperplane that pass through the</span>
-  <span class="c1"># support vectors (margin away from hyperplane in direction</span>
-  <span class="c1"># perpendicular to hyperplane). This is sqrt(1+a^2) away vertically in</span>
-  <span class="c1"># 2-d.</span>
-  <span class="n">margin</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">coef_</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
-  <span class="n">yy_down</span> <span class="o">=</span> <span class="n">yy</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">a</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">margin</span>
-  <span class="n">yy_up</span> <span class="o">=</span> <span class="n">yy</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">a</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">margin</span>
+  # plot the parallels to the separating hyperplane that pass through the
+  # support vectors (margin away from hyperplane in direction
+  # perpendicular to hyperplane). This is sqrt(1+a^2) away vertically in
+  # 2-d.
+  margin = 1 / np.sqrt(np.sum(clf.coef_ ** 2))
+  yy_down = yy - np.sqrt(1 + a ** 2) * margin
+  yy_up = yy + np.sqrt(1 + a ** 2) * margin
 
-  <span class="c1"># plot the line, the points, and the nearest vectors to the plane</span>
-  <span class="c1"># plt.clf()</span>
-  <span class="n">subplot</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="s1">&#39;k-&#39;</span><span class="p">)</span>
-  <span class="n">subplot</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_down</span><span class="p">,</span> <span class="s1">&#39;k--&#39;</span><span class="p">)</span>
-  <span class="n">subplot</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_up</span><span class="p">,</span> <span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+  # plot the line, the points, and the nearest vectors to the plane
+  # plt.clf()
+  subplot.plot(xx, yy, 'k-')
+  subplot.plot(xx, yy_down, 'k--')
+  subplot.plot(xx, yy_up, 'k--')
 
-  <span class="n">subplot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">clf</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
-              <span class="n">facecolors</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-  <span class="n">subplot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
-              <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">)</span>
+  subplot.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=80,
+              facecolors='none', zorder=10, edgecolors='k')
+  subplot.scatter(X[:, 0], X[:, 1], c=y, zorder=10, cmap='viridis',
+              edgecolors='grey')
 
-  <span class="n">subplot</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
-  <span class="n">plot_step</span> <span class="o">=</span> <span class="mf">0.02</span>
-  <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
-  <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
-  <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">plot_step</span><span class="p">),</span>
-                        <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">,</span> <span class="n">plot_step</span><span class="p">))</span>
+  subplot.axis('tight')
+  plot_step = 0.02
+  x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+  y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+  xx, yy = np.meshgrid(np.arange(x_min, x_max, plot_step),
+                        np.arange(y_min, y_max, plot_step))
 
-  <span class="n">Z</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">yy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
-  <span class="n">Z</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-  <span class="n">cs</span> <span class="o">=</span> <span class="n">subplot</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+  Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
+  Z = Z.reshape(xx.shape)
+  cs = subplot.contourf(xx, yy, Z, cmap='viridis', alpha=0.2)
 
-  <span class="n">subplot</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
-  <span class="n">subplot</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">)</span>
-  <span class="n">subplot</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;SVC, C=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">penalty</span><span class="p">))</span>
+  subplot.set_xlim(x_min, x_max)
+  subplot.set_ylim(y_min, y_max)
+  subplot.set_title('SVC, C={}'.format(penalty))
 
-<span class="k">for</span> <span class="n">penalty</span><span class="p">,</span> <span class="n">subplot</span> <span class="ow">in</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])):</span>
-  <span class="n">plot_svm</span><span class="p">(</span><span class="n">penalty</span><span class="p">,</span> <span class="n">subplot</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+for penalty, subplot in ((1, ax[0]), (0.05, ax[1])):
+  plot_svm(penalty, subplot, X, y)
 
 
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div>
-
+plt.show()
+</code></pre>
 <p><img alt="png" src="../S7_Boosting_files/S7_Boosting_16_0.png" /></p>
 <p>In the above diagrams, the circled datapoints affect the <em>margin</em> between the two class labels. The SVM algorithm is trying to maximize the margin. The dotted lines are called the <em>support vectors</em> and are defined by the outermost points from the decision boundary that fall within the margin.</p>
 <p>Effectively, the higher we set the penalty, C, the more we are saying "Don't trust the overall distribution so much, just do your best to segment the local points. A lower C takes into account many more points in the sampled data near the boundary.</p>
 <blockquote>
 <p>Do the points falling outside either of the support vectors affect the decision boundary?</p>
 </blockquote>
-<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">changing_margins</span><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
-  <span class="n">fig</span><span class="p">,</span> <span class="n">subplot</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
-  <span class="n">plot_svm</span><span class="p">(</span><span class="n">penalty</span><span class="p">,</span> <span class="n">subplot</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-  <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">myslider</span> <span class="o">=</span> <span class="n">FloatSlider</span><span class="p">(</span>
-    <span class="n">value</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
-    <span class="nb">min</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
-    <span class="nb">max</span><span class="o">=</span><span class="mf">3.01</span><span class="p">,</span>
-    <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
-    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;C:&#39;</span><span class="p">,</span>
-    <span class="n">continuous_update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span>
-    <span class="n">readout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">def changing_margins(penalty=0.1):
+  fig, subplot = plt.subplots(1, 1, figsize=(7,7))
+  plot_svm(penalty, subplot, X, y)
+  fig.show()
+</code></pre>
+<pre><code class="language-python">myslider = FloatSlider(
+    value=0.1,
+    min=0.1,
+    max=3.01,
+    step=0.1,
+    description='C:',
+    continuous_update=True,
+    orientation='horizontal',
+    readout=True,
+)
+</code></pre>
 <p>At C=0.1 5 purple and 5 yellow points fall within the decision margin, and are taken into consideration when setting the decision boundary. At C=3.0 this decreases to the nearest 2 purple and 3 yellow. </p>
-<div class="codehilite"><pre><span></span><code><span class="n">int_plot</span> <span class="o">=</span> <span class="n">interactive</span><span class="p">(</span><span class="n">changing_margins</span><span class="p">,</span><span class="n">penalty</span><span class="o">=</span><span class="n">myslider</span><span class="p">)</span>
-<span class="n">output</span> <span class="o">=</span> <span class="n">int_plot</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">output</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="s1">&#39;350px&#39;</span>
-<span class="n">int_plot</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>interactive(children=(FloatSlider(value=0.1, description=&#39;C:&#39;, max=3.01, min=0.1), Output(layout=Layout(height…
-</code></pre></div>
-
+<pre><code class="language-python">int_plot = interactive(changing_margins,penalty=myslider)
+output = int_plot.children[-1]
+output.layout.height = '350px'
+int_plot
+</code></pre>
+<pre><code>interactive(children=(FloatSlider(value=0.1, description='C:', max=3.01, min=0.1), Output(layout=Layout(height…
+</code></pre>
 <p><a name='x.1.2'></a></p>
-<h3 id="512-kernel-svm">5.1.2 Kernel SVM<a class="headerlink" href="#512-kernel-svm" title="Permanent link">&para;</a></h3>
+<h3 id="512-kernel-svm">5.1.2 Kernel SVM</h3>
 <p><a href="#top">back to top</a></p>
 <p>When we were looking at KNN and GMM, we saw that GMM had the added advantage of non-linear decision boundaries. We can achieve a similar advantage with kernel based SVMs.</p>
 <p>First, I want us to revisit some ideas from the session on feature engineering.</p>
 <p>How do we leverage linear based classifiers with non-linear real boundaries between clusters? We create new features.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_circles</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_circles</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">.01</span><span class="p">)</span>
-<span class="n">relabel</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]))</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">relabel</span><span class="o">.</span><span class="n">get</span><span class="p">)(</span><span class="n">y</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>&lt;matplotlib.collections.PathCollection at 0x7f91f2672310&gt;
-</code></pre></div>
-
+<pre><code class="language-python">from sklearn.datasets import make_circles
+X, y = make_circles(random_state=42, noise=.01)
+relabel = dict(zip([0,1,2,3],[0,1,0,1]))
+y = np.vectorize(relabel.get)(y)
+plt.scatter(X[:,0], X[:,1], c=y, cmap='viridis')
+</code></pre>
+<pre><code>&lt;matplotlib.collections.PathCollection at 0x7f91f2672310&gt;
+</code></pre>
 <p><img alt="png" src="../S7_Boosting_files/S7_Boosting_24_1.png" /></p>
 <p>We run into hardtimes with the raw linear SVM:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">plot_svm</span><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">subplot</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">fig, ax = plt.subplots(1, 1, figsize=(5,5))
+plot_svm(penalty=0.1, subplot=ax, X=X, y=y)
+</code></pre>
 <p><img alt="png" src="../S7_Boosting_files/S7_Boosting_26_0.png" /></p>
-<h4 id="5121-exercise-engineer-features-for-linear-svm">5.1.2.1 Exercise: Engineer Features for Linear SVM<a class="headerlink" href="#5121-exercise-engineer-features-for-linear-svm" title="Permanent link">&para;</a></h4>
+<h4 id="5121-exercise-engineer-features-for-linear-svm">5.1.2.1 Exercise: Engineer Features for Linear SVM</h4>
 <p>Create a new X3 feature that is a linear combination of X1 and X2. Separate this new represenation using Linear SVM</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Code Cell for Exercise 5.1.2.1</span>
-</code></pre></div>
-
+<pre><code class="language-python"># Code Cell for Exercise 5.1.2.1
+</code></pre>
 <p>Plot along this 3rd dimension, to show we can make an easy distinction between the two classes with a linear hyperplane:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Code Cell for Exercise 5.1.2.1</span>
-</code></pre></div>
-
+<pre><code class="language-python"># Code Cell for Exercise 5.1.2.1
+</code></pre>
 <p>But the guesswork involved in what features to engineer, as well as the computational cost to determine them, can be a real deal breaker. Kernel SVMs introduce the so-called <em>kernel trick</em>, where we learn the classification in a higher-dimensional space without actually computing the representation. Instead, it works by directly computing the distance of the datapoints in the new space.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">clf</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">plot_boundaries</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">clf = svm.SVC(kernel='rbf', C=0.1)
+clf.fit(X, y)
+plot_boundaries(X, clf)
+</code></pre>
 <p><img alt="png" src="../S7_Boosting_files/S7_Boosting_32_0.png" /></p>
 <p><a name='x.2'></a></p>
-<h2 id="52-boosting">5.2 Boosting<a class="headerlink" href="#52-boosting" title="Permanent link">&para;</a></h2>
+<h2 id="52-boosting">5.2 Boosting</h2>
 <p><a href="#top">back to top</a></p>
 <p>The last supervised learning algorithms we will cover, are the boosting learners. Similar to Bagging, Boosting algorithms leverage the idea of training on variations of the available data, only this time they do so in serial rather than parallel.</p>
 <p>What do I mean by this?</p>
 <p>It's a little nuanced, but the idea is straight forward. The first model trains on the dataset, it generates some error. The datapoints creating the greatest amount of error are emphasized in the second round of training, and so on, as the sequence of models proceeds, ever troublesome datapoints receive ever increasing influence. </p>
 <p><a name='x.2.1'></a></p>
-<h3 id="521-adaboost">5.2.1 AdaBoost<a class="headerlink" href="#521-adaboost" title="Permanent link">&para;</a></h3>
+<h3 id="521-adaboost">5.2.1 AdaBoost</h3>
 <p><a href="#top">Back to Top</a></p>
 <p>AdaBoost is the first boosting learner. It's <em>weak learners</em> the things that are stitched together in serial, are typically <em>stumps</em> or really shallow decision trees</p>
-<div class="codehilite"><pre><span></span><code><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_circles</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">.01</span><span class="p">)</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">AdaBoostClassifier</span><span class="p">(</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
-<span class="n">plot_boundaries</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">X, y = make_circles(random_state=42, noise=.01)
+clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=3))
+clf.fit(X,y)
+plot_boundaries(X, clf)
+</code></pre>
 <p><img alt="png" src="../S7_Boosting_files/S7_Boosting_35_0.png" /></p>
-<div class="codehilite"><pre><span></span><code><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">AdaBoostClassifier</span><span class="p">(</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
-<span class="n">plot_boundaries</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">X, y = make_blobs(random_state=42, centers=2, cluster_std=2.5)
+clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=5))
+clf.fit(X,y)
+plot_boundaries(X, clf)
+</code></pre>
 <p><img alt="png" src="../S7_Boosting_files/S7_Boosting_36_0.png" /></p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_moons</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_moons</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">.05</span><span class="p">)</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">AdaBoostClassifier</span><span class="p">()</span>
-<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
-<span class="n">plot_boundaries</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">from sklearn.datasets import make_moons
+X, y = make_moons(random_state=42, noise=.05)
+clf = AdaBoostClassifier()
+clf.fit(X,y)
+plot_boundaries(X, clf)
+</code></pre>
 <p><img alt="png" src="../S7_Boosting_files/S7_Boosting_37_0.png" /></p>
 <p><a name='x.2.1'></a></p>
-<h3 id="521-gradient-boosting">5.2.1 Gradient Boosting<a class="headerlink" href="#521-gradient-boosting" title="Permanent link">&para;</a></h3>
+<h3 id="521-gradient-boosting">5.2.1 Gradient Boosting</h3>
 <p><a href="#top">Back to Top</a></p>
 <p><em>Gradient Boosting</em> builds on the idea of <em>AdaBoost</em>. The term <em>gradient</em> implies that 2 or more derivatives are being taken somewhere. What this is referring to, is while AdaBoost is subject to a predefined loss function, Gradient Boosting can take in any arbitrary (as long as it is differentiable) loss function, to coordinate the training of its weak learners.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_circles</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">.01</span><span class="p">)</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;deviance&#39;</span><span class="p">)</span>
-<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
-<span class="n">plot_boundaries</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">X, y = make_circles(random_state=42, noise=.01)
+clf = GradientBoostingClassifier(loss='deviance')
+clf.fit(X,y)
+plot_boundaries(X, clf)
+</code></pre>
 <p><img alt="png" src="../S7_Boosting_files/S7_Boosting_39_0.png" /></p>
-<div class="codehilite"><pre><span></span><code><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">GradientBoostingClassifier</span><span class="p">()</span>
-<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
-<span class="n">plot_boundaries</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">X, y = make_blobs(random_state=42, centers=2, cluster_std=2.5)
+clf = GradientBoostingClassifier()
+clf.fit(X,y)
+plot_boundaries(X, clf)
+</code></pre>
 <p><img alt="png" src="../S7_Boosting_files/S7_Boosting_40_0.png" /></p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_moons</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_moons</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">.05</span><span class="p">)</span>
-<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
-<span class="n">plot_boundaries</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">from sklearn.datasets import make_moons
+X, y = make_moons(random_state=42, noise=.05)
+clf.fit(X,y)
+plot_boundaries(X, clf)
+</code></pre>
 <p><img alt="png" src="../S7_Boosting_files/S7_Boosting_41_0.png" /></p>
-<h1 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h1>
+<h1 id="references">References</h1>
 <p><a href="#top">back to top</a></p>
 <ul>
 <li><a href="https://medium.com/swlh/machine-learning-generative-vs-discriminative-models-9d0fdd156296#:~:text=Commonly%20used%20discriminative%20learning%20algorithms,random%20forest%20and%20gradient%20boosting.&amp;text=The%20most%20commonly%20used%20generative%20algorithm%20is%20the%20naive%20Bayes%20classifier.">Generative vs Discriminative Models</a></li>
 </ul>
-<div class="codehilite"><pre><span></span><code>
-</code></pre></div>
+<pre><code class="language-python">
+</code></pre>
 
               
             </article>
@@ -1013,6 +987,8 @@ if (outputEl) {{
     
     
       <script src="../assets/javascripts/bundle.6baa0517.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       
     
   </body>

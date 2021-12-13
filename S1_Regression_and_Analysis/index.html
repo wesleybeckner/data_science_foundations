@@ -1128,7 +1128,7 @@
                 
 
 <p><a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/S1_Regression_and_Analysis.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
-<h1 id="session-1-regression-and-analysis">Session 1: Regression and Analysis<a class="headerlink" href="#session-1-regression-and-analysis" title="Permanent link">&para;</a></h1>
+<h1 id="session-1-regression-and-analysis">Session 1: Regression and Analysis</h1>
 <p><strong>Instructor</strong>: Wesley Beckner</p>
 <p><strong>Contact</strong>: wesleybeckner@gmail.com</p>
 <hr />
@@ -1137,41 +1137,37 @@
 <p><br></p>
 <hr />
 <p><a name='x.0'></a></p>
-<h2 id="10-preparing-environment-and-importing-data">1.0 Preparing Environment and Importing Data<a class="headerlink" href="#10-preparing-environment-and-importing-data" title="Permanent link">&para;</a></h2>
+<h2 id="10-preparing-environment-and-importing-data">1.0 Preparing Environment and Importing Data</h2>
 <p><a href="#top">back to top</a></p>
 <p><a name='x.0.1'></a></p>
-<h3 id="101-import-packages">1.0.1 Import Packages<a class="headerlink" href="#101-import-packages" title="Permanent link">&para;</a></h3>
+<h3 id="101-import-packages">1.0.1 Import Packages</h3>
 <p><a href="#top">back to top</a></p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Import pandas, pyplot, ipywidgets</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>  
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span>
+<pre><code class="language-python"># Import pandas, pyplot, ipywidgets
+import pandas as pd  
+from matplotlib import pyplot as plt
+from ipywidgets import interact
 
-<span class="c1"># Import Scikit-Learn library for the regression models</span>
-<span class="kn">import</span> <span class="nn">sklearn</span>         
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
+# Import Scikit-Learn library for the regression models
+import sklearn         
+from sklearn import linear_model
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score
 
-<span class="c1"># for enrichment topics</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-</code></pre></div>
-
-<h3 id="102-load-dataset">1.0.2 Load Dataset<a class="headerlink" href="#102-load-dataset" title="Permanent link">&para;</a></h3>
+# for enrichment topics
+import seaborn as sns
+import numpy as np
+</code></pre>
+<h3 id="102-load-dataset">1.0.2 Load Dataset</h3>
 <p><a href="#top">back to top</a></p>
 <p>For our discussion on regression and descriptive statistics today we will use a well known dataset of different wines and their quality ratings</p>
-<div class="codehilite"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/wesleybeckner/&quot;</span>\
-                 <span class="s2">&quot;ds_for_engineers/main/data/wine_quality/winequalityN.csv&quot;</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">shape</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>(6497, 13)
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-</code></pre></div>
-
+<pre><code class="language-python">df = pd.read_csv(&quot;https://raw.githubusercontent.com/wesleybeckner/&quot;\
+                 &quot;ds_for_engineers/main/data/wine_quality/winequalityN.csv&quot;)
+df.shape
+</code></pre>
+<pre><code>(6497, 13)
+</code></pre>
+<pre><code class="language-python">df.describe()
+</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1329,7 +1325,7 @@
 </table>
 </div>
 
-<h2 id="11-what-is-regression">1.1 What is regression?<a class="headerlink" href="#11-what-is-regression" title="Permanent link">&para;</a></h2>
+<h2 id="11-what-is-regression">1.1 What is regression?</h2>
 <p>It is the process of finding a relationship between <strong><em>dependent</em></strong> and <strong><em>independent</em></strong> variables to find trends in data. This abstract definition means that you have one variable (the dependent variable) which depends on one or more variables (the independent variables). One of the reasons for which we want to regress data is to understand whether there is a trend between two variables. </p>
 <p><strong>Housing Prices Example</strong></p>
 <p>We can imagine this scenario with housing prices. Envision a <strong><em>mixed</em></strong> dataset of <strong><em>continuous</em></strong> and <strong><em>discrete</em></strong> independent variables. Some features could be continuous, floating point values like location ranking and housing condition. Others could be descrete like the number of rooms or bathrooms. We could take these features and use them to predict a house value. This would be a <strong><em>regression</em></strong> model.</p>
@@ -1337,8 +1333,8 @@
 <img src="https://raw.githubusercontent.com/wesleybeckner/technology_explorers/main/assets/machine_learning/ML3.png" width=1000px></img>
 </p>
 
-<h2 id="12-linear-regression-fitting-with-scikit-learn">1.2  Linear regression fitting with scikit-learn<a class="headerlink" href="#12-linear-regression-fitting-with-scikit-learn" title="Permanent link">&para;</a></h2>
-<h4 id="exercise-1-rudimentary-eda">🏋️ Exercise 1: rudimentary EDA<a class="headerlink" href="#exercise-1-rudimentary-eda" title="Permanent link">&para;</a></h4>
+<h2 id="12-linear-regression-fitting-with-scikit-learn">1.2  Linear regression fitting with scikit-learn</h2>
+<h4 id="exercise-1-rudimentary-eda">🏋️ Exercise 1: rudimentary EDA</h4>
 <p>What does the data look like? Recall how to visualize data in a pandas dataframe </p>
 <ul>
 <li> for every column calculate the
@@ -1353,10 +1349,9 @@ and organize this into a new dataframe
 </ul>
 
 <p><em>note:</em> pearsons is just one type of correlation, another available to us <strong><em>spearman</em></strong> which differs from pearsons in that it depends on ranked values rather than their direct quantities, you can read more <a href="https://support.minitab.com/en-us/minitab-express/1/help-and-how-to/modeling-statistics/regression/supporting-topics/basics/a-comparison-of-the-pearson-and-spearman-correlation-methods/">here</a></p>
-<div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>type                     0
+<pre><code class="language-python">df.isnull().sum()
+</code></pre>
+<pre><code>type                     0
 fixed acidity           10
 volatile acidity         8
 citric acid              3
@@ -1370,71 +1365,67 @@ sulphates                4
 alcohol                  0
 quality                  0
 dtype: int64
-</code></pre></div>
+</code></pre>
+<pre><code class="language-python"># Cell for Exercise 1
 
-<div class="codehilite"><pre><span></span><code><span class="c1"># Cell for Exercise 1</span>
+# part A 
+# using df.&lt;method&gt; define the following four variables with the results from
+# skew(), kurtosis(), corr() (and selecting for quality), and isnull()
+# for isnull() you'll notice the return is a dataframe of booleans. we would
+# like to simply know the number of null values for each column. change the
+# return of isnull() using the sum() method
 
-<span class="c1"># part A </span>
-<span class="c1"># using df.&lt;method&gt; define the following four variables with the results from</span>
-<span class="c1"># skew(), kurtosis(), corr() (and selecting for quality), and isnull()</span>
-<span class="c1"># for isnull() you&#39;ll notice the return is a dataframe of booleans. we would</span>
-<span class="c1"># like to simply know the number of null values for each column. change the</span>
-<span class="c1"># return of isnull() using the sum() method</span>
+# skew =
+# kurt =
+# pear =
+# null =
 
-<span class="c1"># skew =</span>
-<span class="c1"># kurt =</span>
-<span class="c1"># pear =</span>
-<span class="c1"># null =</span>
-
-<span class="c1"># part B</span>
-<span class="c1"># on line 13, put these results in a list using square brackets and call </span>
-<span class="c1"># pandas.DataFrame on the list to make your new DataFrame! store it under the</span>
-<span class="c1"># variable name dff</span>
-
-
-
-<span class="c1"># part C</span>
-<span class="c1"># take the transpose of this DataFrame using dff.T. reassign dff to this copy</span>
+# part B
+# on line 13, put these results in a list using square brackets and call 
+# pandas.DataFrame on the list to make your new DataFrame! store it under the
+# variable name dff
 
 
 
-<span class="c1"># part D</span>
-<span class="c1"># set the column names to &#39;skew&#39;, &#39;kurtosis&#39;, &#39;pearsons _quality&#39;, and </span>
-<span class="c1"># &#39;null count&#39; using dff.columns</span>
+# part C
+# take the transpose of this DataFrame using dff.T. reassign dff to this copy
 
 
 
-<span class="c1"># Now return dff to the output to view your hand work</span>
-<span class="c1"># dff</span>
-</code></pre></div>
+# part D
+# set the column names to 'skew', 'kurtosis', 'pearsons _quality', and 
+# 'null count' using dff.columns
 
+
+
+# Now return dff to the output to view your hand work
+# dff
+</code></pre>
 <p>I have gone ahead and repeated this exercise with the red vs white wine types:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">red</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">]</span>
-<span class="n">wht</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;white&#39;</span><span class="p">]</span>
+<pre><code class="language-python">red = df.loc[df['type'] == 'red']
+wht = df.loc[df['type'] == 'white']
 
-<span class="k">def</span> <span class="nf">get_summary</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-  <span class="n">skew</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">skew</span><span class="p">()</span>
-  <span class="n">kurt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">kurtosis</span><span class="p">()</span>
-  <span class="n">pear</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">()[</span><span class="s1">&#39;quality&#39;</span><span class="p">]</span>
-  <span class="n">null</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-  <span class="n">med</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
-  <span class="n">men</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+def get_summary(df):
+  skew = df.skew()
+  kurt = df.kurtosis()
+  pear = df.corr()['quality']
+  null = df.isnull().sum()
+  med = df.median()
+  men = df.mean()
 
-  <span class="n">dff</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">skew</span><span class="p">,</span> <span class="n">kurt</span><span class="p">,</span> <span class="n">pear</span><span class="p">,</span> <span class="n">null</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">men</span><span class="p">])</span>
-  <span class="n">dff</span> <span class="o">=</span> <span class="n">dff</span><span class="o">.</span><span class="n">T</span>
-  <span class="n">dff</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;skew&#39;</span><span class="p">,</span> <span class="s1">&#39;kurtosis&#39;</span><span class="p">,</span> <span class="s1">&#39;pearsons _quality&#39;</span><span class="p">,</span> <span class="s1">&#39;null count&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;mean&#39;</span><span class="p">]</span>
-  <span class="k">return</span> <span class="n">dff</span>
+  dff = pd.DataFrame([skew, kurt, pear, null, med, men])
+  dff = dff.T
+  dff.columns = ['skew', 'kurtosis', 'pearsons _quality', 'null count', 'median',
+                'mean']
+  return dff
 
-<span class="n">dffr</span> <span class="o">=</span> <span class="n">get_summary</span><span class="p">(</span><span class="n">red</span><span class="p">)</span>
-<span class="n">dffw</span> <span class="o">=</span> <span class="n">get_summary</span><span class="p">(</span><span class="n">wht</span><span class="p">)</span>
+dffr = get_summary(red)
+dffw = get_summary(wht)
 
-<span class="n">desc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">dffr</span><span class="p">,</span> <span class="n">dffw</span><span class="p">],</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">])</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">desc</span>
-</code></pre></div>
-
+desc = pd.concat([dffr, dffw], keys=['red', 'white'])
+</code></pre>
+<pre><code class="language-python">desc
+</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1703,24 +1694,21 @@ dtype: int64
 </table>
 </div>
 
-<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">my_fig</span><span class="p">(</span><span class="n">metric</span><span class="o">=</span><span class="n">desc</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
-  <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">desc</span><span class="p">[</span><span class="n">metric</span><span class="p">])</span><span class="o">.</span><span class="n">unstack</span><span class="p">()[</span><span class="n">metric</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;barh&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">interact</span><span class="p">(</span><span class="n">my_fig</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>interactive(children=(Dropdown(description=&#39;metric&#39;, options=(&#39;skew&#39;, &#39;kurtosis&#39;, &#39;pearsons _quality&#39;, &#39;null c…
+<pre><code class="language-python">def my_fig(metric=desc.columns):
+  fig, ax = plt.subplots(1, 1, figsize=(10,10))
+  pd.DataFrame(desc[metric]).unstack()[metric].T.plot(kind='barh', ax=ax)
+</code></pre>
+<pre><code class="language-python">interact(my_fig)
+</code></pre>
+<pre><code>interactive(children=(Dropdown(description='metric', options=('skew', 'kurtosis', 'pearsons _quality', 'null c…
 
 
 
 
 
 &lt;function __main__.my_fig&gt;
-</code></pre></div>
-
-<h4 id="question-1-discussion-around-eda-plot">🙋 Question 1: Discussion Around EDA Plot<a class="headerlink" href="#question-1-discussion-around-eda-plot" title="Permanent link">&para;</a></h4>
+</code></pre>
+<h4 id="question-1-discussion-around-eda-plot">🙋 Question 1: Discussion Around EDA Plot</h4>
 <p>What do we think of this plot?</p>
 <blockquote>
 <p><code>metric = mean</code>, the cholrides values <br>
@@ -1728,10 +1716,9 @@ dtype: int64
 <code>metric = pearsons _quality</code>, <em>magnitudes</em> and <em>directions</em> <br>
 How to improve the plot, what other plots would we like to see?</p>
 </blockquote>
-<div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="p">[</span><span class="s1">&#39;chlorides&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>count    6495.000000
+<pre><code class="language-python">df['chlorides'].describe()
+</code></pre>
+<pre><code>count    6495.000000
 mean        0.056042
 std         0.035036
 min         0.009000
@@ -1740,21 +1727,17 @@ min         0.009000
 75%         0.065000
 max         0.611000
 Name: chlorides, dtype: float64
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;chlorides&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;kde&#39;</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">.61</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>(0.0, 0.61)
-</code></pre></div>
-
+</code></pre>
+<pre><code class="language-python">fig, ax = plt.subplots(1,1,figsize=(10,10))
+df['chlorides'].plot(kind='kde',ax=ax)
+ax.set_xlim(0,.61)
+</code></pre>
+<pre><code>(0.0, 0.61)
+</code></pre>
 <p><img alt="png" src="../S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_21_1.png" /></p>
-<div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="p">[</span><span class="s1">&#39;chlorides&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)[:</span><span class="mi">50</span><span class="p">]</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>5156    0.611
+<pre><code class="language-python">df['chlorides'].sort_values(ascending=False)[:50]
+</code></pre>
+<pre><code>5156    0.611
 5049    0.610
 5004    0.467
 4979    0.464
@@ -1805,65 +1788,60 @@ Name: chlorides, dtype: float64
 4497    0.212
 1835    0.211
 Name: chlorides, dtype: float64
-</code></pre></div>
-
-<h3 id="122-visualizing-the-data-set-motivating-regression-analysis">1.2.2 Visualizing the data set - motivating regression analysis<a class="headerlink" href="#122-visualizing-the-data-set-motivating-regression-analysis" title="Permanent link">&para;</a></h3>
+</code></pre>
+<h3 id="122-visualizing-the-data-set-motivating-regression-analysis">1.2.2 Visualizing the data set - motivating regression analysis</h3>
 <p>We can create a scatter plot of fixed acidity vs density of red wine in the dataset using <code>df.plot()</code> and see that there appears to be a general trend between the two features:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;red&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;fixed acidity&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> 
-                                 <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f3158ad7290&gt;
-</code></pre></div>
-
+<pre><code class="language-python">fig, ax = plt.subplots(1, 1, figsize=(5,5))
+df.loc[df['type'] == 'red'].plot(x='fixed acidity', y='density', ax=ax, 
+                                 ls='', marker='.')
+</code></pre>
+<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f3158ad7290&gt;
+</code></pre>
 <p><img alt="png" src="../S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_25_1.png" /></p>
-<p>\[ y(x)= m \cdot x + b \]</p>
-<h3 id="123-estimating-the-regression-coefficients">1.2.3 Estimating the regression coefficients<a class="headerlink" href="#123-estimating-the-regression-coefficients" title="Permanent link">&para;</a></h3>
+<h3 id="123-estimating-the-regression-coefficients">1.2.3 Estimating the regression coefficients</h3>
 <p>It looks like density increases with fixed acidity following a line, maybe something like</p>
-<p>$$y(x)= m \cdot x + b  \;\;\;\;\;\;\;\;\sf{eq. 1}$$ </p>
-<p>with $y=\sf density$, $x=\sf fixed acidity$, and $m$ the slope and $b$ the intercept. </p>
+<p>
+<script type="math/tex; mode=display">y(x)= m \cdot x + b  \;\;\;\;\;\;\;\;\sf{eq. 1}</script>
+</p>
+<p>with <script type="math/tex"> y=\sf density </script>, <script type="math/tex">x=\sf fixed acidity</script>, and <script type="math/tex">m</script> the slope and <script type="math/tex">b</script> the intercept. </p>
 <p>To solve the problem, we need to find the values of $b$ and $m$ in equation 1 to best fit the data. This is called <strong>linear regression</strong>.</p>
 <p>In linear regression our goal is to minimize the error between computed values of positions $y^{\sf calc}(x_i)\equiv y^{\sf calc}_i$ and known values $y^{\sf exact}(x_i)\equiv y^{\sf exact}_i$, i.e. find $b$ and $m$ which lead to lowest value of</p>
-<p>$$\epsilon (m,b) =SS_{\sf res}=\sum_{i=1}^{N}\left(y^{\sf exact}<em>i - y^{\sf calc}_i\right)^2 = \sum</em>{i=1}^{N}\left(y^{\sf exact}_i - m\cdot x_i - b \right)^2\;\;\;\;\;\;\;\;\;\;\;\sf{eq. 2}$$</p>
+<p>
+<script type="math/tex; mode=display">\epsilon (m,b) =SS_{\sf res}=\sum_{i=1}^{N}\left(y^{\sf exact}_i - y^{\sf calc}_i\right)^2 = \sum_{i=1}^{N}\left(y^{\sf exact}_i - m\cdot x_i - b \right)^2\;\;\;\;\;\;\;\;\;\;\;\sf{eq. 2}</script>
+</p>
 <p>To find out more see e.g. https://en.wikipedia.org/wiki/Simple_linear_regression</p>
-<h4 id="question-2-linear-regression-loss-function">🙋 Question 2: linear regression loss function<a class="headerlink" href="#question-2-linear-regression-loss-function" title="Permanent link">&para;</a></h4>
+<h4 id="question-2-linear-regression-loss-function">🙋 Question 2: linear regression loss function</h4>
 <blockquote>
 <p>Do we always want <em>m</em> and <em>b</em> to be large positive numbers so as to minimize eq. 2? </p>
 </blockquote>
 <p>Luckily <a href="https://scikit-learn.org/stable/">scikit-learn</a> contains many functions related to regression including <a href="https://scikit-learn.org/stable/modules/linear_model.html">linear regression</a>. </p>
 <p>The function we will use is called <code> LinearRegression() </code>. </p>
-<div class="codehilite"><pre><span></span><code># Create linear regression object
+<pre><code># Create linear regression object
 model = linear_model.LinearRegression()
 
 # Use model to fit to the data, the x values are densities and the y values are fixed acidity
 # Note that we need to reshape the vectors to be of the shape x - (n_samples, n_features) and y (n_samples, n_targets)
-x = red[&#39;density&#39;].values.reshape(-1, 1)
-y = red[&#39;fixed acidity&#39;].values.reshape(-1, 1)
-</code></pre></div>
+x = red['density'].values.reshape(-1, 1)
+y = red['fixed acidity'].values.reshape(-1, 1)
+</code></pre>
+<pre><code class="language-python"># Create linear regression object
+model = linear_model.LinearRegression()
 
-<div class="codehilite"><pre><span></span><code><span class="c1"># Create linear regression object</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">()</span>
-
-<span class="c1"># Use model to fit to the data, the x values are densities and the y values are fixed acidity</span>
-<span class="c1"># Note that we need to reshape the vectors to be of the shape x - (n_samples, n_features) and y (n_samples, n_targets)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">red</span><span class="p">[</span><span class="s1">&#39;density&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">red</span><span class="p">[</span><span class="s1">&#39;fixed acidity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>print(red[&#39;density&#39;].values.shape, red[&#39;fixed acidity&#39;].values.shape)
+# Use model to fit to the data, the x values are densities and the y values are fixed acidity
+# Note that we need to reshape the vectors to be of the shape x - (n_samples, n_features) and y (n_samples, n_targets)
+x = red['density'].values.reshape(-1, 1)
+y = red['fixed acidity'].values.reshape(-1, 1)
+</code></pre>
+<pre><code>print(red['density'].values.shape, red['fixed acidity'].values.shape)
 print(x.shape, y.shape)
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">red</span><span class="p">[</span><span class="s1">&#39;density&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">red</span><span class="p">[</span><span class="s1">&#39;fixed acidity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>(1599,) (1599,)
+</code></pre>
+<pre><code class="language-python">print(red['density'].values.shape, red['fixed acidity'].values.shape)
+print(x.shape, y.shape)
+</code></pre>
+<pre><code>(1599,) (1599,)
 (1599, 1) (1599, 1)
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code># Fit to the data
+</code></pre>
+<pre><code># Fit to the data
 model.fit(x, y)
 
 # Extract the values of interest
@@ -1871,141 +1849,129 @@ m = model.coef_[0][0]
 b = model.intercept_[0]
 
 # Print the slope m and intercept b
-print(&#39;Scikit learn - Slope: &#39;, m , &#39;Intercept: &#39;, b )
-</code></pre></div>
-
+print('Scikit learn - Slope: ', m , 'Intercept: ', b )
+</code></pre>
 <p>What happens when we try to fit the data as is?</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Fit to the data</span>
-<span class="c1"># model.fit(x, y)</span>
-</code></pre></div>
-
-<h4 id="exercise-2-drop-null-values-and-practice-pandas-operations">🏋️ Exercise 2: drop Null Values (and practice pandas operations)<a class="headerlink" href="#exercise-2-drop-null-values-and-practice-pandas-operations" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python"># Fit to the data
+# model.fit(x, y)
+</code></pre>
+<h4 id="exercise-2-drop-null-values-and-practice-pandas-operations">🏋️ Exercise 2: drop Null Values (and practice pandas operations)</h4>
 <p>Let's look back at our dataset description dataframe above, what do we notice, what contains null values?</p>
 <p>There are several strategies for dealing with null values. For now let's take the simplest case, and drop rows in our dataframe that contain null</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Cell for Exercise 2</span>
-<span class="c1"># For this templated exercise you are going to complete everything in one line </span>
-<span class="c1"># of code, but we are going to break it up into steps. So for each part (A, B,</span>
-<span class="c1"># etc.) paste your answer from the previous part to begin</span>
+<pre><code class="language-python"># Cell for Exercise 2
+# For this templated exercise you are going to complete everything in one line 
+# of code, but we are going to break it up into steps. So for each part (A, B,
+# etc.) paste your answer from the previous part to begin
 
-<span class="c1"># step A</span>
-<span class="c1"># select the &#39;density&#39; and &#39;fixed acidity&#39; columns of red. make sure the return</span>
-<span class="c1"># is a dataframe</span>
+# step A
+# select the 'density' and 'fixed acidity' columns of red. make sure the return
+# is a dataframe
 
-<span class="c1"># step B</span>
-<span class="c1"># now use the dropna() method on axis 0 (the rows) to drop any null values </span>
+# step B
+# now use the dropna() method on axis 0 (the rows) to drop any null values 
 
-<span class="c1"># step B</span>
-<span class="c1"># select column &#39;density&#39;</span>
+# step B
+# select column 'density'
 
-<span class="c1"># step C</span>
-<span class="c1"># select the values</span>
+# step C
+# select the values
 
-<span class="c1"># step D</span>
-<span class="c1"># reshape the result with an empty second dimension using .reshape() and store</span>
-<span class="c1"># the result under variable x</span>
+# step D
+# reshape the result with an empty second dimension using .reshape() and store
+# the result under variable x
 
-<span class="c1"># repeat the same process with &#39;fixed acidity&#39; and variable y</span>
-</code></pre></div>
-
+# repeat the same process with 'fixed acidity' and variable y
+</code></pre>
 <p>Now that we have our x and y arrays we can fit using ScikitLearn</p>
-<div class="codehilite"><pre><span></span><code><span class="n">x</span> <span class="o">=</span> <span class="n">red</span><span class="p">[[</span><span class="s1">&#39;density&#39;</span><span class="p">,</span> <span class="s1">&#39;fixed acidity&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="s1">&#39;density&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">red</span><span class="p">[[</span><span class="s1">&#39;density&#39;</span><span class="p">,</span> <span class="s1">&#39;fixed acidity&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="s1">&#39;fixed acidity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-</code></pre></div>
+<pre><code class="language-python">x = red[['density', 'fixed acidity']].dropna(axis=0)['density'].values.reshape(-1,1)
+y = red[['density', 'fixed acidity']].dropna(axis=0)['fixed acidity'].values.reshape(-1,1)
+</code></pre>
+<pre><code class="language-python"># Fit to the data
+model.fit(x, y)
 
-<div class="codehilite"><pre><span></span><code><span class="c1"># Fit to the data</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+# Extract the values of interest
+m = model.coef_[0][0]
+b = model.intercept_[0]
 
-<span class="c1"># Extract the values of interest</span>
-<span class="n">m</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-<span class="c1"># Print the slope m and intercept b</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Scikit learn - Slope: &#39;</span><span class="p">,</span> <span class="n">m</span> <span class="p">,</span> <span class="s1">&#39;Intercept: &#39;</span><span class="p">,</span> <span class="n">b</span> <span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>Scikit learn - Slope:  616.0131428066102 Intercept:  -605.6880086750525
-</code></pre></div>
-
-<h4 id="exercise-3-calculating-y_pred">🏋️ Exercise 3: calculating y_pred<a class="headerlink" href="#exercise-3-calculating-y_pred" title="Permanent link">&para;</a></h4>
+# Print the slope m and intercept b
+print('Scikit learn - Slope: ', m , 'Intercept: ', b )
+</code></pre>
+<pre><code>Scikit learn - Slope:  616.0131428066102 Intercept:  -605.6880086750525
+</code></pre>
+<h4 id="exercise-3-calculating-y_pred">🏋️ Exercise 3: calculating y_pred</h4>
 <p>Estimate the values of $y$ by using your fitted parameters. Hint: Use your <code>model.coef_</code> and <code>model.intercept_</code> parameters to estimate y_pred following equation 1</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># define y_pred in terms of m, x, and b</span>
-<span class="c1"># y_pred = </span>
+<pre><code class="language-python"># define y_pred in terms of m, x, and b
+# y_pred = 
 
-<span class="c1"># fig, ax = plt.subplots(1,1, figsize=(10,10))</span>
-<span class="c1"># ax.plot(x, y_pred, ls=&#39;&#39;, marker=&#39;*&#39;)</span>
-<span class="c1"># ax.plot(x, y, ls=&#39;&#39;, marker=&#39;.&#39;)</span>
-</code></pre></div>
-
+# fig, ax = plt.subplots(1,1, figsize=(10,10))
+# ax.plot(x, y_pred, ls='', marker='*')
+# ax.plot(x, y, ls='', marker='.')
+</code></pre>
 <p>We can also return predictions directly with the model object using the predict() method</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Another way to get this is using the model.predict function</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
-</code></pre></div>
-
-<h2 id="13-error-and-topics-of-model-fitting-assessing-model-accuracy">1.3 Error and topics of model fitting (assessing model accuracy)<a class="headerlink" href="#13-error-and-topics-of-model-fitting-assessing-model-accuracy" title="Permanent link">&para;</a></h2>
-<h3 id="131-measuring-the-quality-of-fit">1.3.1 Measuring the quality of fit<a class="headerlink" href="#131-measuring-the-quality-of-fit" title="Permanent link">&para;</a></h3>
-<h4 id="1311-mean-squared-error">1.3.1.1 Mean Squared Error<a class="headerlink" href="#1311-mean-squared-error" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python"># Another way to get this is using the model.predict function
+y_pred = model.predict(x)
+fig, ax = plt.subplots(1,1, figsize=(10,10))
+ax.plot(x, y_pred, ls='', marker='*')
+ax.plot(x, y, ls='', marker='.')
+</code></pre>
+<h2 id="13-error-and-topics-of-model-fitting-assessing-model-accuracy">1.3 Error and topics of model fitting (assessing model accuracy)</h2>
+<h3 id="131-measuring-the-quality-of-fit">1.3.1 Measuring the quality of fit</h3>
+<h4 id="1311-mean-squared-error">1.3.1.1 Mean Squared Error</h4>
 <p>The plot in Section 1.2.3 looks good, but numerically what is our error? What is the mean value of $\epsilon$, i.e. the <strong>Mean Squared Error (MSE)</strong>?</p>
-<p>$${\sf MSE}=\epsilon_{\sf ave} = \frac{\sum_{i=1}^{N_{\sf times}}\left(y^{\sf exact}<em>i - m\cdot t_i - b \right)^2}{N</em>{\sf times}}\;\;\;\;\;\sf eq. 3$$</p>
-<div class="codehilite"><pre><span></span><code># The mean squared error
-print(&#39;Mean squared error: %.2f&#39; % mean_squared_error(y, y_pred))
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="c1"># The mean squared error</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean squared error: </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
-</code></pre></div>
-
-<h4 id="1312-r-square">1.3.1.2 R-square<a class="headerlink" href="#1312-r-square" title="Permanent link">&para;</a></h4>
+<p>
+<script type="math/tex; mode=display">{\sf MSE}=\epsilon_{\sf ave} = \frac{\sum_{i=1}^{N_{\sf times}}\left(y^{\sf exact}_i - m\cdot t_i - b \right)^2}{N_{\sf times}}\;\;\;\;\;\sf eq. 3</script>
+</p>
+<pre><code># The mean squared error
+print('Mean squared error: %.2f' % mean_squared_error(y, y_pred))
+</code></pre>
+<pre><code class="language-python"># The mean squared error
+print('Mean squared error: %.2f' % mean_squared_error(y, y_pred))
+</code></pre>
+<h4 id="1312-r-square">1.3.1.2 R-square</h4>
 <p>Another way to measure error is the regression score, $R^2$. $R^2$ is generally defined as the ratio of the total sum of squares $SS_{\sf tot} $ to the residual sum of squares $SS_{\sf res} $:</p>
-<p>$$SS_{\sf tot}=\sum_{i=1}^{N} \left(y^{\sf exact}<em>i-\bar{y}\right)^2\;\;\;\;\; \sf eq. 4$$
-$$SS</em>{\sf res}=\sum_{i=1}^{N} \left(y^{\sf exact}<em>i - y^{\sf calc}_i\right)^2\;\;\;\;\; \sf eq. 5$$
-$$R^2 = 1 - {SS</em>{\sf res}\over SS_{\sf tot}} \;\;\;\;\;\; \sf eq. 6$$</p>
+<p>
+<script type="math/tex; mode=display">SS_{\sf tot}=\sum_{i=1}^{N} \left(y^{\sf exact}_i-\bar{y}\right)^2\;\;\;\;\; \sf eq. 4</script>
+<script type="math/tex; mode=display">SS_{\sf res}=\sum_{i=1}^{N} \left(y^{\sf exact}_i - y^{\sf calc}_i\right)^2\;\;\;\;\; \sf eq. 5</script>
+<script type="math/tex; mode=display">R^2 = 1 - {SS_{\sf res}\over SS_{\sf tot}} \;\;\;\;\;\; \sf eq. 6</script>
+</p>
 <p>In eq. 4, $\bar{y}=\sum_i y^{\sf exact}_i/N$ is the average value of y for $N$ points. The best value of $R^2$ is 1 but it can also take a negative value if the error is large.</p>
 <p>See all the different regression metrics <a href="https://scikit-learn.org/stable/modules/model_evaluation.html">here</a>.</p>
-<h4 id="question-3">🙋 Question 3<a class="headerlink" href="#question-3" title="Permanent link">&para;</a></h4>
+<h4 id="question-3">🙋 Question 3</h4>
 <blockquote>
 <p>Do we need a large value of $SS_{\sf tot}$ to minimize $R^2$ - is this something which we have the power to control?</p>
 </blockquote>
-<div class="codehilite"><pre><span></span><code># Print the coefficient of determination - 1 is perfect prediction
-print(&#39;Coefficient of determination: %.2f&#39; % r2_score(y, y_pred))
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="c1"># Print the coefficient of determination - 1 is perfect prediction</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Coefficient of determination: </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
-</code></pre></div>
-
-<h3 id="132-corollaries-with-classification-models">1.3.2 Corollaries with classification models<a class="headerlink" href="#132-corollaries-with-classification-models" title="Permanent link">&para;</a></h3>
+<pre><code># Print the coefficient of determination - 1 is perfect prediction
+print('Coefficient of determination: %.2f' % r2_score(y, y_pred))
+</code></pre>
+<pre><code class="language-python"># Print the coefficient of determination - 1 is perfect prediction
+print('Coefficient of determination: %.2f' % r2_score(y, y_pred))
+</code></pre>
+<h3 id="132-corollaries-with-classification-models">1.3.2 Corollaries with classification models</h3>
 <p>For classification tasks, we typically assess accuracy vs MSE or R-square, since we are dealing with categorical rather than numerical predictions.</p>
 <p>What is accuracy? It is defined as the ratio of True assignments to all assignments. For a binary positive/negative classification task this can be written as the following:</p>
 <p>$ Acc = \frac{T_p + T_n}{F_p + F_n + T_p + T_n} $</p>
 <p>Where $T$ is True, $F$ is false, $p$ is positive, $n$ is negative</p>
 <p>Just as a quick example, we can perform this type of task on our wine dataset by predicting on quality, which is a discrete 3-9 quality score:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">y_train</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">x_train</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;quality&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-</code></pre></div>
+<pre><code class="language-python">y_train = df['type'].values.reshape(-1,1)
+x_train = df['quality'].values.reshape(-1,1)
+</code></pre>
+<pre><code class="language-python"># train a logistic regression model on the training set
+from sklearn.linear_model import LogisticRegression
 
-<div class="codehilite"><pre><span></span><code><span class="c1"># train a logistic regression model on the training set</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+# instantiate model
+logreg = LogisticRegression()
 
-<span class="c1"># instantiate model</span>
-<span class="n">logreg</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
-
-<span class="c1"># fit model</span>
-<span class="n">logreg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="c1"># make class predictions for the testing set</span>
-<span class="n">y_pred_class</span> <span class="o">=</span> <span class="n">logreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="c1"># calculate accuracy</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_pred_class</span><span class="p">))</span>
-</code></pre></div>
-
-<h3 id="133-beyond-a-single-input-feature">1.3.3 Beyond a single input feature<a class="headerlink" href="#133-beyond-a-single-input-feature" title="Permanent link">&para;</a></h3>
+# fit model
+logreg.fit(x_train, y_train)
+</code></pre>
+<pre><code class="language-python"># make class predictions for the testing set
+y_pred_class = logreg.predict(x_train)
+</code></pre>
+<pre><code class="language-python"># calculate accuracy
+from sklearn import metrics
+print(metrics.accuracy_score(y_train, y_pred_class))
+</code></pre>
+<h3 id="133-beyond-a-single-input-feature">1.3.3 Beyond a single input feature</h3>
 <p>(<em>also: quick appreciative beat for folding in domain area expertise into our models and features</em>)</p>
 <p>The <strong>acidity</strong> of the wine (the dependent variable v) could depend on:</p>
 <ul>
@@ -2019,75 +1985,65 @@ print(&#39;Coefficient of determination: %.2f&#39; % r2_score(y, y_pred))
 <p>So in our lab today we will look at folding in additional variables in our dataset into the model</p>
 <hr style="border:1px solid grey">
 </hr>
-<h2 id="14-multivariate-regression">1.4 Multivariate regression<a class="headerlink" href="#14-multivariate-regression" title="Permanent link">&para;</a></h2>
+<h2 id="14-multivariate-regression">1.4 Multivariate regression</h2>
 <p>Let's now turn our attention to wine quality.</p>
 <p>The value we aim to predict or evaluate is the quality of each wine in our dataset. This is our dependent variable. We will look at how this is related to the 12 other independent variables, also known as <em>input features</em>. We're going to do this is just the red wine data</p>
-<div class="codehilite"><pre><span></span><code><span class="n">red</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</code></pre></div>
-
-<h3 id="141-linear-regression-with-all-input-fields">1.4.1 Linear regression with all input fields<a class="headerlink" href="#141-linear-regression-with-all-input-fields" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python">red.head()
+</code></pre>
+<h3 id="141-linear-regression-with-all-input-fields">1.4.1 Linear regression with all input fields</h3>
 <p>For this example, notice we have a categorical data variable in the 'type' column. We will ignore this for now, and only work with our red wines. In the future we will discuss how to deal with categorical variable such as this in a mathematical representation.</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># this is a list of all our features or independent variables</span>
-<span class="n">features</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">red</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+<pre><code class="language-python"># this is a list of all our features or independent variables
+features = list(red.columns[1:])
 
-<span class="c1"># we&#39;re going to remove our target or dependent variable, density from this</span>
-<span class="c1"># list</span>
-<span class="n">features</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;density&#39;</span><span class="p">)</span>
+# we're going to remove our target or dependent variable, density from this
+# list
+features.remove('density')
 
-<span class="c1"># now we define X and y according to these lists of names</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">red</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">red</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="s1">&#39;density&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">red</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># we are getting rid of some nasty nulls!</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code># Create linear regression object - note that we are using all the input features
+# now we define X and y according to these lists of names
+X = red.dropna(axis=0)[features].values
+y = red.dropna(axis=0)['density'].values
+</code></pre>
+<pre><code class="language-python">red.isnull().sum(axis=0) # we are getting rid of some nasty nulls!
+</code></pre>
+<pre><code># Create linear regression object - note that we are using all the input features
 model = linear_model.LinearRegression()
 model.fit(X, y)
 y_calc = model.predict(X)
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="c1"># Create linear regression object - note that we are using all the input features</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">y_calc</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-</code></pre></div>
-
+</code></pre>
+<pre><code class="language-python"># Create linear regression object - note that we are using all the input features
+model = linear_model.LinearRegression()
+model.fit(X, y)
+y_calc = model.predict(X)
+</code></pre>
 <p>Let's see what the coefficients look like ... </p>
-<div class="codehilite"><pre><span></span><code>print(&quot;Fit coefficients: \n&quot;, model.coef_, &quot;\nNumber of coefficients:&quot;, len(model.coef_))
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fit coefficients: </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Number of coefficients:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">))</span>
-</code></pre></div>
-
+<pre><code>print(&quot;Fit coefficients: \n&quot;, model.coef_, &quot;\nNumber of coefficients:&quot;, len(model.coef_))
+</code></pre>
+<pre><code class="language-python">print(&quot;Fit coefficients: \n&quot;, model.coef_, &quot;\nNumber of coefficients:&quot;, len(model.coef_))
+</code></pre>
 <p>We have 11 !!! That's because we are regressing respect to all <strong>11 independent variables</strong>!!!</p>
-<p>So now, $$y_{\sf calc}= m_1x_1 +\, m_2x_2 \,+ \,m_3x_3 \,+\,... \,+ \,b =\sum_{i=1}^{13}m_i x_i + b\;\;\;\;\; \sf eq. 7$$</p>
-<div class="codehilite"><pre><span></span><code>print(&quot;We have 13 slopes / weights:\n\n&quot;, model.coef_)
+<p>So now, <script type="math/tex; mode=display">y_{\sf calc}= m_1x_1 +\, m_2x_2 \,+ \,m_3x_3 \,+\,... \,+ \,b =\sum_{i=1}^{13}m_i x_i + b\;\;\;\;\; \sf eq. 7</script>
+</p>
+<pre><code>print(&quot;We have 13 slopes / weights:\n\n&quot;, model.coef_)
 print(&quot;\nAnd one intercept: &quot;, model.intercept_)
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;We have 11 slopes / weights:</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">And one intercept: &quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code># This size should match the number of columns in X
+</code></pre>
+<pre><code class="language-python">print(&quot;We have 11 slopes / weights:\n\n&quot;, model.coef_)
+print(&quot;\nAnd one intercept: &quot;, model.intercept_)
+</code></pre>
+<pre><code># This size should match the number of columns in X
 if len(X[0]) == len(model.coef_):
     print(&quot;All good! The number of coefficients matches the number of input features.&quot;)
 else:
     print(&quot;Hmm .. something strange is going on.&quot;)
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="c1"># This size should match the number of columns in X</span>
-<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;All good! The number of coefficients matches the number of input features.&quot;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hmm .. something strange is going on.&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<h3 id="exercise-4-evaluate-the-error">🏋️ Exercise 4: evaluate the error<a class="headerlink" href="#exercise-4-evaluate-the-error" title="Permanent link">&para;</a></h3>
+</code></pre>
+<pre><code class="language-python"># This size should match the number of columns in X
+if len(X[0]) == len(model.coef_):
+    print(&quot;All good! The number of coefficients matches the number of input features.&quot;)
+else:
+    print(&quot;Hmm .. something strange is going on.&quot;)
+</code></pre>
+<h3 id="exercise-4-evaluate-the-error">🏋️ Exercise 4: evaluate the error</h3>
 <p>Let's <strong>evaluate the error</strong> by computing the MSE and $R^2$ metrics (see eq. 3 and 6).</p>
-<div class="codehilite"><pre><span></span><code># The mean squared error
+<pre><code># The mean squared error
 
 # part A 
 # calculate the MSE using mean_squared_error()
@@ -2097,27 +2053,25 @@ else:
 # calculate the R square using r2_score()
 # r2 = 
 
-print(&#39;Mean squared error: {:.2f}&#39;.format(mse)
-print(&#39;Coefficient of determination: {:.2f}&#39;.format(r2)
-</code></pre></div>
+print('Mean squared error: {:.2f}'.format(mse)
+print('Coefficient of determination: {:.2f}'.format(r2)
+</code></pre>
+<pre><code class="language-python"># The mean squared error
 
-<div class="codehilite"><pre><span></span><code><span class="c1"># The mean squared error</span>
+# part A 
+# calculate the MSE using mean_squared_error()
+# mse = 
 
-<span class="c1"># part A </span>
-<span class="c1"># calculate the MSE using mean_squared_error()</span>
-<span class="c1"># mse = </span>
+# part B
+# calculate the R square using r2_score()
+# r2 = 
 
-<span class="c1"># part B</span>
-<span class="c1"># calculate the R square using r2_score()</span>
-<span class="c1"># r2 = </span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean squared error: </span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Coefficient of determination: </span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span>
-</code></pre></div>
-
-<h3 id="exercise-5-make-a-plot-of-y-actual-vs-y-predicted">🏋️ Exercise 5: make a plot of y actual vs y predicted<a class="headerlink" href="#exercise-5-make-a-plot-of-y-actual-vs-y-predicted" title="Permanent link">&para;</a></h3>
+print('Mean squared error: {:.2f}'.format(mse)
+print('Coefficient of determination: {:.2f}'.format(r2)
+</code></pre>
+<h3 id="exercise-5-make-a-plot-of-y-actual-vs-y-predicted">🏋️ Exercise 5: make a plot of y actual vs y predicted</h3>
 <p>We can also look at how well the computed values match the true values graphically by generating a scatterplot.</p>
-<div class="codehilite"><pre><span></span><code># generate a plot of y predicted vs y actual using plt.plot()
+<pre><code># generate a plot of y predicted vs y actual using plt.plot()
 # remember you must set ls to an empty string and marker to some marker style
 
 # plt.plot()
@@ -2125,23 +2079,21 @@ plt.title(&quot;Linear regression - computed values on entire data set&quot;, fo
 plt.xlabel(&quot;y$^{\sf calc}$&quot;)
 plt.ylabel(&quot;y$^{\sf true}$&quot;)
 plt.show()
-</code></pre></div>
+</code></pre>
+<pre><code class="language-python"># generate a plot of y predicted vs y actual using plt.plot()
+# remember you must set ls to an empty string and marker to some marker style
 
-<div class="codehilite"><pre><span></span><code><span class="c1"># generate a plot of y predicted vs y actual using plt.plot()</span>
-<span class="c1"># remember you must set ls to an empty string and marker to some marker style</span>
-
-<span class="c1"># plt.plot()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Linear regression - computed values on entire data set&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;y$^{\sf calc}$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y$^{\sf true}$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div>
-
-<h3 id="142-enrichment-splitting-into-train-and-test-sets">1.4.2 <strong>Enrichment</strong>: Splitting into train and test sets<a class="headerlink" href="#142-enrichment-splitting-into-train-and-test-sets" title="Permanent link">&para;</a></h3>
+# plt.plot()
+plt.title(&quot;Linear regression - computed values on entire data set&quot;, fontsize=16)
+plt.xlabel(&quot;y$^{\sf calc}$&quot;)
+plt.ylabel(&quot;y$^{\sf true}$&quot;)
+plt.show()
+</code></pre>
+<h3 id="142-enrichment-splitting-into-train-and-test-sets">1.4.2 <strong>Enrichment</strong>: Splitting into train and test sets</h3>
 <p>To see whether we can predict, we will carry out our regression only on a part, 80%, of the full data set. This part is called the <strong>training</strong> data. We will then test the trained model to predict the rest of the data, 20% - the <strong>test</strong> data. The function which fits won't see the test data until it has to predict it. </p>
 <p><strong>We will motivate the use of train/test sets more explicitly in Course 2 Session 1</strong></p>
 <p>We start by splitting out data using scikit-learn's <code> train_test_split() </code> function:</p>
-<div class="codehilite"><pre><span></span><code>X_train, X_test, y_train, y_test = train_test_split(X, y, 
+<pre><code>X_train, X_test, y_train, y_test = train_test_split(X, y, 
                                                     test_size=0.20,
                                                     random_state=42)
                                                     ```
@@ -2151,61 +2103,56 @@ plt.show()
 X_train, X_test, y_train, y_test = train_test_split(X, y, 
                                                     test_size=0.20,
                                                     random_state=42)
-</code></pre></div>
-
+</code></pre>
 <p>Now we check the size of <code> y_train </code> and <code> y_test </code>, the sum should be the size of y! If this works then we move on and carry out regression but we only use the training data!</p>
-<div class="codehilite"><pre><span></span><code>if len(y_test)+len(y_train) == len(y):
+<pre><code>if len(y_test)+len(y_train) == len(y):
 
-    print(&#39;All good, ready to to go and regress!\n&#39;)
+    print('All good, ready to to go and regress!\n')
 
     # Carry out linear regression
-    print(&#39;Running linear regression algorithm on the training set\n&#39;)
+    print('Running linear regression algorithm on the training set\n')
     model = linear_model.LinearRegression()
     model.fit(X_train, y_train)
-    print(&#39;Fit coefficients and intercept:\n\n&#39;, model.coef_, &#39;\n\n&#39;, model.intercept_ )
+    print('Fit coefficients and intercept:\n\n', model.coef_, '\n\n', model.intercept_ )
 
     # Predict on the test set
     y_pred_test = model.predict(X_test)
-</code></pre></div>
+</code></pre>
+<pre><code class="language-python">if len(y_test)+len(y_train) == len(y):
 
-<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+    print('All good, ready to to go and regress!\n')
 
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;All good, ready to to go and regress!</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    # Carry out linear regression
+    print('Running linear regression algorithm on the training set\n')
+    model = linear_model.LinearRegression()
+    model.fit(X_train, y_train)
+    print('Fit coefficients and intercept:\n\n', model.coef_, '\n\n', model.intercept_ )
 
-    <span class="c1"># Carry out linear regression</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Running linear regression algorithm on the training set</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">()</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Fit coefficients and intercept:</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span> <span class="p">)</span>
-
-    <span class="c1"># Predict on the test set</span>
-    <span class="n">y_pred_test</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-</code></pre></div>
-
+    # Predict on the test set
+    y_pred_test = model.predict(X_test)
+</code></pre>
 <p>Now we can plot our predicted values to see how accurate we are in predicting. We will generate a scatterplot and computing the MSE and $R^2$ metrics of error.</p>
-<div class="codehilite"><pre><span></span><code>sns.scatterplot(x=y_pred_test, y=y_test, color=&quot;mediumvioletred&quot;, s=50)
+<pre><code>sns.scatterplot(x=y_pred_test, y=y_test, color=&quot;mediumvioletred&quot;, s=50)
 
 plt.title(&quot;Linear regression - predict test set&quot;, fontsize=16)
 plt.xlabel(&quot;y$^{\sf calc}$&quot;)
 plt.ylabel(&quot;y$^{\sf true}$&quot;)
 plt.show()
 
-print(&#39;Mean squared error: %.2f&#39; % mean_squared_error(y_test, y_pred_test))
-print(&#39;Coefficient of determination: %.2f&#39; % r2_score(y_test, y_pred_test))
-</code></pre></div>
+print('Mean squared error: %.2f' % mean_squared_error(y_test, y_pred_test))
+print('Coefficient of determination: %.2f' % r2_score(y_test, y_pred_test))
+</code></pre>
+<pre><code class="language-python">sns.scatterplot(x=y_pred_test, y=y_test, color=&quot;mediumvioletred&quot;, s=50)
 
-<div class="codehilite"><pre><span></span><code><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">y_pred_test</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;mediumvioletred&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+plt.title(&quot;Linear regression - predict test set&quot;, fontsize=16)
+plt.xlabel(&quot;y$^{\sf calc}$&quot;)
+plt.ylabel(&quot;y$^{\sf true}$&quot;)
+plt.show()
 
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Linear regression - predict test set&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;y$^{\sf calc}$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y$^{\sf true}$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean squared error: </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Coefficient of determination: </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">))</span>
-</code></pre></div>
-
-<h4 id="1421-other-data-considerations">1.4.2.1 Other data considerations<a class="headerlink" href="#1421-other-data-considerations" title="Permanent link">&para;</a></h4>
+print('Mean squared error: %.2f' % mean_squared_error(y_test, y_pred_test))
+print('Coefficient of determination: %.2f' % r2_score(y_test, y_pred_test))
+</code></pre>
+<h4 id="1421-other-data-considerations">1.4.2.1 Other data considerations</h4>
 <ul>
 <li>Do we need all the independent variables? </li>
 <li>
@@ -2216,103 +2163,100 @@ print(&#39;Coefficient of determination: %.2f&#39; % r2_score(y_test, y_pred_tes
 </li>
 <li>Topics of non-binary classification tasks covered in week 4</li>
 </ul>
-<h3 id="143-enrichment-other-regression-algorithms">1.4.3 <strong>Enrichment</strong>: Other regression algorithms<a class="headerlink" href="#143-enrichment-other-regression-algorithms" title="Permanent link">&para;</a></h3>
+<h3 id="143-enrichment-other-regression-algorithms">1.4.3 <strong>Enrichment</strong>: Other regression algorithms</h3>
 <p>There are many other regression algorithms the two we want to highlight here are Ridge, LASSO, and Elastic Net. They differ by an added term to the loss function. Let's review. Eq. 2 expanded to multivariate form yields:</p>
-<p>$$\sum_{i=1}^{N}(y_i - \sum_{j=1}^{P}x_{ij}\beta_{j})^2$$</p>
+<p>
+<script type="math/tex; mode=display">\sum_{i=1}^{N}(y_i - \sum_{j=1}^{P}x_{ij}\beta_{j})^2</script>
+</p>
 <p>for Ridge regression, we add a <strong><em>regularization</em></strong> term known as <strong><em>L2</em></strong> regularization:</p>
-<p>$$\sum_{i=1}^{N}(y_i - \sum_{j=1}^{P}x_{ij}\beta_{j})^2 + \lambda \sum_{j=1}^{P}\beta_{j}^2$$</p>
+<p>
+<script type="math/tex; mode=display">\sum_{i=1}^{N}(y_i - \sum_{j=1}^{P}x_{ij}\beta_{j})^2 + \lambda \sum_{j=1}^{P}\beta_{j}^2</script>
+</p>
 <p>for <strong><em>LASSO</em></strong> (Least Absolute Shrinkage and Selection Operator) we add <strong><em>L1</em></strong> regularization:</p>
-<p>$$\sum_{i=1}^{N}(y_i - \sum_{j=1}^{P}x_{ij}\beta_{j})^2 + \lambda \sum_{j=1}^{P}|\beta_{j}|$$</p>
+<p>
+<script type="math/tex; mode=display">\sum_{i=1}^{N}(y_i - \sum_{j=1}^{P}x_{ij}\beta_{j})^2 + \lambda \sum_{j=1}^{P}|\beta_{j}|</script>
+</p>
 <p>The key difference here is that LASSO will allow coefficients to shrink to 0 while Ridge regression will not. <strong><em>Elastic Net</em></strong> is a combination of these two regularization methods.</p>
-<div class="codehilite"><pre><span></span><code>model = linear_model.Ridge()
+<pre><code>model = linear_model.Ridge()
 model.fit(X_train, y_train)
-print(&#39;Fit coefficients and intercept:\n\n&#39;, model.coef_, &#39;\n\n&#39;, model.intercept_ )
+print('Fit coefficients and intercept:\n\n', model.coef_, '\n\n', model.intercept_ )
 
 # Predict on the test set
 y_calc_test = model.predict(X_test)
-</code></pre></div>
+</code></pre>
+<pre><code class="language-python">model = linear_model.Ridge()
+model.fit(X_train, y_train)
+print('Fit coefficients and intercept:\n\n', model.coef_, '\n\n', model.intercept_ )
 
-<div class="codehilite"><pre><span></span><code><span class="n">model</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">Ridge</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Fit coefficients and intercept:</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span> <span class="p">)</span>
-
-<span class="c1"># Predict on the test set</span>
-<span class="n">y_calc_test</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>sns.scatterplot(x=y_calc_test, y=y_test, color=&quot;lightseagreen&quot;, s=50)
+# Predict on the test set
+y_calc_test = model.predict(X_test)
+</code></pre>
+<pre><code>sns.scatterplot(x=y_calc_test, y=y_test, color=&quot;lightseagreen&quot;, s=50)
 plt.title(&quot;Ridge regression - predict test set&quot;,fontsize=16)
 plt.xlabel(&quot;y$^{\sf calc}$&quot;)
 plt.ylabel(&quot;y$^{\sf true}$&quot;)
 plt.show()
 
-print(&#39;Mean squared error: %.2f&#39; % mean_squared_error(y_test, y_calc_test))
-print(&#39;Coefficient of determination: %.2f&#39; % r2_score(y_test, y_calc_test))
-</code></pre></div>
+print('Mean squared error: %.2f' % mean_squared_error(y_test, y_calc_test))
+print('Coefficient of determination: %.2f' % r2_score(y_test, y_calc_test))
+</code></pre>
+<pre><code class="language-python">sns.scatterplot(x=y_calc_test, y=y_test, color=&quot;lightseagreen&quot;, s=50)
+plt.title(&quot;Ridge regression - predict test set&quot;,fontsize=16)
+plt.xlabel(&quot;y$^{\sf calc}$&quot;)
+plt.ylabel(&quot;y$^{\sf true}$&quot;)
+plt.show()
 
-<div class="codehilite"><pre><span></span><code><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">y_calc_test</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightseagreen&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Ridge regression - predict test set&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;y$^{\sf calc}$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y$^{\sf true}$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean squared error: </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_calc_test</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Coefficient of determination: </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_calc_test</span><span class="p">))</span>
-</code></pre></div>
-
-<h4 id="exercise-6-tune-hyperparameter-for-ridge-regression">🏋️ Exercise 6: Tune Hyperparameter for Ridge Regression<a class="headerlink" href="#exercise-6-tune-hyperparameter-for-ridge-regression" title="Permanent link">&para;</a></h4>
+print('Mean squared error: %.2f' % mean_squared_error(y_test, y_calc_test))
+print('Coefficient of determination: %.2f' % r2_score(y_test, y_calc_test))
+</code></pre>
+<h4 id="exercise-6-tune-hyperparameter-for-ridge-regression">🏋️ Exercise 6: Tune Hyperparameter for Ridge Regression</h4>
 <p>Use the docstring to peak into the hyperparameters for Ridge Regression. What is the optimal value of lambda?</p>
 <p>Plot the $\beta$ values vs $\lambda$ from the results of your analysis</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># cell for exercise 3</span>
-<span class="n">out_lambdas</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">out_coefs</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">out_scores</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-  <span class="n">lambdas</span> <span class="o">=</span> <span class="p">[]</span>
-  <span class="n">coefs</span> <span class="o">=</span> <span class="p">[]</span>
-  <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
-  <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> 
-                                                    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.20</span><span class="p">)</span>
-  <span class="k">for</span> <span class="n">lamb</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">110</span><span class="p">):</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">lamb</span><span class="o">/</span><span class="mi">50</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-    <span class="n">lambdas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lamb</span><span class="p">)</span>
-    <span class="n">coefs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
-    <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
-    <span class="c1"># print(&#39;MSE: %.4f&#39; % mean_squared_error(y_test, model.predict(X_test)))</span>
-    <span class="c1"># print(&#39;R2: %.4f&#39; % r2_score(y_test, model.predict(X_test)))</span>
-  <span class="n">out_lambdas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lambdas</span><span class="p">)</span>
-  <span class="n">out_coefs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coefs</span><span class="p">)</span>
-  <span class="n">out_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">coef_means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">out_coefs</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">coef_stds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">out_coefs</span><span class="p">)</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">results_means</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">coef_means</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="n">features</span><span class="p">)</span>
-<span class="n">results_stds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">coef_stds</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="n">features</span><span class="p">)</span>
-<span class="n">results_means</span><span class="p">[</span><span class="s1">&#39;lambda&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">/</span><span class="mi">50</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">lambdas</span><span class="p">]</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">feat</span> <span class="ow">in</span> <span class="n">features</span><span class="p">:</span>
-  <span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">([</span><span class="n">i</span><span class="o">/</span><span class="mi">50</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">lambdas</span><span class="p">],</span> <span class="n">results_means</span><span class="p">[</span><span class="n">feat</span><span class="p">],</span> <span class="n">yerr</span><span class="o">=</span><span class="n">results_stds</span><span class="p">[</span><span class="n">feat</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">feat</span><span class="p">)</span>
-<span class="c1"># results.plot(&#39;lambda&#39;, &#39;scores&#39;, ax=ax[1])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">coefs</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="n">features</span><span class="p">)</span>
-<span class="n">results</span><span class="p">[</span><span class="s1">&#39;lambda&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">/</span><span class="mi">50</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">lambdas</span><span class="p">]</span>
-<span class="n">results</span><span class="p">[</span><span class="s1">&#39;scores&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scores</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">feat</span> <span class="ow">in</span> <span class="n">features</span><span class="p">:</span>
-  <span class="n">results</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;lambda&#39;</span><span class="p">,</span> <span class="n">feat</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">results</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;lambda&#39;</span><span class="p">,</span> <span class="s1">&#39;scores&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</code></pre></div>
-
-<h2 id="15-enrichment-additional-regression-exercises">1.5 <strong>Enrichment</strong>: Additional Regression Exercises<a class="headerlink" href="#15-enrichment-additional-regression-exercises" title="Permanent link">&para;</a></h2>
-<h3 id="problem-1-number-and-choice-of-input-features">Problem 1) Number and choice of input features<a class="headerlink" href="#problem-1-number-and-choice-of-input-features" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python"># cell for exercise 3
+out_lambdas = []
+out_coefs = []
+out_scores = []
+for i in range(10):
+  lambdas = []
+  coefs = []
+  scores = []
+  X_train, X_test, y_train, y_test = train_test_split(X, y, 
+                                                    test_size=0.20)
+  for lamb in range(1,110):
+    model = linear_model.Ridge(alpha=lamb/50, normalize=True)
+    model.fit(X_train, y_train)
+    lambdas.append(lamb)
+    coefs.append(model.coef_)
+    scores.append(r2_score(y_test, model.predict(X_test)))
+    # print('MSE: %.4f' % mean_squared_error(y_test, model.predict(X_test)))
+    # print('R2: %.4f' % r2_score(y_test, model.predict(X_test)))
+  out_lambdas.append(lambdas)
+  out_coefs.append(coefs)
+  out_scores.append(scores)
+</code></pre>
+<pre><code class="language-python">coef_means = np.array(out_coefs).mean(axis=0)
+coef_stds = np.array(out_coefs).std(axis=0)
+results_means = pd.DataFrame(coef_means,columns=features)
+results_stds = pd.DataFrame(coef_stds,columns=features)
+results_means['lambda'] = [i/50 for i in lambdas]
+</code></pre>
+<pre><code class="language-python">fig, ax = plt.subplots(1,1,figsize=(10,10))
+for feat in features:
+  ax.errorbar([i/50 for i in lambdas], results_means[feat], yerr=results_stds[feat], label=feat)
+# results.plot('lambda', 'scores', ax=ax[1])
+ax.legend()
+</code></pre>
+<pre><code class="language-python">results = pd.DataFrame(coefs,columns=features)
+results['lambda'] = [i/50 for i in lambdas]
+results['scores'] = scores
+</code></pre>
+<pre><code class="language-python">fig, ax = plt.subplots(1,2,figsize=(10,5))
+for feat in features:
+  results.plot('lambda', feat, ax=ax[0])
+results.plot('lambda', 'scores', ax=ax[1])
+</code></pre>
+<h2 id="15-enrichment-additional-regression-exercises">1.5 <strong>Enrichment</strong>: Additional Regression Exercises</h2>
+<h3 id="problem-1-number-and-choice-of-input-features">Problem 1) Number and choice of input features</h3>
 <ul>
 <li>
 <p>Load the red wine dataset and evaluate how the linear regression predictions changes as you change the <strong>number and choice of input features</strong>. The total number of columns in X  is 11 and each column represent a specific input feature. </p>
@@ -2321,37 +2265,31 @@ print(&#39;Coefficient of determination: %.2f&#39; % r2_score(y_test, y_calc_tes
 <p>Estimate the MSE</p>
 </li>
 </ul>
-<div class="codehilite"><pre><span></span><code>print(X_train.shape)
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code>print(X_train.shape)
+</code></pre>
+<pre><code class="language-python">print(X_train.shape)
+</code></pre>
 <p>If you want to use the first 5 features you could proceed as following:</p>
-<div class="codehilite"><pre><span></span><code>X_train_five = X_train[:,0:5]
+<pre><code>X_train_five = X_train[:,0:5]
 X_test_five = X_test[:,0:5]
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">X_train_five</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
-<span class="n">X_test_five</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
-</code></pre></div>
-
+</code></pre>
+<pre><code class="language-python">X_train_five = X_train[:,0:5]
+X_test_five = X_test[:,0:5]
+</code></pre>
 <p>Check that the new variables have the shape your expect</p>
-<div class="codehilite"><pre><span></span><code>print(X_train_five.shape)
+<pre><code>print(X_train_five.shape)
 print(X_test_five.shape)
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">X_train_five</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">X_test_five</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-</code></pre></div>
-
+</code></pre>
+<pre><code class="language-python">print(X_train_five.shape)
+print(X_test_five.shape)
+</code></pre>
 <p>Now you can use these to train your linear regression model and repeat for different numbers or sets of input features! Note that you do not need to change the output feature! It's size is independent from the number of input features, yet recall that its length is the same as the number of values per input feature.</p>
 <p>Questions to think about while you work on this problem
 - How many input feature variables does one need? Is there a maximum or minimum number? 
 - Could one input feature variable be better than the rest?
 - What if values are missing for one of the input feature variables - is it still worth using it?
 - Can you use <strong><em>L1</em></strong> or <strong><em>L2</em></strong> to determine these optimum features more quickly?</p>
-<h3 id="problem-2-type-of-regression-algorithm">Problem 2) Type of regression algorithm<a class="headerlink" href="#problem-2-type-of-regression-algorithm" title="Permanent link">&para;</a></h3>
+<h3 id="problem-2-type-of-regression-algorithm">Problem 2) Type of regression algorithm</h3>
 <p>Try using other types of linear regression methods on the wine dataset: the LASSO model and the Elastic net model which are described by the </p>
 <p><code > sklearn.linear_model.ElasticNet() </code> <br>
 <code > sklearn.linear_model.Lasso() </code></p>
@@ -2364,22 +2302,20 @@ print(X_test_five.shape)
 - Does one model do better than the other at determining which input features are more important?
 - How about non linear regression / what if the data does not follow a line?
 - How do the bias and variance change for each model</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">ElasticNet</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Lasso</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Ridge</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ElasticNet</span><span class="p">,</span> <span class="n">Lasso</span><span class="p">,</span> <span class="n">Ridge</span><span class="p">,</span> <span class="n">LinearRegression</span><span class="p">]:</span>
-  <span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
-  <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean squared error: </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Coefficient of determination: </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
-</code></pre></div>
-
+<pre><code class="language-python">from sklearn.linear_model import ElasticNet
+from sklearn.linear_model import Lasso
+from sklearn.linear_model import Ridge
+from sklearn.linear_model import LinearRegression
+</code></pre>
+<pre><code class="language-python">for model in [ElasticNet, Lasso, Ridge, LinearRegression]:
+  model = model()
+  model.fit(X_train, y_train)
+  print('Mean squared error: %.2f' % mean_squared_error(y_test, model.predict(X_test)))
+  print('Coefficient of determination: %.2f' % r2_score(y_test, model.predict(X_test)))
+</code></pre>
 <hr style="border:1px solid grey">
 </hr>
-<h1 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h1>
+<h1 id="references">References</h1>
 <ul>
 <li>
 <p><strong>Linear Regression</strong>
@@ -2473,6 +2409,8 @@ and here: https://www.coursera.org/lecture/ml-regression/variance-and-the-bias-v
     
     
       <script src="../assets/javascripts/bundle.6baa0517.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       
     
   </body>

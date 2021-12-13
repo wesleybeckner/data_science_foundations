@@ -568,7 +568,7 @@
                 
 
 <p><a href="https://colab.research.google.com/github/ronva-h/technology_fundamentals/blob/main/C3%20Machine%20Learning%20I/Tech%20Fun%20C3%20S2%20Random%20Forests.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
-<h1 id="technology-fundamentals-course-3-session-2-bagging-decision-trees-and-random-forests">Technology Fundamentals Course 3, Session 2: Bagging: Decision Trees and Random Forests<a class="headerlink" href="#technology-fundamentals-course-3-session-2-bagging-decision-trees-and-random-forests" title="Permanent link">&para;</a></h1>
+<h1 id="technology-fundamentals-course-3-session-2-bagging-decision-trees-and-random-forests">Technology Fundamentals Course 3, Session 2: Bagging: Decision Trees and Random Forests</h1>
 <p><strong>Instructor</strong>: Wesley Beckner</p>
 <p><strong>Contact</strong>: wesleybeckner@gmail.com</p>
 <p><strong>Teaching Assistants</strong>: Varsha Bang, Harsha Vardhan</p>
@@ -587,7 +587,7 @@
 <hr />
 <p><br></p>
 <p><a name='top'></a></p>
-<h1 id="contents">Contents<a class="headerlink" href="#contents" title="Permanent link">&para;</a></h1>
+<h1 id="contents">Contents</h1>
 <ul>
 <li>4.0 <a href="#x.0">Preparing Environment and Importing Data</a></li>
 <li>4.0.1 <a href="#x.0.1">Import Packages</a></li>
@@ -611,42 +611,39 @@
 <p><br></p>
 <hr />
 <p><a name='x.0'></a></p>
-<h2 id="40-preparing-environment-and-importing-data">4.0 Preparing Environment and Importing Data<a class="headerlink" href="#40-preparing-environment-and-importing-data" title="Permanent link">&para;</a></h2>
+<h2 id="40-preparing-environment-and-importing-data">4.0 Preparing Environment and Importing Data</h2>
 <p><a href="#top">back to top</a></p>
 <p><a name='x.0.1'></a></p>
-<h3 id="401-import-packages">4.0.1 Import Packages<a class="headerlink" href="#401-import-packages" title="Permanent link">&para;</a></h3>
+<h3 id="401-import-packages">4.0.1 Import Packages</h3>
 <p><a href="#top">back to top</a></p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">datetime</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
-<span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
-<span class="kn">from</span> <span class="nn">statsmodels.stats.outliers_influence</span> <span class="kn">import</span> <span class="n">variance_inflation_factor</span>
-<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span><span class="p">;</span> <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
-<span class="kn">import</span> <span class="nn">graphviz</span> 
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interactive</span><span class="p">,</span> <span class="n">widgets</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
-</code></pre></div>
-
+<pre><code class="language-python">import pandas as pd
+import numpy as np
+import datetime
+import matplotlib.pyplot as plt
+import plotly.express as px
+import random
+import scipy.stats
+from sklearn.preprocessing import OneHotEncoder
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+from sklearn.ensemble import RandomForestClassifier
+import seaborn as sns; sns.set()
+import graphviz 
+from sklearn.metrics import accuracy_score
+from ipywidgets import interact, interactive, widgets
+from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import train_test_split
+from sklearn import metrics
+</code></pre>
 <p><a name='x.0.2'></a></p>
-<h3 id="402-load-dataset">4.0.2 Load Dataset<a class="headerlink" href="#402-load-dataset" title="Permanent link">&para;</a></h3>
+<h3 id="402-load-dataset">4.0.2 Load Dataset</h3>
 <p><a href="#top">back to top</a></p>
-<div class="codehilite"><pre><span></span><code><span class="n">margin</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/wesleybeckner/&#39;</span>\
-                 <span class="s1">&#39;ds_for_engineers/main/data/truffle_margin/truffle_margin_customer.csv&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">margin</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">display</span><span class="p">(</span><span class="n">margin</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>(1668, 9)
-</code></pre></div>
-
+<pre><code class="language-python">margin = pd.read_csv('https://raw.githubusercontent.com/wesleybeckner/'\
+                 'ds_for_engineers/main/data/truffle_margin/truffle_margin_customer.csv')
+print(margin.shape, end='\n\n')
+display(margin.head())
+</code></pre>
+<pre><code>(1668, 9)
+</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -742,33 +739,31 @@
 </div>
 
 <p>We're going to recreate the same operations we employed in Session 2, Feature Engineering:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># identify categorical columns</span>
-<span class="n">cat_cols</span> <span class="o">=</span> <span class="n">margin</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="mi">7</span><span class="p">]</span>
+<pre><code class="language-python"># identify categorical columns
+cat_cols = margin.columns[:7]
 
-<span class="c1"># create the encoder object</span>
-<span class="n">enc</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">()</span>
+# create the encoder object
+enc = OneHotEncoder()
 
-<span class="c1"># grab the columns we want to convert from strings</span>
-<span class="n">X_cat</span> <span class="o">=</span> <span class="n">margin</span><span class="p">[</span><span class="n">cat_cols</span><span class="p">]</span>
+# grab the columns we want to convert from strings
+X_cat = margin[cat_cols]
 
-<span class="c1"># fit our encoder to this data</span>
-<span class="n">enc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_cat</span><span class="p">)</span>
-<span class="n">onehotlabels</span> <span class="o">=</span> <span class="n">enc</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_cat</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
-<span class="n">X_num</span> <span class="o">=</span> <span class="n">margin</span><span class="p">[[</span><span class="s1">&#39;KG&#39;</span><span class="p">]]</span>
-<span class="n">X_truf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">onehotlabels</span><span class="p">,</span> <span class="n">X_num</span><span class="o">.</span><span class="n">values</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+# fit our encoder to this data
+enc.fit(X_cat)
+onehotlabels = enc.transform(X_cat).toarray()
+X_num = margin[['KG']]
+X_truf = np.concatenate((onehotlabels, X_num.values),axis=1)
 
-<span class="c1"># grab our y data</span>
-<span class="n">y_truf</span> <span class="o">=</span> <span class="n">margin</span><span class="p">[</span><span class="s1">&#39;EBITDA/KG&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-</code></pre></div>
-
+# grab our y data
+y_truf = margin['EBITDA/KG'].values
+</code></pre>
 <p>Lastly, to create a classification task, we're going to identify high, med, and low value products:</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;bad less than: </span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">margin</span><span class="p">[</span><span class="n">margin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">.25</span><span class="p">)),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;low less than: </span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">margin</span><span class="p">[</span><span class="n">margin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">.5</span><span class="p">)),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;med less than: </span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">margin</span><span class="p">[</span><span class="n">margin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">.75</span><span class="p">)),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">margin</span><span class="p">[</span><span class="n">margin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]])</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">showfliers</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>bad less than: 0.12
+<pre><code class="language-python">print('bad less than: {:.2f}'.format(margin[margin.columns[-1]].quantile(.25)), end='\n\n')
+print('low less than: {:.2f}'.format(margin[margin.columns[-1]].quantile(.5)), end='\n\n')
+print('med less than: {:.2f}'.format(margin[margin.columns[-1]].quantile(.75)), end='\n\n')
+pd.DataFrame(margin[margin.columns[-2]]).boxplot(showfliers=False)
+</code></pre>
+<pre><code>bad less than: 0.12
 
 low less than: 0.22
 
@@ -780,28 +775,23 @@ med less than: 0.35
 
 
 &lt;matplotlib.axes._subplots.AxesSubplot at 0x7eff2a001b90&gt;
-</code></pre></div>
-
+</code></pre>
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_10_2.png" /></p>
-<div class="codehilite"><pre><span></span><code><span class="n">margin</span><span class="p">[</span><span class="s1">&#39;profitability&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">margin</span><span class="p">[</span><span class="n">margin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;bad&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">margin</span><span class="p">[</span><span class="n">margin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">.25</span><span class="p">)</span> <span class="k">else</span>
-              <span class="s1">&#39;low&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">margin</span><span class="p">[</span><span class="n">margin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">.50</span><span class="p">)</span> <span class="k">else</span>
-              <span class="s1">&#39;med&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">margin</span><span class="p">[</span><span class="n">margin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">.75</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;high&#39;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">margin</span><span class="p">[</span><span class="s1">&#39;profitability&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7eff29f68b90&gt;
-</code></pre></div>
-
+<pre><code class="language-python">margin['profitability'] = margin[margin.columns[-1]].apply(
+    lambda x: 'bad' if x &lt;= margin[margin.columns[-1]].quantile(.25) else
+              'low' if x &lt;= margin[margin.columns[-1]].quantile(.50) else
+              'med' if x &lt;= margin[margin.columns[-1]].quantile(.75) else 'high')
+</code></pre>
+<pre><code class="language-python">margin['profitability'].hist()
+</code></pre>
+<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7eff29f68b90&gt;
+</code></pre>
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_12_1.png" /></p>
-<div class="codehilite"><pre><span></span><code><span class="n">class_profit</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;bad&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;low&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;med&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;high&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
-<span class="n">y_truf_class</span> <span class="o">=</span> <span class="n">margin</span><span class="p">[</span><span class="s1">&#39;profitability&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">class_profit</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
-<span class="n">margin</span><span class="p">[</span><span class="s1">&#39;profitability_encoding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_truf_class</span>
-<span class="n">margin</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</code></pre></div>
-
+<pre><code class="language-python">class_profit = {'bad': 0, 'low': 1, 'med': 2, 'high': 3}
+y_truf_class = margin['profitability'].map(class_profit).values
+margin['profitability_encoding'] = y_truf_class
+margin.head()
+</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -909,74 +899,64 @@ med less than: 0.35
 </div>
 
 <p><a name='x.1'></a></p>
-<h2 id="41-decision-trees">4.1 Decision Trees<a class="headerlink" href="#41-decision-trees" title="Permanent link">&para;</a></h2>
+<h2 id="41-decision-trees">4.1 Decision Trees</h2>
 <p><a href="#top">back to top</a></p>
 <p>In essence, a decision tree is a series of binary questions. </p>
 <p><img src="https://miro.medium.com/max/499/0*KQUBhmPmWeP8mHQz.jpeg" width=400px></img></p>
 <p>Let's begin this discussion by talking about how we make decision trees in sklearn.</p>
 <p><a name='x.1.1'></a></p>
-<h3 id="411-creating-a-decision-tree">4.1.1 Creating a Decision Tree<a class="headerlink" href="#411-creating-a-decision-tree" title="Permanent link">&para;</a></h3>
+<h3 id="411-creating-a-decision-tree">4.1.1 Creating a Decision Tree</h3>
 <p><a href="#top">back to top</a></p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
-<span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">()</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">from sklearn import tree
+X = [[0, 0], [1, 1]]
+y = [0, 1]
+clf = tree.DecisionTreeClassifier()
+clf = clf.fit(X, y)
+</code></pre>
 <p>After fitting the model we can use the predict method to show the output for a sample</p>
-<div class="codehilite"><pre><span></span><code><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">]])</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>array([1])
-</code></pre></div>
-
+<pre><code class="language-python">clf.predict([[2., 2.]])
+</code></pre>
+<pre><code>array([1])
+</code></pre>
 <p>Similar to what we saw with GMMs, we also have access to the probabilities of the outcomes:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">clf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">([[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">]])</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>array([[0., 1.]])
-</code></pre></div>
-
+<pre><code class="language-python">clf.predict_proba([[2., 2.]])
+</code></pre>
+<pre><code>array([[0., 1.]])
+</code></pre>
 <p>Let's now go on to using visual strategies to interpreting trees.</p>
 <p><a name='x.1.2'></a></p>
-<h3 id="412-interpreting-a-decision-tree">4.1.2 Interpreting a Decision Tree<a class="headerlink" href="#412-interpreting-a-decision-tree" title="Permanent link">&para;</a></h3>
+<h3 id="412-interpreting-a-decision-tree">4.1.2 Interpreting a Decision Tree</h3>
 <p><a href="#top">back to top</a></p>
 <p>Throughout today, we will discuss many ways to view both a single tree and a random forest of trees.</p>
 <p><a name='x.1.2.1'></a></p>
-<h4 id="4121-node-branch-diagram">4.1.2.1 Node &amp; Branch Diagram<a class="headerlink" href="#4121-node-branch-diagram" title="Permanent link">&para;</a></h4>
+<h4 id="4121-node-branch-diagram">4.1.2.1 Node &amp; Branch Diagram</h4>
 <p><a href="#top">back to top</a></p>
 <p>We can visualize the decision tree:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">tree</span><span class="o">.</span><span class="n">plot_tree</span><span class="p">(</span><span class="n">clf</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>[Text(167.4, 163.07999999999998, &#39;X[1] &lt;= 0.5\ngini = 0.5\nsamples = 2\nvalue = [1, 1]&#39;),
- Text(83.7, 54.360000000000014, &#39;gini = 0.0\nsamples = 1\nvalue = [1, 0]&#39;),
- Text(251.10000000000002, 54.360000000000014, &#39;gini = 0.0\nsamples = 1\nvalue = [0, 1]&#39;)]
-</code></pre></div>
-
+<pre><code class="language-python">tree.plot_tree(clf)
+</code></pre>
+<pre><code>[Text(167.4, 163.07999999999998, 'X[1] &lt;= 0.5\ngini = 0.5\nsamples = 2\nvalue = [1, 1]'),
+ Text(83.7, 54.360000000000014, 'gini = 0.0\nsamples = 1\nvalue = [1, 0]'),
+ Text(251.10000000000002, 54.360000000000014, 'gini = 0.0\nsamples = 1\nvalue = [0, 1]')]
+</code></pre>
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_24_1.png" /></p>
 <p>or, more prettily:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">graphviz</span> 
-<span class="n">dot_data</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">export_graphviz</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">out_file</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> 
-<span class="n">graph</span> <span class="o">=</span> <span class="n">graphviz</span><span class="o">.</span><span class="n">Source</span><span class="p">(</span><span class="n">dot_data</span><span class="p">)</span> 
-<span class="n">graph</span>
-</code></pre></div>
-
+<pre><code class="language-python">import graphviz 
+dot_data = tree.export_graphviz(clf, out_file=None) 
+graph = graphviz.Source(dot_data) 
+graph
+</code></pre>
 <p><img alt="svg" src="../S6_Bagging_files/S6_Bagging_26_0.svg" /></p>
 <p>The gini label, also known as <strong>Gini impurity</strong>, is a measure of how often a sample passing through the node would be incorrectly labeled if it was randomly assigned a label based on the proportion of all labels passing through the node. So it is a measure of the progress of our tree.</p>
 <p>Let's take a more complex example</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span> <span class="k">as</span> <span class="n">gen</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">gen</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">from sklearn.datasets import make_classification as gen
+X, y = gen(random_state=42)
+</code></pre>
 <p>Let's inspect our generated data:</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="n">y</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="c1"># a binary classification</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>(100, 20)
+<pre><code class="language-python">print(X.shape)
+print(y.shape)
+y[:5] # a binary classification
+</code></pre>
+<pre><code>(100, 20)
 (100,)
 
 
@@ -984,179 +964,153 @@ med less than: 0.35
 
 
 array([0, 0, 1, 1, 0])
-</code></pre></div>
-
+</code></pre>
 <p>And now let's train our tree:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">clf</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">()</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">clf = tree.DecisionTreeClassifier()
+clf = clf.fit(X, y)
+</code></pre>
 <p>How do we interpret this graph?</p>
-<div class="codehilite"><pre><span></span><code><span class="n">dot_data</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">export_graphviz</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">out_file</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> 
-<span class="n">graph</span> <span class="o">=</span> <span class="n">graphviz</span><span class="o">.</span><span class="n">Source</span><span class="p">(</span><span class="n">dot_data</span><span class="p">)</span> 
-<span class="n">graph</span>
-</code></pre></div>
-
+<pre><code class="language-python">dot_data = tree.export_graphviz(clf, out_file=None) 
+graph = graphviz.Source(dot_data) 
+graph
+</code></pre>
 <p><img alt="svg" src="../S6_Bagging_files/S6_Bagging_35_0.svg" /></p>
 <blockquote>
 <p>Can we confirm the observations in the tree by manually inspecting X and y?</p>
 </blockquote>
-<div class="codehilite"><pre><span></span><code><span class="n">y</span><span class="p">[</span><span class="n">X</span><span class="p">[:,</span><span class="mi">10</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">.203</span><span class="p">]</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>array([0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+<pre><code class="language-python">y[X[:,10] &lt; .203]
+</code></pre>
+<pre><code>array([0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
        0, 1, 0, 0, 0, 0, 0, 0])
-</code></pre></div>
-
+</code></pre>
 <p>We can confirm the gini score of the top left node by hand...</p>
-<div class="codehilite"><pre><span></span><code><span class="n">scr</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
-  <span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&gt;</span> <span class="p">(</span> <span class="mi">3</span><span class="o">/</span><span class="mi">52</span> <span class="p">)</span> <span class="k">else</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">52</span><span class="p">)]</span>
-  <span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&gt;</span> <span class="p">(</span> <span class="mi">3</span><span class="o">/</span><span class="mi">52</span> <span class="p">)</span> <span class="k">else</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">52</span><span class="p">)]</span>
-  <span class="n">scr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span><span class="n">y_true</span><span class="p">))</span>
-<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scr</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>0.10994230769230771
-</code></pre></div>
-
+<pre><code class="language-python">scr = []
+for j in range(1000):
+  y_pred = [0 if random.random() &gt; ( 3/52 ) else 1 for i in range(52)]
+  y_true = [0 if random.random() &gt; ( 3/52 ) else 1 for i in range(52)]
+  scr.append(mean_squared_error(y_pred,y_true))
+np.mean(scr)
+</code></pre>
+<pre><code>0.10994230769230771
+</code></pre>
 <p>Let's take a look at this with our truffle dataset</p>
 <blockquote>
 <p>Vary the parameter <code>max_depth</code> what do you notice? Does the term <em>greedy</em> mean anything to you?</p>
 </blockquote>
-<div class="codehilite"><pre><span></span><code><span class="n">clf</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_truf</span><span class="p">,</span> <span class="n">y_truf_class</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>DecisionTreeClassifier(ccp_alpha=0.0, class_weight=None, criterion=&#39;gini&#39;,
+<pre><code class="language-python">clf = tree.DecisionTreeClassifier(max_depth=1)
+clf.fit(X_truf, y_truf_class)
+</code></pre>
+<pre><code>DecisionTreeClassifier(ccp_alpha=0.0, class_weight=None, criterion='gini',
                        max_depth=1, max_features=None, max_leaf_nodes=None,
                        min_impurity_decrease=0.0, min_impurity_split=None,
                        min_samples_leaf=1, min_samples_split=2,
-                       min_weight_fraction_leaf=0.0, presort=&#39;deprecated&#39;,
-                       random_state=None, splitter=&#39;best&#39;)
-</code></pre></div>
-
+                       min_weight_fraction_leaf=0.0, presort='deprecated',
+                       random_state=None, splitter='best')
+</code></pre>
 <p>And now lets look at the graph:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">dot_data</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">export_graphviz</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">out_file</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> 
-<span class="n">graph</span> <span class="o">=</span> <span class="n">graphviz</span><span class="o">.</span><span class="n">Source</span><span class="p">(</span><span class="n">dot_data</span><span class="p">)</span> 
-<span class="n">graph</span>
-</code></pre></div>
-
+<pre><code class="language-python">dot_data = tree.export_graphviz(clf, out_file=None) 
+graph = graphviz.Source(dot_data) 
+graph
+</code></pre>
 <p><img alt="svg" src="../S6_Bagging_files/S6_Bagging_43_0.svg" /></p>
 <p>What is <code>X[4]</code>???</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># It&#39;s those tasty sponge cake truffles!</span>
-<span class="n">enc</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()[</span><span class="mi">4</span><span class="p">]</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>&#39;x0_Sponge&#39;
-</code></pre></div>
-
+<pre><code class="language-python"># It's those tasty sponge cake truffles!
+enc.get_feature_names()[4]
+</code></pre>
+<pre><code>'x0_Sponge'
+</code></pre>
 <p>This is one great aspect of decision trees, their <em>interpretability</em>.</p>
 <p>We will perform this analysis again, for now, let's proceed with simpler datasets while exploring the features of decision trees.</p>
 <p><a name='x.1.2.2'></a></p>
-<h4 id="4121-decision-boundaries">4.1.2.1 Decision Boundaries<a class="headerlink" href="#4121-decision-boundaries" title="Permanent link">&para;</a></h4>
+<h4 id="4121-decision-boundaries">4.1.2.1 Decision Boundaries</h4>
 <p><a href="#top">back to top</a></p>
 <p>Let's make some random blobs</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span> <span class="k">as</span> <span class="n">gen</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">gen</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>&lt;matplotlib.collections.PathCollection at 0x7eff29e6ea90&gt;
-</code></pre></div>
-
+<pre><code class="language-python">from sklearn.datasets import make_blobs as gen
+X, y = gen(random_state=42)
+</code></pre>
+<pre><code class="language-python">plt.scatter(X[:,0], X[:,1], c=y, cmap='viridis')
+</code></pre>
+<pre><code>&lt;matplotlib.collections.PathCollection at 0x7eff29e6ea90&gt;
+</code></pre>
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_49_1.png" /></p>
 <p>Let's call up our Classifier again, this time setting the <code>max_depth</code> to two</p>
-<div class="codehilite"><pre><span></span><code><span class="n">clf</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</code></pre></div>
+<pre><code class="language-python">clf = tree.DecisionTreeClassifier(max_depth=2, random_state=42)
+clf = clf.fit(X, y)
+</code></pre>
+<pre><code class="language-python"># Parameters
+plot_step = 0.02
 
-<div class="codehilite"><pre><span></span><code><span class="c1"># Parameters</span>
-<span class="n">plot_step</span> <span class="o">=</span> <span class="mf">0.02</span>
+x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+xx, yy = np.meshgrid(np.arange(x_min, x_max, plot_step),
+                      np.arange(y_min, y_max, plot_step))
+plt.tight_layout(h_pad=0.5, w_pad=0.5, pad=2.5)
 
-<span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">plot_step</span><span class="p">),</span>
-                      <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">,</span> <span class="n">plot_step</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">h_pad</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">w_pad</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
+Z = Z.reshape(xx.shape)
+cs = plt.contourf(xx, yy, Z, cmap='viridis', alpha=0.2)
 
-<span class="n">Z</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">yy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
-<span class="n">Z</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="n">cs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>&lt;matplotlib.collections.PathCollection at 0x7eff2a0a4bd0&gt;
-</code></pre></div>
-
+plt.scatter(X[:,0], X[:,1], c=y, cmap='viridis', edgecolor='grey', alpha=0.9)
+</code></pre>
+<pre><code>&lt;matplotlib.collections.PathCollection at 0x7eff2a0a4bd0&gt;
+</code></pre>
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_52_1.png" /></p>
-<div class="codehilite"><pre><span></span><code><span class="n">dot_data</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">export_graphviz</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">out_file</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> 
-<span class="n">graph</span> <span class="o">=</span> <span class="n">graphviz</span><span class="o">.</span><span class="n">Source</span><span class="p">(</span><span class="n">dot_data</span><span class="p">)</span> 
-<span class="n">graph</span>
-</code></pre></div>
-
+<pre><code class="language-python">dot_data = tree.export_graphviz(clf, out_file=None) 
+graph = graphviz.Source(dot_data) 
+graph
+</code></pre>
 <p><img alt="svg" src="../S6_Bagging_files/S6_Bagging_53_0.svg" /></p>
 <p>We can see from the output of this graph, that the tree attempts to create the class boundaries as far from the cluster centers as possible. What happens when these clusters overlap?</p>
-<div class="codehilite"><pre><span></span><code><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">gen</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>&lt;matplotlib.collections.PathCollection at 0x7eff2a114150&gt;
-</code></pre></div>
-
+<pre><code class="language-python">X, y = gen(random_state=42, cluster_std=3)
+plt.scatter(X[:,0], X[:,1], c=y, cmap='viridis')
+</code></pre>
+<pre><code>&lt;matplotlib.collections.PathCollection at 0x7eff2a114150&gt;
+</code></pre>
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_55_1.png" /></p>
 <p>Let's go ahead and write our plot into a function</p>
-<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_tree</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">):</span>
-  <span class="n">plot_step</span> <span class="o">=</span> <span class="mf">0.02</span>
-  <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
-  <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
-  <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">plot_step</span><span class="p">),</span>
-                        <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">,</span> <span class="n">plot_step</span><span class="p">))</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">h_pad</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">w_pad</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+<pre><code class="language-python">def plot_tree(X, clf):
+  plot_step = 0.02
+  x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+  y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+  xx, yy = np.meshgrid(np.arange(x_min, x_max, plot_step),
+                        np.arange(y_min, y_max, plot_step))
+  plt.tight_layout(h_pad=0.5, w_pad=0.5, pad=2.5)
 
-  <span class="n">Z</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">yy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
-  <span class="n">Z</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-  <span class="n">cs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+  Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
+  Z = Z.reshape(xx.shape)
+  cs = plt.contourf(xx, yy, Z, cmap='viridis', alpha=0.2)
 
-  <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
-  <span class="k">return</span> <span class="n">plt</span>
-</code></pre></div>
-
+  plt.scatter(X[:,0], X[:,1], c=y, cmap='viridis', edgecolor='grey', alpha=0.9)
+  return plt
+</code></pre>
 <p>We see that the boundaries mislabel some points</p>
-<div class="codehilite"><pre><span></span><code><span class="n">fig</span> <span class="o">=</span> <span class="n">plot_tree</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">fig = plot_tree(X, clf)
+</code></pre>
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_59_0.png" /></p>
 <p><a name='x.1.3'></a></p>
-<h3 id="413-overfitting-a-decision-tree">4.1.3 Overfitting a Decision Tree<a class="headerlink" href="#413-overfitting-a-decision-tree" title="Permanent link">&para;</a></h3>
+<h3 id="413-overfitting-a-decision-tree">4.1.3 Overfitting a Decision Tree</h3>
 <p><a href="#top">back to top</a></p>
 <p>Let's increase the max_depth</p>
-<div class="codehilite"><pre><span></span><code><span class="n">clf</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">plot_tree</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>&lt;module &#39;matplotlib.pyplot&#39; from &#39;/usr/local/lib/python3.7/dist-packages/matplotlib/pyplot.py&#39;&gt;
-</code></pre></div>
-
+<pre><code class="language-python">clf = tree.DecisionTreeClassifier(max_depth=5, random_state=42)
+clf = clf.fit(X, y)
+plot_tree(X, clf)
+</code></pre>
+<pre><code>&lt;module 'matplotlib.pyplot' from '/usr/local/lib/python3.7/dist-packages/matplotlib/pyplot.py'&gt;
+</code></pre>
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_61_1.png" /></p>
 <p>What we notice is that while the model accurately predicts the training data, we see some spurious labels, noteably the trailing purple bar that extends into the otherwise green region of the data. </p>
 <p>This is a well known fact about decision trees, that they tend to overfit their training data. In fact, this is a major motivation for why decision trees, a weak classifier, are conveniently packaged into ensembles.</p>
 <p>We combine the idea of bootstrapping, with decision trees, to come up with an overall better classifier.</p>
-<h4 id="4131-exercise-minimize-overfitting">4.1.3.1 Exercise: Minimize Overfitting<a class="headerlink" href="#4131-exercise-minimize-overfitting" title="Permanent link">&para;</a></h4>
+<h4 id="4131-exercise-minimize-overfitting">4.1.3.1 Exercise: Minimize Overfitting</h4>
 <p>Repeat 4.1.3 with different max_depth settings, also read the docstring and play with any other hyperparameters available to you. What settings do you feel minimize overfitting?</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Code Cell for 4.1.3.1</span>
-</code></pre></div>
-
+<pre><code class="language-python"># Code Cell for 4.1.3.1
+</code></pre>
 <p><a name='x.2'></a></p>
-<h2 id="42-random-forests-and-bagging">4.2 Random Forests and Bagging<a class="headerlink" href="#42-random-forests-and-bagging" title="Permanent link">&para;</a></h2>
+<h2 id="42-random-forests-and-bagging">4.2 Random Forests and Bagging</h2>
 <p><a href="#top">back to top</a></p>
 <p><a name='x.2.1'></a></p>
-<h3 id="421-what-is-bagging">4.2.1 What is Bagging?<a class="headerlink" href="#421-what-is-bagging" title="Permanent link">&para;</a></h3>
+<h3 id="421-what-is-bagging">4.2.1 What is Bagging?</h3>
 <p><a href="#top">back to top</a></p>
 <p><strong><em>Bagging</em></strong>, or Bootstrap AGGregation is the process of creating subsets of your data and training separate models on them, and using the aggregate votes of the models to make a final prediction.</p>
 <p><strong><em>Bootstrapping</em></strong> is a topic in and of itself that we will just touch on here. Without going through the statistical rigor of proof, bootstrapping, or sampling from your observations with replacement, simulates having drawn additional data from the true population. We use this method to create many new datasets that are then used to <em>train separate learners</em> in parallel. This overall approach is called <strong><em>Bagging</em></strong>.</p>
@@ -1166,104 +1120,92 @@ array([0, 0, 1, 1, 0])
 
 <p>A <strong><em>Random Forest</em></strong> is an instance of bagging where the separate learners are decision trees. </p>
 <p><a name='x.2.2'></a></p>
-<h3 id="422-random-forests-for-classification">4.2.2 Random Forests for Classification<a class="headerlink" href="#422-random-forests-for-classification" title="Permanent link">&para;</a></h3>
+<h3 id="422-random-forests-for-classification">4.2.2 Random Forests for Classification</h3>
 <p><a href="#top">back to top</a></p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">BaggingClassifier</span>
+<pre><code class="language-python">from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import BaggingClassifier
 
-<span class="n">tree</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">()</span>
-<span class="n">bag</span> <span class="o">=</span> <span class="n">BaggingClassifier</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_samples</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
-                        <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+tree = DecisionTreeClassifier()
+bag = BaggingClassifier(tree, n_estimators=10, max_samples=0.8,
+                        random_state=1)
 
-<span class="n">bag</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">plot_tree</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">bag</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>&lt;module &#39;matplotlib.pyplot&#39; from &#39;/usr/local/lib/python3.7/dist-packages/matplotlib/pyplot.py&#39;&gt;
-</code></pre></div>
-
+bag.fit(X, y)
+plot_tree(X, bag)
+</code></pre>
+<pre><code>&lt;module 'matplotlib.pyplot' from '/usr/local/lib/python3.7/dist-packages/matplotlib/pyplot.py'&gt;
+</code></pre>
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_68_1.png" /></p>
 <p>In the above, we have bootstrapped by providing each individual tree with 80% of the population data. In practice, Random Forests can achieve even better results by randomizing how the individual classifiers are constructed. In fact there are many unique methods of training individual trees and you can learn more about them <a href="https://scikit-learn.org/stable/modules/ensemble.html#forest">here</a>. For now, know that it is better in practice to implement the RandomForests method in sklearn rather than bag individual trees yourself.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">plot_tree</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>&lt;module &#39;matplotlib.pyplot&#39; from &#39;/usr/local/lib/python3.7/dist-packages/matplotlib/pyplot.py&#39;&gt;
-</code></pre></div>
-
+<pre><code class="language-python">from sklearn.ensemble import RandomForestClassifier
+clf = RandomForestClassifier(n_estimators=10, random_state=2)
+clf = clf.fit(X, y)
+</code></pre>
+<pre><code class="language-python">plot_tree(X, clf)
+</code></pre>
+<pre><code>&lt;module 'matplotlib.pyplot' from '/usr/local/lib/python3.7/dist-packages/matplotlib/pyplot.py'&gt;
+</code></pre>
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_71_1.png" /></p>
 <p><a name='x.2.2.1'></a></p>
-<h4 id="4221-interpreting-a-random-forest">4.2.2.1 Interpreting a Random Forest<a class="headerlink" href="#4221-interpreting-a-random-forest" title="Permanent link">&para;</a></h4>
+<h4 id="4221-interpreting-a-random-forest">4.2.2.1 Interpreting a Random Forest</h4>
 <p><a href="#top">back to top</a></p>
 <p>Let's revisit our truffle dataset again, this time with random forests</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># fit the model</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_truf</span><span class="p">,</span> <span class="n">y_truf_class</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python"># fit the model
+clf = RandomForestClassifier(n_estimators=10, min_samples_leaf=6)
+clf = clf.fit(X_truf, y_truf_class)
+</code></pre>
 <p>We get a fairly high accuracy when our <code>min_samples_leaf</code> is low and an accuracy that leaves room for improvement when <code>min_samples_leaf</code> is high. This indicates to us the model may be prown to overfitting if we are not careful:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">accuracy_score</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_truf</span><span class="p">),</span> <span class="n">y_truf_class</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>0.6007194244604317
-</code></pre></div>
-
+<pre><code class="language-python">accuracy_score(clf.predict(X_truf), y_truf_class)
+</code></pre>
+<pre><code>0.6007194244604317
+</code></pre>
 <p>We need to do some housekeeping to get back the names and categories the features were pulled from:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">feat_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;x</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cat_cols</span><span class="p">))],</span> 
-                     <span class="n">cat_cols</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">feat_dict</span><span class="p">)</span>
-<span class="n">feats</span> <span class="o">=</span> <span class="p">[]</span>
+<pre><code class="language-python">feat_dict = dict(zip([f'x{i}' for i in range(len(cat_cols))], 
+                     cat_cols.str.replace(' ', '_')))
+print(feat_dict)
+feats = []
 
-<span class="c1"># enc.get_feature_names unpacks like so: `x4_White` where</span>
-<span class="c1"># x&lt;N&gt; is an artifact of the original dimensions fed to enc()</span>
-<span class="c1"># I am unpacking the feature names with the original dataframe header</span>
-<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">enc</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">():</span>
-  <span class="n">feats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feat_dict</span><span class="p">[</span><span class="n">row</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">row</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]))</span>
+# enc.get_feature_names unpacks like so: `x4_White` where
+# x&lt;N&gt; is an artifact of the original dimensions fed to enc()
+# I am unpacking the feature names with the original dataframe header
+for row in enc.get_feature_names():
+  feats.append('{} {}'.format(feat_dict[row.split('_')[0]], row.split('_')[1]))
 
-<span class="c1"># feats will be used to visualize the feature importances</span>
-<span class="n">feats</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>{&#39;x0&#39;: &#39;Base_Cake&#39;, &#39;x1&#39;: &#39;Truffle_Type&#39;, &#39;x2&#39;: &#39;Primary_Flavor&#39;, &#39;x3&#39;: &#39;Secondary_Flavor&#39;, &#39;x4&#39;: &#39;Color_Group&#39;, &#39;x5&#39;: &#39;Customer&#39;, &#39;x6&#39;: &#39;Date&#39;}
-
+# feats will be used to visualize the feature importances
+feats[:5]
+</code></pre>
+<pre><code>{'x0': 'Base_Cake', 'x1': 'Truffle_Type', 'x2': 'Primary_Flavor', 'x3': 'Secondary_Flavor', 'x4': 'Color_Group', 'x5': 'Customer', 'x6': 'Date'}
 
 
 
 
-[&#39;Base_Cake Butter&#39;,
- &#39;Base_Cake Cheese&#39;,
- &#39;Base_Cake Chiffon&#39;,
- &#39;Base_Cake Pound&#39;,
- &#39;Base_Cake Sponge&#39;]
-</code></pre></div>
 
+['Base_Cake Butter',
+ 'Base_Cake Cheese',
+ 'Base_Cake Chiffon',
+ 'Base_Cake Pound',
+ 'Base_Cake Sponge']
+</code></pre>
 <p>The feature importances are stored in <code>clf.feature_importances_</code>. These are calculated from the <strong><em>Mean Decrease in Impurity</em></strong> or MDI also called the <strong><em>Gini Importance</em></strong>. It is the sum of the number of nodes across all trees that include the feature, weighted by the number of samples passing through the node. </p>
 <p>One downside of estimating feature importance in this way is that it doesn't play well with highly cardinal features <em>(features with many unique values such as mailing addresses, are highly cardinal features)</em></p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># grab feature importances</span>
-<span class="n">imp</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">feature_importances_</span>
+<pre><code class="language-python"># grab feature importances
+imp = clf.feature_importances_
 
-<span class="c1"># their std</span>
-<span class="n">std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">([</span><span class="n">tree</span><span class="o">.</span><span class="n">feature_importances_</span> <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">clf</span><span class="o">.</span><span class="n">estimators_</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+# their std
+std = np.std([tree.feature_importances_ for tree in clf.estimators_], axis=0)
 
-<span class="c1"># create new dataframe</span>
-<span class="n">feat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">feats</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;KG&quot;</span><span class="p">],</span> <span class="n">imp</span><span class="p">,</span> <span class="n">std</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
-<span class="n">feat</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;importance&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">]</span>
-<span class="n">feat</span> <span class="o">=</span> <span class="n">feat</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;importance&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">feat</span> <span class="o">=</span> <span class="n">feat</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">feat</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">,</span> <span class="s1">&#39;importance&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">]</span>
-</code></pre></div>
-
+# create new dataframe
+feat = pd.DataFrame([feats + [&quot;KG&quot;], imp, std]).T
+feat.columns = ['name', 'importance', 'std']
+feat = feat.sort_values('importance', ascending=False)
+feat = feat.reset_index(drop=True)
+feat.columns = ['feature', 'importance', 'std']
+</code></pre>
 <p>I'm going to use <code>plotly</code> to create this chart:</p>
 <blockquote>
 <p>How does feature importance change when we change the minimum leaf size from 2 to 6?</p>
 </blockquote>
-<div class="codehilite"><pre><span></span><code><span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">feat</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;feature&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;importance&#39;</span><span class="p">,</span> <span class="n">error_y</span><span class="o">=</span><span class="s1">&#39;std&#39;</span><span class="p">)</span>
-</code></pre></div>
-
+<pre><code class="language-python">px.bar(feat, x='feature', y='importance', error_y='std')
+</code></pre>
 <p><html>
 <head><meta charset="utf-8" /></head></p>
 <body>
@@ -1314,104 +1256,92 @@ if (outputEl) {{
 </body>
 <p></html></p>
 <p>We can then go and look at the different EBITDAs when selecting for each of these features:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">ebitda_comp</span><span class="p">(</span><span class="n">feature</span><span class="o">=</span><span class="n">feat</span><span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">]):</span>
-  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">feature</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-    <span class="n">group</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
-    <span class="n">sel</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">feature</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span>
-    <span class="n">pos</span> <span class="o">=</span> <span class="n">margin</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">margin</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">==</span> <span class="n">sel</span><span class="p">)][</span><span class="s1">&#39;EBITDA/KG&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
-    <span class="n">neg</span> <span class="o">=</span> <span class="n">margin</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">margin</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">==</span> <span class="n">sel</span><span class="p">)][</span><span class="s1">&#39;EBITDA/KG&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;with:    </span><span class="si">{:.2e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pos</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;without: </span><span class="si">{:.2e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">neg</span><span class="p">))</span>
-  <span class="k">else</span><span class="p">:</span>
-    <span class="k">pass</span>  
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">interact</span><span class="p">(</span><span class="n">ebitda_comp</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>interactive(children=(Dropdown(description=&#39;feature&#39;, options=(&#39;Base_Cake Sponge&#39;, &#39;Base_Cake Chiffon&#39;, &#39;Base_…
+<pre><code class="language-python">def ebitda_comp(feature=feat['feature']):
+  if len(feature.split(' ')) &gt; 1:
+    group = feature.split(' ')[0].replace('_', ' ')
+    sel = &quot; &quot;.join(feature.split(' ')[1:])
+    pos = margin.loc[(margin[group] == sel)]['EBITDA/KG'].median()
+    neg = margin.loc[~(margin[group] == sel)]['EBITDA/KG'].median()
+    print(&quot;with:    {:.2e}&quot;.format(pos))
+    print(&quot;without: {:.2e}&quot;.format(neg))
+  else:
+    pass  
+</code></pre>
+<pre><code class="language-python">interact(ebitda_comp)
+</code></pre>
+<pre><code>interactive(children=(Dropdown(description='feature', options=('Base_Cake Sponge', 'Base_Cake Chiffon', 'Base_…
 
 
 
 
 
 &lt;function __main__.ebitda_comp&gt;
-</code></pre></div>
-
+</code></pre>
 <p>This is an example of how the interpretability of the random forest ensemble approach can be highly valuable.</p>
 <p><a name='x.2.3'></a></p>
-<h3 id="423-random-forests-for-regression">4.2.3 Random Forests for Regression<a class="headerlink" href="#423-random-forests-for-regression" title="Permanent link">&para;</a></h3>
+<h3 id="423-random-forests-for-regression">4.2.3 Random Forests for Regression</h3>
 <p><a href="#top">back to top</a></p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+<pre><code class="language-python">from sklearn.ensemble import RandomForestRegressor
 
-<span class="n">clf</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-</code></pre></div>
-
+clf = RandomForestRegressor(n_estimators=10)
+</code></pre>
 <p>Because our labels on our blob data were numerical, we can apply and view the estimator in the same way:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">clf</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">plot_tree</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>&lt;module &#39;matplotlib.pyplot&#39; from &#39;/usr/local/lib/python3.7/dist-packages/matplotlib/pyplot.py&#39;&gt;
-</code></pre></div>
-
+<pre><code class="language-python">clf = clf.fit(X, y)
+plot_tree(X, clf)
+</code></pre>
+<pre><code>&lt;module 'matplotlib.pyplot' from '/usr/local/lib/python3.7/dist-packages/matplotlib/pyplot.py'&gt;
+</code></pre>
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_89_1.png" /></p>
 <p>I want to revisit a dataset we brought up in Session 2 on feature engineering:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
-<span class="n">w</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">h</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">s</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">h</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="mi">5</span><span class="p">)</span>
+<pre><code class="language-python">t = np.linspace(0,5,200)
+w = 5
+h = 4
+s = 4 * h / np.pi * (np.sin(w*t) + np.sin(3*w*t)/3 + np.sin(5*w*t)/5)
 
-<span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-<span class="n">freq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftfreq</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+F = np.fft.fft(s)
+freq = np.fft.fftfreq(t.shape[-1])
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+fig, ax = plt.subplots(1,2,figsize=(10,5))
 
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">),</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Time Domain&#39;</span><span class="p">)</span>
+ax[0].plot(t,s)
+ax[0].plot(t,np.sin(w*t), ls='--')
+ax[0].plot(t,np.sin(w*t*3)/3, ls='--')
+ax[0].plot(t,np.sin(w*t*5)/5, ls='--')
+ax[0].set_title('Time Domain')
 
-<span class="c1"># tells us about the amplitude of the component at the</span>
-<span class="c1"># corresponding frequency</span>
-<span class="n">magnitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">real</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">imag</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+# tells us about the amplitude of the component at the
+# corresponding frequency
+magnitude = np.sqrt(F.real**2 + F.imag**2)
 
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">magnitude</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">.15</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Frequency Domain&#39;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>Text(0.5, 1.0, &#39;Frequency Domain&#39;)
-</code></pre></div>
-
+ax[1].plot(freq, magnitude)
+ax[1].set_xlim(0,.15)
+ax[1].set_title('Frequency Domain')
+</code></pre>
+<pre><code>Text(0.5, 1.0, 'Frequency Domain')
+</code></pre>
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_91_1.png" /></p>
 <p>Let's see if a random forest regression model can capture the wave behavior of the time-series data</p>
-<div class="codehilite"><pre><span></span><code><span class="n">clf</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">s</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion=&#39;mse&#39;,
-                      max_depth=None, max_features=&#39;auto&#39;, max_leaf_nodes=None,
+<pre><code class="language-python">clf = RandomForestRegressor(n_estimators=10)
+clf.fit(t.reshape(-1,1),s)
+</code></pre>
+<pre><code>RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
                       max_samples=None, min_impurity_decrease=0.0,
                       min_impurity_split=None, min_samples_leaf=1,
                       min_samples_split=2, min_weight_fraction_leaf=0.0,
                       n_estimators=10, n_jobs=None, oob_score=False,
                       random_state=None, verbose=0, warm_start=False)
-</code></pre></div>
+</code></pre>
+<pre><code class="language-python">fig, ax = plt.subplots(1,1,figsize=(10,5))
 
-<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>[&lt;matplotlib.lines.Line2D at 0x7eff29588690&gt;]
-</code></pre></div>
-
+ax.plot(t,s)
+ax.plot(t,clf.predict(t.reshape(-1,1)))
+</code></pre>
+<pre><code>[&lt;matplotlib.lines.Line2D at 0x7eff29588690&gt;]
+</code></pre>
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_94_1.png" /></p>
 <p>Nice! without specifying any perdiodicity, the random forest does a good job of embedding this periodicity in the final output.</p>
-<h3 id="424-extended-exercise-practice-with-random-forests">4.2.4 Extended Exercise: Practice with Random Forests<a class="headerlink" href="#424-extended-exercise-practice-with-random-forests" title="Permanent link">&para;</a></h3>
+<h3 id="424-extended-exercise-practice-with-random-forests">4.2.4 Extended Exercise: Practice with Random Forests</h3>
 <p>With the wine dataset:</p>
 <ul>
 <li>
@@ -1424,24 +1354,24 @@ if (outputEl) {{
 <p>create a learning curve of train/test score vs model complexity for your random forest model(s)</p>
 </li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Code Cell for Exercise 4.2.4</span>
-<span class="n">wine</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/wesleybeckner/&quot;</span>\
-      <span class="s2">&quot;ds_for_engineers/main/data/wine_quality/winequalityN.csv&quot;</span><span class="p">)</span>
+<pre><code class="language-python"># Code Cell for Exercise 4.2.4
+wine = pd.read_csv(&quot;https://raw.githubusercontent.com/wesleybeckner/&quot;\
+      &quot;ds_for_engineers/main/data/wine_quality/winequalityN.csv&quot;)
 
-<span class="n">wine</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">wine</span><span class="p">[</span><span class="s1">&#39;quality_label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wine</span><span class="p">[</span><span class="s1">&#39;quality&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;low&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span><span class="mi">5</span> <span class="k">else</span>
-                                              <span class="s1">&#39;med&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">7</span> <span class="k">else</span> <span class="s1">&#39;high&#39;</span><span class="p">)</span>
+wine.dropna(inplace=True)
+wine['quality_label'] = wine['quality'].apply(lambda x: 'low' if x &lt;=5 else
+                                              'med' if x &lt;= 7 else 'high')
 
-<span class="n">wine</span><span class="p">[</span><span class="s1">&#39;type_encoding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wine</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;red&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
-<span class="n">wine</span><span class="p">[</span><span class="s1">&#39;quality_encoding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wine</span><span class="p">[</span><span class="s1">&#39;quality_label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;low&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> 
-                                                      <span class="s1">&#39;med&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;high&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+wine['type_encoding'] = wine['type'].map({'red': 0, 'white': 1})
+wine['quality_encoding'] = wine['quality_label'].map({'low':0, 
+                                                      'med': 1, 'high': 2})
 
-<span class="n">wine</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+wine.columns = wine.columns.str.replace(' ', '_')
 
-<span class="n">features</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">wine</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
-<span class="n">features</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;quality_label&#39;</span><span class="p">)</span>
-<span class="n">features</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;quality&#39;</span><span class="p">)</span>
-</code></pre></div>
+features = list(wine.columns[1:-1].values)
+features.remove('quality_label')
+features.remove('quality')
+</code></pre>
 
               
             </article>
@@ -1511,6 +1441,8 @@ if (outputEl) {{
     
     
       <script src="../assets/javascripts/bundle.6baa0517.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       
     
   </body>
