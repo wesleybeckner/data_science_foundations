@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#technology-fundamentals-course-2-session-1-regression-and-descriptive-statistics" class="md-skip">
+        <a href="#session-1-regression-and-analysis" class="md-skip">
           Skip to content
         </a>
       
@@ -268,13 +268,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#schedule-for-this-week" class="md-nav__link">
-    Schedule for this week
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#10-preparing-environment-and-importing-data" class="md-nav__link">
     1.0 Preparing Environment and Importing Data
   </a>
@@ -305,6 +298,26 @@
   <a href="#11-what-is-regression" class="md-nav__link">
     1.1 What is regression?
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-linear-regression-fitting-with-scikit-learn" class="md-nav__link">
+    1.2  Linear regression fitting with scikit-learn
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2  Linear regression fitting with scikit-learn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-rudimentary-eda" class="md-nav__link">
+    Exercise 1: rudimentary EDA
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -628,13 +641,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#schedule-for-this-week" class="md-nav__link">
-    Schedule for this week
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#10-preparing-environment-and-importing-data" class="md-nav__link">
     1.0 Preparing Environment and Importing Data
   </a>
@@ -668,6 +674,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#12-linear-regression-fitting-with-scikit-learn" class="md-nav__link">
+    1.2  Linear regression fitting with scikit-learn
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2  Linear regression fitting with scikit-learn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-rudimentary-eda" class="md-nav__link">
+    Exercise 1: rudimentary EDA
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -681,17 +707,10 @@
               
                 
 
-<p><a href="https://colab.research.google.com/github/wesleybeckner/technology_fundamentals/blob/main/C2%20Statistics%20and%20Model%20Creation/Tech_Fun_C2_S1_Regression_and_Descriptive_Statistics.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
-<h1 id="technology-fundamentals-course-2-session-1-regression-and-descriptive-statistics">Technology Fundamentals Course 2, Session 1: Regression and Descriptive Statistics<a class="headerlink" href="#technology-fundamentals-course-2-session-1-regression-and-descriptive-statistics" title="Permanent link">&para;</a></h1>
+<p><a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/S1_Regression_and_Analysis.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
+<h1 id="session-1-regression-and-analysis">Session 1: Regression and Analysis<a class="headerlink" href="#session-1-regression-and-analysis" title="Permanent link">&para;</a></h1>
 <p><strong>Instructor</strong>: Wesley Beckner</p>
 <p><strong>Contact</strong>: wesleybeckner@gmail.com</p>
-<p><strong>Teaching Assitants</strong>: Varsha Bang, Harsha Vardhan</p>
-<p><strong>Contact</strong>: vbang@uw.edu, harshav@uw.edu
-<br></p>
-<h2 id="schedule-for-this-week">Schedule for this week<a class="headerlink" href="#schedule-for-this-week" title="Permanent link">&para;</a></h2>
-<p align="center">
-<img src="https://raw.githubusercontent.com/wesleybeckner/technology_fundamentals/main/assets/week2.png" width=800></img>
-</p>
 <hr />
 <p><br></p>
 <p>In this session we will look at fitting data to a curve using <strong>regression</strong>. We will also look at using regression to make <strong>predictions</strong> for new data points by dividing our data into a training and a testing set. Finally we will examine how much error we make in our fit and then in our predictions by computing the mean squared error.</p>
@@ -896,17 +915,11 @@
 <p>We can imagine this scenario with housing prices. Envision a <strong><em>mixed</em></strong> dataset of <strong><em>continuous</em></strong> and <strong><em>discrete</em></strong> independent variables. Some features could be continuous, floating point values like location ranking and housing condition. Others could be descrete like the number of rooms or bathrooms. We could take these features and use them to predict a house value. This would be a <strong><em>regression</em></strong> model.</p>
 <p align=center>
 <img src="https://raw.githubusercontent.com/wesleybeckner/technology_explorers/main/assets/machine_learning/ML3.png" width=1000px></img>
+</p>
 
-
-
-
-
-
-## 1.2  Linear regression fitting with scikit-learn
-
-#### Exercise 1: rudimentary EDA
-What does the data look like? Remember how to visualize data in a pandas dataframe (Sessions 3 and 4) 
-
+<h2 id="12-linear-regression-fitting-with-scikit-learn">1.2  Linear regression fitting with scikit-learn<a class="headerlink" href="#12-linear-regression-fitting-with-scikit-learn" title="Permanent link">&para;</a></h2>
+<h4 id="exercise-1-rudimentary-eda">Exercise 1: rudimentary EDA<a class="headerlink" href="#exercise-1-rudimentary-eda" title="Permanent link">&para;</a></h4>
+<p>What does the data look like? Remember how to visualize data in a pandas dataframe (Sessions 3 and 4) </p>
 <ol>
 <li> for every column calculate the
 
