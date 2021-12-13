@@ -999,131 +999,6 @@ _note:_ pearsons is just one type of correlation, another available to us **_spe
 
 
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>skew</th>
-      <th>kurtosis</th>
-      <th>pearsons _quality</th>
-      <th>null count</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>fixed acidity</th>
-      <td>1.722805</td>
-      <td>5.057727</td>
-      <td>-0.077031</td>
-      <td>10.0</td>
-    </tr>
-    <tr>
-      <th>volatile acidity</th>
-      <td>1.495512</td>
-      <td>2.827081</td>
-      <td>-0.265953</td>
-      <td>8.0</td>
-    </tr>
-    <tr>
-      <th>citric acid</th>
-      <td>0.473032</td>
-      <td>2.401582</td>
-      <td>0.085706</td>
-      <td>3.0</td>
-    </tr>
-    <tr>
-      <th>residual sugar</th>
-      <td>1.435000</td>
-      <td>4.358134</td>
-      <td>-0.036825</td>
-      <td>2.0</td>
-    </tr>
-    <tr>
-      <th>chlorides</th>
-      <td>5.399849</td>
-      <td>50.894874</td>
-      <td>-0.200886</td>
-      <td>2.0</td>
-    </tr>
-    <tr>
-      <th>free sulfur dioxide</th>
-      <td>1.220066</td>
-      <td>7.906238</td>
-      <td>0.055463</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>total sulfur dioxide</th>
-      <td>-0.001177</td>
-      <td>-0.371664</td>
-      <td>-0.041385</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>density</th>
-      <td>0.503602</td>
-      <td>6.606067</td>
-      <td>-0.305858</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>pH</th>
-      <td>0.386966</td>
-      <td>0.370068</td>
-      <td>0.019366</td>
-      <td>9.0</td>
-    </tr>
-    <tr>
-      <th>sulphates</th>
-      <td>1.798467</td>
-      <td>8.659892</td>
-      <td>0.038729</td>
-      <td>4.0</td>
-    </tr>
-    <tr>
-      <th>alcohol</th>
-      <td>0.565718</td>
-      <td>-0.531687</td>
-      <td>0.444319</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>quality</th>
-      <td>0.189623</td>
-      <td>0.232322</td>
-      <td>1.000000</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>type</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
 I have gone ahead and repeated this exercise with the red vs white wine types:
 
 
@@ -1442,6 +1317,8 @@ I have gone ahead and repeated this exercise with the red vs white wine types:
 
 
 
+## Test
+
 
 
 <div class="codehilite"><pre><span></span><code><span class="n">interact</span><span class="p">(</span><span class="n">my_fig</span><span class="p">)</span>
@@ -1509,7 +1386,7 @@ How to improve the plot, what other plots would we like to see?
 
 
 
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_21_1.png)
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_22_1.png)
 
 
 
@@ -1593,13 +1470,13 @@ We can create a scatter plot of fixed acidity vs density of red wine in the data
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0x7f10b1ce7b50>
+    <matplotlib.axes._subplots.AxesSubplot at 0x7f3158ad7290>
 
 
 
 
 
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_25_1.png)
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_26_1.png)
 
 
 
@@ -1768,23 +1645,10 @@ Estimate the values of $y$ by using your fitted parameters. Hint: Use your <code
 <div class="codehilite"><pre><span></span><code><span class="c1"># define y_pred in terms of m, x, and b</span>
 <span class="c1"># y_pred = </span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="c1"># fig, ax = plt.subplots(1,1, figsize=(10,10))</span>
+<span class="c1"># ax.plot(x, y_pred, ls=&#39;&#39;, marker=&#39;*&#39;)</span>
+<span class="c1"># ax.plot(x, y, ls=&#39;&#39;, marker=&#39;.&#39;)</span>
 </code></pre></div>
-
-
-
-
-
-
-    [<matplotlib.lines.Line2D at 0x7f05bd58af50>]
-
-
-
-
-
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_41_1.png)
 
 
 
@@ -1798,19 +1662,6 @@ We can also return predictions directly with the model object using the predict(
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
 </code></pre></div>
-
-
-
-
-
-
-    [<matplotlib.lines.Line2D at 0x7f05bd5153d0>]
-
-
-
-
-
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_43_1.png)
 
 
 
@@ -1837,9 +1688,6 @@ print(&#39;Mean squared error: %.2f&#39; % mean_squared_error(y, y_pred))
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean squared error: </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
 </code></pre></div>
 
-
-
-    Mean squared error: 1.68
 
 
 #### 1.3.1.2 R-square
@@ -1870,9 +1718,6 @@ print(&#39;Coefficient of determination: %.2f&#39; % r2_score(y, y_pred))
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Coefficient of determination: </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
 </code></pre></div>
 
-
-
-    Coefficient of determination: 0.45
 
 
 ### 1.3.2 Corollaries with classification models
@@ -1909,21 +1754,6 @@ Just as a quick example, we can perform this type of task on our wine dataset by
 
 
 
-    /usr/local/lib/python3.7/dist-packages/sklearn/utils/validation.py:760: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
-      y = column_or_1d(y, warn=True)
-
-
-
-
-
-    LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
-                       intercept_scaling=1, l1_ratio=None, max_iter=100,
-                       multi_class='auto', n_jobs=None, penalty='l2',
-                       random_state=None, solver='lbfgs', tol=0.0001, verbose=0,
-                       warm_start=False)
-
-
-
 
 
 <div class="codehilite"><pre><span></span><code><span class="c1"># make class predictions for the testing set</span>
@@ -1939,9 +1769,6 @@ Just as a quick example, we can perform this type of task on our wine dataset by
 <span class="nb">print</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_pred_class</span><span class="p">))</span>
 </code></pre></div>
 
-
-
-    0.7538864091118977
 
 
 ### 1.3.3 Beyond a single input feature
@@ -1974,129 +1801,6 @@ The value we aim to predict or evaluate is the quality of each wine in our datas
 
 
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>type</th>
-      <th>fixed acidity</th>
-      <th>volatile acidity</th>
-      <th>citric acid</th>
-      <th>residual sugar</th>
-      <th>chlorides</th>
-      <th>free sulfur dioxide</th>
-      <th>total sulfur dioxide</th>
-      <th>density</th>
-      <th>pH</th>
-      <th>sulphates</th>
-      <th>alcohol</th>
-      <th>quality</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>4898</th>
-      <td>red</td>
-      <td>7.4</td>
-      <td>0.70</td>
-      <td>0.00</td>
-      <td>1.9</td>
-      <td>0.076</td>
-      <td>11.0</td>
-      <td>34.0</td>
-      <td>0.9978</td>
-      <td>3.51</td>
-      <td>0.56</td>
-      <td>9.4</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>4899</th>
-      <td>red</td>
-      <td>7.8</td>
-      <td>0.88</td>
-      <td>0.00</td>
-      <td>2.6</td>
-      <td>0.098</td>
-      <td>25.0</td>
-      <td>67.0</td>
-      <td>0.9968</td>
-      <td>3.20</td>
-      <td>0.68</td>
-      <td>9.8</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>4900</th>
-      <td>red</td>
-      <td>7.8</td>
-      <td>0.76</td>
-      <td>0.04</td>
-      <td>2.3</td>
-      <td>0.092</td>
-      <td>15.0</td>
-      <td>54.0</td>
-      <td>0.9970</td>
-      <td>3.26</td>
-      <td>0.65</td>
-      <td>9.8</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>4901</th>
-      <td>red</td>
-      <td>11.2</td>
-      <td>0.28</td>
-      <td>0.56</td>
-      <td>1.9</td>
-      <td>0.075</td>
-      <td>17.0</td>
-      <td>60.0</td>
-      <td>0.9980</td>
-      <td>3.16</td>
-      <td>0.58</td>
-      <td>9.8</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>4902</th>
-      <td>red</td>
-      <td>7.4</td>
-      <td>0.70</td>
-      <td>0.00</td>
-      <td>1.9</td>
-      <td>0.076</td>
-      <td>11.0</td>
-      <td>34.0</td>
-      <td>0.9978</td>
-      <td>3.51</td>
-      <td>0.56</td>
-      <td>9.4</td>
-      <td>5</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
 ### 1.4.1 Linear regression with all input fields
 
 For this example, notice we have a categorical data variable in the 'type' column. We will ignore this for now, and only work with our red wines. In the future we will discuss how to deal with categorical variable such as this in a mathematical representation.
@@ -2121,26 +1825,6 @@ For this example, notice we have a categorical data variable in the 'type' colum
 
 <div class="codehilite"><pre><span></span><code><span class="n">red</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># we are getting rid of some nasty nulls!</span>
 </code></pre></div>
-
-
-
-
-
-
-    type                    0
-    fixed acidity           2
-    volatile acidity        1
-    citric acid             1
-    residual sugar          0
-    chlorides               0
-    free sulfur dioxide     0
-    total sulfur dioxide    0
-    density                 0
-    pH                      2
-    sulphates               2
-    alcohol                 0
-    quality                 0
-    dtype: int64
 
 
 
@@ -2182,13 +1866,6 @@ Let's see what the coefficients look like ...
 
 
 
-    Fit coefficients: 
-     [ 9.42796851e-04  6.91804101e-04  5.96131573e-05  4.13002753e-04
-      1.77414632e-03 -8.79414703e-06  2.61750150e-06  5.06277080e-03
-      1.32356143e-03 -9.20862092e-04 -2.17464295e-05] 
-    Number of coefficients: 11
-
-
 We have 11 !!! That's because we are regressing respect to all **11 independent variables**!!!
 
 So now, $$y_{\sf calc}= m_1x_1 +\, m_2x_2 \,+ \,m_3x_3 \,+\,... \,+ \,b =\sum_{i=1}^{13}m_i x_i + b\;\;\;\;\; \sf eq. 7$$
@@ -2206,15 +1883,6 @@ print(&quot;\nAnd one intercept: &quot;, model.intercept_)
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">And one intercept: &quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span><span class="p">)</span>
 </code></pre></div>
 
-
-
-    We have 11 slopes / weights:
-
-     [ 9.42796851e-04  6.91804101e-04  5.96131573e-05  4.13002753e-04
-      1.77414632e-03 -8.79414703e-06  2.61750150e-06  5.06277080e-03
-      1.32356143e-03 -9.20862092e-04 -2.17464295e-05]
-
-    And one intercept:  0.9794206207830903
 
 
 
@@ -2236,9 +1904,6 @@ else:
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hmm .. something strange is going on.&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-
-
-    All good! The number of coefficients matches the number of input features.
 
 
 ### 🏋️ Exercise 4: evaluate the error
@@ -2280,10 +1945,6 @@ print(&#39;Coefficient of determination: {:.2f}&#39;.format(r2)
 
 
 
-    Mean squared error: 0.00
-    Coefficient of determination: 0.84
-
-
 ### 🏋️ Exercise 5: make a plot of y actual vs y predicted
 
 We can also look at how well the computed values match the true values graphically by generating a scatterplot.
@@ -2312,12 +1973,6 @@ plt.show()
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y$^{\sf true}$&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
-
-
-
-
-
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_76_0.png)
 
 
 
@@ -2381,19 +2036,6 @@ Now we check the size of <code> y_train </code> and <code> y_test </code>, the s
 
 
 
-    All good, ready to to go and regress!
-
-    Running linear regression algorithm on the training set
-
-    Fit coefficients and intercept:
-
-     [ 9.33178495e-04  6.16926970e-04  3.97991174e-06  4.16370328e-04
-      1.62394928e-03 -9.91971827e-06  2.69686071e-06  5.05056377e-03
-      1.31752524e-03 -9.38947432e-04  7.24835766e-06] 
-
-     0.9796448738246895
-
-
 Now we can plot our predicted values to see how accurate we are in predicting. We will generate a scatterplot and computing the MSE and $R^2$ metrics of error.
 
 
@@ -2423,16 +2065,6 @@ print(&#39;Coefficient of determination: %.2f&#39; % r2_score(y_test, y_pred_tes
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Coefficient of determination: </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">))</span>
 </code></pre></div>
 
-
-
-
-
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_83_0.png)
-
-
-
-    Mean squared error: 0.00
-    Coefficient of determination: 0.87
 
 
 #### 1.4.2.1 Other data considerations
@@ -2483,15 +2115,6 @@ y_calc_test = model.predict(X_test)
 
 
 
-    Fit coefficients and intercept:
-
-     [ 9.09641067e-04  6.43264795e-04  2.78882604e-05  4.16939725e-04
-      1.03446440e-03 -9.27657730e-06  2.32153681e-06  4.66188798e-03
-      1.32184520e-03 -9.33484848e-04 -2.26313220e-07] 
-
-     0.9811476280427127
-
-
 
 <div class="codehilite"><pre><span></span><code>sns.scatterplot(x=y_calc_test, y=y_test, color=&quot;lightseagreen&quot;, s=50)
 plt.title(&quot;Ridge regression - predict test set&quot;,fontsize=16)
@@ -2517,16 +2140,6 @@ print(&#39;Coefficient of determination: %.2f&#39; % r2_score(y_test, y_calc_tes
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Coefficient of determination: </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_calc_test</span><span class="p">))</span>
 </code></pre></div>
 
-
-
-
-
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_90_0.png)
-
-
-
-    Mean squared error: 0.00
-    Coefficient of determination: 0.87
 
 
 #### 🏋️ Exercise 6: Tune Hyperparameter for Ridge Regression
@@ -2586,19 +2199,6 @@ Plot the $\beta$ values vs $\lambda$ from the results of your analysis
 
 
 
-
-    <matplotlib.legend.Legend at 0x7f2941025290>
-
-
-
-
-
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_94_1.png)
-
-
-
-
-
 <div class="codehilite"><pre><span></span><code><span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">coefs</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="n">features</span><span class="p">)</span>
 <span class="n">results</span><span class="p">[</span><span class="s1">&#39;lambda&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">/</span><span class="mi">50</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">lambdas</span><span class="p">]</span>
 <span class="n">results</span><span class="p">[</span><span class="s1">&#39;scores&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scores</span>
@@ -2613,19 +2213,6 @@ Plot the $\beta$ values vs $\lambda$ from the results of your analysis
   <span class="n">results</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;lambda&#39;</span><span class="p">,</span> <span class="n">feat</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">results</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;lambda&#39;</span><span class="p">,</span> <span class="s1">&#39;scores&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </code></pre></div>
-
-
-
-
-
-
-    <matplotlib.axes._subplots.AxesSubplot at 0x7f293f6c0110>
-
-
-
-
-
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_96_1.png)
 
 
 
@@ -2648,9 +2235,6 @@ Plot the $\beta$ values vs $\lambda$ from the results of your analysis
 <div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </code></pre></div>
 
-
-
-    (1274, 11)
 
 
 If you want to use the first 5 features you could proceed as following:
@@ -2685,10 +2269,6 @@ print(X_test_five.shape)
 <span class="nb">print</span><span class="p">(</span><span class="n">X_test_five</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </code></pre></div>
 
-
-
-    (1274, 5)
-    (319, 5)
 
 
 Now you can use these to train your linear regression model and repeat for different numbers or sets of input features! Note that you do not need to change the output feature! It's size is independent from the number of input features, yet recall that its length is the same as the number of values per input feature.
@@ -2738,16 +2318,6 @@ Questions to think about while you work on this problem
   <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Coefficient of determination: </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
 </code></pre></div>
 
-
-
-    Mean squared error: 0.00
-    Coefficient of determination: -0.00
-    Mean squared error: 0.00
-    Coefficient of determination: -0.00
-    Mean squared error: 0.00
-    Coefficient of determination: 0.85
-    Mean squared error: 0.00
-    Coefficient of determination: 0.85
 
 
 <hr style="border:1px solid grey"> </hr>
