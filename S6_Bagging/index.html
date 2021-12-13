@@ -1,0 +1,1517 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.4">
+    
+    
+      
+        <title>Bagging - Data Science Foundations</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a4617e2.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.9204c3b2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#2094f3">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"..":".."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-114664473-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#technology-fundamentals-course-3-session-2-bagging-decision-trees-and-random-forests" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Data Science Foundations" class="md-header__button md-logo" aria-label="Data Science Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Data Science Foundations
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Bagging
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Data Science Foundations" class="md-nav__button md-logo" aria-label="Data Science Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Data Science Foundations
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Sessions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Sessions" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Sessions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../S1_Regression_and_Analysis/" class="md-nav__link">
+        Regression and Analysis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../S2_Inferential_Statistics/" class="md-nav__link">
+        Inferential Statistics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../S3_Model_Selection_and_Validation/" class="md-nav__link">
+        Model Selection and Validation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../S4_Feature_Engineering/" class="md-nav__link">
+        Feature Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../S5_Unsupervised_Learning/" class="md-nav__link">
+        Unsupervised Learning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Bagging
+      </a>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../S7_Boosting/" class="md-nav__link">
+        Boosting
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Exercises
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Exercises" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Exercises
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exercises/E1_Descriptive_Statistics_Data_Hunt/" class="md-nav__link">
+        Descriptive Statistics Data Hunt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exercises/E2_Inferential_Statistics_Data_Hunt/" class="md-nav__link">
+        Inferential Statisitcs Data Hunt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exercises/E3_Feature_Engineering/" class="md-nav__link">
+        Practice with Feature Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exercises/E4_Supervised_Learners/" class="md-nav__link">
+        Practice with Supervised Learners
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exercises/E5_Writing_Unit_Tests/" class="md-nav__link">
+        Practice with Writing Unit Tests
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Project
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Project" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Project
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project/P1_Statistical_Analysis_of_TicTacToe/" class="md-nav__link">
+        Statistical Analysis of TicTacToe
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project/P2_Heuristical_TicTacToe_Agents/" class="md-nav__link">
+        Heuristical TicTacToe Agents
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project/P3_1_Step_Look_Ahead_Agents/" class="md-nav__link">
+        1-Step Look Ahead Agents
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project/P4_N_Step_Look_Ahead_Agents/" class="md-nav__link">
+        N-Step Look Ahead Agents
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+<p><a href="https://colab.research.google.com/github/ronva-h/technology_fundamentals/blob/main/C3%20Machine%20Learning%20I/Tech%20Fun%20C3%20S2%20Random%20Forests.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
+<h1 id="technology-fundamentals-course-3-session-2-bagging-decision-trees-and-random-forests">Technology Fundamentals Course 3, Session 2: Bagging: Decision Trees and Random Forests<a class="headerlink" href="#technology-fundamentals-course-3-session-2-bagging-decision-trees-and-random-forests" title="Permanent link">&para;</a></h1>
+<p><strong>Instructor</strong>: Wesley Beckner</p>
+<p><strong>Contact</strong>: wesleybeckner@gmail.com</p>
+<p><strong>Teaching Assistants</strong>: Varsha Bang, Harsha Vardhan</p>
+<p><strong>Contact</strong>: vbang@uw.edu, harshav@uw.edu
+<br></p>
+<hr />
+<p><br></p>
+<p>In this session, we're going back to the topic of supervised learning models. These models however, belong to a special class of methods called bagging, or bootstrap aggregation. </p>
+<p>Bagging is an ensemble learning method. In this method, many weak classifiers cast their votes in a general election for the final prediction. </p>
+<p>The weak learners that random forests are made of, are called decision trees. </p>
+<p align="center">
+<img src="https://media.giphy.com/media/uX5BYSQALx12o/giphy.gif" width=400px></img>
+</p>
+
+<p><br></p>
+<hr />
+<p><br></p>
+<p><a name='top'></a></p>
+<h1 id="contents">Contents<a class="headerlink" href="#contents" title="Permanent link">&para;</a></h1>
+<ul>
+<li>4.0 <a href="#x.0">Preparing Environment and Importing Data</a></li>
+<li>4.0.1 <a href="#x.0.1">Import Packages</a></li>
+<li>4.0.2 <a href="#x.0.2">Load Dataset</a></li>
+<li>4.1 <a href="#x.1">Decision Trees</a></li>
+<li>4.1.1 <a href="#x.1.1">Creating a Decision Tree</a></li>
+<li>4.1.2 <a href="#x.1.2">Interpreting a Decision Tree</a><ul>
+<li>4.1.2.1 <a href="#x.1.2.1">Node &amp; Branch Diagram</a></li>
+<li>4.1.2.2 <a href="#x.1.2.2">Decision Boundaries</a></li>
+</ul>
+</li>
+<li>4.1.3 <a href="#x.1.3">Overfitting a Decision Tree</a></li>
+<li>4.2 <a href="#x.2">Random Forests and Bagging</a></li>
+<li>4.2.1 <a href="#x.2.1">What is Bagging?</a></li>
+<li>4.2.2 <a href="#x.2.2">Random Forests for Classification</a><ul>
+<li>4.2.2.1 <a href="#x.2.2.1">Interpreting a Random Forest</a></li>
+</ul>
+</li>
+<li>4.2.3 <a href="#x.2.3">Random Forests for Regression</a></li>
+</ul>
+<p><br></p>
+<hr />
+<p><a name='x.0'></a></p>
+<h2 id="40-preparing-environment-and-importing-data">4.0 Preparing Environment and Importing Data<a class="headerlink" href="#40-preparing-environment-and-importing-data" title="Permanent link">&para;</a></h2>
+<p><a href="#top">back to top</a></p>
+<p><a name='x.0.1'></a></p>
+<h3 id="401-import-packages">4.0.1 Import Packages<a class="headerlink" href="#401-import-packages" title="Permanent link">&para;</a></h3>
+<p><a href="#top">back to top</a></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
+<span class="kn">from</span> <span class="nn">statsmodels.stats.outliers_influence</span> <span class="kn">import</span> <span class="n">variance_inflation_factor</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span><span class="p">;</span> <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+<span class="kn">import</span> <span class="nn">graphviz</span> 
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interactive</span><span class="p">,</span> <span class="n">widgets</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+</code></pre></div>
+
+<p><a name='x.0.2'></a></p>
+<h3 id="402-load-dataset">4.0.2 Load Dataset<a class="headerlink" href="#402-load-dataset" title="Permanent link">&para;</a></h3>
+<p><a href="#top">back to top</a></p>
+<div class="codehilite"><pre><span></span><code><span class="n">margin</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/wesleybeckner/&#39;</span>\
+                 <span class="s1">&#39;ds_for_engineers/main/data/truffle_margin/truffle_margin_customer.csv&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">margin</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">margin</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>(1668, 9)
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Base Cake</th>
+      <th>Truffle Type</th>
+      <th>Primary Flavor</th>
+      <th>Secondary Flavor</th>
+      <th>Color Group</th>
+      <th>Customer</th>
+      <th>Date</th>
+      <th>KG</th>
+      <th>EBITDA/KG</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Butter</td>
+      <td>Candy Outer</td>
+      <td>Butter Pecan</td>
+      <td>Toffee</td>
+      <td>Taupe</td>
+      <td>Slugworth</td>
+      <td>1/2020</td>
+      <td>53770.342593</td>
+      <td>0.500424</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Butter</td>
+      <td>Candy Outer</td>
+      <td>Ginger Lime</td>
+      <td>Banana</td>
+      <td>Amethyst</td>
+      <td>Slugworth</td>
+      <td>1/2020</td>
+      <td>466477.578125</td>
+      <td>0.220395</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Butter</td>
+      <td>Candy Outer</td>
+      <td>Ginger Lime</td>
+      <td>Banana</td>
+      <td>Burgundy</td>
+      <td>Perk-a-Cola</td>
+      <td>1/2020</td>
+      <td>80801.728070</td>
+      <td>0.171014</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Butter</td>
+      <td>Candy Outer</td>
+      <td>Ginger Lime</td>
+      <td>Banana</td>
+      <td>White</td>
+      <td>Fickelgruber</td>
+      <td>1/2020</td>
+      <td>18046.111111</td>
+      <td>0.233025</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Butter</td>
+      <td>Candy Outer</td>
+      <td>Ginger Lime</td>
+      <td>Rum</td>
+      <td>Amethyst</td>
+      <td>Fickelgruber</td>
+      <td>1/2020</td>
+      <td>19147.454268</td>
+      <td>0.480689</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>We're going to recreate the same operations we employed in Session 2, Feature Engineering:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># identify categorical columns</span>
+<span class="n">cat_cols</span> <span class="o">=</span> <span class="n">margin</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="mi">7</span><span class="p">]</span>
+
+<span class="c1"># create the encoder object</span>
+<span class="n">enc</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">()</span>
+
+<span class="c1"># grab the columns we want to convert from strings</span>
+<span class="n">X_cat</span> <span class="o">=</span> <span class="n">margin</span><span class="p">[</span><span class="n">cat_cols</span><span class="p">]</span>
+
+<span class="c1"># fit our encoder to this data</span>
+<span class="n">enc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_cat</span><span class="p">)</span>
+<span class="n">onehotlabels</span> <span class="o">=</span> <span class="n">enc</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_cat</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="n">X_num</span> <span class="o">=</span> <span class="n">margin</span><span class="p">[[</span><span class="s1">&#39;KG&#39;</span><span class="p">]]</span>
+<span class="n">X_truf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">onehotlabels</span><span class="p">,</span> <span class="n">X_num</span><span class="o">.</span><span class="n">values</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># grab our y data</span>
+<span class="n">y_truf</span> <span class="o">=</span> <span class="n">margin</span><span class="p">[</span><span class="s1">&#39;EBITDA/KG&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+</code></pre></div>
+
+<p>Lastly, to create a classification task, we're going to identify high, med, and low value products:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;bad less than: </span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">margin</span><span class="p">[</span><span class="n">margin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">.25</span><span class="p">)),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;low less than: </span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">margin</span><span class="p">[</span><span class="n">margin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">.5</span><span class="p">)),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;med less than: </span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">margin</span><span class="p">[</span><span class="n">margin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">.75</span><span class="p">)),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">margin</span><span class="p">[</span><span class="n">margin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]])</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">showfliers</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>bad less than: 0.12
+
+low less than: 0.22
+
+med less than: 0.35
+
+
+
+
+
+
+&lt;matplotlib.axes._subplots.AxesSubplot at 0x7eff2a001b90&gt;
+</code></pre></div>
+
+<p><img alt="png" src="../S6_Bagging_files/S6_Bagging_10_2.png" /></p>
+<div class="codehilite"><pre><span></span><code><span class="n">margin</span><span class="p">[</span><span class="s1">&#39;profitability&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">margin</span><span class="p">[</span><span class="n">margin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;bad&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">margin</span><span class="p">[</span><span class="n">margin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">.25</span><span class="p">)</span> <span class="k">else</span>
+              <span class="s1">&#39;low&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">margin</span><span class="p">[</span><span class="n">margin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">.50</span><span class="p">)</span> <span class="k">else</span>
+              <span class="s1">&#39;med&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">margin</span><span class="p">[</span><span class="n">margin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">.75</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;high&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">margin</span><span class="p">[</span><span class="s1">&#39;profitability&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7eff29f68b90&gt;
+</code></pre></div>
+
+<p><img alt="png" src="../S6_Bagging_files/S6_Bagging_12_1.png" /></p>
+<div class="codehilite"><pre><span></span><code><span class="n">class_profit</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;bad&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;low&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;med&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;high&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<span class="n">y_truf_class</span> <span class="o">=</span> <span class="n">margin</span><span class="p">[</span><span class="s1">&#39;profitability&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">class_profit</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">margin</span><span class="p">[</span><span class="s1">&#39;profitability_encoding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_truf_class</span>
+<span class="n">margin</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Base Cake</th>
+      <th>Truffle Type</th>
+      <th>Primary Flavor</th>
+      <th>Secondary Flavor</th>
+      <th>Color Group</th>
+      <th>Customer</th>
+      <th>Date</th>
+      <th>KG</th>
+      <th>EBITDA/KG</th>
+      <th>profitability</th>
+      <th>profitability_encoding</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Butter</td>
+      <td>Candy Outer</td>
+      <td>Butter Pecan</td>
+      <td>Toffee</td>
+      <td>Taupe</td>
+      <td>Slugworth</td>
+      <td>1/2020</td>
+      <td>53770.342593</td>
+      <td>0.500424</td>
+      <td>high</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Butter</td>
+      <td>Candy Outer</td>
+      <td>Ginger Lime</td>
+      <td>Banana</td>
+      <td>Amethyst</td>
+      <td>Slugworth</td>
+      <td>1/2020</td>
+      <td>466477.578125</td>
+      <td>0.220395</td>
+      <td>med</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Butter</td>
+      <td>Candy Outer</td>
+      <td>Ginger Lime</td>
+      <td>Banana</td>
+      <td>Burgundy</td>
+      <td>Perk-a-Cola</td>
+      <td>1/2020</td>
+      <td>80801.728070</td>
+      <td>0.171014</td>
+      <td>low</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Butter</td>
+      <td>Candy Outer</td>
+      <td>Ginger Lime</td>
+      <td>Banana</td>
+      <td>White</td>
+      <td>Fickelgruber</td>
+      <td>1/2020</td>
+      <td>18046.111111</td>
+      <td>0.233025</td>
+      <td>med</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Butter</td>
+      <td>Candy Outer</td>
+      <td>Ginger Lime</td>
+      <td>Rum</td>
+      <td>Amethyst</td>
+      <td>Fickelgruber</td>
+      <td>1/2020</td>
+      <td>19147.454268</td>
+      <td>0.480689</td>
+      <td>high</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><a name='x.1'></a></p>
+<h2 id="41-decision-trees">4.1 Decision Trees<a class="headerlink" href="#41-decision-trees" title="Permanent link">&para;</a></h2>
+<p><a href="#top">back to top</a></p>
+<p>In essence, a decision tree is a series of binary questions. </p>
+<p><img src="https://miro.medium.com/max/499/0*KQUBhmPmWeP8mHQz.jpeg" width=400px></img></p>
+<p>Let's begin this discussion by talking about how we make decision trees in sklearn.</p>
+<p><a name='x.1.1'></a></p>
+<h3 id="411-creating-a-decision-tree">4.1.1 Creating a Decision Tree<a class="headerlink" href="#411-creating-a-decision-tree" title="Permanent link">&para;</a></h3>
+<p><a href="#top">back to top</a></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
+<span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">()</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</code></pre></div>
+
+<p>After fitting the model we can use the predict method to show the output for a sample</p>
+<div class="codehilite"><pre><span></span><code><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">]])</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>array([1])
+</code></pre></div>
+
+<p>Similar to what we saw with GMMs, we also have access to the probabilities of the outcomes:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">clf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">([[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">]])</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>array([[0., 1.]])
+</code></pre></div>
+
+<p>Let's now go on to using visual strategies to interpreting trees.</p>
+<p><a name='x.1.2'></a></p>
+<h3 id="412-interpreting-a-decision-tree">4.1.2 Interpreting a Decision Tree<a class="headerlink" href="#412-interpreting-a-decision-tree" title="Permanent link">&para;</a></h3>
+<p><a href="#top">back to top</a></p>
+<p>Throughout today, we will discuss many ways to view both a single tree and a random forest of trees.</p>
+<p><a name='x.1.2.1'></a></p>
+<h4 id="4121-node-branch-diagram">4.1.2.1 Node &amp; Branch Diagram<a class="headerlink" href="#4121-node-branch-diagram" title="Permanent link">&para;</a></h4>
+<p><a href="#top">back to top</a></p>
+<p>We can visualize the decision tree:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">tree</span><span class="o">.</span><span class="n">plot_tree</span><span class="p">(</span><span class="n">clf</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[Text(167.4, 163.07999999999998, &#39;X[1] &lt;= 0.5\ngini = 0.5\nsamples = 2\nvalue = [1, 1]&#39;),
+ Text(83.7, 54.360000000000014, &#39;gini = 0.0\nsamples = 1\nvalue = [1, 0]&#39;),
+ Text(251.10000000000002, 54.360000000000014, &#39;gini = 0.0\nsamples = 1\nvalue = [0, 1]&#39;)]
+</code></pre></div>
+
+<p><img alt="png" src="../S6_Bagging_files/S6_Bagging_24_1.png" /></p>
+<p>or, more prettily:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">graphviz</span> 
+<span class="n">dot_data</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">export_graphviz</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">out_file</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> 
+<span class="n">graph</span> <span class="o">=</span> <span class="n">graphviz</span><span class="o">.</span><span class="n">Source</span><span class="p">(</span><span class="n">dot_data</span><span class="p">)</span> 
+<span class="n">graph</span>
+</code></pre></div>
+
+<p><img alt="svg" src="../S6_Bagging_files/S6_Bagging_26_0.svg" /></p>
+<p>The gini label, also known as <strong>Gini impurity</strong>, is a measure of how often a sample passing through the node would be incorrectly labeled if it was randomly assigned a label based on the proportion of all labels passing through the node. So it is a measure of the progress of our tree.</p>
+<p>Let's take a more complex example</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span> <span class="k">as</span> <span class="n">gen</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">gen</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Let's inspect our generated data:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">y</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="c1"># a binary classification</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>(100, 20)
+(100,)
+
+
+
+
+
+array([0, 0, 1, 1, 0])
+</code></pre></div>
+
+<p>And now let's train our tree:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">clf</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">()</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</code></pre></div>
+
+<p>How do we interpret this graph?</p>
+<div class="codehilite"><pre><span></span><code><span class="n">dot_data</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">export_graphviz</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">out_file</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> 
+<span class="n">graph</span> <span class="o">=</span> <span class="n">graphviz</span><span class="o">.</span><span class="n">Source</span><span class="p">(</span><span class="n">dot_data</span><span class="p">)</span> 
+<span class="n">graph</span>
+</code></pre></div>
+
+<p><img alt="svg" src="../S6_Bagging_files/S6_Bagging_35_0.svg" /></p>
+<blockquote>
+<p>Can we confirm the observations in the tree by manually inspecting X and y?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code><span class="n">y</span><span class="p">[</span><span class="n">X</span><span class="p">[:,</span><span class="mi">10</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">.203</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>array([0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 1, 0, 0, 0, 0, 0, 0])
+</code></pre></div>
+
+<p>We can confirm the gini score of the top left node by hand...</p>
+<div class="codehilite"><pre><span></span><code><span class="n">scr</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+  <span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&gt;</span> <span class="p">(</span> <span class="mi">3</span><span class="o">/</span><span class="mi">52</span> <span class="p">)</span> <span class="k">else</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">52</span><span class="p">)]</span>
+  <span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&gt;</span> <span class="p">(</span> <span class="mi">3</span><span class="o">/</span><span class="mi">52</span> <span class="p">)</span> <span class="k">else</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">52</span><span class="p">)]</span>
+  <span class="n">scr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span><span class="n">y_true</span><span class="p">))</span>
+<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scr</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>0.10994230769230771
+</code></pre></div>
+
+<p>Let's take a look at this with our truffle dataset</p>
+<blockquote>
+<p>Vary the parameter <code>max_depth</code> what do you notice? Does the term <em>greedy</em> mean anything to you?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code><span class="n">clf</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_truf</span><span class="p">,</span> <span class="n">y_truf_class</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>DecisionTreeClassifier(ccp_alpha=0.0, class_weight=None, criterion=&#39;gini&#39;,
+                       max_depth=1, max_features=None, max_leaf_nodes=None,
+                       min_impurity_decrease=0.0, min_impurity_split=None,
+                       min_samples_leaf=1, min_samples_split=2,
+                       min_weight_fraction_leaf=0.0, presort=&#39;deprecated&#39;,
+                       random_state=None, splitter=&#39;best&#39;)
+</code></pre></div>
+
+<p>And now lets look at the graph:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">dot_data</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">export_graphviz</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">out_file</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> 
+<span class="n">graph</span> <span class="o">=</span> <span class="n">graphviz</span><span class="o">.</span><span class="n">Source</span><span class="p">(</span><span class="n">dot_data</span><span class="p">)</span> 
+<span class="n">graph</span>
+</code></pre></div>
+
+<p><img alt="svg" src="../S6_Bagging_files/S6_Bagging_43_0.svg" /></p>
+<p>What is <code>X[4]</code>???</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># It&#39;s those tasty sponge cake truffles!</span>
+<span class="n">enc</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()[</span><span class="mi">4</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&#39;x0_Sponge&#39;
+</code></pre></div>
+
+<p>This is one great aspect of decision trees, their <em>interpretability</em>.</p>
+<p>We will perform this analysis again, for now, let's proceed with simpler datasets while exploring the features of decision trees.</p>
+<p><a name='x.1.2.2'></a></p>
+<h4 id="4121-decision-boundaries">4.1.2.1 Decision Boundaries<a class="headerlink" href="#4121-decision-boundaries" title="Permanent link">&para;</a></h4>
+<p><a href="#top">back to top</a></p>
+<p>Let's make some random blobs</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span> <span class="k">as</span> <span class="n">gen</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">gen</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&lt;matplotlib.collections.PathCollection at 0x7eff29e6ea90&gt;
+</code></pre></div>
+
+<p><img alt="png" src="../S6_Bagging_files/S6_Bagging_49_1.png" /></p>
+<p>Let's call up our Classifier again, this time setting the <code>max_depth</code> to two</p>
+<div class="codehilite"><pre><span></span><code><span class="n">clf</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># Parameters</span>
+<span class="n">plot_step</span> <span class="o">=</span> <span class="mf">0.02</span>
+
+<span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">plot_step</span><span class="p">),</span>
+                      <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">,</span> <span class="n">plot_step</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">h_pad</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">w_pad</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+
+<span class="n">Z</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">yy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&lt;matplotlib.collections.PathCollection at 0x7eff2a0a4bd0&gt;
+</code></pre></div>
+
+<p><img alt="png" src="../S6_Bagging_files/S6_Bagging_52_1.png" /></p>
+<div class="codehilite"><pre><span></span><code><span class="n">dot_data</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">export_graphviz</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">out_file</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> 
+<span class="n">graph</span> <span class="o">=</span> <span class="n">graphviz</span><span class="o">.</span><span class="n">Source</span><span class="p">(</span><span class="n">dot_data</span><span class="p">)</span> 
+<span class="n">graph</span>
+</code></pre></div>
+
+<p><img alt="svg" src="../S6_Bagging_files/S6_Bagging_53_0.svg" /></p>
+<p>We can see from the output of this graph, that the tree attempts to create the class boundaries as far from the cluster centers as possible. What happens when these clusters overlap?</p>
+<div class="codehilite"><pre><span></span><code><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">gen</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&lt;matplotlib.collections.PathCollection at 0x7eff2a114150&gt;
+</code></pre></div>
+
+<p><img alt="png" src="../S6_Bagging_files/S6_Bagging_55_1.png" /></p>
+<p>Let's go ahead and write our plot into a function</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_tree</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">):</span>
+  <span class="n">plot_step</span> <span class="o">=</span> <span class="mf">0.02</span>
+  <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">plot_step</span><span class="p">),</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">,</span> <span class="n">plot_step</span><span class="p">))</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">h_pad</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">w_pad</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+
+  <span class="n">Z</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">yy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
+  <span class="n">Z</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+  <span class="n">cs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+  <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">plt</span>
+</code></pre></div>
+
+<p>We see that the boundaries mislabel some points</p>
+<div class="codehilite"><pre><span></span><code><span class="n">fig</span> <span class="o">=</span> <span class="n">plot_tree</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="png" src="../S6_Bagging_files/S6_Bagging_59_0.png" /></p>
+<p><a name='x.1.3'></a></p>
+<h3 id="413-overfitting-a-decision-tree">4.1.3 Overfitting a Decision Tree<a class="headerlink" href="#413-overfitting-a-decision-tree" title="Permanent link">&para;</a></h3>
+<p><a href="#top">back to top</a></p>
+<p>Let's increase the max_depth</p>
+<div class="codehilite"><pre><span></span><code><span class="n">clf</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plot_tree</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&lt;module &#39;matplotlib.pyplot&#39; from &#39;/usr/local/lib/python3.7/dist-packages/matplotlib/pyplot.py&#39;&gt;
+</code></pre></div>
+
+<p><img alt="png" src="../S6_Bagging_files/S6_Bagging_61_1.png" /></p>
+<p>What we notice is that while the model accurately predicts the training data, we see some spurious labels, noteably the trailing purple bar that extends into the otherwise green region of the data. </p>
+<p>This is a well known fact about decision trees, that they tend to overfit their training data. In fact, this is a major motivation for why decision trees, a weak classifier, are conveniently packaged into ensembles.</p>
+<p>We combine the idea of bootstrapping, with decision trees, to come up with an overall better classifier.</p>
+<h4 id="4131-exercise-minimize-overfitting">4.1.3.1 Exercise: Minimize Overfitting<a class="headerlink" href="#4131-exercise-minimize-overfitting" title="Permanent link">&para;</a></h4>
+<p>Repeat 4.1.3 with different max_depth settings, also read the docstring and play with any other hyperparameters available to you. What settings do you feel minimize overfitting?</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Code Cell for 4.1.3.1</span>
+</code></pre></div>
+
+<p><a name='x.2'></a></p>
+<h2 id="42-random-forests-and-bagging">4.2 Random Forests and Bagging<a class="headerlink" href="#42-random-forests-and-bagging" title="Permanent link">&para;</a></h2>
+<p><a href="#top">back to top</a></p>
+<p><a name='x.2.1'></a></p>
+<h3 id="421-what-is-bagging">4.2.1 What is Bagging?<a class="headerlink" href="#421-what-is-bagging" title="Permanent link">&para;</a></h3>
+<p><a href="#top">back to top</a></p>
+<p><strong><em>Bagging</em></strong>, or Bootstrap AGGregation is the process of creating subsets of your data and training separate models on them, and using the aggregate votes of the models to make a final prediction.</p>
+<p><strong><em>Bootstrapping</em></strong> is a topic in and of itself that we will just touch on here. Without going through the statistical rigor of proof, bootstrapping, or sampling from your observations with replacement, simulates having drawn additional data from the true population. We use this method to create many new datasets that are then used to <em>train separate learners</em> in parallel. This overall approach is called <strong><em>Bagging</em></strong>.</p>
+<p align=center>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Ensemble_Bagging.svg/440px-Ensemble_Bagging.svg.png"></img>
+</p>
+
+<p>A <strong><em>Random Forest</em></strong> is an instance of bagging where the separate learners are decision trees. </p>
+<p><a name='x.2.2'></a></p>
+<h3 id="422-random-forests-for-classification">4.2.2 Random Forests for Classification<a class="headerlink" href="#422-random-forests-for-classification" title="Permanent link">&para;</a></h3>
+<p><a href="#top">back to top</a></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">BaggingClassifier</span>
+
+<span class="n">tree</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">()</span>
+<span class="n">bag</span> <span class="o">=</span> <span class="n">BaggingClassifier</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_samples</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+                        <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">bag</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plot_tree</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">bag</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&lt;module &#39;matplotlib.pyplot&#39; from &#39;/usr/local/lib/python3.7/dist-packages/matplotlib/pyplot.py&#39;&gt;
+</code></pre></div>
+
+<p><img alt="png" src="../S6_Bagging_files/S6_Bagging_68_1.png" /></p>
+<p>In the above, we have bootstrapped by providing each individual tree with 80% of the population data. In practice, Random Forests can achieve even better results by randomizing how the individual classifiers are constructed. In fact there are many unique methods of training individual trees and you can learn more about them <a href="https://scikit-learn.org/stable/modules/ensemble.html#forest">here</a>. For now, know that it is better in practice to implement the RandomForests method in sklearn rather than bag individual trees yourself.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">plot_tree</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&lt;module &#39;matplotlib.pyplot&#39; from &#39;/usr/local/lib/python3.7/dist-packages/matplotlib/pyplot.py&#39;&gt;
+</code></pre></div>
+
+<p><img alt="png" src="../S6_Bagging_files/S6_Bagging_71_1.png" /></p>
+<p><a name='x.2.2.1'></a></p>
+<h4 id="4221-interpreting-a-random-forest">4.2.2.1 Interpreting a Random Forest<a class="headerlink" href="#4221-interpreting-a-random-forest" title="Permanent link">&para;</a></h4>
+<p><a href="#top">back to top</a></p>
+<p>Let's revisit our truffle dataset again, this time with random forests</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># fit the model</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_truf</span><span class="p">,</span> <span class="n">y_truf_class</span><span class="p">)</span>
+</code></pre></div>
+
+<p>We get a fairly high accuracy when our <code>min_samples_leaf</code> is low and an accuracy that leaves room for improvement when <code>min_samples_leaf</code> is high. This indicates to us the model may be prown to overfitting if we are not careful:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">accuracy_score</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_truf</span><span class="p">),</span> <span class="n">y_truf_class</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>0.6007194244604317
+</code></pre></div>
+
+<p>We need to do some housekeeping to get back the names and categories the features were pulled from:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">feat_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;x</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cat_cols</span><span class="p">))],</span> 
+                     <span class="n">cat_cols</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">feat_dict</span><span class="p">)</span>
+<span class="n">feats</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># enc.get_feature_names unpacks like so: `x4_White` where</span>
+<span class="c1"># x&lt;N&gt; is an artifact of the original dimensions fed to enc()</span>
+<span class="c1"># I am unpacking the feature names with the original dataframe header</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">enc</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">():</span>
+  <span class="n">feats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feat_dict</span><span class="p">[</span><span class="n">row</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">row</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]))</span>
+
+<span class="c1"># feats will be used to visualize the feature importances</span>
+<span class="n">feats</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>{&#39;x0&#39;: &#39;Base_Cake&#39;, &#39;x1&#39;: &#39;Truffle_Type&#39;, &#39;x2&#39;: &#39;Primary_Flavor&#39;, &#39;x3&#39;: &#39;Secondary_Flavor&#39;, &#39;x4&#39;: &#39;Color_Group&#39;, &#39;x5&#39;: &#39;Customer&#39;, &#39;x6&#39;: &#39;Date&#39;}
+
+
+
+
+
+[&#39;Base_Cake Butter&#39;,
+ &#39;Base_Cake Cheese&#39;,
+ &#39;Base_Cake Chiffon&#39;,
+ &#39;Base_Cake Pound&#39;,
+ &#39;Base_Cake Sponge&#39;]
+</code></pre></div>
+
+<p>The feature importances are stored in <code>clf.feature_importances_</code>. These are calculated from the <strong><em>Mean Decrease in Impurity</em></strong> or MDI also called the <strong><em>Gini Importance</em></strong>. It is the sum of the number of nodes across all trees that include the feature, weighted by the number of samples passing through the node. </p>
+<p>One downside of estimating feature importance in this way is that it doesn't play well with highly cardinal features <em>(features with many unique values such as mailing addresses, are highly cardinal features)</em></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># grab feature importances</span>
+<span class="n">imp</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">feature_importances_</span>
+
+<span class="c1"># their std</span>
+<span class="n">std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">([</span><span class="n">tree</span><span class="o">.</span><span class="n">feature_importances_</span> <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">clf</span><span class="o">.</span><span class="n">estimators_</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># create new dataframe</span>
+<span class="n">feat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">feats</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;KG&quot;</span><span class="p">],</span> <span class="n">imp</span><span class="p">,</span> <span class="n">std</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">feat</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;importance&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">]</span>
+<span class="n">feat</span> <span class="o">=</span> <span class="n">feat</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;importance&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">feat</span> <span class="o">=</span> <span class="n">feat</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">feat</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">,</span> <span class="s1">&#39;importance&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<p>I'm going to use <code>plotly</code> to create this chart:</p>
+<blockquote>
+<p>How does feature importance change when we change the minimum leaf size from 2 to 6?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code><span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">feat</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;feature&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;importance&#39;</span><span class="p">,</span> <span class="n">error_y</span><span class="o">=</span><span class="s1">&#39;std&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><html>
+<head><meta charset="utf-8" /></head></p>
+<body>
+    <div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax) {MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>
+                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>    
+            <div id="318eb430-e0f4-4b77-aa05-3c077a236bea" class="plotly-graph-div" style="height:525px; width:100%;"></div>
+            <script type="text/javascript">
+
+                    window.PLOTLYENV=window.PLOTLYENV || {};
+
+                if (document.getElementById("318eb430-e0f4-4b77-aa05-3c077a236bea")) {
+                    Plotly.newPlot(
+                        '318eb430-e0f4-4b77-aa05-3c077a236bea',
+                        [{"alignmentgroup": "True", "error_y": {"array": [0.07555343650428877, 0.04063238643408586, 0.05961762914014548, 0.036511772297213245, 0.0290208966535553, 0.027395688661575626, 0.020452704347556663, 0.03393435310671577, 0.028642943310511235, 0.012532926656412787, 0.03556066576596446, 0.01583846311062793, 0.015769424865656922, 0.022456972121037738, 0.02357794745152038, 0.01442052676018209, 0.016310850227497925, 0.020135987095791785, 0.01966912273385237, 0.0172252292386212, 0.016188291852075806, 0.011232957255776955, 0.011752740590544949, 0.014215519364083693, 0.013231561004786502, 0.011128839190837566, 0.006571133069294302, 0.009489276856556898, 0.007960061906913968, 0.010480916770311037, 0.01077200787919219, 0.00994444700093636, 0.01698793108921301, 0.012224243018118919, 0.0074065694102534866, 0.01145262818011683, 0.014493721007728682, 0.008521135565720254, 0.012128874609229678, 0.00618660142472066, 0.008750592417062431, 0.01083766822715062, 0.006589032274060321, 0.005665682686641886, 0.007104402814719823, 0.009642691848896686, 0.005820366803373852, 0.004582819751796309, 0.006191175003169528, 0.010780497029991285, 0.009383117993507828, 0.01064557976533365, 0.007971400075341879, 0.007626220709434621, 0.004528508932574483, 0.007978753956889023, 0.00598655286524879, 0.004724575698947667, 0.006907133033972632, 0.012019731255860346, 0.0069698073631939425, 0.0042979530563582525, 0.00880028649397044, 0.006169496245711782, 0.011543630256147902, 0.011489894256293558, 0.004546766268214796, 0.0039653606347905285, 0.005142839080282742, 0.004941368568974321, 0.004792637324806003, 0.00421720688017499, 0.0035935515587245948, 0.008488082736005341, 0.006269385473890268, 0.006598567537142401, 0.003498034328041033, 0.003873584657620095, 0.0037805701429140014, 0.002515794877177775, 0.006673028932914227, 0.0023320341584585798, 0.00708673630649601, 0.004711100803629174, 0.003424765080306881, 0.0026921725725499285, 0.006302660607068695, 0.0032923995185687254, 0.0030791354423140693, 0.0030119835753018034, 0.0031442289102776937, 0.0020600908472405127, 0.002793480291008204, 0.00193979455345233, 0.0030857822778379788, 0.0035748079758318985, 0.0032705986017104887, 0.002272192880069807, 0.0022907382568384494, 0.0032671244214112233, 0.0019998154929131923, 0.0018820524312719476, 0.0019111629917143336, 0.0017978767817748138, 0.002340223707926282, 0.0016899808466311807, 0.0016614874356055674, 0.0015772015772983537, 0.0009475672660661238, 0.0011080745981432952, 0.0008970952531810846, 0.0005748636888217817, 0.0005470026863239088, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}, "hoverlabel": {"namelength": 0}, "hovertemplate": "feature=%{x}<br>importance=%{y}", "legendgroup": "", "marker": {"color": "#636efa"}, "name": "", "offsetgroup": "", "orientation": "v", "showlegend": false, "textposition": "auto", "type": "bar", "x": ["Base_Cake Sponge", "Base_Cake Chiffon", "Base_Cake Pound", "KG", "Primary_Flavor Butter Toffee", "Base_Cake Tiramisu", "Secondary_Flavor Egg Nog", "Base_Cake Butter", "Base_Cake Cheese", "Customer Slugworth", "Color_Group Olive", "Customer Perk-a-Cola", "Color_Group White", "Secondary_Flavor Black Cherry", "Primary_Flavor Doughnut", "Customer Zebrabar", "Truffle_Type Candy Outer", "Primary_Flavor Orange Pineapple\tP", "Primary_Flavor Kettle Corn", "Color_Group Amethyst", "Truffle_Type Chocolate Outer", "Secondary_Flavor Black Currant", "Color_Group Teal", "Secondary_Flavor Wild Cherry Cream", "Secondary_Flavor Cucumber", "Primary_Flavor Toasted Coconut", "Color_Group Opal", "Customer Fickelgruber", "Color_Group Black", "Primary_Flavor Lemon Custard", "Secondary_Flavor Tangerine", "Secondary_Flavor Lemon", "Primary_Flavor Dill Pickle", "Primary_Flavor Spice", "Customer Dandy's Candies", "Secondary_Flavor Whipped Cream", "Primary_Flavor Orange", "Primary_Flavor Ginger Lime", "Secondary_Flavor Papaya", "Primary_Flavor Irish Cream", "Secondary_Flavor Apple", "Primary_Flavor Plum", "Primary_Flavor Mango", "Secondary_Flavor Rock and Rye", "Color_Group Tiffany", "Secondary_Flavor Peppermint", "Primary_Flavor Grand Mariner", "Primary_Flavor Caramel Cream", "Primary_Flavor Cheesecake", "Truffle_Type Jelly Filled", "Primary_Flavor Sassafras", "Primary_Flavor Horchata", "Primary_Flavor Acai Berry", "Primary_Flavor Watermelon", "Date 12/2020", "Primary_Flavor Lemon", "Primary_Flavor Pecan", "Secondary_Flavor Kiwi", "Primary_Flavor Cream Soda", "Primary_Flavor Gingersnap", "Primary_Flavor Ginger Ale", "Secondary_Flavor Banana", "Primary_Flavor Pink Lemonade", "Secondary_Flavor Pear", "Primary_Flavor Amaretto", "Primary_Flavor Blueberry", "Primary_Flavor Bavarian Cream", "Primary_Flavor Black Licorice", "Primary_Flavor Cherry Cola", "Primary_Flavor Coffee", "Color_Group Burgundy", "Date 7/2020", "Date 11/2020", "Secondary_Flavor Rum", "Secondary_Flavor Apricot", "Primary_Flavor Vanilla", "Date 10/2020", "Date 8/2020", "Secondary_Flavor Vanilla", "Date 9/2020", "Color_Group Rose", "Date 4/2020", "Primary_Flavor Chocolate Mint", "Primary_Flavor Orange Brandy", "Primary_Flavor Sour", "Date 2/2020", "Color_Group Slate", "Date 3/2020", "Secondary_Flavor Mojito", "Date 5/2020", "Secondary_Flavor Mixed Berry", "Secondary_Flavor Fuzzy Navel", "Primary_Flavor Raspberry Ginger Ale", "Primary_Flavor Cherry Cream Spice", "Primary_Flavor Lemon Bar", "Primary_Flavor Wild Cherry Cream", "Secondary_Flavor Ginger Beer", "Primary_Flavor Apricot", "Secondary_Flavor Dill Pickle", "Secondary_Flavor Mango", "Primary_Flavor Creme de Menthe", "Date 1/2020", "Date 6/2020", "Secondary_Flavor Butter Rum", "Primary_Flavor Chocolate", "Primary_Flavor Butter Pecan", "Secondary_Flavor Passion Fruit", "Primary_Flavor Wintergreen", "Primary_Flavor Pear", "Primary_Flavor Fruit Punch", "Secondary_Flavor Toffee", "Primary_Flavor Margarita", "Color_Group Taupe", "Primary_Flavor Birch Beer", "Primary_Flavor Butter Milk", "Color_Group Citrine", "Primary_Flavor Coconut", "Secondary_Flavor Tutti Frutti", "Secondary_Flavor Hazelnut"], "xaxis": "x", "y": [0.11070519650695783, 0.0639051536976566, 0.0548603760743442, 0.04690552959956567, 0.030875729545272637, 0.02964743757949146, 0.02903731620006769, 0.027549820016608686, 0.024187978949675365, 0.023614207046533706, 0.023004895620422038, 0.020589909133373552, 0.019963584487051135, 0.014793374515086494, 0.014393892077033574, 0.013853128581716494, 0.013244615846047074, 0.012690554084720291, 0.01259021885646476, 0.012404368567974087, 0.0113187384045495, 0.011071708910919128, 0.010741822613075441, 0.010696258810503114, 0.01036397151172899, 0.010153740726406372, 0.009873025937418815, 0.009624755083125741, 0.00939787547337474, 0.009324827381141128, 0.009223258704344116, 0.00920180252864671, 0.009030231263778518, 0.008748134672159761, 0.008650390754265581, 0.00857621547469525, 0.008182984461145851, 0.007935677327919664, 0.007710024862021607, 0.007655626597286043, 0.006909301064429637, 0.0068089928959846535, 0.006280078656786092, 0.0062527552424586595, 0.005937366089078937, 0.005569142846762498, 0.005395143076710668, 0.005349940638283773, 0.0053246203141319795, 0.005162744809445722, 0.00513549758800123, 0.005131023056676936, 0.00485863529267419, 0.004618572850759596, 0.004385632341887418, 0.004138155071736413, 0.004092217766380393, 0.004063384055128564, 0.004010104372789467, 0.004006577085286783, 0.00400548765617934, 0.00388998413390825, 0.0038868227387336947, 0.003858150268472716, 0.0038478767520493035, 0.0038428634866371617, 0.00373893601154158, 0.003709740677574182, 0.003654009077597494, 0.00348183888390368, 0.0034621232538648568, 0.0034131418308362077, 0.003344958987577941, 0.0032455102404200156, 0.003051238798750663, 0.0028849097281198836, 0.0028289898361587365, 0.0026498763977929355, 0.0026473717061639046, 0.002544288234247985, 0.002536787060152542, 0.0023816342255907124, 0.0023622454354986703, 0.002355487721202827, 0.0023118590899479387, 0.002239091551568516, 0.002100886869022899, 0.002075493235042351, 0.001917413173718334, 0.0018839487672445655, 0.001580612376283172, 0.0013055871972177259, 0.0012863009671007484, 0.0012487062252696925, 0.0012279317440148873, 0.0011916026586106328, 0.0011551536899490362, 0.0011197945637304875, 0.0011095070716949365, 0.0010890414738037415, 0.0010807649217126744, 0.0009599570923495142, 0.0009534468564891095, 0.0008997626619987524, 0.0007904775752950208, 0.0005633269488770604, 0.000553829145201856, 0.0005257338590994512, 0.0004349081329954505, 0.00036935819938109846, 0.0002990317510603616, 0.00019162122960726061, 0.00018233422877463634, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "yaxis": "y"}],
+                        {"barmode": "relative", "legend": {"tracegroupgap": 0}, "margin": {"t": 60}, "template": {"data": {"bar": [{"error_x": {"color": "#2a3f5f"}, "error_y": {"color": "#2a3f5f"}, "marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "bar"}], "barpolar": [{"marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "barpolar"}], "carpet": [{"aaxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "baxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "type": "carpet"}], "choropleth": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "choropleth"}], "contour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "contour"}], "contourcarpet": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "contourcarpet"}], "heatmap": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmap"}], "heatmapgl": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmapgl"}], "histogram": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "histogram"}], "histogram2d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2d"}], "histogram2dcontour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2dcontour"}], "mesh3d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "mesh3d"}], "parcoords": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "parcoords"}], "pie": [{"automargin": true, "type": "pie"}], "scatter": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter"}], "scatter3d": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter3d"}], "scattercarpet": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattercarpet"}], "scattergeo": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergeo"}], "scattergl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergl"}], "scattermapbox": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattermapbox"}], "scatterpolar": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolar"}], "scatterpolargl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolargl"}], "scatterternary": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterternary"}], "surface": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "surface"}], "table": [{"cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}, "type": "table"}]}, "layout": {"annotationdefaults": {"arrowcolor": "#2a3f5f", "arrowhead": 0, "arrowwidth": 1}, "coloraxis": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "colorscale": {"diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]], "sequential": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "sequentialminus": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}, "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#FFA15A", "#19d3f3", "#FF6692", "#B6E880", "#FF97FF", "#FECB52"], "font": {"color": "#2a3f5f"}, "geo": {"bgcolor": "white", "lakecolor": "white", "landcolor": "#E5ECF6", "showlakes": true, "showland": true, "subunitcolor": "white"}, "hoverlabel": {"align": "left"}, "hovermode": "closest", "mapbox": {"style": "light"}, "paper_bgcolor": "white", "plot_bgcolor": "#E5ECF6", "polar": {"angularaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "radialaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "scene": {"xaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "yaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "zaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}}, "shapedefaults": {"line": {"color": "#2a3f5f"}}, "ternary": {"aaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "baxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "caxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "title": {"x": 0.05}, "xaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}, "yaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}}}, "xaxis": {"anchor": "y", "domain": [0.0, 1.0], "title": {"text": "feature"}}, "yaxis": {"anchor": "x", "domain": [0.0, 1.0], "title": {"text": "importance"}}},
+                        {"responsive": true}
+                    ).then(function(){
+
+var gd = document.getElementById('318eb430-e0f4-4b77-aa05-3c077a236bea');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })
+                };
+
+            </script>
+        </div>
+</body>
+<p></html></p>
+<p>We can then go and look at the different EBITDAs when selecting for each of these features:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">ebitda_comp</span><span class="p">(</span><span class="n">feature</span><span class="o">=</span><span class="n">feat</span><span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">]):</span>
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">feature</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
+    <span class="n">sel</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">feature</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">margin</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">margin</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">==</span> <span class="n">sel</span><span class="p">)][</span><span class="s1">&#39;EBITDA/KG&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+    <span class="n">neg</span> <span class="o">=</span> <span class="n">margin</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">margin</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">==</span> <span class="n">sel</span><span class="p">)][</span><span class="s1">&#39;EBITDA/KG&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;with:    </span><span class="si">{:.2e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pos</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;without: </span><span class="si">{:.2e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">neg</span><span class="p">))</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">pass</span>  
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">interact</span><span class="p">(</span><span class="n">ebitda_comp</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>interactive(children=(Dropdown(description=&#39;feature&#39;, options=(&#39;Base_Cake Sponge&#39;, &#39;Base_Cake Chiffon&#39;, &#39;Base_…
+
+
+
+
+
+&lt;function __main__.ebitda_comp&gt;
+</code></pre></div>
+
+<p>This is an example of how the interpretability of the random forest ensemble approach can be highly valuable.</p>
+<p><a name='x.2.3'></a></p>
+<h3 id="423-random-forests-for-regression">4.2.3 Random Forests for Regression<a class="headerlink" href="#423-random-forests-for-regression" title="Permanent link">&para;</a></h3>
+<p><a href="#top">back to top</a></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+
+<span class="n">clf</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Because our labels on our blob data were numerical, we can apply and view the estimator in the same way:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">clf</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plot_tree</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&lt;module &#39;matplotlib.pyplot&#39; from &#39;/usr/local/lib/python3.7/dist-packages/matplotlib/pyplot.py&#39;&gt;
+</code></pre></div>
+
+<p><img alt="png" src="../S6_Bagging_files/S6_Bagging_89_1.png" /></p>
+<p>I want to revisit a dataset we brought up in Session 2 on feature engineering:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">w</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">h</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">s</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">h</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">freq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftfreq</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">),</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Time Domain&#39;</span><span class="p">)</span>
+
+<span class="c1"># tells us about the amplitude of the component at the</span>
+<span class="c1"># corresponding frequency</span>
+<span class="n">magnitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">real</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">imag</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">magnitude</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">.15</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Frequency Domain&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Text(0.5, 1.0, &#39;Frequency Domain&#39;)
+</code></pre></div>
+
+<p><img alt="png" src="../S6_Bagging_files/S6_Bagging_91_1.png" /></p>
+<p>Let's see if a random forest regression model can capture the wave behavior of the time-series data</p>
+<div class="codehilite"><pre><span></span><code><span class="n">clf</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">s</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion=&#39;mse&#39;,
+                      max_depth=None, max_features=&#39;auto&#39;, max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=10, n_jobs=None, oob_score=False,
+                      random_state=None, verbose=0, warm_start=False)
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[&lt;matplotlib.lines.Line2D at 0x7eff29588690&gt;]
+</code></pre></div>
+
+<p><img alt="png" src="../S6_Bagging_files/S6_Bagging_94_1.png" /></p>
+<p>Nice! without specifying any perdiodicity, the random forest does a good job of embedding this periodicity in the final output.</p>
+<h3 id="424-extended-exercise-practice-with-random-forests">4.2.4 Extended Exercise: Practice with Random Forests<a class="headerlink" href="#424-extended-exercise-practice-with-random-forests" title="Permanent link">&para;</a></h3>
+<p>With the wine dataset:</p>
+<ul>
+<li>
+<p>predict: quality, quality group</p>
+</li>
+<li>
+<p>use train_test_split</p>
+</li>
+<li>
+<p>create a learning curve of train/test score vs model complexity for your random forest model(s)</p>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Code Cell for Exercise 4.2.4</span>
+<span class="n">wine</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/wesleybeckner/&quot;</span>\
+      <span class="s2">&quot;ds_for_engineers/main/data/wine_quality/winequalityN.csv&quot;</span><span class="p">)</span>
+
+<span class="n">wine</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">wine</span><span class="p">[</span><span class="s1">&#39;quality_label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wine</span><span class="p">[</span><span class="s1">&#39;quality&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;low&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span><span class="mi">5</span> <span class="k">else</span>
+                                              <span class="s1">&#39;med&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">7</span> <span class="k">else</span> <span class="s1">&#39;high&#39;</span><span class="p">)</span>
+
+<span class="n">wine</span><span class="p">[</span><span class="s1">&#39;type_encoding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wine</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;red&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<span class="n">wine</span><span class="p">[</span><span class="s1">&#39;quality_encoding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wine</span><span class="p">[</span><span class="s1">&#39;quality_label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;low&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> 
+                                                      <span class="s1">&#39;med&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;high&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+
+<span class="n">wine</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+
+<span class="n">features</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">wine</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">features</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;quality_label&#39;</span><span class="p">)</span>
+<span class="n">features</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;quality&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../S5_Unsupervised_Learning/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Unsupervised Learning" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Unsupervised Learning
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../S7_Boosting/" class="md-footer__link md-footer__link--next" aria-label="Next: Boosting" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Boosting
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.ca141e46.min.js"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.6baa0517.min.js"></script>
+      
+    
+  </body>
+</html>

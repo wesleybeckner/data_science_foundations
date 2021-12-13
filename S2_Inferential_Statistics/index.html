@@ -1,0 +1,3307 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.4">
+    
+    
+      
+        <title>Inferential Statistics - Data Science Foundations</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a4617e2.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.9204c3b2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#2094f3">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"..":".."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-114664473-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#technology-fundamentals-course-2-session-3-inferential-statistics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Data Science Foundations" class="md-header__button md-logo" aria-label="Data Science Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Data Science Foundations
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Inferential Statistics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Data Science Foundations" class="md-nav__button md-logo" aria-label="Data Science Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Data Science Foundations
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Sessions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Sessions" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Sessions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../S1_Regression_and_Analysis/" class="md-nav__link">
+        Regression and Analysis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Inferential Statistics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Inferential Statistics
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#60-preparing-environment-and-importing-data" class="md-nav__link">
+    6.0 Preparing Environment and Importing Data
+  </a>
+  
+    <nav class="md-nav" aria-label="6.0 Preparing Environment and Importing Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#601-import-packages" class="md-nav__link">
+    6.0.1 Import Packages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#602-load-dataset" class="md-nav__link">
+    6.0.2 Load Dataset
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#61-many-flavors-of-statistical-tests" class="md-nav__link">
+    6.1 Many Flavors of Statistical Tests
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1 Many Flavors of Statistical Tests">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#611-what-is-moods-median" class="md-nav__link">
+    6.1.1 What is Mood's Median?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#612-when-to-use-moods" class="md-nav__link">
+    6.1.2 When to Use Mood's?
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1.2 When to Use Mood's?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6121-exercise-use-moods-median-test" class="md-nav__link">
+    6.1.2.1 Exercise: Use Mood's Median Test
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1.2.1 Exercise: Use Mood's Median Test">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-a-perform-moods-median-test-on-base-cake-in-truffle-data" class="md-nav__link">
+    Part A Perform moods median test on Base Cake in Truffle data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-b-view-the-distributions-of-the-data-using-matplotlib-and-seaborn" class="md-nav__link">
+    Part B View the distributions of the data using matplotlib and seaborn
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-c-perform-moods-median-on-all-the-other-groups" class="md-nav__link">
+    Part C Perform Moods Median on all the other groups
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-d-many-boxplots" class="md-nav__link">
+    Part D Many boxplots
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#613-enrichment-what-is-a-t-test" class="md-nav__link">
+    6.1.3 Enrichment: What is a T-test?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#614-enrichment-demonstration-of-t-tests" class="md-nav__link">
+    6.1.4 Enrichment: Demonstration of T-tests
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enrichment-615-what-are-f-statistics-and-the-f-test" class="md-nav__link">
+    Enrichment: 6.1.5 What are F-statistics and the F-test?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#616-enrichment-what-is-analysis-of-variance" class="md-nav__link">
+    6.1.6 Enrichment: What is Analysis of Variance?
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1.6 Enrichment: What is Analysis of Variance?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#anova-hypotheses" class="md-nav__link">
+    ANOVA Hypotheses
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anova-assumptions" class="md-nav__link">
+    ANOVA Assumptions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steps-for-anova" class="md-nav__link">
+    Steps for ANOVA
+  </a>
+  
+    <nav class="md-nav" aria-label="Steps for ANOVA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6160-enrichment-sns-boxplot" class="md-nav__link">
+    6.1.6.0 Enrichment: SNS Boxplot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6161-anova-interpretation" class="md-nav__link">
+    6.1.6.1 ANOVA Interpretation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#617-putting-it-all-together" class="md-nav__link">
+    6.1.7 Putting it all together
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62-evaluate-statistical-significance-of-product-margin-a-snake-in-the-garden" class="md-nav__link">
+    6.2 Evaluate statistical significance of product margin: a snake in the garden
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2 Evaluate statistical significance of product margin: a snake in the garden">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#621-moods-median-on-product-descriptors" class="md-nav__link">
+    6.2.1 Mood's Median on product descriptors
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-1-moods-results-on-truffle-type" class="md-nav__link">
+    Question 1: Moods Results on Truffle Type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#622-enrichment-broad-analysis-of-categories-anova" class="md-nav__link">
+    6.2.2 Enrichment: Broad Analysis of Categories: ANOVA
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#623-enrichment-visual-analysis-of-residuals-qq-plots" class="md-nav__link">
+    6.2.3 Enrichment: Visual Analysis of Residuals: QQ-Plots
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../S3_Model_Selection_and_Validation/" class="md-nav__link">
+        Model Selection and Validation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../S4_Feature_Engineering/" class="md-nav__link">
+        Feature Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../S5_Unsupervised_Learning/" class="md-nav__link">
+        Unsupervised Learning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../S6_Bagging/" class="md-nav__link">
+        Bagging
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../S7_Boosting/" class="md-nav__link">
+        Boosting
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Exercises
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Exercises" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Exercises
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exercises/E1_Descriptive_Statistics_Data_Hunt/" class="md-nav__link">
+        Descriptive Statistics Data Hunt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exercises/E2_Inferential_Statistics_Data_Hunt/" class="md-nav__link">
+        Inferential Statisitcs Data Hunt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exercises/E3_Feature_Engineering/" class="md-nav__link">
+        Practice with Feature Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exercises/E4_Supervised_Learners/" class="md-nav__link">
+        Practice with Supervised Learners
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exercises/E5_Writing_Unit_Tests/" class="md-nav__link">
+        Practice with Writing Unit Tests
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Project
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Project" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Project
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project/P1_Statistical_Analysis_of_TicTacToe/" class="md-nav__link">
+        Statistical Analysis of TicTacToe
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project/P2_Heuristical_TicTacToe_Agents/" class="md-nav__link">
+        Heuristical TicTacToe Agents
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project/P3_1_Step_Look_Ahead_Agents/" class="md-nav__link">
+        1-Step Look Ahead Agents
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project/P4_N_Step_Look_Ahead_Agents/" class="md-nav__link">
+        N-Step Look Ahead Agents
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#60-preparing-environment-and-importing-data" class="md-nav__link">
+    6.0 Preparing Environment and Importing Data
+  </a>
+  
+    <nav class="md-nav" aria-label="6.0 Preparing Environment and Importing Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#601-import-packages" class="md-nav__link">
+    6.0.1 Import Packages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#602-load-dataset" class="md-nav__link">
+    6.0.2 Load Dataset
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#61-many-flavors-of-statistical-tests" class="md-nav__link">
+    6.1 Many Flavors of Statistical Tests
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1 Many Flavors of Statistical Tests">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#611-what-is-moods-median" class="md-nav__link">
+    6.1.1 What is Mood's Median?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#612-when-to-use-moods" class="md-nav__link">
+    6.1.2 When to Use Mood's?
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1.2 When to Use Mood's?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6121-exercise-use-moods-median-test" class="md-nav__link">
+    6.1.2.1 Exercise: Use Mood's Median Test
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1.2.1 Exercise: Use Mood's Median Test">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-a-perform-moods-median-test-on-base-cake-in-truffle-data" class="md-nav__link">
+    Part A Perform moods median test on Base Cake in Truffle data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-b-view-the-distributions-of-the-data-using-matplotlib-and-seaborn" class="md-nav__link">
+    Part B View the distributions of the data using matplotlib and seaborn
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-c-perform-moods-median-on-all-the-other-groups" class="md-nav__link">
+    Part C Perform Moods Median on all the other groups
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-d-many-boxplots" class="md-nav__link">
+    Part D Many boxplots
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#613-enrichment-what-is-a-t-test" class="md-nav__link">
+    6.1.3 Enrichment: What is a T-test?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#614-enrichment-demonstration-of-t-tests" class="md-nav__link">
+    6.1.4 Enrichment: Demonstration of T-tests
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enrichment-615-what-are-f-statistics-and-the-f-test" class="md-nav__link">
+    Enrichment: 6.1.5 What are F-statistics and the F-test?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#616-enrichment-what-is-analysis-of-variance" class="md-nav__link">
+    6.1.6 Enrichment: What is Analysis of Variance?
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1.6 Enrichment: What is Analysis of Variance?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#anova-hypotheses" class="md-nav__link">
+    ANOVA Hypotheses
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anova-assumptions" class="md-nav__link">
+    ANOVA Assumptions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steps-for-anova" class="md-nav__link">
+    Steps for ANOVA
+  </a>
+  
+    <nav class="md-nav" aria-label="Steps for ANOVA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6160-enrichment-sns-boxplot" class="md-nav__link">
+    6.1.6.0 Enrichment: SNS Boxplot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6161-anova-interpretation" class="md-nav__link">
+    6.1.6.1 ANOVA Interpretation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#617-putting-it-all-together" class="md-nav__link">
+    6.1.7 Putting it all together
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62-evaluate-statistical-significance-of-product-margin-a-snake-in-the-garden" class="md-nav__link">
+    6.2 Evaluate statistical significance of product margin: a snake in the garden
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2 Evaluate statistical significance of product margin: a snake in the garden">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#621-moods-median-on-product-descriptors" class="md-nav__link">
+    6.2.1 Mood's Median on product descriptors
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-1-moods-results-on-truffle-type" class="md-nav__link">
+    Question 1: Moods Results on Truffle Type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#622-enrichment-broad-analysis-of-categories-anova" class="md-nav__link">
+    6.2.2 Enrichment: Broad Analysis of Categories: ANOVA
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#623-enrichment-visual-analysis-of-residuals-qq-plots" class="md-nav__link">
+    6.2.3 Enrichment: Visual Analysis of Residuals: QQ-Plots
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+<p><a href="https://colab.research.google.com/github/wesleybeckner/technology_fundamentals/blob/main/C2%20Statistics%20and%20Model%20Creation/Tech_Fun_C2_S3_Inferential_Statistics.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
+<h1 id="technology-fundamentals-course-2-session-3-inferential-statistics">Technology Fundamentals Course 2, Session 3: Inferential Statistics<a class="headerlink" href="#technology-fundamentals-course-2-session-3-inferential-statistics" title="Permanent link">&para;</a></h1>
+<p><strong>Instructor</strong>: Wesley Beckner</p>
+<p><strong>Contact</strong>: wesleybeckner@gmail.com</p>
+<p><strong>Teaching Assitants</strong>: Varsha Bang, Harsha Vardhan</p>
+<p><strong>Contact</strong>: vbang@uw.edu, harshav@uw.edu</p>
+<p><br></p>
+<hr />
+<p><br></p>
+<p>In this session we will look at the utility of EDA combined with inferential statistics.</p>
+<p><br></p>
+<hr />
+<p><a name='x.0'></a></p>
+<h2 id="60-preparing-environment-and-importing-data">6.0 Preparing Environment and Importing Data<a class="headerlink" href="#60-preparing-environment-and-importing-data" title="Permanent link">&para;</a></h2>
+<p><a href="#top">back to top</a></p>
+<p><a name='x.0.1'></a></p>
+<h3 id="601-import-packages">6.0.1 Import Packages<a class="headerlink" href="#601-import-packages" title="Permanent link">&para;</a></h3>
+<p><a href="#top">back to top</a></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># The modules we&#39;ve seen before</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="c1"># our stats modules</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">ols</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+</code></pre></div>
+
+<p><a name='x.0.2'></a></p>
+<h3 id="602-load-dataset">6.0.2 Load Dataset<a class="headerlink" href="#602-load-dataset" title="Permanent link">&para;</a></h3>
+<p><a href="#top">back to top</a></p>
+<p>For this session, we will use dummy datasets from sklearn.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/wesleybeckner/&#39;</span>\
+                 <span class="s1">&#39;ds_for_engineers/main/data/truffle_margin/truffle_margin_customer.csv&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">df</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Base Cake</th>
+      <th>Truffle Type</th>
+      <th>Primary Flavor</th>
+      <th>Secondary Flavor</th>
+      <th>Color Group</th>
+      <th>Customer</th>
+      <th>Date</th>
+      <th>KG</th>
+      <th>EBITDA/KG</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Butter</td>
+      <td>Candy Outer</td>
+      <td>Butter Pecan</td>
+      <td>Toffee</td>
+      <td>Taupe</td>
+      <td>Slugworth</td>
+      <td>1/2020</td>
+      <td>53770.342593</td>
+      <td>0.500424</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Butter</td>
+      <td>Candy Outer</td>
+      <td>Ginger Lime</td>
+      <td>Banana</td>
+      <td>Amethyst</td>
+      <td>Slugworth</td>
+      <td>1/2020</td>
+      <td>466477.578125</td>
+      <td>0.220395</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Butter</td>
+      <td>Candy Outer</td>
+      <td>Ginger Lime</td>
+      <td>Banana</td>
+      <td>Burgundy</td>
+      <td>Perk-a-Cola</td>
+      <td>1/2020</td>
+      <td>80801.728070</td>
+      <td>0.171014</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Butter</td>
+      <td>Candy Outer</td>
+      <td>Ginger Lime</td>
+      <td>Banana</td>
+      <td>White</td>
+      <td>Fickelgruber</td>
+      <td>1/2020</td>
+      <td>18046.111111</td>
+      <td>0.233025</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Butter</td>
+      <td>Candy Outer</td>
+      <td>Ginger Lime</td>
+      <td>Rum</td>
+      <td>Amethyst</td>
+      <td>Fickelgruber</td>
+      <td>1/2020</td>
+      <td>19147.454268</td>
+      <td>0.480689</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1663</th>
+      <td>Tiramisu</td>
+      <td>Chocolate Outer</td>
+      <td>Doughnut</td>
+      <td>Pear</td>
+      <td>Amethyst</td>
+      <td>Fickelgruber</td>
+      <td>12/2020</td>
+      <td>38128.802589</td>
+      <td>0.420111</td>
+    </tr>
+    <tr>
+      <th>1664</th>
+      <td>Tiramisu</td>
+      <td>Chocolate Outer</td>
+      <td>Doughnut</td>
+      <td>Pear</td>
+      <td>Burgundy</td>
+      <td>Zebrabar</td>
+      <td>12/2020</td>
+      <td>108.642857</td>
+      <td>0.248659</td>
+    </tr>
+    <tr>
+      <th>1665</th>
+      <td>Tiramisu</td>
+      <td>Chocolate Outer</td>
+      <td>Doughnut</td>
+      <td>Pear</td>
+      <td>Teal</td>
+      <td>Zebrabar</td>
+      <td>12/2020</td>
+      <td>3517.933333</td>
+      <td>0.378501</td>
+    </tr>
+    <tr>
+      <th>1666</th>
+      <td>Tiramisu</td>
+      <td>Chocolate Outer</td>
+      <td>Doughnut</td>
+      <td>Rock and Rye</td>
+      <td>Amethyst</td>
+      <td>Slugworth</td>
+      <td>12/2020</td>
+      <td>10146.898432</td>
+      <td>0.213149</td>
+    </tr>
+    <tr>
+      <th>1667</th>
+      <td>Tiramisu</td>
+      <td>Chocolate Outer</td>
+      <td>Doughnut</td>
+      <td>Rock and Rye</td>
+      <td>Burgundy</td>
+      <td>Zebrabar</td>
+      <td>12/2020</td>
+      <td>1271.904762</td>
+      <td>0.431813</td>
+    </tr>
+  </tbody>
+</table>
+<p>1668 rows × 9 columns</p>
+</div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">descriptors</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+  <span class="nb">print</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Base Cake
+[&#39;Butter&#39; &#39;Cheese&#39; &#39;Chiffon&#39; &#39;Pound&#39; &#39;Sponge&#39; &#39;Tiramisu&#39;]
+
+Truffle Type
+[&#39;Candy Outer&#39; &#39;Chocolate Outer&#39; &#39;Jelly Filled&#39;]
+
+Primary Flavor
+[&#39;Butter Pecan&#39; &#39;Ginger Lime&#39; &#39;Margarita&#39; &#39;Pear&#39; &#39;Pink Lemonade&#39;
+ &#39;Raspberry Ginger Ale&#39; &#39;Sassafras&#39; &#39;Spice&#39; &#39;Wild Cherry Cream&#39;
+ &#39;Cream Soda&#39; &#39;Horchata&#39; &#39;Kettle Corn&#39; &#39;Lemon Bar&#39; &#39;Orange Pineapple\tP&#39;
+ &#39;Plum&#39; &#39;Orange&#39; &#39;Butter Toffee&#39; &#39;Lemon&#39; &#39;Acai Berry&#39; &#39;Apricot&#39;
+ &#39;Birch Beer&#39; &#39;Cherry Cream Spice&#39; &#39;Creme de Menthe&#39; &#39;Fruit Punch&#39;
+ &#39;Ginger Ale&#39; &#39;Grand Mariner&#39; &#39;Orange Brandy&#39; &#39;Pecan&#39; &#39;Toasted Coconut&#39;
+ &#39;Watermelon&#39; &#39;Wintergreen&#39; &#39;Vanilla&#39; &#39;Bavarian Cream&#39; &#39;Black Licorice&#39;
+ &#39;Caramel Cream&#39; &#39;Cheesecake&#39; &#39;Cherry Cola&#39; &#39;Coffee&#39; &#39;Irish Cream&#39;
+ &#39;Lemon Custard&#39; &#39;Mango&#39; &#39;Sour&#39; &#39;Amaretto&#39; &#39;Blueberry&#39; &#39;Butter Milk&#39;
+ &#39;Chocolate Mint&#39; &#39;Coconut&#39; &#39;Dill Pickle&#39; &#39;Gingersnap&#39; &#39;Chocolate&#39;
+ &#39;Doughnut&#39;]
+
+Secondary Flavor
+[&#39;Toffee&#39; &#39;Banana&#39; &#39;Rum&#39; &#39;Tutti Frutti&#39; &#39;Vanilla&#39; &#39;Mixed Berry&#39;
+ &#39;Whipped Cream&#39; &#39;Apricot&#39; &#39;Passion Fruit&#39; &#39;Peppermint&#39; &#39;Dill Pickle&#39;
+ &#39;Black Cherry&#39; &#39;Wild Cherry Cream&#39; &#39;Papaya&#39; &#39;Mango&#39; &#39;Cucumber&#39; &#39;Egg Nog&#39;
+ &#39;Pear&#39; &#39;Rock and Rye&#39; &#39;Tangerine&#39; &#39;Apple&#39; &#39;Black Currant&#39; &#39;Kiwi&#39; &#39;Lemon&#39;
+ &#39;Hazelnut&#39; &#39;Butter Rum&#39; &#39;Fuzzy Navel&#39; &#39;Mojito&#39; &#39;Ginger Beer&#39;]
+</code></pre></div>
+
+<h2 id="61-many-flavors-of-statistical-tests">6.1 Many Flavors of Statistical Tests<a class="headerlink" href="#61-many-flavors-of-statistical-tests" title="Permanent link">&para;</a></h2>
+<p align="center">
+<img src="https://luminousmen.com/media/descriptive-and-inferential-statistics.jpeg" width=400px></img>
+<br>
+<small> https://luminousmen.com/post/descriptive-and-inferential-statistics </small>
+</p>
+
+<blockquote>
+<p>Descriptive statistics describes data (for example, a chart or graph) and inferential statistics allows you to make predictions (“inferences”) from that data. With inferential statistics, you take data from samples and make generalizations about a population - [statshowto](https://www.statisticshowto.com/probability-and-statistics/statistics-definitions/inferential-statistics/#:~:text=Descriptive%20statistics%20describes%20data%20(for,make%20generalizations%20about%20a%20population.)</p>
+</blockquote>
+<ul>
+<li><strong>Moods Median Test</strong></li>
+<li><a href="https://sixsigmastudyguide.com/kruskal-wallis-non-parametric-hypothesis-test/">Kruskal-Wallis Test</a> (Another comparison of Medians test)</li>
+<li>T-Test</li>
+<li>Analysis of Variance (ANOVA)</li>
+<li>One Way ANOVA</li>
+<li>Two Way ANOVA</li>
+<li>MANOVA</li>
+<li>Factorial ANOVA</li>
+</ul>
+<p>When do I use each of these? We will talk about this as we proceed through the examples. <a href="https://support.minitab.com/en-us/minitab/20/help-and-how-to/statistics/nonparametrics/supporting-topics/which-test-should-i-use/">This page</a> from minitab has good rules of thumb on the subject.</p>
+<h3 id="611-what-is-moods-median">6.1.1 What is Mood's Median?<a class="headerlink" href="#611-what-is-moods-median" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>You can use Chi-Square to test for a goodness of fit (whether a sample of data represents a distribution) or whether two variables are related (using a contingency table, which we will create below!)</p>
+</blockquote>
+<p><strong>A special case of Pearon's Chi-Squared Test:</strong> We create a table that counts the observations above and below the global median for two different groups. We then perform a <em>chi-squared test of significance</em> on this <em>contingency table</em> </p>
+<p>Null hypothesis: the Medians are all equal</p>
+<p>The chi-square test statistic:</p>
+<p>$x^2 = \sum{\frac{(O-E)^2}{E}}$</p>
+<p>Where $O$ is the observed frequency and $E$ is the expected frequency.</p>
+<p><strong>Let's take an example</strong>, say we have three shifts with the following production rates:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">shift_one</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]</span>
+<span class="n">shift_two</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">shift_one</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">shift_two</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[17, 16, 18, 21, 15, 15, 21, 18, 15, 18]
+[20, 20, 22, 15, 16, 19, 18, 22, 18, 17]
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">stat</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">table</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">median_test</span><span class="p">(</span><span class="n">shift_one</span><span class="p">,</span> <span class="n">shift_two</span><span class="p">,</span> <span class="n">correction</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+
+<p>what is <code>median_test</code> returning?</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The perasons chi-square test statistic: </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stat</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;p-value of the test: </span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;the grand median: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>The perasons chi-square test statistic: 1.98
+p-value of the test: 0.160
+the grand median: 18.0
+</code></pre></div>
+
+<p>Let's evaluate that test statistic ourselves by taking a look at the contingency table:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">table</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>array([[2, 5],
+       [8, 5]])
+</code></pre></div>
+
+<p>This is easier to make sense of if we order the shift times</p>
+<div class="codehilite"><pre><span></span><code><span class="n">shift_one</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="n">shift_one</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[15, 15, 15, 16, 17, 18, 18, 18, 21, 21]
+</code></pre></div>
+
+<p>When we look at shift one, we see that 8 values are at or below the grand median.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">shift_two</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="n">shift_two</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[15, 16, 17, 18, 18, 19, 20, 20, 22, 22]
+</code></pre></div>
+
+<p>For shift two, only two are at or below the grand median.</p>
+<p>Since the sample sizes are the same, the expected value for both groups is the same, 5 above and 5 below the grand median. The chi-square is then:</p>
+<p>$X^2 = \frac{(2-5)^2}{5} + \frac{(8-5)^2}{5} + \frac{(8-5)^2}{5} + \frac{(2-5)^2}{5}$</p>
+<div class="codehilite"><pre><span></span><code><span class="p">(</span><span class="mi">3</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">5</span> <span class="o">+</span> <span class="p">(</span><span class="mi">7</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">5</span> <span class="o">+</span> <span class="p">(</span><span class="mi">7</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">5</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">5</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>3.2
+</code></pre></div>
+
+<p>Our p-value, or the probability of observing the null-hypothsis, is under 0.05. We can conclude that these shift performances were drawn under seperate distributions.</p>
+<p>For comparison, let's do this analysis again with shifts of equal performances</p>
+<div class="codehilite"><pre><span></span><code><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">shift_three</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]</span>
+<span class="n">shift_four</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]</span>
+<span class="n">stat</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">table</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">median_test</span><span class="p">(</span><span class="n">shift_three</span><span class="p">,</span> <span class="n">shift_four</span><span class="p">,</span>
+                                            <span class="n">correction</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The pearsons chi-square test statistic: </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stat</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;p-value of the test: </span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;the grand median: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>The pearsons chi-square test statistic: 0.00
+p-value of the test: 1.000
+the grand median: 15.5
+</code></pre></div>
+
+<p>and the shift raw values:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">shift_three</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="n">shift_four</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">shift_three</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">shift_four</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[10, 14, 15, 15, 15, 16, 16, 16, 17, 21]
+[11, 12, 13, 14, 15, 16, 19, 19, 19, 21]
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">table</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>array([[5, 5],
+       [5, 5]])
+</code></pre></div>
+
+<h3 id="612-when-to-use-moods">6.1.2 When to Use Mood's?<a class="headerlink" href="#612-when-to-use-moods" title="Permanent link">&para;</a></h3>
+<p><strong>Mood's Median Test is highly flexible</strong> but has the following assumptions:</p>
+<ul>
+<li>Considers only one categorical factor</li>
+<li>Response variable is continuous (our shift rates)</li>
+<li>Data does not need to be normally distributed</li>
+<li>But the distributions are similarly shaped</li>
+<li>Sample sizes can be unequal and small (less than 20 observations)</li>
+</ul>
+<p>Other considerations:</p>
+<ul>
+<li>Not as powerful as Kruskal-Wallis Test but still useful for small sample sizes or when there are outliers</li>
+</ul>
+<h4 id="6121-exercise-use-moods-median-test">6.1.2.1 Exercise: Use Mood's Median Test<a class="headerlink" href="#6121-exercise-use-moods-median-test" title="Permanent link">&para;</a></h4>
+<h5 id="part-a-perform-moods-median-test-on-base-cake-in-truffle-data"><strong>Part A</strong> Perform moods median test on Base Cake in Truffle data<a class="headerlink" href="#part-a-perform-moods-median-test-on-base-cake-in-truffle-data" title="Permanent link">&para;</a></h5>
+<p>We're also going to get some practice with pandas groupby.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># what is returned by this groupby?</span>
+<span class="n">gp</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Base Cake&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>How do we find out? We could iterate through it:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># seems to be a tuple of some sort</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">gp</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+  <span class="k">break</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>(&#39;Butter&#39;,      Base Cake     Truffle Type  ...             KG EBITDA/KG
+0       Butter      Candy Outer  ...   53770.342593  0.500424
+1       Butter      Candy Outer  ...  466477.578125  0.220395
+2       Butter      Candy Outer  ...   80801.728070  0.171014
+3       Butter      Candy Outer  ...   18046.111111  0.233025
+4       Butter      Candy Outer  ...   19147.454268  0.480689
+...        ...              ...  ...            ...       ...
+1562    Butter  Chocolate Outer  ...    9772.200521  0.158279
+1563    Butter  Chocolate Outer  ...   10861.245675 -0.159275
+1564    Butter  Chocolate Outer  ...    3578.592163  0.431328
+1565    Butter     Jelly Filled  ...   21438.187500  0.105097
+1566    Butter     Jelly Filled  ...   15617.489115  0.185070
+
+[456 rows x 9 columns])
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># the first object appears to be the group</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1"># the second object appears to be the df belonging to that group</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Butter
+     Base Cake     Truffle Type  ...             KG EBITDA/KG
+0       Butter      Candy Outer  ...   53770.342593  0.500424
+1       Butter      Candy Outer  ...  466477.578125  0.220395
+2       Butter      Candy Outer  ...   80801.728070  0.171014
+3       Butter      Candy Outer  ...   18046.111111  0.233025
+4       Butter      Candy Outer  ...   19147.454268  0.480689
+...        ...              ...  ...            ...       ...
+1562    Butter  Chocolate Outer  ...    9772.200521  0.158279
+1563    Butter  Chocolate Outer  ...   10861.245675 -0.159275
+1564    Butter  Chocolate Outer  ...    3578.592163  0.431328
+1565    Butter     Jelly Filled  ...   21438.187500  0.105097
+1566    Butter     Jelly Filled  ...   15617.489115  0.185070
+
+[456 rows x 9 columns]
+</code></pre></div>
+
+<p>going back to our diagram from our earlier pandas session. It looks like whenever we split in the groupby method, we create separate dataframes as well as their group label:</p>
+<p><img src="https://swcarpentry.github.io/r-novice-gapminder/fig/12-plyr-fig1.png" width=500></img></p>
+<p>Ok, so we know <code>gp</code> is separate dataframes. How do we turn them into arrays to then pass to <code>median_test</code>?</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># complete this for loop</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">gp</span><span class="p">:</span>
+  <span class="c1"># turn j into an array using the .values attribute</span>
+  <span class="c1"># print this to the screen</span>
+</code></pre></div>
+
+<p>After you've completed the previous step, turn this into a list comprehension and pass the result to a variable called <code>margins</code></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># complete the code below</span>
+<span class="c1"># margins = [# YOUR LIST COMPREHENSION HERE]</span>
+</code></pre></div>
+
+<p>Remember the list unpacking we did for the tic tac toe project? We're going to do the same thing here. Unpack the margins list for <code>median_test</code> and run the cell below!</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># complete the following line</span>
+<span class="c1"># stat, p, m, table = scipy.stats.median_test(&lt;UNPACK MARGINS HERE&gt;, correction=False)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The pearsons chi-square test statistic: </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stat</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;p-value of the test: </span><span class="si">{:.2e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;the grand median: </span><span class="si">{:.2e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>The pearsons chi-square test statistic: 448.81
+p-value of the test: 8.85e-95
+the grand median: 2.16e-01
+</code></pre></div>
+
+<h5 id="part-b-view-the-distributions-of-the-data-using-matplotlib-and-seaborn"><strong>Part B</strong> View the distributions of the data using matplotlib and seaborn<a class="headerlink" href="#part-b-view-the-distributions-of-the-data-using-matplotlib-and-seaborn" title="Permanent link">&para;</a></h5>
+<p>What a fantastic statistical result we found! Can we affirm our result with some visualizations? I hope so! Create a boxplot below using pandas. In your call to <code>df.boxplot()</code> the <code>by</code> parameter should be set to <code>Base Cake</code> and the <code>column</code> parameter should be set to <code>EBITDA/KG</code></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># YOUR BOXPLOT HERE</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>/usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
+
+Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify &#39;dtype=object&#39; when creating the ndarray
+
+
+
+
+
+
+&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fb512f782d0&gt;
+</code></pre></div>
+
+<p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_44_2.png" /></p>
+<p>For comparison, I've shown the boxplot below using seaborn!</p>
+<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Base Cake&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;EBITDA/KG&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#A0cbe8&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_46_0.png" /></p>
+<h5 id="part-c-perform-moods-median-on-all-the-other-groups"><strong>Part C</strong> Perform Moods Median on all the other groups<a class="headerlink" href="#part-c-perform-moods-median-on-all-the-other-groups" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Recall the other descriptors we have</span>
+<span class="n">descriptors</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Index([&#39;Base Cake&#39;, &#39;Truffle Type&#39;, &#39;Primary Flavor&#39;, &#39;Secondary Flavor&#39;,
+       &#39;Color Group&#39;, &#39;Customer&#39;, &#39;Date&#39;],
+      dtype=&#39;object&#39;)
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">descriptors</span><span class="p">:</span>
+
+  <span class="c1"># YOUR CODE FORM MARGINS BELOW</span>
+  <span class="c1"># margins = [&lt;YOUR LIST COMPREHENSION&gt;]</span>
+
+  <span class="c1"># UNPACK MARGINS INTO MEDIAN_TEST</span>
+  <span class="c1"># stat, p, m, table = scipy.stats.median_test(&lt;YOUR UNPACKING METHOD&gt;, correction=False)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The pearsons chi-square test statistic: </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stat</span><span class="p">))</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;p-value of the test: </span><span class="si">{:e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;the grand median: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">m</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Base Cake
+The pearsons chi-square test statistic: 448.81
+p-value of the test: 8.851450e-95
+the grand median: 0.2160487288076019
+
+Truffle Type
+The pearsons chi-square test statistic: 22.86
+p-value of the test: 1.088396e-05
+the grand median: 0.2160487288076019
+
+Primary Flavor
+The pearsons chi-square test statistic: 638.99
+p-value of the test: 3.918933e-103
+the grand median: 0.2160487288076019
+
+Secondary Flavor
+The pearsons chi-square test statistic: 323.13
+p-value of the test: 6.083210e-52
+the grand median: 0.2160487288076019
+
+Color Group
+The pearsons chi-square test statistic: 175.18
+p-value of the test: 1.011412e-31
+the grand median: 0.2160487288076019
+
+Customer
+The pearsons chi-square test statistic: 5.66
+p-value of the test: 2.257760e-01
+the grand median: 0.2160487288076019
+
+Date
+The pearsons chi-square test statistic: 5.27
+p-value of the test: 9.175929e-01
+the grand median: 0.2160487288076019
+</code></pre></div>
+
+<h5 id="part-d-many-boxplots"><strong>Part D</strong> Many boxplots<a class="headerlink" href="#part-d-many-boxplots" title="Permanent link">&para;</a></h5>
+<p>And finally, we will confirm these visually. Complete the Boxplot for each group:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">descriptors</span><span class="p">:</span>
+  <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+  <span class="c1"># sns.boxplot(x=&lt;YOUR X VARIABLE HERE&gt;, y=&#39;EBITDA/KG&#39;, data=df, color=&#39;#A0cbe8&#39;, ax=ax)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>/usr/local/lib/python3.7/dist-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning:
+
+Glyph 9 missing from current font.
+
+/usr/local/lib/python3.7/dist-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning:
+
+Glyph 9 missing from current font.
+</code></pre></div>
+
+<p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_1.png" /></p>
+<p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_2.png" /></p>
+<p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_3.png" /></p>
+<p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_4.png" /></p>
+<p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_5.png" /></p>
+<p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_6.png" /></p>
+<p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_7.png" /></p>
+<h3 id="613-enrichment-what-is-a-t-test">6.1.3 <strong>Enrichment</strong>: What is a T-test?<a class="headerlink" href="#613-enrichment-what-is-a-t-test" title="Permanent link">&para;</a></h3>
+<p>There are 1-sample and 2-sample T-tests </p>
+<p><em>(note: we would use a 1-sample T-test just to determine if the sample mean is equal to a hypothesized population mean)</em></p>
+<p>Within 2-sample T-tests we have <strong><em>independent</em></strong> and <strong><em>dependent</em></strong> T-tests (uncorrelated or correlated samples)</p>
+<p>For independent, two-sample T-tests:</p>
+<ul>
+<li><strong><em>Equal variance</em></strong> (or pooled) T-test</li>
+<li><code>scipy.stats.ttest_ind(equal_var=True)</code></li>
+<li><strong><em>Unequal variance</em></strong> T-test</li>
+<li><code>scipy.stats.ttest_ind(equal_var=False)</code></li>
+<li>also called <strong><em>Welch's T-test</em></strong></li>
+</ul>
+<p><br></p>
+<p>For dependent T-tests:
+* Paired (or correlated) T-test
+  * <code>scipy.stats.ttest_rel</code></p>
+<p>A full discussion on T-tests is outside the scope of this session, but we can refer to wikipedia for more information, including formulas on how each statistic is computed:
+* <a href="https://en.wikipedia.org/wiki/Student%27s_t-test#Dependent_t-test_for_paired_samples">student's T-test</a></p>
+<h3 id="614-enrichment-demonstration-of-t-tests">6.1.4 <strong>Enrichment</strong>: Demonstration of T-tests<a class="headerlink" href="#614-enrichment-demonstration-of-t-tests" title="Permanent link">&para;</a></h3>
+<p><a href="#top">back to top</a></p>
+<p>We'll assume our shifts are of <strong><em>equal variance</em></strong> and proceed with the appropriate <strong><em>independent two-sample</em></strong> T-test...</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">shift_one</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">shift_two</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[15, 15, 15, 16, 17, 18, 18, 18, 21, 21]
+[15, 16, 17, 18, 18, 19, 20, 20, 22, 22]
+</code></pre></div>
+
+<p>To calculate the T-test, we follow a slightly different statistical formula:</p>
+<p>$T=\frac{\mu_1 - \mu_2}{s\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}$</p>
+<p>where $\mu$ are the means of the two groups, $n$ are the sample sizes and $s$ is the pooled standard deviation, also known as the cummulative variance (depending on if you square it or not):</p>
+<p>$s= \sqrt{\frac{(n_1-1)\sigma_1^2 + (n_2-1)\sigma_2^2}{n_1 + n_2 - 2}}$</p>
+<p>where $\sigma$ are the standard deviations. What you'll notice here is we are combining the two variances, we can only do this if we assume the variances are somewhat equal, this is known as the <em>equal variances</em> t-test.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">mean_shift_one</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">shift_one</span><span class="p">)</span>
+<span class="n">mean_shift_two</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">shift_two</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">mean_shift_one</span><span class="p">,</span> <span class="n">mean_shift_two</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>17.4 18.7
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">com_var</span> <span class="o">=</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([(</span><span class="n">i</span> <span class="o">-</span> <span class="n">mean_shift_one</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">shift_one</span><span class="p">])</span> <span class="o">+</span> 
+            <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([(</span><span class="n">i</span> <span class="o">-</span> <span class="n">mean_shift_two</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">shift_two</span><span class="p">]))</span> <span class="o">/</span>
+            <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">shift_one</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">shift_two</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">com_var</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>5.361111111111111
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">T</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">mean_shift_one</span> <span class="o">-</span> <span class="n">mean_shift_two</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span>
+     <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">com_var</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">shift_one</span><span class="p">)</span> <span class="o">+</span>
+     <span class="n">com_var</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">shift_two</span><span class="p">))))</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">T</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>1.2554544209603191
+</code></pre></div>
+
+<p>We see that this hand-computed result matches that of the <code>scipy</code> module:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">shift_two</span><span class="p">,</span> <span class="n">shift_one</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Ttest_indResult(statistic=1.2554544209603191, pvalue=0.22536782778843117)
+</code></pre></div>
+
+<h3 id="enrichment-615-what-are-f-statistics-and-the-f-test"><strong>Enrichment</strong>: 6.1.5 What are F-statistics and the F-test?<a class="headerlink" href="#enrichment-615-what-are-f-statistics-and-the-f-test" title="Permanent link">&para;</a></h3>
+<p>The F-statistic is simply a ratio of two variances, or the ratio of <em>mean squares</em></p>
+<p><em>mean squares</em> is the estimate of population variance that accounts for the degrees of freedom to compute that estimate. </p>
+<p>We will explore this in the context of ANOVA</p>
+<h3 id="616-enrichment-what-is-analysis-of-variance">6.1.6 <strong>Enrichment</strong>: What is Analysis of Variance?<a class="headerlink" href="#616-enrichment-what-is-analysis-of-variance" title="Permanent link">&para;</a></h3>
+<p>ANOVA uses the F-test to determine whether the variability between group means is larger than the variability within the groups. If that statistic is large enough, you can conclude that the means of the groups are not equal.</p>
+<p><strong>The caveat is that ANOVA tells us whether there is a difference in means but it does not tell us where the difference is.</strong> To find where the difference is between the groups, we have to conduct post-hoc tests.</p>
+<p>There are two main types:
+* One-way (one factor) and
+* Two-way (two factor) where factor is an indipendent variable</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Ind A</th>
+<th>Ind B</th>
+<th>Dep</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>H</td>
+<td>10</td>
+</tr>
+<tr>
+<td>X</td>
+<td>I</td>
+<td>12</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>I</td>
+<td>11</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>H</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h4 id="anova-hypotheses">ANOVA Hypotheses<a class="headerlink" href="#anova-hypotheses" title="Permanent link">&para;</a></h4>
+<ul>
+<li><em>Null hypothesis</em>: group means are equal</li>
+<li><em>Alternative hypothesis</em>: at least one group mean is different form the other groups</li>
+</ul>
+<h3 id="anova-assumptions">ANOVA Assumptions<a class="headerlink" href="#anova-assumptions" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Residuals (experimental error) are normally distributed (test with Shapiro-Wilk)</li>
+<li>Homogeneity of variances (variances are equal between groups) (test with Bartlett's)</li>
+<li>Observations are sampled independently from each other</li>
+<li><em>Note: ANOVA assumptions can be checked using test statistics (e.g. Shapiro-Wilk, Bartlett’s, Levene’s test) and the visual approaches such as residual plots (e.g. QQ-plots) and histograms.</em></li>
+</ul>
+<h3 id="steps-for-anova">Steps for ANOVA<a class="headerlink" href="#steps-for-anova" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Check sample sizes: equal observations must be in each group</li>
+<li>Calculate Sum of Square between groups and within groups ($SS_B, SS_E$)</li>
+<li>Calculate Mean Square between groups and within groups ($MS_B, MS_E$)</li>
+<li>Calculate F value ($MS_B/MS_E$)</li>
+</ul>
+<p><br></p>
+<p>This might be easier to see in a table:</p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th>Source of Variation</th>
+<th>degree of freedom (Df)</th>
+<th>Sum of squares (SS)</th>
+<th>Mean square (MS)</th>
+<th>F value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Between Groups</td>
+<td>Df_b = P-1</td>
+<td>SS_B</td>
+<td>MS_B = SS_B / Df_B</td>
+<td>MS_B / MS_E</td>
+</tr>
+<tr>
+<td>Within Groups</td>
+<td>Df_E = P(N-1)</td>
+<td>SS_E</td>
+<td>MS_E = SS_E / Df_E</td>
+<td></td>
+</tr>
+<tr>
+<td>total</td>
+<td>Df_T = PN-1</td>
+<td>SS_T</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Where:
+$$ SS_B = \sum_{i}^{P}{(\bar{y}<em>i-\bar{y})^2} $$
+<br>
+$$ SS_E = \sum</em>{ik}^{PN}{(\bar{y}_{ik}-\bar{y}_i)^2} $$
+<br>
+$$ SS_T = SS_B + SS_E $$</p>
+<p>Let's go  back to our shift data to take an example:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">shifts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">shift_one</span><span class="p">,</span> <span class="n">shift_two</span><span class="p">,</span> <span class="n">shift_three</span><span class="p">,</span> <span class="n">shift_four</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">shifts</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]</span>
+<span class="n">shifts</span><span class="o">.</span><span class="n">boxplot</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fb5128c6690&gt;
+</code></pre></div>
+
+<p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_65_1.png" /></p>
+<h4 id="6160-enrichment-sns-boxplot">6.1.6.0 <strong>Enrichment</strong>: SNS Boxplot<a class="headerlink" href="#6160-enrichment-sns-boxplot" title="Permanent link">&para;</a></h4>
+<p>this is another great way to view boxplot data. Notice how sns also shows us the raw data alongside the box and whiskers using a <em>swarmplot</em>.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">shift_melt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">shifts</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">],</span> 
+                     <span class="n">value_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">])</span>
+<span class="n">shift_melt</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;shift&#39;</span><span class="p">,</span> <span class="s1">&#39;rate&#39;</span><span class="p">]</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;shift&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;rate&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">shift_melt</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#A0cbe8&#39;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">swarmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;shift&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;rate&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">shift_melt</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#79706e&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_67_0.png" /></p>
+<p>Anyway back to ANOVA...</p>
+<div class="codehilite"><pre><span></span><code><span class="n">fvalue</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">f_oneway</span><span class="p">(</span><span class="n">shifts</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">],</span> 
+                                <span class="n">shifts</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">],</span>
+                                <span class="n">shifts</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">],</span>
+                                <span class="n">shifts</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fvalue</span><span class="p">,</span> <span class="n">pvalue</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>2.8666172656539457 0.04998066540684099
+</code></pre></div>
+
+<p>We can get this in the format of the table we saw above:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># get ANOVA table </span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">ols</span>
+
+<span class="c1"># Ordinary Least Squares (OLS) model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="s1">&#39;rate ~ C(shift)&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">shift_melt</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">anova_table</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">anova_lm</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">anova_table</span>
+<span class="c1"># output (ANOVA F and p value)</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sum_sq</th>
+      <th>df</th>
+      <th>F</th>
+      <th>PR(&gt;F)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>C(shift)</th>
+      <td>64.475</td>
+      <td>3.0</td>
+      <td>2.866617</td>
+      <td>0.049981</td>
+    </tr>
+    <tr>
+      <th>Residual</th>
+      <td>269.900</td>
+      <td>36.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>The <strong><em>Shapiro-Wilk</em></strong> test can be used to check the <em>normal distribution of residuals</em>. Null hypothesis: data is drawn from normal distribution.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">shapiro</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">resid</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>0.9800916314125061 0.6929556727409363
+</code></pre></div>
+
+<p>We can use <strong><em>Bartlett’s</em></strong> test to check the <em>Homogeneity of variances</em>. Null hypothesis: samples from populations have equal variances.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">bartlett</span><span class="p">(</span><span class="n">shifts</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">],</span> 
+                           <span class="n">shifts</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">],</span> 
+                           <span class="n">shifts</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">],</span> 
+                           <span class="n">shifts</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>1.9492677462621584 0.5830028540285896
+</code></pre></div>
+
+<h4 id="6161-anova-interpretation">6.1.6.1 ANOVA Interpretation<a class="headerlink" href="#6161-anova-interpretation" title="Permanent link">&para;</a></h4>
+<p>The <em>p</em> value form ANOVA analysis is significant (<em>p</em> &lt; 0.05) and we can conclude there are significant difference between the shifts. But we do not know which shift(s) are different. For this we need to perform a post hoc test. There are a multitude of these that are beyond the scope of this discussion (<a href="https://www.real-statistics.com/one-way-analysis-of-variance-anova/unplanned-comparisons/tukey-kramer-test/">Tukey-kramer</a> is one such test) </p>
+<p align=center>
+<img src="https://media.tenor.com/images/4da4d46c8df02570a9a1219cac42bf27/tenor.gif"></img>
+</p>
+
+<h3 id="617-putting-it-all-together">6.1.7 Putting it all together<a class="headerlink" href="#617-putting-it-all-together" title="Permanent link">&para;</a></h3>
+<p>In summary, there are many statistical tests at our disposal when performing inferential statistical analysis. In times like these, a simple decision tree can be extraordinarily useful!</p>
+<p><img src="https://cdn.scribbr.com/wp-content/uploads//2020/01/flowchart-for-choosing-a-statistical-test.png" width=800px></img></p>
+<p><small>source: <a href="https://www.scribbr.com/statistics/statistical-tests/">scribbr</a></small></p>
+<h2 id="62-evaluate-statistical-significance-of-product-margin-a-snake-in-the-garden">6.2 Evaluate statistical significance of product margin: a snake in the garden<a class="headerlink" href="#62-evaluate-statistical-significance-of-product-margin-a-snake-in-the-garden" title="Permanent link">&para;</a></h2>
+<h3 id="621-moods-median-on-product-descriptors">6.2.1 Mood's Median on product descriptors<a class="headerlink" href="#621-moods-median-on-product-descriptors" title="Permanent link">&para;</a></h3>
+<p>The first issue we run into with moods is... what? </p>
+<p>We can only perform moods on two groups at a time. How can we get around this?</p>
+<p>Let's take a look at the category with the fewest descriptors. If we remember, this was the Truffle Types.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Index([&#39;Base Cake&#39;, &#39;Truffle Type&#39;, &#39;Primary Flavor&#39;, &#39;Secondary Flavor&#39;,
+       &#39;Color Group&#39;, &#39;Customer&#39;, &#39;Date&#39;, &#39;KG&#39;, &#39;EBITDA/KG&#39;],
+      dtype=&#39;object&#39;)
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Truffle Type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>array([&#39;Candy Outer&#39;, &#39;Chocolate Outer&#39;, &#39;Jelly Filled&#39;], dtype=object)
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;Truffle Type&#39;</span>
+<span class="n">moodsdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">truff</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+
+  <span class="c1"># for each </span>
+  <span class="n">group</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="n">truff</span><span class="p">][</span><span class="s1">&#39;EBITDA/KG&#39;</span><span class="p">]</span>
+  <span class="n">pop</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="n">truff</span><span class="p">)][</span><span class="s1">&#39;EBITDA/KG&#39;</span><span class="p">]</span>
+  <span class="n">stat</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">table</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">median_test</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">pop</span><span class="p">)</span>
+  <span class="n">median</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+  <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+  <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: N=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">truff</span><span class="p">,</span> <span class="n">size</span><span class="p">))</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Welch&#39;s T-Test for Unequal Variances&quot;</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+  <span class="n">welchp</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">pvalue</span>
+  <span class="nb">print</span><span class="p">()</span>
+  <span class="n">moodsdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">moodsdf</span><span class="p">,</span> 
+                            <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">truff</span><span class="p">,</span> 
+                                          <span class="n">stat</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">median</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span>
+                                          <span class="n">welchp</span><span class="p">,</span> <span class="n">table</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">])</span>
+<span class="n">moodsdf</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="p">,</span> <span class="s1">&#39;pearsons_chi_square&#39;</span><span class="p">,</span> <span class="s1">&#39;p_value&#39;</span><span class="p">,</span> 
+              <span class="s1">&#39;grand_median&#39;</span><span class="p">,</span> <span class="s1">&#39;group_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;group_median&#39;</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="s1">&#39;welch p&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;table&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Candy Outer: N=288
+Welch&#39;s T-Test for Unequal Variances
+Ttest_indResult(statistic=-2.7615297773427527, pvalue=0.005911048922657976)
+
+Chocolate Outer: N=1356
+Welch&#39;s T-Test for Unequal Variances
+Ttest_indResult(statistic=4.409449025092911, pvalue=1.1932685612874952e-05)
+
+Jelly Filled: N=24
+Welch&#39;s T-Test for Unequal Variances
+Ttest_indResult(statistic=-8.4142523067935, pvalue=7.929912531660173e-09)
+</code></pre></div>
+
+<h3 id="question-1-moods-results-on-truffle-type">Question 1: Moods Results on Truffle Type<a class="headerlink" href="#question-1-moods-results-on-truffle-type" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>What do we notice about the resultant table?</p>
+</blockquote>
+<ul>
+<li><strong><em>p-values</em></strong> Most are quite small (really low probability of achieving these table results under a single distribution)</li>
+<li>group sizes: our Jelly Filled group is relatively small</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="n">moodsdf</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;p_value&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Truffle Type</th>
+      <th>pearsons_chi_square</th>
+      <th>p_value</th>
+      <th>grand_median</th>
+      <th>group_mean</th>
+      <th>group_median</th>
+      <th>size</th>
+      <th>welch p</th>
+      <th>table</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Jelly Filled</td>
+      <td>18.6432</td>
+      <td>1.57604e-05</td>
+      <td>0.216049</td>
+      <td>0.0513823</td>
+      <td>0.0179334</td>
+      <td>24</td>
+      <td>7.92991e-09</td>
+      <td>[[1, 833], [23, 811]]</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>Chocolate Outer</td>
+      <td>6.6275</td>
+      <td>0.0100416</td>
+      <td>0.216049</td>
+      <td>0.262601</td>
+      <td>0.225562</td>
+      <td>1356</td>
+      <td>1.19327e-05</td>
+      <td>[[699, 135], [657, 177]]</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>Candy Outer</td>
+      <td>1.51507</td>
+      <td>0.218368</td>
+      <td>0.216049</td>
+      <td>0.230075</td>
+      <td>0.204264</td>
+      <td>288</td>
+      <td>0.00591105</td>
+      <td>[[134, 700], [154, 680]]</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>We can go ahead and repeat this analysis for all of our product categories:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Index([&#39;Base Cake&#39;, &#39;Truffle Type&#39;, &#39;Primary Flavor&#39;, &#39;Secondary Flavor&#39;,
+       &#39;Color Group&#39;],
+      dtype=&#39;object&#39;)
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">moodsdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="mi">5</span><span class="p">]:</span>
+  <span class="k">for</span> <span class="n">truff</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="n">truff</span><span class="p">][</span><span class="s1">&#39;EBITDA/KG&#39;</span><span class="p">]</span>
+    <span class="n">pop</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="n">truff</span><span class="p">)][</span><span class="s1">&#39;EBITDA/KG&#39;</span><span class="p">]</span>
+    <span class="n">stat</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">table</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">median_test</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">pop</span><span class="p">)</span>
+    <span class="n">median</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+    <span class="n">welchp</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">pvalue</span>
+    <span class="n">moodsdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">moodsdf</span><span class="p">,</span> 
+                              <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">col</span><span class="p">,</span> <span class="n">truff</span><span class="p">,</span> 
+                                            <span class="n">stat</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">median</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span>
+                                            <span class="n">welchp</span><span class="p">,</span> <span class="n">table</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">])</span>
+<span class="n">moodsdf</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;descriptor&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;pearsons_chi_square&#39;</span><span class="p">,</span> <span class="s1">&#39;p_value&#39;</span><span class="p">,</span> 
+                <span class="s1">&#39;grand_median&#39;</span><span class="p">,</span> <span class="s1">&#39;group_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;group_median&#39;</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="s1">&#39;welch p&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;table&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">moodsdf</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>(101, 10)
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">moodsdf</span> <span class="o">=</span> <span class="n">moodsdf</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">moodsdf</span><span class="p">[</span><span class="s1">&#39;welch p&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.005</span><span class="p">)</span> <span class="o">&amp;</span>
+            <span class="p">(</span><span class="n">moodsdf</span><span class="p">[</span><span class="s1">&#39;p_value&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.005</span><span class="p">)]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;group_median&#39;</span><span class="p">)</span>
+
+<span class="n">moodsdf</span> <span class="o">=</span> <span class="n">moodsdf</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;group_median&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">moodsdf</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>(51, 10)
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">moodsdf</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>descriptor</th>
+      <th>group</th>
+      <th>pearsons_chi_square</th>
+      <th>p_value</th>
+      <th>grand_median</th>
+      <th>group_mean</th>
+      <th>group_median</th>
+      <th>size</th>
+      <th>welch p</th>
+      <th>table</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Secondary Flavor</td>
+      <td>Papaya</td>
+      <td>18.6432</td>
+      <td>1.57604e-05</td>
+      <td>0.216049</td>
+      <td>0.0167466</td>
+      <td>0.00245839</td>
+      <td>24</td>
+      <td>1.04879e-10</td>
+      <td>[[1, 833], [23, 811]]</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Primary Flavor</td>
+      <td>Orange Pineapple\tP</td>
+      <td>18.6432</td>
+      <td>1.57604e-05</td>
+      <td>0.216049</td>
+      <td>0.0167466</td>
+      <td>0.00245839</td>
+      <td>24</td>
+      <td>1.04879e-10</td>
+      <td>[[1, 833], [23, 811]]</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Primary Flavor</td>
+      <td>Cherry Cream Spice</td>
+      <td>10.1564</td>
+      <td>0.00143801</td>
+      <td>0.216049</td>
+      <td>0.0187023</td>
+      <td>0.00970093</td>
+      <td>12</td>
+      <td>7.15389e-07</td>
+      <td>[[0, 834], [12, 822]]</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Secondary Flavor</td>
+      <td>Cucumber</td>
+      <td>18.6432</td>
+      <td>1.57604e-05</td>
+      <td>0.216049</td>
+      <td>0.0513823</td>
+      <td>0.0179334</td>
+      <td>24</td>
+      <td>7.92991e-09</td>
+      <td>[[1, 833], [23, 811]]</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Truffle Type</td>
+      <td>Jelly Filled</td>
+      <td>18.6432</td>
+      <td>1.57604e-05</td>
+      <td>0.216049</td>
+      <td>0.0513823</td>
+      <td>0.0179334</td>
+      <td>24</td>
+      <td>7.92991e-09</td>
+      <td>[[1, 833], [23, 811]]</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Primary Flavor</td>
+      <td>Orange</td>
+      <td>18.6432</td>
+      <td>1.57604e-05</td>
+      <td>0.216049</td>
+      <td>0.0513823</td>
+      <td>0.0179334</td>
+      <td>24</td>
+      <td>7.92991e-09</td>
+      <td>[[1, 833], [23, 811]]</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Primary Flavor</td>
+      <td>Toasted Coconut</td>
+      <td>15.2613</td>
+      <td>9.36173e-05</td>
+      <td>0.216049</td>
+      <td>0.0370021</td>
+      <td>0.0283916</td>
+      <td>24</td>
+      <td>3.13722e-08</td>
+      <td>[[2, 832], [22, 812]]</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Secondary Flavor</td>
+      <td>Apricot</td>
+      <td>15.2613</td>
+      <td>9.36173e-05</td>
+      <td>0.216049</td>
+      <td>0.0603122</td>
+      <td>0.0374225</td>
+      <td>24</td>
+      <td>4.5952e-08</td>
+      <td>[[2, 832], [22, 812]]</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Primary Flavor</td>
+      <td>Kettle Corn</td>
+      <td>29.0621</td>
+      <td>7.00962e-08</td>
+      <td>0.216049</td>
+      <td>0.0554518</td>
+      <td>0.045891</td>
+      <td>60</td>
+      <td>6.3013e-18</td>
+      <td>[[9, 825], [51, 783]]</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Primary Flavor</td>
+      <td>Acai Berry</td>
+      <td>18.6432</td>
+      <td>1.57604e-05</td>
+      <td>0.216049</td>
+      <td>0.0365051</td>
+      <td>0.0494656</td>
+      <td>24</td>
+      <td>1.49539e-10</td>
+      <td>[[1, 833], [23, 811]]</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Primary Flavor</td>
+      <td>Pink Lemonade</td>
+      <td>10.1564</td>
+      <td>0.00143801</td>
+      <td>0.216049</td>
+      <td>0.0398622</td>
+      <td>0.0563492</td>
+      <td>12</td>
+      <td>1.06677e-05</td>
+      <td>[[0, 834], [12, 822]]</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Secondary Flavor</td>
+      <td>Black Cherry</td>
+      <td>58.9004</td>
+      <td>1.65861e-14</td>
+      <td>0.216049</td>
+      <td>0.0559745</td>
+      <td>0.0628979</td>
+      <td>96</td>
+      <td>6.65441e-31</td>
+      <td>[[11, 823], [85, 749]]</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Primary Flavor</td>
+      <td>Watermelon</td>
+      <td>15.2613</td>
+      <td>9.36173e-05</td>
+      <td>0.216049</td>
+      <td>0.0440497</td>
+      <td>0.0678958</td>
+      <td>24</td>
+      <td>5.20636e-08</td>
+      <td>[[2, 832], [22, 812]]</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Primary Flavor</td>
+      <td>Plum</td>
+      <td>34.8516</td>
+      <td>3.55816e-09</td>
+      <td>0.216049</td>
+      <td>0.0849632</td>
+      <td>0.0799934</td>
+      <td>72</td>
+      <td>1.20739e-16</td>
+      <td>[[11, 823], [61, 773]]</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Secondary Flavor</td>
+      <td>Dill Pickle</td>
+      <td>10.1564</td>
+      <td>0.00143801</td>
+      <td>0.216049</td>
+      <td>0.0370421</td>
+      <td>0.0824944</td>
+      <td>12</td>
+      <td>7.45639e-06</td>
+      <td>[[0, 834], [12, 822]]</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Primary Flavor</td>
+      <td>Horchata</td>
+      <td>10.1564</td>
+      <td>0.00143801</td>
+      <td>0.216049</td>
+      <td>0.0370421</td>
+      <td>0.0824944</td>
+      <td>12</td>
+      <td>7.45639e-06</td>
+      <td>[[0, 834], [12, 822]]</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Primary Flavor</td>
+      <td>Lemon Custard</td>
+      <td>12.2175</td>
+      <td>0.000473444</td>
+      <td>0.216049</td>
+      <td>0.0793894</td>
+      <td>0.087969</td>
+      <td>24</td>
+      <td>6.19493e-06</td>
+      <td>[[3, 831], [21, 813]]</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Primary Flavor</td>
+      <td>Fruit Punch</td>
+      <td>10.1564</td>
+      <td>0.00143801</td>
+      <td>0.216049</td>
+      <td>0.0789353</td>
+      <td>0.0903256</td>
+      <td>12</td>
+      <td>7.61061e-05</td>
+      <td>[[0, 834], [12, 822]]</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Base Cake</td>
+      <td>Chiffon</td>
+      <td>117.046</td>
+      <td>2.80454e-27</td>
+      <td>0.216049</td>
+      <td>0.127851</td>
+      <td>0.125775</td>
+      <td>288</td>
+      <td>6.79655e-43</td>
+      <td>[[60, 774], [228, 606]]</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Base Cake</td>
+      <td>Butter</td>
+      <td>134.367</td>
+      <td>4.54085e-31</td>
+      <td>0.216049</td>
+      <td>0.142082</td>
+      <td>0.139756</td>
+      <td>456</td>
+      <td>9.8457e-52</td>
+      <td>[[122, 712], [334, 500]]</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Secondary Flavor</td>
+      <td>Banana</td>
+      <td>10.8053</td>
+      <td>0.00101207</td>
+      <td>0.216049</td>
+      <td>0.163442</td>
+      <td>0.15537</td>
+      <td>60</td>
+      <td>7.23966e-09</td>
+      <td>[[17, 817], [43, 791]]</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Primary Flavor</td>
+      <td>Cream Soda</td>
+      <td>9.51186</td>
+      <td>0.00204148</td>
+      <td>0.216049</td>
+      <td>0.150265</td>
+      <td>0.163455</td>
+      <td>24</td>
+      <td>2.17977e-06</td>
+      <td>[[4, 830], [20, 814]]</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Secondary Flavor</td>
+      <td>Peppermint</td>
+      <td>9.51186</td>
+      <td>0.00204148</td>
+      <td>0.216049</td>
+      <td>0.150265</td>
+      <td>0.163455</td>
+      <td>24</td>
+      <td>2.17977e-06</td>
+      <td>[[4, 830], [20, 814]]</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Primary Flavor</td>
+      <td>Grand Mariner</td>
+      <td>10.5818</td>
+      <td>0.00114208</td>
+      <td>0.216049</td>
+      <td>0.197463</td>
+      <td>0.165529</td>
+      <td>72</td>
+      <td>0.000828508</td>
+      <td>[[22, 812], [50, 784]]</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Color Group</td>
+      <td>Amethyst</td>
+      <td>20.4883</td>
+      <td>5.99977e-06</td>
+      <td>0.216049</td>
+      <td>0.195681</td>
+      <td>0.167321</td>
+      <td>300</td>
+      <td>4.0427e-07</td>
+      <td>[[114, 720], [186, 648]]</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Color Group</td>
+      <td>Burgundy</td>
+      <td>10.9997</td>
+      <td>0.000911278</td>
+      <td>0.216049</td>
+      <td>0.193048</td>
+      <td>0.171465</td>
+      <td>120</td>
+      <td>0.000406312</td>
+      <td>[[42, 792], [78, 756]]</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Color Group</td>
+      <td>White</td>
+      <td>35.7653</td>
+      <td>2.22582e-09</td>
+      <td>0.216049</td>
+      <td>0.19</td>
+      <td>0.177264</td>
+      <td>432</td>
+      <td>1.56475e-16</td>
+      <td>[[162, 672], [270, 564]]</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Color Group</td>
+      <td>Opal</td>
+      <td>11.5872</td>
+      <td>0.000664086</td>
+      <td>0.216049</td>
+      <td>0.317878</td>
+      <td>0.259304</td>
+      <td>324</td>
+      <td>3.94098e-07</td>
+      <td>[[190, 644], [134, 700]]</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Secondary Flavor</td>
+      <td>Apple</td>
+      <td>27.2833</td>
+      <td>1.75723e-07</td>
+      <td>0.216049</td>
+      <td>0.326167</td>
+      <td>0.293876</td>
+      <td>36</td>
+      <td>0.00117635</td>
+      <td>[[34, 800], [2, 832]]</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>Secondary Flavor</td>
+      <td>Tangerine</td>
+      <td>32.6264</td>
+      <td>1.11688e-08</td>
+      <td>0.216049</td>
+      <td>0.342314</td>
+      <td>0.319273</td>
+      <td>48</td>
+      <td>0.000112572</td>
+      <td>[[44, 790], [4, 830]]</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>Secondary Flavor</td>
+      <td>Black Currant</td>
+      <td>34.7784</td>
+      <td>3.69452e-09</td>
+      <td>0.216049</td>
+      <td>0.357916</td>
+      <td>0.332449</td>
+      <td>36</td>
+      <td>9.48594e-08</td>
+      <td>[[36, 798], [0, 834]]</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>Secondary Flavor</td>
+      <td>Pear</td>
+      <td>16.6143</td>
+      <td>4.58043e-05</td>
+      <td>0.216049</td>
+      <td>0.373034</td>
+      <td>0.33831</td>
+      <td>60</td>
+      <td>3.05948e-05</td>
+      <td>[[46, 788], [14, 820]]</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>Primary Flavor</td>
+      <td>Vanilla</td>
+      <td>34.7784</td>
+      <td>3.69452e-09</td>
+      <td>0.216049</td>
+      <td>0.378053</td>
+      <td>0.341626</td>
+      <td>36</td>
+      <td>1.00231e-06</td>
+      <td>[[36, 798], [0, 834]]</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>Color Group</td>
+      <td>Citrine</td>
+      <td>10.1564</td>
+      <td>0.00143801</td>
+      <td>0.216049</td>
+      <td>0.390728</td>
+      <td>0.342512</td>
+      <td>12</td>
+      <td>0.00192513</td>
+      <td>[[12, 822], [0, 834]]</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>Color Group</td>
+      <td>Teal</td>
+      <td>13.5397</td>
+      <td>0.000233572</td>
+      <td>0.216049</td>
+      <td>0.323955</td>
+      <td>0.3446</td>
+      <td>96</td>
+      <td>0.00120954</td>
+      <td>[[66, 768], [30, 804]]</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>Base Cake</td>
+      <td>Tiramisu</td>
+      <td>52.3606</td>
+      <td>4.61894e-13</td>
+      <td>0.216049</td>
+      <td>0.388267</td>
+      <td>0.362102</td>
+      <td>144</td>
+      <td>7.98485e-12</td>
+      <td>[[114, 720], [30, 804]]</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>Primary Flavor</td>
+      <td>Doughnut</td>
+      <td>74.9353</td>
+      <td>4.86406e-18</td>
+      <td>0.216049</td>
+      <td>0.439721</td>
+      <td>0.379361</td>
+      <td>108</td>
+      <td>2.47855e-15</td>
+      <td>[[98, 736], [10, 824]]</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>Secondary Flavor</td>
+      <td>Ginger Beer</td>
+      <td>22.3634</td>
+      <td>2.25628e-06</td>
+      <td>0.216049</td>
+      <td>0.444895</td>
+      <td>0.382283</td>
+      <td>24</td>
+      <td>0.000480693</td>
+      <td>[[24, 810], [0, 834]]</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>Color Group</td>
+      <td>Rose</td>
+      <td>18.6432</td>
+      <td>1.57604e-05</td>
+      <td>0.216049</td>
+      <td>0.42301</td>
+      <td>0.407061</td>
+      <td>24</td>
+      <td>6.16356e-05</td>
+      <td>[[23, 811], [1, 833]]</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>Base Cake</td>
+      <td>Cheese</td>
+      <td>66.8047</td>
+      <td>2.99776e-16</td>
+      <td>0.216049</td>
+      <td>0.450934</td>
+      <td>0.435638</td>
+      <td>84</td>
+      <td>4.5139e-18</td>
+      <td>[[79, 755], [5, 829]]</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>Primary Flavor</td>
+      <td>Butter Toffee</td>
+      <td>60.1815</td>
+      <td>8.65028e-15</td>
+      <td>0.216049</td>
+      <td>0.50366</td>
+      <td>0.456343</td>
+      <td>60</td>
+      <td>2.09848e-19</td>
+      <td>[[60, 774], [0, 834]]</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>Color Group</td>
+      <td>Slate</td>
+      <td>10.1564</td>
+      <td>0.00143801</td>
+      <td>0.216049</td>
+      <td>0.540214</td>
+      <td>0.483138</td>
+      <td>12</td>
+      <td>1.69239e-05</td>
+      <td>[[12, 822], [0, 834]]</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>Primary Flavor</td>
+      <td>Gingersnap</td>
+      <td>22.3634</td>
+      <td>2.25628e-06</td>
+      <td>0.216049</td>
+      <td>0.643218</td>
+      <td>0.623627</td>
+      <td>24</td>
+      <td>9.02005e-16</td>
+      <td>[[24, 810], [0, 834]]</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>Primary Flavor</td>
+      <td>Dill Pickle</td>
+      <td>22.3634</td>
+      <td>2.25628e-06</td>
+      <td>0.216049</td>
+      <td>0.642239</td>
+      <td>0.655779</td>
+      <td>24</td>
+      <td>5.14558e-16</td>
+      <td>[[24, 810], [0, 834]]</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>Color Group</td>
+      <td>Olive</td>
+      <td>44.9675</td>
+      <td>2.00328e-11</td>
+      <td>0.216049</td>
+      <td>0.637627</td>
+      <td>0.670186</td>
+      <td>60</td>
+      <td>3.71909e-20</td>
+      <td>[[56, 778], [4, 830]]</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>Primary Flavor</td>
+      <td>Butter Milk</td>
+      <td>10.1564</td>
+      <td>0.00143801</td>
+      <td>0.216049</td>
+      <td>0.699284</td>
+      <td>0.688601</td>
+      <td>12</td>
+      <td>2.76773e-07</td>
+      <td>[[12, 822], [0, 834]]</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>Base Cake</td>
+      <td>Sponge</td>
+      <td>127.156</td>
+      <td>1.71707e-29</td>
+      <td>0.216049</td>
+      <td>0.698996</td>
+      <td>0.699355</td>
+      <td>120</td>
+      <td>2.5584e-80</td>
+      <td>[[120, 714], [0, 834]]</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>Primary Flavor</td>
+      <td>Chocolate Mint</td>
+      <td>10.1564</td>
+      <td>0.00143801</td>
+      <td>0.216049</td>
+      <td>0.685546</td>
+      <td>0.699666</td>
+      <td>12</td>
+      <td>1.48794e-07</td>
+      <td>[[12, 822], [0, 834]]</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>Primary Flavor</td>
+      <td>Coconut</td>
+      <td>10.1564</td>
+      <td>0.00143801</td>
+      <td>0.216049</td>
+      <td>0.732777</td>
+      <td>0.717641</td>
+      <td>12</td>
+      <td>3.06716e-14</td>
+      <td>[[12, 822], [0, 834]]</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>Primary Flavor</td>
+      <td>Blueberry</td>
+      <td>22.3634</td>
+      <td>2.25628e-06</td>
+      <td>0.216049</td>
+      <td>0.759643</td>
+      <td>0.72536</td>
+      <td>24</td>
+      <td>9.11605e-14</td>
+      <td>[[24, 810], [0, 834]]</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>Primary Flavor</td>
+      <td>Amaretto</td>
+      <td>10.1564</td>
+      <td>0.00143801</td>
+      <td>0.216049</td>
+      <td>0.782156</td>
+      <td>0.764845</td>
+      <td>12</td>
+      <td>8.53642e-10</td>
+      <td>[[12, 822], [0, 834]]</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3 id="622-enrichment-broad-analysis-of-categories-anova">6.2.2 <strong>Enrichment</strong>: Broad Analysis of Categories: ANOVA<a class="headerlink" href="#622-enrichment-broad-analysis-of-categories-anova" title="Permanent link">&para;</a></h3>
+<p>Recall our "melted" shift data. It will be useful to think of getting our Truffle data in this format:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">shift_melt</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index</th>
+      <th>shift</th>
+      <th>rate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>A</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>A</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>A</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>A</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>A</td>
+      <td>17</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># get ANOVA table </span>
+<span class="c1"># Ordinary Least Squares (OLS) model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="s1">&#39;EBITDA_KG ~ C(Truffle_Type)&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">anova_table</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">anova_lm</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">anova_table</span>
+<span class="c1"># output (ANOVA F and p value)</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sum_sq</th>
+      <th>df</th>
+      <th>F</th>
+      <th>PR(&gt;F)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>C(Truffle_Type)</th>
+      <td>1.250464</td>
+      <td>2.0</td>
+      <td>12.882509</td>
+      <td>0.000003</td>
+    </tr>
+    <tr>
+      <th>Residual</th>
+      <td>80.808138</td>
+      <td>1665.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>Recall the <strong><em>Shapiro-Wilk</em></strong> test can be used to check the <em>normal distribution of residuals</em>. Null hypothesis: data is drawn from normal distribution.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">shapiro</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">resid</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>0.9576056599617004 1.2598073820281984e-21
+</code></pre></div>
+
+<p>And the <strong><em>Bartlett’s</em></strong> test to check the <em>Homogeneity of variances</em>. Null hypothesis: samples from populations have equal variances.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">gb</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Truffle_Type&#39;</span><span class="p">)[</span><span class="s1">&#39;EBITDA_KG&#39;</span><span class="p">]</span>
+<span class="n">gb</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x7fb5127814d0&gt;
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">bartlett</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">gb</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">gb</span><span class="o">.</span><span class="n">groups</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>109.93252546442552 1.344173733366234e-24
+</code></pre></div>
+
+<p>Wow it looks like our data is not drawn from a normal distribution! Let's check this for other categories...</p>
+<p>We can wrap these in a for loop:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="mi">5</span><span class="p">]:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+  <span class="n">model</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="s1">&#39;EBITDA_KG ~ C(</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">col</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+  <span class="n">anova_table</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">anova_lm</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+  <span class="n">display</span><span class="p">(</span><span class="n">anova_table</span><span class="p">)</span>
+  <span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">shapiro</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">resid</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shapiro: &quot;</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span><span class="p">)</span>
+  <span class="n">gb</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">col</span><span class="p">)[</span><span class="s1">&#39;EBITDA_KG&#39;</span><span class="p">]</span>
+  <span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">bartlett</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">gb</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">gb</span><span class="o">.</span><span class="n">groups</span><span class="p">])</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Bartlett: &quot;</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">pvalue</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Base_Cake
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sum_sq</th>
+      <th>df</th>
+      <th>F</th>
+      <th>PR(&gt;F)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>C(Base_Cake)</th>
+      <td>39.918103</td>
+      <td>5.0</td>
+      <td>314.869955</td>
+      <td>1.889884e-237</td>
+    </tr>
+    <tr>
+      <th>Residual</th>
+      <td>42.140500</td>
+      <td>1662.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="codehilite"><pre><span></span><code>Shapiro:  0.9634131193161011 4.1681337029688696e-20
+Bartlett:  69.83288886114195 1.1102218566053728e-13
+
+Truffle_Type
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sum_sq</th>
+      <th>df</th>
+      <th>F</th>
+      <th>PR(&gt;F)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>C(Truffle_Type)</th>
+      <td>1.250464</td>
+      <td>2.0</td>
+      <td>12.882509</td>
+      <td>0.000003</td>
+    </tr>
+    <tr>
+      <th>Residual</th>
+      <td>80.808138</td>
+      <td>1665.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="codehilite"><pre><span></span><code>Shapiro:  0.9576056599617004 1.2598073820281984e-21
+Bartlett:  109.93252546442552 1.344173733366234e-24
+
+Primary_Flavor
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sum_sq</th>
+      <th>df</th>
+      <th>F</th>
+      <th>PR(&gt;F)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>C(Primary_Flavor)</th>
+      <td>50.270639</td>
+      <td>50.0</td>
+      <td>51.143649</td>
+      <td>1.153434e-292</td>
+    </tr>
+    <tr>
+      <th>Residual</th>
+      <td>31.787964</td>
+      <td>1617.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="codehilite"><pre><span></span><code>Shapiro:  0.948470413684845 9.90281706784179e-24
+Bartlett:  210.15130419114894 1.5872504991231547e-21
+
+Secondary_Flavor
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sum_sq</th>
+      <th>df</th>
+      <th>F</th>
+      <th>PR(&gt;F)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>C(Secondary_Flavor)</th>
+      <td>15.088382</td>
+      <td>28.0</td>
+      <td>13.188089</td>
+      <td>1.929302e-54</td>
+    </tr>
+    <tr>
+      <th>Residual</th>
+      <td>66.970220</td>
+      <td>1639.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="codehilite"><pre><span></span><code>Shapiro:  0.9548103213310242 2.649492974953278e-22
+Bartlett:  420.6274502894803 1.23730070350945e-71
+
+Color_Group
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sum_sq</th>
+      <th>df</th>
+      <th>F</th>
+      <th>PR(&gt;F)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>C(Color_Group)</th>
+      <td>16.079685</td>
+      <td>11.0</td>
+      <td>36.689347</td>
+      <td>6.544980e-71</td>
+    </tr>
+    <tr>
+      <th>Residual</th>
+      <td>65.978918</td>
+      <td>1656.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="codehilite"><pre><span></span><code>Shapiro:  0.969061017036438 1.8926407335144587e-18
+Bartlett:  136.55525281340468 8.164787784033709e-24
+</code></pre></div>
+
+<h3 id="623-enrichment-visual-analysis-of-residuals-qq-plots">6.2.3 <strong>Enrichment</strong>: Visual Analysis of Residuals: QQ-Plots<a class="headerlink" href="#623-enrichment-visual-analysis-of-residuals-qq-plots" title="Permanent link">&para;</a></h3>
+<p>This can be distressing and is often why we want visual methods to see what is going on with our data!</p>
+<div class="codehilite"><pre><span></span><code><span class="n">model</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="s1">&#39;EBITDA_KG ~ C(Truffle_Type)&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="c1">#create instance of influence</span>
+<span class="n">influence</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_influence</span><span class="p">()</span>
+
+<span class="c1">#obtain standardized residuals</span>
+<span class="n">standardized_residuals</span> <span class="o">=</span> <span class="n">influence</span><span class="o">.</span><span class="n">resid_studentized_internal</span>
+
+<span class="c1"># res.anova_std_residuals are standardized residuals obtained from ANOVA (check above)</span>
+<span class="n">sm</span><span class="o">.</span><span class="n">qqplot</span><span class="p">(</span><span class="n">standardized_residuals</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="s1">&#39;45&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Theoretical Quantiles&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Standardized Residuals&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># histogram</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">resid</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Residuals&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_103_0.png" /></p>
+<p><img alt="png" src="../S2_Inferential_Statistics_files/S2_Inferential_Statistics_103_1.png" /></p>
+<p>We see that a lot of our data is swayed by extremely high and low values, so what can we conclude? </p>
+<blockquote>
+<p>You need the right test statistic for the right job, in this case, we are littered with unequal variance in our groupings so we use the moods median and welch (unequal variance t-test) to make conclusions about our data</p>
+</blockquote>
+<h1 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h1>
+<ul>
+<li><a href="https://www.reneshbedre.com/blog/anova.html">Renesh Bedre ANOVA</a></li>
+<li><a href="https://blog.minitab.com/en/adventures-in-statistics-2/understanding-analysis-of-variance-anova-and-the-f-test">Minitab ANOVA</a></li>
+<li><a href="https://www.analyticsvidhya.com/blog/2020/06/introduction-anova-statistics-data-science-covid-python/">Analytics Vidhya ANOVA</a></li>
+<li><a href="https://www.reneshbedre.com/blog/hypothesis-testing.html">Renesh Bedre Hypothesis Testing</a></li>
+<li><a href="https://www.real-statistics.com/one-way-analysis-of-variance-anova/unplanned-comparisons/tukey-kramer-test/">Real Statistics Turkey-kramer</a></li>
+<li><a href="https://www.kaggle.com/ryanholbrook/mutual-information">Mutual Information</a></li>
+</ul>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../S1_Regression_and_Analysis/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Regression and Analysis" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Regression and Analysis
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../S3_Model_Selection_and_Validation/" class="md-footer__link md-footer__link--next" aria-label="Next: Model Selection and Validation" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Model Selection and Validation
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.ca141e46.min.js"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.6baa0517.min.js"></script>
+      
+    
+  </body>
+</html>

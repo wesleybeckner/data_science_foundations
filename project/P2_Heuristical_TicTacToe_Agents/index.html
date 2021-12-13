@@ -1,0 +1,1672 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.4">
+    
+    
+      
+        <title>Heuristical TicTacToe Agents - Data Science Foundations</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2a4617e2.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.9204c3b2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#2094f3">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../..":"../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-114664473-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#technology-fundamentals-course-3-project-part-4-heuristical-agents-symbolic-ai" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Data Science Foundations" class="md-header__button md-logo" aria-label="Data Science Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Data Science Foundations
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Heuristical TicTacToe Agents
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Data Science Foundations" class="md-nav__button md-logo" aria-label="Data Science Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Data Science Foundations
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Sessions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Sessions" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Sessions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S1_Regression_and_Analysis/" class="md-nav__link">
+        Regression and Analysis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S2_Inferential_Statistics/" class="md-nav__link">
+        Inferential Statistics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S3_Model_Selection_and_Validation/" class="md-nav__link">
+        Model Selection and Validation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S4_Feature_Engineering/" class="md-nav__link">
+        Feature Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S5_Unsupervised_Learning/" class="md-nav__link">
+        Unsupervised Learning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S6_Bagging/" class="md-nav__link">
+        Bagging
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S7_Boosting/" class="md-nav__link">
+        Boosting
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Exercises
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Exercises" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Exercises
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercises/E1_Descriptive_Statistics_Data_Hunt/" class="md-nav__link">
+        Descriptive Statistics Data Hunt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercises/E2_Inferential_Statistics_Data_Hunt/" class="md-nav__link">
+        Inferential Statisitcs Data Hunt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercises/E3_Feature_Engineering/" class="md-nav__link">
+        Practice with Feature Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercises/E4_Supervised_Learners/" class="md-nav__link">
+        Practice with Supervised Learners
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercises/E5_Writing_Unit_Tests/" class="md-nav__link">
+        Practice with Writing Unit Tests
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Project
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Project" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Project
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1_Statistical_Analysis_of_TicTacToe/" class="md-nav__link">
+        Statistical Analysis of TicTacToe
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Heuristical TicTacToe Agents
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Heuristical TicTacToe Agents
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#40-preparing-environment-and-importing-data" class="md-nav__link">
+    4.0 Preparing Environment and Importing Data
+  </a>
+  
+    <nav class="md-nav" aria-label="4.0 Preparing Environment and Importing Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#401-import-packages" class="md-nav__link">
+    4.0.1 Import Packages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#402-load-dataset" class="md-nav__link">
+    4.0.2 Load Dataset
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-ai-heuristics" class="md-nav__link">
+    4.3 AI Heuristics
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 AI Heuristics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1" class="md-nav__link">
+    Q1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2" class="md-nav__link">
+    Q2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3" class="md-nav__link">
+    Q3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-wrapping-our-agent" class="md-nav__link">
+    4.4 Wrapping our Agent
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 Wrapping our Agent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441-redefining-the-random-agent" class="md-nav__link">
+    4.4.1 Redefining the Random Agent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4" class="md-nav__link">
+    Q4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5" class="md-nav__link">
+    Q5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q6" class="md-nav__link">
+    Q6
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_1_Step_Look_Ahead_Agents/" class="md-nav__link">
+        1-Step Look Ahead Agents
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P4_N_Step_Look_Ahead_Agents/" class="md-nav__link">
+        N-Step Look Ahead Agents
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#40-preparing-environment-and-importing-data" class="md-nav__link">
+    4.0 Preparing Environment and Importing Data
+  </a>
+  
+    <nav class="md-nav" aria-label="4.0 Preparing Environment and Importing Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#401-import-packages" class="md-nav__link">
+    4.0.1 Import Packages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#402-load-dataset" class="md-nav__link">
+    4.0.2 Load Dataset
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-ai-heuristics" class="md-nav__link">
+    4.3 AI Heuristics
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 AI Heuristics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1" class="md-nav__link">
+    Q1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2" class="md-nav__link">
+    Q2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3" class="md-nav__link">
+    Q3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-wrapping-our-agent" class="md-nav__link">
+    4.4 Wrapping our Agent
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 Wrapping our Agent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441-redefining-the-random-agent" class="md-nav__link">
+    4.4.1 Redefining the Random Agent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4" class="md-nav__link">
+    Q4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5" class="md-nav__link">
+    Q5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q6" class="md-nav__link">
+    Q6
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+<p><a href="https://colab.research.google.com/github/wesleybeckner/technology_fundamentals/blob/main/C3%20Machine%20Learning%20I/LABS_PROJECT/Tech_Fun_C3_P4_Game_AI%2C_Heuristical_Agents.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
+<h1 id="technology-fundamentals-course-3-project-part-4-heuristical-agents-symbolic-ai">Technology Fundamentals Course 3, Project Part 4: Heuristical Agents (Symbolic AI)<a class="headerlink" href="#technology-fundamentals-course-3-project-part-4-heuristical-agents-symbolic-ai" title="Permanent link">&para;</a></h1>
+<p><strong>Instructor</strong>: Wesley Beckner</p>
+<p><strong>Contact</strong>: wesleybeckner@gmail.com</p>
+<p><strong>Teaching Assitants</strong>: Varsha Bang, Harsha Vardhan</p>
+<p><strong>Contact</strong>: vbang@uw.edu, harshav@uw.edu
+<br></p>
+<hr />
+<p><br></p>
+<p>We makin' some wack AI today</p>
+<p><br></p>
+<hr />
+<p><br></p>
+<p><a name='top'></a></p>
+<p><a name='x.0'></a></p>
+<h2 id="40-preparing-environment-and-importing-data">4.0 Preparing Environment and Importing Data<a class="headerlink" href="#40-preparing-environment-and-importing-data" title="Permanent link">&para;</a></h2>
+<p><a href="#top">back to top</a></p>
+<p><a name='x.0.1'></a></p>
+<h3 id="401-import-packages">4.0.1 Import Packages<a class="headerlink" href="#401-import-packages" title="Permanent link">&para;</a></h3>
+<p><a href="#top">back to top</a></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">class</span> <span class="nc">TicTacToe</span><span class="p">:</span>
+  <span class="c1"># can preset winner and starting player</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">winner</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">start_player</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span> 
+    <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">=</span> <span class="n">winner</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">start_player</span> <span class="o">=</span> <span class="n">start_player</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">board</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="p">,</span>
+         <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="p">,</span>
+         <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="p">,</span>
+         <span class="mi">4</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="p">,</span>
+         <span class="mi">5</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="p">,</span>
+         <span class="mi">6</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="p">,</span>
+         <span class="mi">7</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="p">,</span>
+         <span class="mi">8</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="p">,</span>
+         <span class="mi">9</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="p">,}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">win_patterns</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">9</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">]]</span>
+
+  <span class="c1"># the other functions are now passed self</span>
+  <span class="k">def</span> <span class="nf">visualize_board</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span>
+      <span class="s2">&quot;|</span><span class="si">{}</span><span class="s2">|</span><span class="si">{}</span><span class="s2">|</span><span class="si">{}</span><span class="s2">|</span><span class="se">\n</span><span class="s2">|</span><span class="si">{}</span><span class="s2">|</span><span class="si">{}</span><span class="s2">|</span><span class="si">{}</span><span class="s2">|</span><span class="se">\n</span><span class="s2">|</span><span class="si">{}</span><span class="s2">|</span><span class="si">{}</span><span class="s2">|</span><span class="si">{}</span><span class="s2">|</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+      <span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">check_winning</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">win_patterns</span><span class="p">:</span>
+      <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pattern</span><span class="p">]</span> 
+      <span class="k">if</span> <span class="n">values</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">]:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span> <span class="c1"># we update the winner status</span>
+        <span class="k">return</span> <span class="s2">&quot;&#39;X&#39; Won!&quot;</span>
+      <span class="k">elif</span> <span class="n">values</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;O&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">]:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">=</span> <span class="s1">&#39;O&#39;</span>
+        <span class="k">return</span> <span class="s2">&quot;&#39;O&#39; Won!&quot;</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+
+  <span class="k">def</span> <span class="nf">check_stalemate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_winning</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">=</span> <span class="s1">&#39;Stalemate&#39;</span>
+      <span class="k">return</span> <span class="s2">&quot;It&#39;s a stalemate!&quot;</span>
+
+<span class="k">class</span> <span class="nc">GameEngine</span><span class="p">(</span><span class="n">TicTacToe</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">setup</span> <span class="o">=</span> <span class="n">setup</span>
+
+  <span class="k">def</span> <span class="nf">setup_game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span> <span class="o">==</span> <span class="s1">&#39;user&#39;</span><span class="p">:</span>
+      <span class="n">players</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;How many Players? (type 0, 1, or 2)&quot;</span><span class="p">))</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;human&#39;</span><span class="p">},</span> 
+                    <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;human&#39;</span><span class="p">}}</span>
+      <span class="k">if</span> <span class="n">players</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;who will go first? (X, (AI), or O (Player))&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">first</span> <span class="o">==</span> <span class="s1">&#39;O&#39;</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                        <span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;human&#39;</span><span class="p">}}</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                        <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;human&#39;</span><span class="p">}}</span>
+
+      <span class="k">elif</span> <span class="n">players</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">first</span> <span class="o">==</span> <span class="s1">&#39;O&#39;</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                        <span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">}}</span>                                
+        <span class="k">else</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                        <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">}}</span>
+
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
+      <span class="n">first</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">])</span>
+      <span class="k">if</span> <span class="n">first</span> <span class="o">==</span> <span class="s1">&#39;O&#39;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_player</span> <span class="o">=</span> <span class="s1">&#39;O&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                      <span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">}}</span>                                
+      <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_player</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                      <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">}}</span>
+
+  <span class="k">def</span> <span class="nf">play_game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">player</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">]:</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">visualize_board</span><span class="p">()</span>
+        <span class="n">player_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span><span class="p">[</span><span class="n">player</span><span class="p">][</span><span class="s1">&#39;label&#39;</span><span class="p">]</span>
+        <span class="n">player_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span><span class="p">[</span><span class="n">player</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">player_type</span> <span class="o">==</span> <span class="s1">&#39;human&#39;</span><span class="p">:</span>
+          <span class="n">move</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">, what&#39;s your move?&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">player_label</span><span class="p">))</span>
+          <span class="c1"># we&#39;re going to allow the user to quit the game from the input line</span>
+          <span class="k">if</span> <span class="n">move</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;q&#39;</span><span class="p">,</span> <span class="s1">&#39;quit&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">=</span> <span class="s1">&#39;F&#39;</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;quiting the game&#39;</span><span class="p">)</span>
+            <span class="k">break</span>
+
+          <span class="n">move</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">move</span><span class="p">)</span>
+          <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">move</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+              <span class="n">move</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">, that position is already taken! &quot;</span>\
+                          <span class="s2">&quot;What&#39;s your move?&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">player</span><span class="p">))</span>  
+              <span class="n">move</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">move</span><span class="p">)</span>            
+              <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">move</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+                <span class="k">continue</span>
+              <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>
+
+        <span class="k">else</span><span class="p">:</span>
+          <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">move</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">move</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+              <span class="k">continue</span>
+              <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+              <span class="k">break</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">move</span><span class="p">]</span> <span class="o">=</span> <span class="n">player_label</span>
+
+        <span class="c1"># the winner varaible will now be check within the board object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_winning</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_stalemate</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+          <span class="k">continue</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">==</span> <span class="s1">&#39;Stalemate&#39;</span><span class="p">:</span>
+          <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_stalemate</span><span class="p">())</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">visualize_board</span><span class="p">()</span>
+          <span class="k">break</span>
+
+        <span class="k">else</span><span class="p">:</span>
+          <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_winning</span><span class="p">())</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">visualize_board</span><span class="p">()</span>
+          <span class="k">break</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span>
+</code></pre></div>
+
+<p><a name='x.0.1'></a></p>
+<h3 id="402-load-dataset">4.0.2 Load Dataset<a class="headerlink" href="#402-load-dataset" title="Permanent link">&para;</a></h3>
+<p><a href="#top">back to top</a></p>
+<h2 id="43-ai-heuristics">4.3 AI Heuristics<a class="headerlink" href="#43-ai-heuristics" title="Permanent link">&para;</a></h2>
+<p>Develop a better AI based on your analyses of game play so far.</p>
+<h3 id="q1">Q1<a class="headerlink" href="#q1" title="Permanent link">&para;</a></h3>
+<p>In our groups, let's discuss what rules we would like to hard code in. Harsha, Varsha and I will help you with the flow control to program these rules</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># we will define some variables to help us define the types of positions</span>
+<span class="n">middle</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">side</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+<span class="n">corner</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># recall that our board is a dictionary</span>
+<span class="n">tictactoe</span> <span class="o">=</span> <span class="n">TicTacToe</span><span class="p">()</span>
+<span class="n">tictactoe</span><span class="o">.</span><span class="n">board</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>{1: &#39; &#39;, 2: &#39; &#39;, 3: &#39; &#39;, 4: &#39; &#39;, 5: &#39; &#39;, 6: &#39; &#39;, 7: &#39; &#39;, 8: &#39; &#39;, 9: &#39; &#39;}
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># and we have a win_patterns object to help us with the algorithm</span>
+<span class="n">tictactoe</span><span class="o">.</span><span class="n">win_patterns</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[[1, 2, 3],
+ [4, 5, 6],
+ [7, 8, 9],
+ [1, 4, 7],
+ [2, 5, 8],
+ [3, 6, 9],
+ [1, 5, 9],
+ [7, 5, 3]]
+</code></pre></div>
+
+<p>for example, if we want to check if the middle piece is available, and play it if it is. How do we do that?</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># set some key variables</span>
+<span class="n">player</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
+<span class="n">opponent</span> <span class="o">=</span> <span class="s1">&#39;O&#39;</span>
+<span class="n">avail_moves</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tictactoe</span><span class="o">.</span><span class="n">board</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="n">tictactoe</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span><span class="p">]</span>
+
+<span class="c1"># a variable that will keep track if we&#39;ve found a move we like or not</span>
+<span class="n">move_found</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="c1"># &lt;- some other moves we might want to make would go here -&gt; #</span>
+
+<span class="c1"># and now for our middle piece play</span>
+<span class="k">if</span> <span class="n">move_found</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span> <span class="c1"># if no other move has been found yet</span>
+  <span class="k">if</span> <span class="n">middle</span> <span class="ow">in</span> <span class="n">avail_moves</span><span class="p">:</span> <span class="c1"># if middle is available</span>
+    <span class="n">move_found</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># then change our move_found status</span>
+    <span class="n">move</span> <span class="o">=</span> <span class="n">middle</span> <span class="c1"># update our move</span>
+</code></pre></div>
+
+<p>Our standard approach will be to always <strong><em>return a move by the agent</em></strong>. Whether the agent is heruistical or from some other ML framework we <strong><em>always want to return a move</em></strong></p>
+<p>Repeate after me: <strong><em>ALWAYS RETURN A MOVE</em></strong>. Make sure you know what move is. Make sure you know what it is. And return it. Return a move. The purpose of the next lines of code we will write is to return a move.</p>
+<p>Make sure your code returns a move.</p>
+<h3 id="q2">Q2<a class="headerlink" href="#q2" title="Permanent link">&para;</a></h3>
+<p>Write down your algorithm steps in markdown. i.e.</p>
+<ol>
+<li>play a corner piece</li>
+<li>play to opposite corner from the opponent, etc.</li>
+<li>....etc.</li>
+</ol>
+<h3 id="q3">Q3<a class="headerlink" href="#q3" title="Permanent link">&para;</a></h3>
+<p>Begin to codify your algorithm from Q3. Make sure that no matter what, you <strong><em>return a move</em></strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># some starting variables for you</span>
+<span class="n">player_label</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
+<span class="n">opponent</span> <span class="o">=</span> <span class="s1">&#39;O&#39;</span>
+<span class="n">avail_moves</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tictactoe</span><span class="o">.</span><span class="n">board</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="n">tictactoe</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span><span class="p">]</span>
+
+<span class="c1"># temp board will allow us to play hypothetical moves and see where they get us</span>
+<span class="c1"># in case you need it</span>
+<span class="n">temp_board</span> <span class="o">=</span> <span class="n">tictactoe</span><span class="o">.</span><span class="n">board</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</code></pre></div>
+
+<h2 id="44-wrapping-our-agent">4.4 Wrapping our Agent<a class="headerlink" href="#44-wrapping-our-agent" title="Permanent link">&para;</a></h2>
+<p>Now that we've created a conditional tree for our AI to make a decision, we need to integrate this within the gaming framework we've made so far. How should we do this? Let's define this thought pattern or tree as an agent.</p>
+<p>Recall our play_game function within <code>GameEngine</code></p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">play_game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">player</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">]:</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">visualize_board</span><span class="p">()</span>
+        <span class="n">player_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span><span class="p">[</span><span class="n">player</span><span class="p">][</span><span class="s1">&#39;label&#39;</span><span class="p">]</span>
+        <span class="n">player_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span><span class="p">[</span><span class="n">player</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">player_type</span> <span class="o">==</span> <span class="s1">&#39;human&#39;</span><span class="p">:</span>
+          <span class="n">move</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">, what&#39;s your move?&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">player_label</span><span class="p">))</span>
+          <span class="c1"># we&#39;re going to allow the user to quit the game from the input line</span>
+          <span class="k">if</span> <span class="n">move</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;q&#39;</span><span class="p">,</span> <span class="s1">&#39;quit&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">=</span> <span class="s1">&#39;F&#39;</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;quiting the game&#39;</span><span class="p">)</span>
+            <span class="k">break</span>
+
+          <span class="n">move</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">move</span><span class="p">)</span>
+          <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">move</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+              <span class="n">move</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">, that position is already taken! &quot;</span>\
+                          <span class="s2">&quot;What&#39;s your move?&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">player</span><span class="p">))</span>  
+              <span class="n">move</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">move</span><span class="p">)</span>            
+              <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">move</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+                <span class="k">continue</span>
+              <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>
+
+        <span class="c1">########################################################################</span>
+        <span class="c1">##################### WE WANT TO CHANGE THESE LINES ####################</span>
+        <span class="c1">########################################################################</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">move</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">move</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+              <span class="k">continue</span>
+              <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+              <span class="k">break</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">move</span><span class="p">]</span> <span class="o">=</span> <span class="n">player_label</span>
+
+        <span class="c1"># the winner varaible will now be check within the board object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_winning</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_stalemate</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+          <span class="k">continue</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">==</span> <span class="s1">&#39;Stalemate&#39;</span><span class="p">:</span>
+          <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_stalemate</span><span class="p">())</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">visualize_board</span><span class="p">()</span>
+          <span class="k">break</span>
+
+        <span class="k">else</span><span class="p">:</span>
+          <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_winning</span><span class="p">())</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">visualize_board</span><span class="p">()</span>
+          <span class="k">break</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span>
+</code></pre></div>
+
+<h3 id="441-redefining-the-random-agent">4.4.1 Redefining the Random Agent<a class="headerlink" href="#441-redefining-the-random-agent" title="Permanent link">&para;</a></h3>
+<p>In particular, we want to change lines 30-37 to take our gaming agent in as a parameter to make decisions. Let's try this.</p>
+<p>In <code>setup_game</code> we want to have the option to set the AI type/level. In <code>play_game</code> we want to make a call to that AI to make the move. For instance, our random AI will go from:</p>
+<div class="codehilite"><pre><span></span><code>while True:
+  move = random.randint(1,9)
+  if self.board[move] != &#39; &#39;:
+    continue
+  else:
+    break
+</code></pre></div>
+
+<p>to:</p>
+<div class="codehilite"><pre><span></span><code>def random_ai(self):
+  while True:
+    move = random.randint(1,9)
+    if self.board[move] != &#39; &#39;:
+      continue
+    else:
+      break
+  return move
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">GameEngine</span><span class="p">(</span><span class="n">TicTacToe</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">setup</span> <span class="o">=</span> <span class="n">setup</span>
+
+  <span class="c1">##############################################################################</span>
+  <span class="c1">########## our fresh off the assembly line tictactoe playing robot ###########</span>
+  <span class="c1">##############################################################################</span>
+  <span class="k">def</span> <span class="nf">random_ai</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="n">move</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">move</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+        <span class="k">continue</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="k">return</span> <span class="n">move</span>
+
+  <span class="k">def</span> <span class="nf">setup_game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span> <span class="o">==</span> <span class="s1">&#39;user&#39;</span><span class="p">:</span>
+      <span class="n">players</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;How many Players? (type 0, 1, or 2)&quot;</span><span class="p">))</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;human&#39;</span><span class="p">},</span> 
+                    <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;human&#39;</span><span class="p">}}</span>
+      <span class="k">if</span> <span class="n">players</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="c1">######################################################################## </span>
+        <span class="c1">################# Allow the user to set the ai level ###################</span>
+        <span class="c1">######################################################################## </span>
+        <span class="n">level</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;select AI level (1, 2)&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">level</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">ai_level</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">level</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">ai_level</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unknown AI level entered, this will cause problems&quot;</span><span class="p">)</span>
+
+      <span class="k">if</span> <span class="n">players</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;who will go first? (X, (AI), or O (Player))&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">first</span> <span class="o">==</span> <span class="s1">&#39;O&#39;</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                        <span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;human&#39;</span><span class="p">}}</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                        <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;human&#39;</span><span class="p">}}</span>                       
+
+      <span class="k">elif</span> <span class="n">players</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">first</span> <span class="o">==</span> <span class="s1">&#39;O&#39;</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                        <span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">}}</span>                                
+        <span class="k">else</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                        <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">}}</span>
+
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
+      <span class="n">first</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">])</span>
+      <span class="k">if</span> <span class="n">first</span> <span class="o">==</span> <span class="s1">&#39;O&#39;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_player</span> <span class="o">=</span> <span class="s1">&#39;O&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                      <span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">}}</span>                                
+      <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_player</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                      <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">}}</span>
+      <span class="c1">##########################################################################</span>
+      <span class="c1">############## and automatically set the ai level otherwise ##############</span>
+      <span class="c1">##########################################################################</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">ai_level</span> <span class="o">=</span> <span class="mi">1</span>
+
+  <span class="k">def</span> <span class="nf">play_game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">player</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">]:</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">visualize_board</span><span class="p">()</span>
+        <span class="n">player_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span><span class="p">[</span><span class="n">player</span><span class="p">][</span><span class="s1">&#39;label&#39;</span><span class="p">]</span>
+        <span class="n">player_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span><span class="p">[</span><span class="n">player</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">player_type</span> <span class="o">==</span> <span class="s1">&#39;human&#39;</span><span class="p">:</span>
+          <span class="n">move</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">, what&#39;s your move?&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">player_label</span><span class="p">))</span>
+          <span class="k">if</span> <span class="n">move</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;q&#39;</span><span class="p">,</span> <span class="s1">&#39;quit&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">=</span> <span class="s1">&#39;F&#39;</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;quiting the game&#39;</span><span class="p">)</span>
+            <span class="k">break</span>
+
+          <span class="n">move</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">move</span><span class="p">)</span>
+          <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">move</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+              <span class="n">move</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">, that position is already taken! &quot;</span>\
+                          <span class="s2">&quot;What&#39;s your move?&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">player</span><span class="p">))</span>  
+              <span class="n">move</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">move</span><span class="p">)</span>            
+              <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">move</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+                <span class="k">continue</span>
+              <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>
+
+        <span class="k">else</span><span class="p">:</span>
+          <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ai_level</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">move</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">random_ai</span><span class="p">()</span>
+
+          <span class="c1">######################################################################</span>
+          <span class="c1">############## we will leave this setting empty for now ##############</span>
+          <span class="c1">######################################################################</span>
+          <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">ai_level</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">move</span><span class="p">]</span> <span class="o">=</span> <span class="n">player_label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_winning</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_stalemate</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+          <span class="k">continue</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">==</span> <span class="s1">&#39;Stalemate&#39;</span><span class="p">:</span>
+          <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_stalemate</span><span class="p">())</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">visualize_board</span><span class="p">()</span>
+          <span class="k">break</span>
+
+        <span class="k">else</span><span class="p">:</span>
+          <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_winning</span><span class="p">())</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">visualize_board</span><span class="p">()</span>
+          <span class="k">break</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span>
+</code></pre></div>
+
+<p>Let's test that our random ai works now in this format</p>
+<div class="codehilite"><pre><span></span><code><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">game</span> <span class="o">=</span> <span class="n">GameEngine</span><span class="p">(</span><span class="n">setup</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+<span class="n">game</span><span class="o">.</span><span class="n">setup_game</span><span class="p">()</span>
+<span class="n">game</span><span class="o">.</span><span class="n">play_game</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>| | | |
+| | | |
+| | | |
+
+| | | |
+| |O| |
+| | | |
+
+| | | |
+| |O| |
+| | |X|
+
+| | | |
+| |O|O|
+| | |X|
+
+| | |X|
+| |O|O|
+| | |X|
+
+| | |X|
+| |O|O|
+|O| |X|
+
+|X| |X|
+| |O|O|
+|O| |X|
+
+|X| |X|
+| |O|O|
+|O|O|X|
+
+|X| |X|
+|X|O|O|
+|O|O|X|
+
+&#39;O&#39; Won!
+|X|O|X|
+|X|O|O|
+|O|O|X|
+
+
+
+
+
+
+&lt;__main__.GameEngine at 0x7fadbea428d0&gt;
+</code></pre></div>
+
+<p>Let's try it with a user player:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">game</span> <span class="o">=</span> <span class="n">GameEngine</span><span class="p">(</span><span class="n">setup</span><span class="o">=</span><span class="s1">&#39;user&#39;</span><span class="p">)</span>
+<span class="n">game</span><span class="o">.</span><span class="n">setup_game</span><span class="p">()</span>
+<span class="n">game</span><span class="o">.</span><span class="n">play_game</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>How many Players? (type 0, 1, or 2)2
+| | | |
+| | | |
+| | | |
+
+X, what&#39;s your move?q
+quiting the game
+
+
+
+
+
+&lt;__main__.GameEngine at 0x7fadbea25e90&gt;
+</code></pre></div>
+
+<h3 id="q4">Q4<a class="headerlink" href="#q4" title="Permanent link">&para;</a></h3>
+<p>Now let's fold in our specialized AI agent. Add your code under the <code>heurstic_ai</code> function. Note that the <code>player_label</code> is passed as an input parameter now</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">GameEngine</span><span class="p">(</span><span class="n">TicTacToe</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">setup</span> <span class="o">=</span> <span class="n">setup</span>
+
+  <span class="c1">##############################################################################</span>
+  <span class="c1">################### YOUR BADASS HEURISTIC AGENT GOES HERE ####################</span>
+  <span class="c1">##############################################################################</span>
+  <span class="k">def</span> <span class="nf">heuristic_ai</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">player_label</span><span class="p">):</span>
+
+    <span class="c1"># SOME HELPER VARIABLES IF YOU NEED THEM </span>
+    <span class="n">opponent</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">]</span>
+    <span class="n">opponent</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">player_label</span><span class="p">)</span>
+    <span class="n">opponent</span> <span class="o">=</span> <span class="n">opponent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">avail_moves</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span><span class="p">]</span>
+    <span class="n">temp_board</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1">################## YOUR CODE GOES HERE, RETURN THAT MOVE! ##################</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span> <span class="c1"># DELETE LINES 20 - 25, USED FOR TESTING PURPOSES ONLY</span>
+      <span class="n">move</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">move</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+        <span class="k">continue</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="c1">############################################################################</span>
+    <span class="k">return</span> <span class="n">move</span>
+
+  <span class="k">def</span> <span class="nf">random_ai</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="n">move</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">move</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+        <span class="k">continue</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="k">return</span> <span class="n">move</span>
+
+  <span class="k">def</span> <span class="nf">setup_game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span> <span class="o">==</span> <span class="s1">&#39;user&#39;</span><span class="p">:</span>
+      <span class="n">players</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;How many Players? (type 0, 1, or 2)&quot;</span><span class="p">))</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;human&#39;</span><span class="p">},</span> 
+                    <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;human&#39;</span><span class="p">}}</span>
+      <span class="k">if</span> <span class="n">players</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="c1">######################################################################## </span>
+        <span class="c1">################# Allow the user to set the ai level ###################</span>
+        <span class="c1">######################################################################## </span>
+        <span class="n">level</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;select AI level (1, 2)&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">level</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">ai_level</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">level</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">ai_level</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unknown AI level entered, this will cause problems&quot;</span><span class="p">)</span>
+
+      <span class="k">if</span> <span class="n">players</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;who will go first? (X, (AI), or O (Player))&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">first</span> <span class="o">==</span> <span class="s1">&#39;O&#39;</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                        <span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;human&#39;</span><span class="p">}}</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                        <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;human&#39;</span><span class="p">}}</span>                       
+
+      <span class="k">elif</span> <span class="n">players</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">first</span> <span class="o">==</span> <span class="s1">&#39;O&#39;</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                        <span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">}}</span>                                
+        <span class="k">else</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                        <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">}}</span>
+
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
+      <span class="n">first</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">])</span>
+      <span class="k">if</span> <span class="n">first</span> <span class="o">==</span> <span class="s1">&#39;O&#39;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_player</span> <span class="o">=</span> <span class="s1">&#39;O&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                      <span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">}}</span>                                
+      <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_player</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                      <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">}}</span>
+      <span class="c1">##########################################################################</span>
+      <span class="c1">############## and automatically set the ai level otherwise ##############</span>
+      <span class="c1">##########################################################################</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">ai_level</span> <span class="o">=</span> <span class="mi">1</span>
+
+  <span class="k">def</span> <span class="nf">play_game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">player</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">]:</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">visualize_board</span><span class="p">()</span>
+        <span class="n">player_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span><span class="p">[</span><span class="n">player</span><span class="p">][</span><span class="s1">&#39;label&#39;</span><span class="p">]</span>
+        <span class="n">player_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span><span class="p">[</span><span class="n">player</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">player_type</span> <span class="o">==</span> <span class="s1">&#39;human&#39;</span><span class="p">:</span>
+          <span class="n">move</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">, what&#39;s your move?&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">player_label</span><span class="p">))</span>
+          <span class="k">if</span> <span class="n">move</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;q&#39;</span><span class="p">,</span> <span class="s1">&#39;quit&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">=</span> <span class="s1">&#39;F&#39;</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;quiting the game&#39;</span><span class="p">)</span>
+            <span class="k">break</span>
+
+          <span class="n">move</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">move</span><span class="p">)</span>
+          <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">move</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+              <span class="n">move</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">, that position is already taken! &quot;</span>\
+                          <span class="s2">&quot;What&#39;s your move?&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">player</span><span class="p">))</span>  
+              <span class="n">move</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">move</span><span class="p">)</span>            
+              <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">move</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+                <span class="k">continue</span>
+              <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>
+
+        <span class="k">else</span><span class="p">:</span>
+          <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ai_level</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">move</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">random_ai</span><span class="p">()</span>
+
+          <span class="c1">######################################################################</span>
+          <span class="c1">############## we will leave this setting empty for now ##############</span>
+          <span class="c1">######################################################################</span>
+          <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">ai_level</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">move</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">heuristic_ai</span><span class="p">(</span><span class="n">player_label</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">move</span><span class="p">]</span> <span class="o">=</span> <span class="n">player_label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_winning</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_stalemate</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+          <span class="k">continue</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">==</span> <span class="s1">&#39;Stalemate&#39;</span><span class="p">:</span>
+          <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_stalemate</span><span class="p">())</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">visualize_board</span><span class="p">()</span>
+          <span class="k">break</span>
+
+        <span class="k">else</span><span class="p">:</span>
+          <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_winning</span><span class="p">())</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">visualize_board</span><span class="p">()</span>
+          <span class="k">break</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span>
+</code></pre></div>
+
+<h3 id="q5">Q5<a class="headerlink" href="#q5" title="Permanent link">&para;</a></h3>
+<p>And we'll test that it works!</p>
+<div class="codehilite"><pre><span></span><code><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">game</span> <span class="o">=</span> <span class="n">GameEngine</span><span class="p">(</span><span class="n">setup</span><span class="o">=</span><span class="s1">&#39;user&#39;</span><span class="p">)</span>
+<span class="n">game</span><span class="o">.</span><span class="n">setup_game</span><span class="p">()</span>
+<span class="n">game</span><span class="o">.</span><span class="n">play_game</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>How many Players? (type 0, 1, or 2)1
+select AI level (1, 2)2
+who will go first? (X, (AI), or O (Player))O
+| | | |
+| | | |
+| | | |
+
+O, what&#39;s your move?5
+| | | |
+| |O| |
+| | | |
+
+| | | |
+| |O| |
+| |X| |
+
+O, what&#39;s your move?9
+| | | |
+| |O| |
+| |X|O|
+
+| | | |
+| |O|X|
+| |X|O|
+
+O, what&#39;s your move?1
+&#39;O&#39; Won!
+|O| | |
+| |O|X|
+| |X|O|
+
+
+
+
+
+
+&lt;__main__.GameEngine at 0x7fadbe93f610&gt;
+</code></pre></div>
+
+<h3 id="q6">Q6<a class="headerlink" href="#q6" title="Permanent link">&para;</a></h3>
+<p>Test the autorun feature!</p>
+<div class="codehilite"><pre><span></span><code><span class="n">game</span> <span class="o">=</span> <span class="n">GameEngine</span><span class="p">(</span><span class="n">setup</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+<span class="n">game</span><span class="o">.</span><span class="n">setup_game</span><span class="p">()</span>
+<span class="n">game</span><span class="o">.</span><span class="n">play_game</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>| | | |
+| | | |
+| | | |
+
+| | | |
+| | | |
+|O| | |
+
+| |X| |
+| | | |
+|O| | |
+
+|O|X| |
+| | | |
+|O| | |
+
+|O|X| |
+| | | |
+|O| |X|
+
+&#39;O&#39; Won!
+|O|X| |
+|O| | |
+|O| |X|
+
+
+
+
+
+
+&lt;__main__.GameEngine at 0x7fadbe8cc050&gt;
+</code></pre></div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../P1_Statistical_Analysis_of_TicTacToe/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Statistical Analysis of TicTacToe" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Statistical Analysis of TicTacToe
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../P3_1_Step_Look_Ahead_Agents/" class="md-footer__link md-footer__link--next" aria-label="Next: 1-Step Look Ahead Agents" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              1-Step Look Ahead Agents
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.ca141e46.min.js"}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.6baa0517.min.js"></script>
+      
+    
+  </body>
+</html>
