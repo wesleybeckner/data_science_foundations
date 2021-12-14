@@ -1,15 +1,10 @@
-<a href="https://colab.research.google.com/github/ronva-h/technology_fundamentals/blob/main/C3%20Machine%20Learning%20I/LABS_PROJECT/Tech%20Fun%20C3%20P3%20Game%20AI%2C%20Statistics.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/project/P1_Statistical_Analysis_of_TicTacToe.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-# Technology Fundamentals Course 3, Project Part 3: Statistical Analysis 
+# Data Science Foundations, Project Part 1: Statistical Analysis 
 
 **Instructor**: Wesley Beckner
 
 **Contact**: wesleybeckner@gmail.com
-
-**Teaching Assistants**: Varsha Bang, Harsha Vardhan
-
-**Contact**: vbang@uw.edu, harshav@uw.edu
-<br>
 
 ---
 
@@ -25,13 +20,13 @@ Today we are going to perform statistical analysis on data generated from our ti
 
 <a name='x.0'></a>
 
-## 2.0 Preparing Environment and Importing Data
+## 1.0 Preparing Environment and Importing Data
 
 [back to top](#top)
 
 <a name='x.0.1'></a>
 
-### 2.0.1 Import Packages
+### 1.0.1 Import Packages
 
 [back to top](#top)
 
@@ -190,7 +185,7 @@ class GameEngine(TicTacToe):
 
 <a name='x.0.1'></a>
 
-### 2.0.2 Load Dataset
+### 1.0.2 Load Dataset
 
 [back to top](#top)
 
@@ -5209,7 +5204,7 @@ for i in range(1000):
     
 
 
-## 3.1 Clean Data
+## 1.1 Clean Data
 
 We will first need to organize the data into a parsable format.
 
@@ -5381,7 +5376,7 @@ Make a new column of `df` called "Starter" and set it equal to the pandas Series
 
 
 
-## 3.2 Inferential Analysis
+## 1.2 Inferential Analysis
 
 We're going to use Bayes Rule or Bayesian Inference to make a probability of winning based on positions of the board. The formula is:
 
@@ -5503,7 +5498,7 @@ df.loc[(df['Winner'] == player) & (df[5] == player)].shape[0]/df.shape[0]
 
 
 
-### 3.2.1 Behavioral Analysis of the Winner
+### 1.2.1 Behavioral Analysis of the Winner
 
 #### Q4
 
@@ -5518,7 +5513,7 @@ define the 3 different board piece types and label them `middle`, `side`, and `c
 # corner = 
 ```
 
-#### 3.2.1.1 What is the probability of winning after playing the middle piece?
+#### 1.2.1.1 What is the probability of winning after playing the middle piece?
 
 #### Q5
 
@@ -5569,7 +5564,7 @@ A_B / B
 
 
 
-#### 3.2.1.2 What is the probability of winning after playing a side piece?
+#### 1.2.1.2 What is the probability of winning after playing a side piece?
 
 #### Q7
 
@@ -5616,7 +5611,7 @@ A_B / B
 
 
 
-#### 3.2.1.3 What is the probability of winning after playing a corner piece?
+#### 1.2.1.3 What is the probability of winning after playing a corner piece?
 
 ### Q8
 
@@ -5668,6 +5663,6 @@ A_B / B
 
 Are these results surprising to you? Why? This [resource](https://www.cs.jhu.edu/~jorgev/cs106/ttt.pdf) may be illustrative.
 
-## 3.3 Improving the Analysis
+## 1.3 Improving the Analysis
 
 In this analysis, we only tracked what moves were made, not the order they were made in. It really limited our assessment! How might we change our recording of the games to track order of moves as well? Do we need to track all the moves or just the first and the winner? 

@@ -1,22 +1,11 @@
-<a href="https://colab.research.google.com/github/wesleybeckner/technology_fundamentals/blob/main/C2%20Statistics%20and%20Model%20Creation/Tech_Fun_C2_S1_Regression_and_Descriptive_Statistics.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/S1_Regression_and_Analysis.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-# Technology Fundamentals Course 2, Session 1: Regression and Descriptive Statistics
+# Data Science Foundations Session 1: Regression and Analysis
 
 **Instructor**: Wesley Beckner
 
 **Contact**: wesleybeckner@gmail.com
 
-**Teaching Assitants**: Varsha Bang, Harsha Vardhan
-
-**Contact**: vbang@uw.edu, harshav@uw.edu
-<br>
-
-
-## Schedule for this week
-
-<p align="center">
-<img src="https://raw.githubusercontent.com/wesleybeckner/technology_fundamentals/main/assets/week2.png" width=800></img>
-</p>
 ---
 
 <br>
@@ -256,6 +245,7 @@ We can imagine this scenario with housing prices. Envision a **_mixed_** dataset
 
 <p align=center>
 <img src="https://raw.githubusercontent.com/wesleybeckner/technology_explorers/main/assets/machine_learning/ML3.png" width=1000px></img>
+</p>
 
 
 
@@ -264,10 +254,10 @@ We can imagine this scenario with housing prices. Envision a **_mixed_** dataset
 
 ## 1.2  Linear regression fitting with scikit-learn
 
-#### Exercise 1: rudimentary EDA
-What does the data look like? Remember how to visualize data in a pandas dataframe (Sessions 3 and 4) 
+#### 🏋️ Exercise 1: rudimentary EDA
+What does the data look like? Recall how to visualize data in a pandas dataframe 
 
-<ol>
+<ul>
 <li> for every column calculate the
 
   * skew: `df.skew()`
@@ -276,6 +266,8 @@ What does the data look like? Remember how to visualize data in a pandas datafra
   * number of missing entries `df.isnull()`
 
 and organize this into a new dataframe
+</li>
+</ul>
 
 _note:_ pearsons is just one type of correlation, another available to us **_spearman_** which differs from pearsons in that it depends on ranked values rather than their direct quantities, you can read more [here](https://support.minitab.com/en-us/minitab-express/1/help-and-how-to/modeling-statistics/regression/supporting-topics/basics/a-comparison-of-the-pearson-and-spearman-correlation-methods/)
 
@@ -341,131 +333,6 @@ df.isnull().sum()
 # Now return dff to the output to view your hand work
 # dff
 ```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>skew</th>
-      <th>kurtosis</th>
-      <th>pearsons _quality</th>
-      <th>null count</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>fixed acidity</th>
-      <td>1.722805</td>
-      <td>5.057727</td>
-      <td>-0.077031</td>
-      <td>10.0</td>
-    </tr>
-    <tr>
-      <th>volatile acidity</th>
-      <td>1.495512</td>
-      <td>2.827081</td>
-      <td>-0.265953</td>
-      <td>8.0</td>
-    </tr>
-    <tr>
-      <th>citric acid</th>
-      <td>0.473032</td>
-      <td>2.401582</td>
-      <td>0.085706</td>
-      <td>3.0</td>
-    </tr>
-    <tr>
-      <th>residual sugar</th>
-      <td>1.435000</td>
-      <td>4.358134</td>
-      <td>-0.036825</td>
-      <td>2.0</td>
-    </tr>
-    <tr>
-      <th>chlorides</th>
-      <td>5.399849</td>
-      <td>50.894874</td>
-      <td>-0.200886</td>
-      <td>2.0</td>
-    </tr>
-    <tr>
-      <th>free sulfur dioxide</th>
-      <td>1.220066</td>
-      <td>7.906238</td>
-      <td>0.055463</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>total sulfur dioxide</th>
-      <td>-0.001177</td>
-      <td>-0.371664</td>
-      <td>-0.041385</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>density</th>
-      <td>0.503602</td>
-      <td>6.606067</td>
-      <td>-0.305858</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>pH</th>
-      <td>0.386966</td>
-      <td>0.370068</td>
-      <td>0.019366</td>
-      <td>9.0</td>
-    </tr>
-    <tr>
-      <th>sulphates</th>
-      <td>1.798467</td>
-      <td>8.659892</td>
-      <td>0.038729</td>
-      <td>4.0</td>
-    </tr>
-    <tr>
-      <th>alcohol</th>
-      <td>0.565718</td>
-      <td>-0.531687</td>
-      <td>0.444319</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>quality</th>
-      <td>0.189623</td>
-      <td>0.232322</td>
-      <td>1.000000</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>type</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
 
 I have gone ahead and repeated this exercise with the red vs white wine types:
 
@@ -795,7 +662,7 @@ interact(my_fig)
 
 
 
-#### Question 1: Discussion Around EDA Plot
+#### 🙋 Question 1: Discussion Around EDA Plot
 
 What do we think of this plot?
 
@@ -920,7 +787,7 @@ df.loc[df['type'] == 'red'].plot(x='fixed acidity', y='density', ax=ax,
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0x7f10b1ce7b50>
+    <matplotlib.axes._subplots.AxesSubplot at 0x7f3158ad7290>
 
 
 
@@ -934,20 +801,20 @@ df.loc[df['type'] == 'red'].plot(x='fixed acidity', y='density', ax=ax,
 
 It looks like density increases with fixed acidity following a line, maybe something like
 
-$$y(x)= m \cdot x + b  \;\;\;\;\;\;\;\;\sf{eq. 1}$$ 
+$$y(x)= m \cdot x + b  \;\;\;\;\;\;\;\; \sf{eq. 1}$$ 
 
-with $y=\sf density$, $x=\sf fixed acidity$, and $m$ the slope and $b$ the intercept. 
+with \\( y=\sf density \\), \\(x=\sf fixed acidity\\), and \\(m\\) the slope and \\(b\\) the intercept. 
 
-To solve the problem, we need to find the values of $b$ and $m$ in equation 1 to best fit the data. This is called **linear regression**.
+To solve the problem, we need to find the values of \\(b\\) and \\(m\\) in equation 1 to best fit the data. This is called **linear regression**.
 
-In linear regression our goal is to minimize the error between computed values of positions $y^{\sf calc}(x_i)\equiv y^{\sf calc}_i$ and known values $y^{\sf exact}(x_i)\equiv y^{\sf exact}_i$, i.e. find $b$ and $m$ which lead to lowest value of
+In linear regression our goal is to minimize the error between computed values of positions \\(y^{\sf calc}(x_i)\equiv y^{\sf calc}_i\\) and known values \\(y^{\sf exact}(x_i)\equiv y^{\sf exact}_i\\), i.e. find \\(b\\) and \\(m\\) which lead to lowest value of
 
 $$\epsilon (m,b) =SS_{\sf res}=\sum_{i=1}^{N}\left(y^{\sf exact}_i - y^{\sf calc}_i\right)^2 = \sum_{i=1}^{N}\left(y^{\sf exact}_i - m\cdot x_i - b \right)^2\;\;\;\;\;\;\;\;\;\;\;\sf{eq. 2}$$
 
 To find out more see e.g. https://en.wikipedia.org/wiki/Simple_linear_regression
 
 
-#### Question 2: linear regression loss function
+#### 🙋 Question 2: linear regression loss function
 > Do we always want *m* and *b* to be large positive numbers so as to minimize eq. 2? 
 
 
@@ -1011,7 +878,7 @@ What happens when we try to fit the data as is?
 # model.fit(x, y)
 ```
 
-#### Exercise 2: drop Null Values (and practice pandas operations)
+#### 🏋️ Exercise 2: drop Null Values (and practice pandas operations)
 
 Let's look back at our dataset description dataframe above, what do we notice, what contains null values?
 
@@ -1068,8 +935,8 @@ print('Scikit learn - Slope: ', m , 'Intercept: ', b )
     Scikit learn - Slope:  616.0131428066102 Intercept:  -605.6880086750525
 
 
-#### Exercise 3: calculating y_pred
-Estimate the values of $y$ by using your fitted parameters. Hint: Use your <code>model.coef_</code> and <code>model.intercept_</code> parameters to estimate y_pred following equation 1
+#### 🏋️ Exercise 3: calculating y_pred
+Estimate the values of \\(y\\) by using your fitted parameters. Hint: Use your <code>model.coef_</code> and <code>model.intercept_</code> parameters to estimate y_pred following equation 1
 
 
 
@@ -1077,23 +944,10 @@ Estimate the values of $y$ by using your fitted parameters. Hint: Use your <code
 # define y_pred in terms of m, x, and b
 # y_pred = 
 
-fig, ax = plt.subplots(1,1, figsize=(10,10))
-ax.plot(x, y_pred, ls='', marker='*')
-ax.plot(x, y, ls='', marker='.')
+# fig, ax = plt.subplots(1,1, figsize=(10,10))
+# ax.plot(x, y_pred, ls='', marker='*')
+# ax.plot(x, y, ls='', marker='.')
 ```
-
-
-
-
-    [<matplotlib.lines.Line2D at 0x7f05bd58af50>]
-
-
-
-
-    
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_41_1.png)
-    
-
 
 We can also return predictions directly with the model object using the predict() method
 
@@ -1105,19 +959,6 @@ fig, ax = plt.subplots(1,1, figsize=(10,10))
 ax.plot(x, y_pred, ls='', marker='*')
 ax.plot(x, y, ls='', marker='.')
 ```
-
-
-
-
-    [<matplotlib.lines.Line2D at 0x7f05bd5153d0>]
-
-
-
-
-    
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_43_1.png)
-    
-
 
 ## 1.3 Error and topics of model fitting (assessing model accuracy)
 
@@ -1140,23 +981,20 @@ print('Mean squared error: %.2f' % mean_squared_error(y, y_pred))
 print('Mean squared error: %.2f' % mean_squared_error(y, y_pred))
 ```
 
-    Mean squared error: 1.68
-
-
 #### 1.3.1.2 R-square
 
-Another way to measure error is the regression score, $R^2$. $R^2$ is generally defined as the ratio of the total sum of squares $SS_{\sf tot} $ to the residual sum of squares $SS_{\sf res} $:
+Another way to measure error is the regression score, \\(R^2\\). \\(R^2\\) is generally defined as the ratio of the total sum of squares \\(SS_{\sf tot}\\) to the residual sum of squares \\(SS_{\sf res}\\):
 
 $$SS_{\sf tot}=\sum_{i=1}^{N} \left(y^{\sf exact}_i-\bar{y}\right)^2\;\;\;\;\; \sf eq. 4$$
 $$SS_{\sf res}=\sum_{i=1}^{N} \left(y^{\sf exact}_i - y^{\sf calc}_i\right)^2\;\;\;\;\; \sf eq. 5$$
 $$R^2 = 1 - {SS_{\sf res}\over SS_{\sf tot}} \;\;\;\;\;\; \sf eq. 6$$
 
-In eq. 4, $\bar{y}=\sum_i y^{\sf exact}_i/N$ is the average value of y for $N$ points. The best value of $R^2$ is 1 but it can also take a negative value if the error is large.
+In eq. 4, \\(\bar{y}=\sum_i y^{\sf exact}_i/N\\) is the average value of y for \\(N\\) points. The best value of \\(R^2\\) is 1 but it can also take a negative value if the error is large.
 
 See all the different regression metrics [here](https://scikit-learn.org/stable/modules/model_evaluation.html).
 
-#### Question 3
-> Do we need a large value of $SS_{\sf tot}$ to minimize $R^2$ - is this something which we have the power to control?
+#### 🙋 Question 3
+> Do we need a large value of \\(SS_{\sf tot}\\) to minimize \\(R^2\\) - is this something which we have the power to control?
 
 ```
 # Print the coefficient of determination - 1 is perfect prediction
@@ -1169,18 +1007,15 @@ print('Coefficient of determination: %.2f' % r2_score(y, y_pred))
 print('Coefficient of determination: %.2f' % r2_score(y, y_pred))
 ```
 
-    Coefficient of determination: 0.45
-
-
 ### 1.3.2 Corollaries with classification models
 
 For classification tasks, we typically assess accuracy vs MSE or R-square, since we are dealing with categorical rather than numerical predictions.
 
 What is accuracy? It is defined as the ratio of True assignments to all assignments. For a binary positive/negative classification task this can be written as the following:
 
-$ Acc = \frac{T_p + T_n}{F_p + F_n + T_p + T_n} $
+$$ Acc = \frac{T_p + T_n}{F_p + F_n + T_p + T_n} $$
 
-Where $T$ is True, $F$ is false, $p$ is positive, $n$ is negative
+Where \\(T\\) is True, \\(F\\) is false, \\(p\\) is positive, \\(n\\) is negative
 
 Just as a quick example, we can perform this type of task on our wine dataset by predicting on quality, which is a discrete 3-9 quality score:
 
@@ -1202,21 +1037,6 @@ logreg = LogisticRegression()
 logreg.fit(x_train, y_train)
 ```
 
-    /usr/local/lib/python3.7/dist-packages/sklearn/utils/validation.py:760: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
-      y = column_or_1d(y, warn=True)
-
-
-
-
-
-    LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
-                       intercept_scaling=1, l1_ratio=None, max_iter=100,
-                       multi_class='auto', n_jobs=None, penalty='l2',
-                       random_state=None, solver='lbfgs', tol=0.0001, verbose=0,
-                       warm_start=False)
-
-
-
 
 ```python
 # make class predictions for the testing set
@@ -1229,9 +1049,6 @@ y_pred_class = logreg.predict(x_train)
 from sklearn import metrics
 print(metrics.accuracy_score(y_train, y_pred_class))
 ```
-
-    0.7538864091118977
-
 
 ### 1.3.3 Beyond a single input feature
 
@@ -1261,129 +1078,6 @@ The value we aim to predict or evaluate is the quality of each wine in our datas
 red.head()
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>type</th>
-      <th>fixed acidity</th>
-      <th>volatile acidity</th>
-      <th>citric acid</th>
-      <th>residual sugar</th>
-      <th>chlorides</th>
-      <th>free sulfur dioxide</th>
-      <th>total sulfur dioxide</th>
-      <th>density</th>
-      <th>pH</th>
-      <th>sulphates</th>
-      <th>alcohol</th>
-      <th>quality</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>4898</th>
-      <td>red</td>
-      <td>7.4</td>
-      <td>0.70</td>
-      <td>0.00</td>
-      <td>1.9</td>
-      <td>0.076</td>
-      <td>11.0</td>
-      <td>34.0</td>
-      <td>0.9978</td>
-      <td>3.51</td>
-      <td>0.56</td>
-      <td>9.4</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>4899</th>
-      <td>red</td>
-      <td>7.8</td>
-      <td>0.88</td>
-      <td>0.00</td>
-      <td>2.6</td>
-      <td>0.098</td>
-      <td>25.0</td>
-      <td>67.0</td>
-      <td>0.9968</td>
-      <td>3.20</td>
-      <td>0.68</td>
-      <td>9.8</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>4900</th>
-      <td>red</td>
-      <td>7.8</td>
-      <td>0.76</td>
-      <td>0.04</td>
-      <td>2.3</td>
-      <td>0.092</td>
-      <td>15.0</td>
-      <td>54.0</td>
-      <td>0.9970</td>
-      <td>3.26</td>
-      <td>0.65</td>
-      <td>9.8</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>4901</th>
-      <td>red</td>
-      <td>11.2</td>
-      <td>0.28</td>
-      <td>0.56</td>
-      <td>1.9</td>
-      <td>0.075</td>
-      <td>17.0</td>
-      <td>60.0</td>
-      <td>0.9980</td>
-      <td>3.16</td>
-      <td>0.58</td>
-      <td>9.8</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>4902</th>
-      <td>red</td>
-      <td>7.4</td>
-      <td>0.70</td>
-      <td>0.00</td>
-      <td>1.9</td>
-      <td>0.076</td>
-      <td>11.0</td>
-      <td>34.0</td>
-      <td>0.9978</td>
-      <td>3.51</td>
-      <td>0.56</td>
-      <td>9.4</td>
-      <td>5</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
 ### 1.4.1 Linear regression with all input fields
 
 For this example, notice we have a categorical data variable in the 'type' column. We will ignore this for now, and only work with our red wines. In the future we will discuss how to deal with categorical variable such as this in a mathematical representation.
@@ -1406,26 +1100,6 @@ y = red.dropna(axis=0)['density'].values
 ```python
 red.isnull().sum(axis=0) # we are getting rid of some nasty nulls!
 ```
-
-
-
-
-    type                    0
-    fixed acidity           2
-    volatile acidity        1
-    citric acid             1
-    residual sugar          0
-    chlorides               0
-    free sulfur dioxide     0
-    total sulfur dioxide    0
-    density                 0
-    pH                      2
-    sulphates               2
-    alcohol                 0
-    quality                 0
-    dtype: int64
-
-
 
 
 
@@ -1457,13 +1131,6 @@ print("Fit coefficients: \n", model.coef_, "\nNumber of coefficients:", len(mode
 print("Fit coefficients: \n", model.coef_, "\nNumber of coefficients:", len(model.coef_))
 ```
 
-    Fit coefficients: 
-     [ 9.42796851e-04  6.91804101e-04  5.96131573e-05  4.13002753e-04
-      1.77414632e-03 -8.79414703e-06  2.61750150e-06  5.06277080e-03
-      1.32356143e-03 -9.20862092e-04 -2.17464295e-05] 
-    Number of coefficients: 11
-
-
 We have 11 !!! That's because we are regressing respect to all **11 independent variables**!!!
 
 So now, $$y_{\sf calc}= m_1x_1 +\, m_2x_2 \,+ \,m_3x_3 \,+\,... \,+ \,b =\sum_{i=1}^{13}m_i x_i + b\;\;\;\;\; \sf eq. 7$$
@@ -1479,15 +1146,6 @@ print("We have 11 slopes / weights:\n\n", model.coef_)
 print("\nAnd one intercept: ", model.intercept_)
 ```
 
-    We have 11 slopes / weights:
-    
-     [ 9.42796851e-04  6.91804101e-04  5.96131573e-05  4.13002753e-04
-      1.77414632e-03 -8.79414703e-06  2.61750150e-06  5.06277080e-03
-      1.32356143e-03 -9.20862092e-04 -2.17464295e-05]
-    
-    And one intercept:  0.9794206207830903
-
-
 ```
 # This size should match the number of columns in X
 if len(X[0]) == len(model.coef_):
@@ -1505,12 +1163,9 @@ else:
     print("Hmm .. something strange is going on.")
 ```
 
-    All good! The number of coefficients matches the number of input features.
+### 🏋️ Exercise 4: evaluate the error
 
-
-### 1.4.2 Exercise 4: evaluate the error
-
-Let's **evaluate the error** by computing the MSE and $R^2$ metrics (see eq. 3 and 6).
+Let's **evaluate the error** by computing the MSE and \\(R^2\\) metrics (see eq. 3 and 6).
 
 ```
 # The mean squared error
@@ -1543,11 +1198,7 @@ print('Mean squared error: {:.2f}'.format(mse)
 print('Coefficient of determination: {:.2f}'.format(r2)
 ```
 
-    Mean squared error: 0.00
-    Coefficient of determination: 0.84
-
-
-### 1.4.3 Exercise 5: make a plot of y actual vs y predicted
+### 🏋️ Exercise 5: make a plot of y actual vs y predicted
 
 We can also look at how well the computed values match the true values graphically by generating a scatterplot.
 
@@ -1573,12 +1224,6 @@ plt.xlabel("y$^{\sf calc}$")
 plt.ylabel("y$^{\sf true}$")
 plt.show()
 ```
-
-
-    
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_76_0.png)
-    
-
 
 ### 1.4.2 **Enrichment**: Splitting into train and test sets
 
@@ -1634,20 +1279,7 @@ if len(y_test)+len(y_train) == len(y):
     y_pred_test = model.predict(X_test)
 ```
 
-    All good, ready to to go and regress!
-    
-    Running linear regression algorithm on the training set
-    
-    Fit coefficients and intercept:
-    
-     [ 9.33178495e-04  6.16926970e-04  3.97991174e-06  4.16370328e-04
-      1.62394928e-03 -9.91971827e-06  2.69686071e-06  5.05056377e-03
-      1.31752524e-03 -9.38947432e-04  7.24835766e-06] 
-    
-     0.9796448738246895
-
-
-Now we can plot our predicted values to see how accurate we are in predicting. We will generate a scatterplot and computing the MSE and $R^2$ metrics of error.
+Now we can plot our predicted values to see how accurate we are in predicting. We will generate a scatterplot and computing the MSE and \\(R^2\\) metrics of error.
 
 ```
 sns.scatterplot(x=y_pred_test, y=y_test, color="mediumvioletred", s=50)
@@ -1673,16 +1305,6 @@ plt.show()
 print('Mean squared error: %.2f' % mean_squared_error(y_test, y_pred_test))
 print('Coefficient of determination: %.2f' % r2_score(y_test, y_pred_test))
 ```
-
-
-    
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_83_0.png)
-    
-
-
-    Mean squared error: 0.00
-    Coefficient of determination: 0.87
-
 
 #### 1.4.2.1 Other data considerations
 
@@ -1728,15 +1350,6 @@ print('Fit coefficients and intercept:\n\n', model.coef_, '\n\n', model.intercep
 y_calc_test = model.predict(X_test)
 ```
 
-    Fit coefficients and intercept:
-    
-     [ 9.09641067e-04  6.43264795e-04  2.78882604e-05  4.16939725e-04
-      1.03446440e-03 -9.27657730e-06  2.32153681e-06  4.66188798e-03
-      1.32184520e-03 -9.33484848e-04 -2.26313220e-07] 
-    
-     0.9811476280427127
-
-
 ```
 sns.scatterplot(x=y_calc_test, y=y_test, color="lightseagreen", s=50)
 plt.title("Ridge regression - predict test set",fontsize=16)
@@ -1760,21 +1373,11 @@ print('Mean squared error: %.2f' % mean_squared_error(y_test, y_calc_test))
 print('Coefficient of determination: %.2f' % r2_score(y_test, y_calc_test))
 ```
 
-
-    
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_90_0.png)
-    
-
-
-    Mean squared error: 0.00
-    Coefficient of determination: 0.87
-
-
-#### Exercise 6: Tune Hyperparameter for Ridge Regression
+#### 🏋️ Exercise 6: Tune Hyperparameter for Ridge Regression
 
 Use the docstring to peak into the hyperparameters for Ridge Regression. What is the optimal value of lambda?
 
-Plot the $\beta$ values vs $\lambda$ from the results of your analysis
+Plot the \\(\beta\\) values vs \\(\lambda\\) from the results of your analysis
 
 
 ```python
@@ -1820,19 +1423,6 @@ ax.legend()
 ```
 
 
-
-
-    <matplotlib.legend.Legend at 0x7f2941025290>
-
-
-
-
-    
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_94_1.png)
-    
-
-
-
 ```python
 results = pd.DataFrame(coefs,columns=features)
 results['lambda'] = [i/50 for i in lambdas]
@@ -1846,19 +1436,6 @@ for feat in features:
   results.plot('lambda', feat, ax=ax[0])
 results.plot('lambda', 'scores', ax=ax[1])
 ```
-
-
-
-
-    <matplotlib.axes._subplots.AxesSubplot at 0x7f293f6c0110>
-
-
-
-
-    
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_96_1.png)
-    
-
 
 ## 1.5 **Enrichment**: Additional Regression Exercises
 
@@ -1876,9 +1453,6 @@ print(X_train.shape)
 ```python
 print(X_train.shape)
 ```
-
-    (1274, 11)
-
 
 If you want to use the first 5 features you could proceed as following:
 
@@ -1906,10 +1480,6 @@ print(X_train_five.shape)
 print(X_test_five.shape)
 ```
 
-    (1274, 5)
-    (319, 5)
-
-
 Now you can use these to train your linear regression model and repeat for different numbers or sets of input features! Note that you do not need to change the output feature! It's size is independent from the number of input features, yet recall that its length is the same as the number of values per input feature.
 
 Questions to think about while you work on this problem
@@ -1933,7 +1503,7 @@ For more detail see [ElasticNet](https://scikit-learn.org/stable/modules/generat
 Questions to think about while you work on this problem
 - How does the error change with each model?
 - Which model seems to perform best?
-- How can you optimize the hyperparameter, $\lambda$
+- How can you optimize the hyperparameter, \\(\lambda\\)
 - Does one model do better than the other at determining which input features are more important?
 - How about non linear regression / what if the data does not follow a line?
 - How do the bias and variance change for each model
@@ -1955,33 +1525,28 @@ for model in [ElasticNet, Lasso, Ridge, LinearRegression]:
   print('Coefficient of determination: %.2f' % r2_score(y_test, model.predict(X_test)))
 ```
 
-    Mean squared error: 0.00
-    Coefficient of determination: -0.00
-    Mean squared error: 0.00
-    Coefficient of determination: -0.00
-    Mean squared error: 0.00
-    Coefficient of determination: 0.85
-    Mean squared error: 0.00
-    Coefficient of determination: 0.85
-
-
 <hr style="border:1px solid grey"> </hr>
 
 # References
 
 * **Linear Regression**
-To find out more see https://en.wikipedia.org/wiki/Simple_linear_regression
+To find out more see [simple linear regression](https://en.wikipedia.org/wiki/Simple_linear_regression)
 
 * **scikit-learn**
- * Scikit-learn: https://scikit-learn.org/stable/
- * Linear regression in scikit-learn: https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html
- * Metrics of error: https://scikit-learn.org/stable/modules/model_evaluation.html
-  * The Boston dataset: https://scikit-learn.org/stable/datasets/index.html#boston-dataset
+    * [Scikit-learn](https://scikit-learn.org/stable/)
+    * [Linear regression in scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html)
+    * [Metrics of error](https://scikit-learn.org/stable/modules/model_evaluation.html)
+    * [The Boston dataset](https://scikit-learn.org/stable/datasets/index.html#boston-dataset)
 
 * **Pearson correlation**
-To find out more see https://en.wikipedia.org/wiki/Pearson_correlation_coefficient
+To find out more see [pearson](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient)
 
 * **Irreducible error, bias and variance**
- * Great Coursera videos here: https://www.coursera.org/lecture/ml-regression/irreducible-error-and-bias-qlMrZ
-and here: https://www.coursera.org/lecture/ml-regression/variance-and-the-bias-variance-tradeoff-ZvP40
+    * Great Coursera videos [here](https://www.coursera.org/lecture/ml-regression/irreducible-error-and-bias-qlMrZ)
+and [here](https://www.coursera.org/lecture/ml-regression/variance-and-the-bias-variance-tradeoff-ZvP40)
 
+
+
+```python
+
+```

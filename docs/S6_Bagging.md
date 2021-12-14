@@ -1,15 +1,10 @@
-<a href="https://colab.research.google.com/github/ronva-h/technology_fundamentals/blob/main/C3%20Machine%20Learning%20I/Tech%20Fun%20C3%20S2%20Random%20Forests.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/S6_Bagging.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-# Technology Fundamentals Course 3, Session 2: Bagging: Decision Trees and Random Forests
+# Data Science Foundations, Session 6: Bagging: Decision Trees and Random Forests
 
 **Instructor**: Wesley Beckner
 
 **Contact**: wesleybeckner@gmail.com
-
-**Teaching Assistants**: Varsha Bang, Harsha Vardhan
-
-**Contact**: vbang@uw.edu, harshav@uw.edu
-<br>
 
 ---
 
@@ -26,43 +21,17 @@ The weak learners that random forests are made of, are called decision trees.
 
 <br>
 
----
-
-<br>
-
 <a name='top'></a>
-
-# Contents
-
-* 4.0 [Preparing Environment and Importing Data](#x.0)
-  * 4.0.1 [Import Packages](#x.0.1)
-  * 4.0.2 [Load Dataset](#x.0.2)
-* 4.1 [Decision Trees](#x.1)
-  * 4.1.1 [Creating a Decision Tree](#x.1.1)
-  * 4.1.2 [Interpreting a Decision Tree](#x.1.2)
-    * 4.1.2.1 [Node & Branch Diagram](#x.1.2.1)
-    * 4.1.2.2 [Decision Boundaries](#x.1.2.2)
-  * 4.1.3 [Overfitting a Decision Tree](#x.1.3)
-* 4.2 [Random Forests and Bagging](#x.2)
-  * 4.2.1 [What is Bagging?](#x.2.1)
-  * 4.2.2 [Random Forests for Classification](#x.2.2)
-    * 4.2.2.1 [Interpreting a Random Forest](#x.2.2.1)
-  * 4.2.3 [Random Forests for Regression](#x.2.3)
-  
-
-<br>
-
----
 
 <a name='x.0'></a>
 
-## 4.0 Preparing Environment and Importing Data
+## 6.0 Preparing Environment and Importing Data
 
 [back to top](#top)
 
 <a name='x.0.1'></a>
 
-### 4.0.1 Import Packages
+### 6.0.1 Import Packages
 
 [back to top](#top)
 
@@ -89,7 +58,7 @@ from sklearn import metrics
 
 <a name='x.0.2'></a>
 
-### 4.0.2 Load Dataset
+### 6.0.2 Load Dataset
 
 [back to top](#top)
 
@@ -402,7 +371,7 @@ margin.head()
 
 <a name='x.1'></a>
 
-## 4.1 Decision Trees
+## 6.1 Decision Trees
 
 [back to top](#top)
 
@@ -414,7 +383,7 @@ Let's begin this discussion by talking about how we make decision trees in sklea
 
 <a name='x.1.1'></a>
 
-### 4.1.1 Creating a Decision Tree
+### 6.1.1 Creating a Decision Tree
 
 [back to top](#top)
 
@@ -459,7 +428,7 @@ Let's now go on to using visual strategies to interpreting trees.
 
 <a name='x.1.2'></a>
 
-### 4.1.2 Interpreting a Decision Tree
+### 6.1.2 Interpreting a Decision Tree
 
 [back to top](#top)
 
@@ -467,7 +436,7 @@ Throughout today, we will discuss many ways to view both a single tree and a ran
 
 <a name='x.1.2.1'></a>
 
-#### 4.1.2.1 Node & Branch Diagram
+#### 6.1.2.1 Node & Branch Diagram
 
 [back to top](#top)
 
@@ -665,7 +634,7 @@ We will perform this analysis again, for now, let's proceed with simpler dataset
 
 <a name='x.1.2.2'></a>
 
-#### 4.1.2.1 Decision Boundaries
+#### 6.1.2.1 Decision Boundaries
 
 [back to top](#top)
 
@@ -806,7 +775,7 @@ fig = plot_tree(X, clf)
 
 <a name='x.1.3'></a>
 
-### 4.1.3 Overfitting a Decision Tree
+### 6.1.3 Overfitting a Decision Tree
 
 [back to top](#top)
 
@@ -838,24 +807,24 @@ This is a well known fact about decision trees, that they tend to overfit their 
 
 We combine the idea of bootstrapping, with decision trees, to come up with an overall better classifier.
 
-#### 4.1.3.1 Exercise: Minimize Overfitting
+#### 🏋️ Exercise 1: Minimize Overfitting
 
 Repeat 4.1.3 with different max_depth settings, also read the docstring and play with any other hyperparameters available to you. What settings do you feel minimize overfitting?
 
 
 ```python
-# Code Cell for 4.1.3.1
+# Code Cell for 1
 ```
 
 <a name='x.2'></a>
 
-## 4.2 Random Forests and Bagging
+## 6.2 Random Forests and Bagging
 
 [back to top](#top)
 
 <a name='x.2.1'></a>
 
-### 4.2.1 What is Bagging?
+### 6.2.1 What is Bagging?
 
 [back to top](#top)
 
@@ -871,7 +840,7 @@ A **_Random Forest_** is an instance of bagging where the separate learners are 
 
 <a name='x.2.2'></a>
 
-### 4.2.2 Random Forests for Classification
+### 6.2.2 Random Forests for Classification
 
 [back to top](#top)
 
@@ -930,7 +899,7 @@ plot_tree(X, clf)
 
 <a name='x.2.2.1'></a>
 
-#### 4.2.2.1 Interpreting a Random Forest
+#### 6.2.2.1 Interpreting a Random Forest
 
 [back to top](#top)
 
@@ -1109,7 +1078,7 @@ This is an example of how the interpretability of the random forest ensemble app
 
 <a name='x.2.3'></a>
 
-### 4.2.3 Random Forests for Regression
+### 6.2.3 Random Forests for Regression
 
 [back to top](#top)
 
@@ -1228,7 +1197,7 @@ ax.plot(t,clf.predict(t.reshape(-1,1)))
 
 Nice! without specifying any perdiodicity, the random forest does a good job of embedding this periodicity in the final output.
 
-### 4.2.4 Extended Exercise: Practice with Random Forests
+### 🏋️ Extended Exercise: Practice with Random Forests
 
 With the wine dataset:
 
