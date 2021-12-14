@@ -1899,7 +1899,7 @@ print('Scikit learn - Slope: ', m , 'Intercept: ', b )
 <pre><code>Scikit learn - Slope:  616.0131428066102 Intercept:  -605.6880086750525
 </code></pre>
 <h4 id="exercise-3-calculating-y_pred">🏋️ Exercise 3: calculating y_pred</h4>
-<p>Estimate the values of $y$ by using your fitted parameters. Hint: Use your <code>model.coef_</code> and <code>model.intercept_</code> parameters to estimate y_pred following equation 1</p>
+<p>Estimate the values of \(y\) by using your fitted parameters. Hint: Use your <code>model.coef_</code> and <code>model.intercept_</code> parameters to estimate y_pred following equation 1</p>
 <pre><code class="language-python"># define y_pred in terms of m, x, and b
 # y_pred = 
 
@@ -1938,7 +1938,7 @@ print('Mean squared error: %.2f' % mean_squared_error(y, y_pred))
 <p>See all the different regression metrics <a href="https://scikit-learn.org/stable/modules/model_evaluation.html">here</a>.</p>
 <h4 id="question-3">🙋 Question 3</h4>
 <blockquote>
-<p>Do we need a large value of $SS_{\sf tot}$ to minimize $R^2$ - is this something which we have the power to control?</p>
+<p>Do we need a large value of \(SS_{\sf tot}\) to minimize \(R^2\) - is this something which we have the power to control?</p>
 </blockquote>
 <pre><code># Print the coefficient of determination - 1 is perfect prediction
 print('Coefficient of determination: %.2f' % r2_score(y, y_pred))
@@ -1949,7 +1949,9 @@ print('Coefficient of determination: %.2f' % r2_score(y, y_pred))
 <h3 id="132-corollaries-with-classification-models">1.3.2 Corollaries with classification models</h3>
 <p>For classification tasks, we typically assess accuracy vs MSE or R-square, since we are dealing with categorical rather than numerical predictions.</p>
 <p>What is accuracy? It is defined as the ratio of True assignments to all assignments. For a binary positive/negative classification task this can be written as the following:</p>
-<p>$ Acc = \frac{T_p + T_n}{F_p + F_n + T_p + T_n} $</p>
+<p>
+<script type="math/tex; mode=display"> Acc = \frac{T_p + T_n}{F_p + F_n + T_p + T_n} </script>
+</p>
 <p>Where \(T\) is True, \(F\) is false, \(p\) is positive, \(n\) is negative</p>
 <p>Just as a quick example, we can perform this type of task on our wine dataset by predicting on quality, which is a discrete 3-9 quality score:</p>
 <pre><code class="language-python">y_train = df['type'].values.reshape(-1,1)
@@ -2323,12 +2325,12 @@ To find out more see https://en.wikipedia.org/wiki/Simple_linear_regression</p>
 </li>
 <li>
 <p><strong>scikit-learn</strong></p>
-</li>
+<ul>
 <li>Scikit-learn: https://scikit-learn.org/stable/</li>
 <li>Linear regression in scikit-learn: https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html</li>
 <li>Metrics of error: https://scikit-learn.org/stable/modules/model_evaluation.html</li>
-<li>
-<p>The Boston dataset: https://scikit-learn.org/stable/datasets/index.html#boston-dataset</p>
+<li>The Boston dataset: https://scikit-learn.org/stable/datasets/index.html#boston-dataset</li>
+</ul>
 </li>
 <li>
 <p><strong>Pearson correlation</strong>
@@ -2336,9 +2338,11 @@ To find out more see https://en.wikipedia.org/wiki/Pearson_correlation_coefficie
 </li>
 <li>
 <p><strong>Irreducible error, bias and variance</strong></p>
-</li>
+<ul>
 <li>Great Coursera videos here: https://www.coursera.org/lecture/ml-regression/irreducible-error-and-bias-qlMrZ
 and here: https://www.coursera.org/lecture/ml-regression/variance-and-the-bias-variance-tradeoff-ZvP40</li>
+</ul>
+</li>
 </ul>
 
               
