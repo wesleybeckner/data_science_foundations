@@ -38,6 +38,8 @@
       
     
     
+      <link rel="stylesheet" href="../../extra.css">
+    
     <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../..":"../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
     
       
@@ -72,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#technology-fundamentals-course-2-lab-2-data-hunt-ii" class="md-skip">
+        <a href="#data-science-foundations-lab-2-data-hunt-ii" class="md-skip">
           Skip to content
         </a>
       
@@ -389,9 +391,134 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Inferential Statisitcs Data Hunt
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Inferential Statisitcs Data Hunt
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#preparing-environment-and-importing-data" class="md-nav__link">
+    Preparing Environment and Importing Data
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparing Environment and Importing Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#import-packages" class="md-nav__link">
+    Import Packages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import-and-clean-data" class="md-nav__link">
+    Import and Clean Data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exploratory-data-analysis" class="md-nav__link">
+    Exploratory Data Analysis
+  </a>
+  
+    <nav class="md-nav" aria-label="Exploratory Data Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-finding-influential-features" class="md-nav__link">
+    Q1 Finding Influential Features
+  </a>
+  
+    <nav class="md-nav" aria-label="Q1 Finding Influential Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q11-visualization" class="md-nav__link">
+    Q1.1 Visualization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q12-statistical-analysis" class="md-nav__link">
+    Q1.2 Statistical Analysis
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-finding-best-and-worst-groups" class="md-nav__link">
+    Q2 Finding Best and Worst Groups
+  </a>
+  
+    <nav class="md-nav" aria-label="Q2 Finding Best and Worst Groups">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q21-compare-every-group-to-the-whole" class="md-nav__link">
+    Q2.1 Compare Every Group to the Whole
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q22-beyond-statistical-testing-using-reasoning" class="md-nav__link">
+    Q2.2 Beyond Statistical Testing: Using Reasoning
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q23-the-jelly-filled-conundrum" class="md-nav__link">
+    Q2.3 The Jelly Filled Conundrum
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -556,6 +683,115 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#preparing-environment-and-importing-data" class="md-nav__link">
+    Preparing Environment and Importing Data
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparing Environment and Importing Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#import-packages" class="md-nav__link">
+    Import Packages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import-and-clean-data" class="md-nav__link">
+    Import and Clean Data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exploratory-data-analysis" class="md-nav__link">
+    Exploratory Data Analysis
+  </a>
+  
+    <nav class="md-nav" aria-label="Exploratory Data Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-finding-influential-features" class="md-nav__link">
+    Q1 Finding Influential Features
+  </a>
+  
+    <nav class="md-nav" aria-label="Q1 Finding Influential Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q11-visualization" class="md-nav__link">
+    Q1.1 Visualization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q12-statistical-analysis" class="md-nav__link">
+    Q1.2 Statistical Analysis
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-finding-best-and-worst-groups" class="md-nav__link">
+    Q2 Finding Best and Worst Groups
+  </a>
+  
+    <nav class="md-nav" aria-label="Q2 Finding Best and Worst Groups">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q21-compare-every-group-to-the-whole" class="md-nav__link">
+    Q2.1 Compare Every Group to the Whole
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q22-beyond-statistical-testing-using-reasoning" class="md-nav__link">
+    Q2.2 Beyond Statistical Testing: Using Reasoning
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q23-the-jelly-filled-conundrum" class="md-nav__link">
+    Q2.3 The Jelly Filled Conundrum
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -567,56 +803,39 @@
               
                 
 
-<p><a href="https://colab.research.google.com/github/wesleybeckner/technology_fundamentals/blob/main/C2%20Statistics%20and%20Model%20Creation/LABS_PROJECT/Tech_Fun_C2_L2_Data_Hunt_II.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
-<h1 id="technology-fundamentals-course-2-lab-2-data-hunt-ii">Technology Fundamentals Course 2, Lab 2: Data Hunt II</h1>
+<p><a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/exercises/E2_Inferential_Statistics_Data_Hunt.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
+<h1 id="data-science-foundations-lab-2-data-hunt-ii">Data Science Foundations, Lab 2: Data Hunt II</h1>
 <p><strong>Instructor</strong>: Wesley Beckner</p>
 <p><strong>Contact</strong>: wesleybeckner@gmail.com</p>
-<p><br></p>
 <hr />
 <p><br></p>
 <p align=center>
-<img src="https://raw.githubusercontent.com/wesleybeckner/technology_fundamentals/main/assets/datahunt2.png" width=1000px></img
+<img src="https://raw.githubusercontent.com/wesleybeckner/technology_fundamentals/main/assets/datahunt2.png" width=1000px></img>
+</p>
 
 <p align=center>
 That's right you heard correctly. It's the data hunt part TWO.
+</p>
 
-<br>
-
----
-
-
-
-
-
-<a name='x.0'></a>
-
-# Preparing Environment and Importing Data
-
-## Import Packages
-
-
-
+<p><a name='x.0'></a></p>
+<h2 id="preparing-environment-and-importing-data">Preparing Environment and Importing Data</h2>
+<h3 id="import-packages">Import Packages</h3>
 <pre><code class="language-python">!pip install -U plotly
 </code></pre>
-
-
-    Requirement already satisfied: plotly in /usr/local/lib/python3.7/dist-packages (4.4.1)
-    Collecting plotly
-      Downloading plotly-5.1.0-py2.py3-none-any.whl (20.6 MB)
-    [K     |████████████████████████████████| 20.6 MB 1.3 MB/s 
-    [?25hRequirement already satisfied: six in /usr/local/lib/python3.7/dist-packages (from plotly) (1.15.0)
-    Collecting tenacity>=6.2.0
-      Downloading tenacity-8.0.1-py3-none-any.whl (24 kB)
-    Installing collected packages: tenacity, plotly
-      Attempting uninstall: plotly
-        Found existing installation: plotly 4.4.1
-        Uninstalling plotly-4.4.1:
-          Successfully uninstalled plotly-4.4.1
-    Successfully installed plotly-5.1.0 tenacity-8.0.1
-
-
-
-
+<pre><code>Requirement already satisfied: plotly in /usr/local/lib/python3.7/dist-packages (4.4.1)
+Collecting plotly
+  Downloading plotly-5.1.0-py2.py3-none-any.whl (20.6 MB)
+[K     |████████████████████████████████| 20.6 MB 1.3 MB/s 
+[?25hRequirement already satisfied: six in /usr/local/lib/python3.7/dist-packages (from plotly) (1.15.0)
+Collecting tenacity&gt;=6.2.0
+  Downloading tenacity-8.0.1-py3-none-any.whl (24 kB)
+Installing collected packages: tenacity, plotly
+  Attempting uninstall: plotly
+    Found existing installation: plotly 4.4.1
+    Uninstalling plotly-4.4.1:
+      Successfully uninstalled plotly-4.4.1
+Successfully installed plotly-5.1.0 tenacity-8.0.1
+</code></pre>
 <pre><code class="language-python"># our standard libraries
 import pandas as pd
 import numpy as np
@@ -638,27 +857,13 @@ from sklearn import linear_model
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 </code></pre>
-
-
-## Import and Clean Data
-
-
-
+<h3 id="import-and-clean-data">Import and Clean Data</h3>
 <pre><code class="language-python">df = pd.read_csv(&quot;https://raw.githubusercontent.com/wesleybeckner/&quot;\
                  &quot;technology_fundamentals/main/assets/truffle_rates.csv&quot;)
 df = df.loc[df['rate'] &gt; 0]
 </code></pre>
-
-
-
-
 <pre><code class="language-python">df.head()
 </code></pre>
-
-
-
-
-
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -735,117 +940,69 @@ df = df.loc[df['rate'] &gt; 0]
 </table>
 </div>
 
-
-
-
-
 <pre><code class="language-python">df.shape
 </code></pre>
-
-
-
-
-
-    (9210, 6)
-
-
-
-# Exploratory Data Analysis
-
-## Q1 Finding Influential Features
-
-Which of the five features (base_cake, truffle_type, primary_flavor, secondary_flavor, color_group) of the truffles is most influential on production rate?
-
-Back your answer with both a visualization of the distributions (boxplot, kernel denisty estimate, histogram, violin plot) and a statistical test (moods median, ANOVA, t-test)
-
-* Be sure: 
-    * everything is labeled (can you improve your labels with additional descriptive statistical information e.g. indicate mean, std, etc.)
-    * you meet the assumptions of your statistical test
-
-### Q1.1 Visualization
-
-Use any number of visualizations. Here is an example to get you started:
-
-
-
+<pre><code>(9210, 6)
+</code></pre>
+<h2 id="exploratory-data-analysis">Exploratory Data Analysis</h2>
+<h3 id="q1-finding-influential-features">Q1 Finding Influential Features</h3>
+<p>Which of the five features (base_cake, truffle_type, primary_flavor, secondary_flavor, color_group) of the truffles is most influential on production rate?</p>
+<p>Back your answer with both a visualization of the distributions (boxplot, kernel denisty estimate, histogram, violin plot) and a statistical test (moods median, ANOVA, t-test)</p>
+<ul>
+<li>Be sure: <ul>
+<li>everything is labeled (can you improve your labels with additional descriptive statistical information e.g. indicate mean, std, etc.)</li>
+<li>you meet the assumptions of your statistical test</li>
+</ul>
+</li>
+</ul>
+<h4 id="q11-visualization">Q1.1 Visualization</h4>
+<p>Use any number of visualizations. Here is an example to get you started:</p>
 <pre><code class="language-python"># Example: a KDE of the truffle_type and base_cake columns
 
 fig, ax = plt.subplots(2, 1, figsize=(12,12))
 sns.kdeplot(x=df['rate'], hue=df['truffle_type'], fill=True, ax=ax[0])
 sns.kdeplot(x=df['rate'], hue=df['base_cake'], fill=True, ax=ax[1])
 </code></pre>
-
-
-
-
-
-    <matplotlib.axes._subplots.AxesSubplot at 0x7f549eea03d0>
-
-
-
-
-
-![png](E2_Inferential_Statistics_Data_Hunt_files/E2_Inferential_Statistics_Data_Hunt_13_1.png)
-
-
-
-
-
+<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f549eea03d0&gt;
+</code></pre>
+<p><img alt="png" src="../E2_Inferential_Statistics_Data_Hunt_files/E2_Inferential_Statistics_Data_Hunt_13_1.png" /></p>
 <pre><code class="language-python">
 </code></pre>
+<pre><code>/usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
 
+Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
 
-    /usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
+/usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
 
-    Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
 
-    /usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
+/usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
 
-    Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
 
-    /usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
+/usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
 
-    Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
 
-    /usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
+/usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
 
-    Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
 
-    /usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
+/usr/local/lib/python3.7/dist-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning:
 
-    Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+Glyph 9 missing from current font.
 
-    /usr/local/lib/python3.7/dist-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning:
+/usr/local/lib/python3.7/dist-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning:
 
-    Glyph 9 missing from current font.
-
-    /usr/local/lib/python3.7/dist-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning:
-
-    Glyph 9 missing from current font.
-
-
-
-
-
-![png](E2_Inferential_Statistics_Data_Hunt_files/E2_Inferential_Statistics_Data_Hunt_14_1.png)
-
-
-
-### Q2.2 Statistical Analysis
-
-What statistical tests can you perform to evaluate your hypothesis from the visualizations (maybe you think one particular feature is significant). Here's an ANOVA on the `truffle_type` column to get you started:
-
-
-
-
-
+Glyph 9 missing from current font.
+</code></pre>
+<p><img alt="png" src="../E2_Inferential_Statistics_Data_Hunt_files/E2_Inferential_Statistics_Data_Hunt_14_1.png" /></p>
+<h4 id="q12-statistical-analysis">Q1.2 Statistical Analysis</h4>
+<p>What statistical tests can you perform to evaluate your hypothesis from the visualizations (maybe you think one particular feature is significant). Here's an ANOVA on the <code>truffle_type</code> column to get you started:</p>
 <pre><code class="language-python">model = ols('rate ~ C({})'.format('truffle_type'), data=df).fit()
 anova_table = sm.stats.anova_lm(model, typ=2)
 display(anova_table)
 </code></pre>
-
-
-
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -889,19 +1046,13 @@ display(anova_table)
 </table>
 </div>
 
-
-> Is this P value significant? What is the null hypothesis? How do we check the assumptions of ANOVA? 
-
-
-
+<blockquote>
+<p>Is this P value significant? What is the null hypothesis? How do we check the assumptions of ANOVA? </p>
+</blockquote>
 <pre><code class="language-python">
 </code></pre>
-
-
-    base_cake
-
-
-
+<pre><code>base_cake
+</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -945,20 +1096,16 @@ display(anova_table)
 </table>
 </div>
 
+<pre><code>Shapiro:  0.9281061887741089 0.0
+Bartlett:  619.3727153356931 1.3175663824168166e-131
 
-    Shapiro:  0.9281061887741089 0.0
-    Bartlett:  619.3727153356931 1.3175663824168166e-131
-
-    truffle_type
-
-
-    /usr/local/lib/python3.7/dist-packages/scipy/stats/morestats.py:1676: UserWarning:
-
-    p-value may not be accurate for N > 5000.
+truffle_type
 
 
+/usr/local/lib/python3.7/dist-packages/scipy/stats/morestats.py:1676: UserWarning:
 
-
+p-value may not be accurate for N &gt; 5000.
+</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1002,22 +1149,19 @@ display(anova_table)
 </table>
 </div>
 
-
-    Shapiro:  0.9645588994026184 1.3704698981096711e-42
-
-
-    /usr/local/lib/python3.7/dist-packages/scipy/stats/morestats.py:1676: UserWarning:
-
-    p-value may not be accurate for N > 5000.
+<pre><code>Shapiro:  0.9645588994026184 1.3704698981096711e-42
 
 
+/usr/local/lib/python3.7/dist-packages/scipy/stats/morestats.py:1676: UserWarning:
 
-    Bartlett:  533.0206680979852 1.8031528902362296e-116
-
-    primary_flavor
+p-value may not be accurate for N &gt; 5000.
 
 
 
+Bartlett:  533.0206680979852 1.8031528902362296e-116
+
+primary_flavor
+</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1061,20 +1205,17 @@ display(anova_table)
 </table>
 </div>
 
+<pre><code>/usr/local/lib/python3.7/dist-packages/scipy/stats/morestats.py:1676: UserWarning:
 
-    /usr/local/lib/python3.7/dist-packages/scipy/stats/morestats.py:1676: UserWarning:
-
-    p-value may not be accurate for N > 5000.
-
-
-
-    Shapiro:  0.9738250970840454 6.485387538059916e-38
-    Bartlett:  1609.0029005171464 1.848613457353585e-306
-
-    secondary_flavor
+p-value may not be accurate for N &gt; 5000.
 
 
 
+Shapiro:  0.9738250970840454 6.485387538059916e-38
+Bartlett:  1609.0029005171464 1.848613457353585e-306
+
+secondary_flavor
+</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1118,20 +1259,16 @@ display(anova_table)
 </table>
 </div>
 
+<pre><code>Shapiro:  0.9717048406600952 4.3392384038527993e-39
+Bartlett:  1224.4882890761903 3.5546073028894766e-240
 
-    Shapiro:  0.9717048406600952 4.3392384038527993e-39
-    Bartlett:  1224.4882890761903 3.5546073028894766e-240
-
-    color_group
-
-
-    /usr/local/lib/python3.7/dist-packages/scipy/stats/morestats.py:1676: UserWarning:
-
-    p-value may not be accurate for N > 5000.
+color_group
 
 
+/usr/local/lib/python3.7/dist-packages/scipy/stats/morestats.py:1676: UserWarning:
 
-
+p-value may not be accurate for N &gt; 5000.
+</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1175,61 +1312,36 @@ display(anova_table)
 </table>
 </div>
 
-
-    Shapiro:  0.9598756432533264 1.401298464324817e-44
-    Bartlett:  298.6432027161358 1.6917844519244488e-57
-
-
-
-    /usr/local/lib/python3.7/dist-packages/scipy/stats/morestats.py:1676: UserWarning:
-
-    p-value may not be accurate for N > 5000.
+<pre><code>Shapiro:  0.9598756432533264 1.401298464324817e-44
+Bartlett:  298.6432027161358 1.6917844519244488e-57
 
 
 
-## Q2 Finding Best and Worst Groups
+/usr/local/lib/python3.7/dist-packages/scipy/stats/morestats.py:1676: UserWarning:
 
-
-
-### Q2.1 Compare Every Group to the Whole
-
-Of the primary flavors (feature), what 5 flavors (groups) would you recommend Truffletopia discontinue?
-
-Iterate through every level (i.e. pound, cheese, sponge cakes) of every category (i.e. base cake, primary flavor, secondary flavor) and use moods median testing to compare the group distribution to the grand median rate.
-
-
-
+p-value may not be accurate for N &gt; 5000.
+</code></pre>
+<h3 id="q2-finding-best-and-worst-groups">Q2 Finding Best and Worst Groups</h3>
+<h4 id="q21-compare-every-group-to-the-whole">Q2.1 Compare Every Group to the Whole</h4>
+<p>Of the primary flavors (feature), what 5 flavors (groups) would you recommend Truffletopia discontinue?</p>
+<p>Iterate through every level (i.e. pound, cheese, sponge cakes) of every category (i.e. base cake, primary flavor, secondary flavor) and use moods median testing to compare the group distribution to the grand median rate.</p>
 <pre><code class="language-python">
 </code></pre>
-
-
-    (98, 10)
-
-
-After you've computed a moods median test on every group, filter any data above a significance level of 0.05
-
-
-
+<pre><code>(98, 10)
+</code></pre>
+<p>After you've computed a moods median test on every group, filter any data above a significance level of 0.05</p>
 <pre><code class="language-python">
 </code></pre>
-
-
-    (76, 10)
-
-
-Return the groups with the lowest median performance (your table need not look exactly like the one I've created)
-
-
-
+<pre><code>(76, 10)
+</code></pre>
+<p>Return the groups with the lowest median performance (your table need not look exactly like the one I've created)</p>
 <pre><code class="language-python">
 </code></pre>
-
-
-
-
-
-<div>
+<div class="search-table-outer">
 <style scoped>
+    .search-table-outer { 
+      overflow-x: scroll; 
+      }
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
     }
@@ -1523,34 +1635,15 @@ Return the groups with the lowest median performance (your table need not look e
 </table>
 </div>
 
-
-
-We would want to cut the following primary flavors. Check to see that you get a similar answer. rip wild cherry cream.
-
-
+<p>We would want to cut the following primary flavors. Check to see that you get a similar answer. rip wild cherry cream.</p>
 <pre><code>['Coconut', 'Pink Lemonade', 'Chocolate', 'Wild Cherry Cream', 'Gingersnap']
 </code></pre>
-
-
-
-
 <pre><code class="language-python">
 </code></pre>
-
-
-
-
-
-    ['Coconut', 'Pink Lemonade', 'Chocolate', 'Wild Cherry Cream', 'Gingersnap']
-
-
-
-### Q2.2 Beyond Statistical Testing: Using Reasoning
-
-Let's look at the total profile of the products associated with the five worst primary flavors. Given the number of different products made with any of these flavors, would you alter your answer at all?
-
-
-
+<pre><code>['Coconut', 'Pink Lemonade', 'Chocolate', 'Wild Cherry Cream', 'Gingersnap']
+</code></pre>
+<h4 id="q22-beyond-statistical-testing-using-reasoning">Q2.2 Beyond Statistical Testing: Using Reasoning</h4>
+<p>Let's look at the total profile of the products associated with the five worst primary flavors. Given the number of different products made with any of these flavors, would you alter your answer at all?</p>
 <pre><code class="language-python"># 1. filter df for only bottom five flavors
 # 2. groupby all columns besides rate
 # 3. describe the rate column.
@@ -1561,11 +1654,6 @@ Let's look at the total profile of the products associated with the five worst p
 bottom_five = ['Coconut', 'Pink Lemonade', 'Chocolate', 'Wild Cherry Cream', 'Gingersnap']
 df.loc[df['primary_flavor'].isin(bottom_five)].groupby(list(df.columns[:-1]))['rate'].describe()
 </code></pre>
-
-
-
-
-
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1732,16 +1820,9 @@ df.loc[df['primary_flavor'].isin(bottom_five)].groupby(list(df.columns[:-1]))['r
 </table>
 </div>
 
-
-
-### Q2.3 The Jelly Filled Conundrum
-
-Your boss notices the Jelly filled truffles are being produced much faster than the candy outer truffles and suggests expanding into this product line. What is your response? Use the visualization tool below to help you think about this problem, then create any visualizations or analyses of your own.
-
-[sunburst charts](https://plotly.com/python/sunburst-charts/)
-
-
-
+<h4 id="q23-the-jelly-filled-conundrum">Q2.3 The Jelly Filled Conundrum</h4>
+<p>Your boss notices the Jelly filled truffles are being produced much faster than the candy outer truffles and suggests expanding into this product line. What is your response? Use the visualization tool below to help you think about this problem, then create any visualizations or analyses of your own.</p>
+<p><a href="https://plotly.com/python/sunburst-charts/">sunburst charts</a></p>
 <pre><code class="language-python">def sun(path=[['base_cake', 'truffle_type', 'primary_flavor', 'secondary_flavor', 'color_group'],
               ['truffle_type', 'base_cake', 'primary_flavor', 'secondary_flavor', 'color_group']]):
   fig = px.sunburst(df, path=path, 
@@ -1755,22 +1836,16 @@ Your boss notices the Jelly filled truffles are being produced much faster than 
   )
   fig.show()
 </code></pre>
-
-
-
-
 <pre><code class="language-python">interact(sun)
 </code></pre>
-
-
-
-    interactive(children=(Dropdown(description='path', options=(['base_cake', 'truffle_type', 'primary_flavor', 's…
+<pre><code>interactive(children=(Dropdown(description='path', options=(['base_cake', 'truffle_type', 'primary_flavor', 's…
 
 
 
 
 
-    <function __main__.sun>
+&lt;function __main__.sun&gt;
+</code></pre>
 
               
             </article>
