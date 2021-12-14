@@ -1,26 +1,22 @@
-<a href="https://colab.research.google.com/github/wesleybeckner/technology_fundamentals/blob/main/C2%20Statistics%20and%20Model%20Creation/LABS_PROJECT/Tech_Fun_C2_L2_Data_Hunt_II.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/exercises/E2_Inferential_Statistics_Data_Hunt.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-# Technology Fundamentals Course 2, Lab 2: Data Hunt II
+# Data Science Foundations, Lab 2: Data Hunt II
 
 **Instructor**: Wesley Beckner
 
 **Contact**: wesleybeckner@gmail.com
 
-<br>
-
 ---
 
 <br>
 
 <p align=center>
-<img src="https://raw.githubusercontent.com/wesleybeckner/technology_fundamentals/main/assets/datahunt2.png" width=1000px></img
+<img src="https://raw.githubusercontent.com/wesleybeckner/technology_fundamentals/main/assets/datahunt2.png" width=1000px></img>
+</p>
 
 <p align=center>
 That's right you heard correctly. It's the data hunt part TWO.
-
-<br>
-
----
+</p>
 
 
 
@@ -28,9 +24,9 @@ That's right you heard correctly. It's the data hunt part TWO.
 
 <a name='x.0'></a>
 
-# Preparing Environment and Importing Data
+## Preparing Environment and Importing Data
 
-## Import Packages
+### Import Packages
 
 
 ```python
@@ -76,7 +72,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 ```
 
-## Import and Clean Data
+### Import and Clean Data
 
 
 ```python
@@ -183,9 +179,9 @@ df.shape
 
 
 
-# Exploratory Data Analysis
+## Exploratory Data Analysis
 
-## Q1 Finding Influential Features
+### Q1 Finding Influential Features
 
 Which of the five features (base_cake, truffle_type, primary_flavor, secondary_flavor, color_group) of the truffles is most influential on production rate?
 
@@ -195,7 +191,7 @@ Back your answer with both a visualization of the distributions (boxplot, kernel
     * everything is labeled (can you improve your labels with additional descriptive statistical information e.g. indicate mean, std, etc.)
     * you meet the assumptions of your statistical test
 
-### Q1.1 Visualization
+#### Q1.1 Visualization
 
 Use any number of visualizations. Here is an example to get you started:
 
@@ -262,7 +258,7 @@ sns.kdeplot(x=df['rate'], hue=df['base_cake'], fill=True, ax=ax[1])
     
 
 
-### Q2.2 Statistical Analysis
+#### Q1.2 Statistical Analysis
 
 What statistical tests can you perform to evaluate your hypothesis from the visualizations (maybe you think one particular feature is significant). Here's an ANOVA on the `truffle_type` column to get you started:
 
@@ -616,11 +612,11 @@ display(anova_table)
     
 
 
-## Q2 Finding Best and Worst Groups
+### Q2 Finding Best and Worst Groups
 
 
 
-### Q2.1 Compare Every Group to the Whole
+#### Q2.1 Compare Every Group to the Whole
 
 Of the primary flavors (feature), what 5 flavors (groups) would you recommend Truffletopia discontinue?
 
@@ -654,8 +650,11 @@ Return the groups with the lowest median performance (your table need not look e
 
 
 
-<div>
+<div class="search-table-outer">
 <style scoped>
+    .search-table-outer { 
+      overflow-x: scroll; 
+      }
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
     }
@@ -969,7 +968,7 @@ We would want to cut the following primary flavors. Check to see that you get a 
 
 
 
-### Q2.2 Beyond Statistical Testing: Using Reasoning
+#### Q2.2 Beyond Statistical Testing: Using Reasoning
 
 Let's look at the total profile of the products associated with the five worst primary flavors. Given the number of different products made with any of these flavors, would you alter your answer at all?
 
@@ -1157,7 +1156,7 @@ df.loc[df['primary_flavor'].isin(bottom_five)].groupby(list(df.columns[:-1]))['r
 
 
 
-### Q2.3 The Jelly Filled Conundrum
+#### Q2.3 The Jelly Filled Conundrum
 
 Your boss notices the Jelly filled truffles are being produced much faster than the candy outer truffles and suggests expanding into this product line. What is your response? Use the visualization tool below to help you think about this problem, then create any visualizations or analyses of your own.
 
