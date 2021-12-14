@@ -650,11 +650,8 @@ Return the groups with the lowest median performance (your table need not look e
 
 
 
-<div class="search-table-outer">
+<div>
 <style scoped>
-    .search-table-outer { 
-      overflow-x: scroll; 
-      }
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
     }
