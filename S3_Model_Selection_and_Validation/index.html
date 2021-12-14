@@ -351,6 +351,80 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#113-bias-variance-tradeoff" class="md-nav__link">
+    1.1.3 Bias-Variance Tradeoff
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1.3 Bias-Variance Tradeoff">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-quantitatively-define-performance" class="md-nav__link">
+    🏋️ Exercise 1: Quantitatively Define Performance
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114-learning-curves" class="md-nav__link">
+    1.1.4 Learning Curves
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1.4 Learning Curves">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1141-considering-model-complexity" class="md-nav__link">
+    1.1.4.1 Considering Model Complexity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1142-considering-training-set-size" class="md-nav__link">
+    1.1.4.2 Considering Training Set Size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-visualization" class="md-nav__link">
+    🏋️ Exercise 2: Visualization
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-model-validation-in-practice" class="md-nav__link">
+    1.2 Model Validation in Practice
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 Model Validation in Practice">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-grid-search" class="md-nav__link">
+    1.2.1 Grid Search
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -703,6 +777,80 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#113-bias-variance-tradeoff" class="md-nav__link">
+    1.1.3 Bias-Variance Tradeoff
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1.3 Bias-Variance Tradeoff">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-quantitatively-define-performance" class="md-nav__link">
+    🏋️ Exercise 1: Quantitatively Define Performance
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114-learning-curves" class="md-nav__link">
+    1.1.4 Learning Curves
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1.4 Learning Curves">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1141-considering-model-complexity" class="md-nav__link">
+    1.1.4.1 Considering Model Complexity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1142-considering-training-set-size" class="md-nav__link">
+    1.1.4.2 Considering Training Set Size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-visualization" class="md-nav__link">
+    🏋️ Exercise 2: Visualization
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-model-validation-in-practice" class="md-nav__link">
+    1.2 Model Validation in Practice
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 Model Validation in Practice">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-grid-search" class="md-nav__link">
+    1.2.1 Grid Search
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -842,62 +990,33 @@ print(knn.score(X_test, y_test))
 <img src='https://scikit-learn.org/stable/_images/grid_search_workflow.png' width=500px></img>
 
 <small>[image src](https://scikit-learn.org/stable/modules/cross_validation.html)</small>
-<p/>
+</p>
 
-In this scheme, we don't evaluate our model on the test set until the very end. Rather, we estimate our hyperparameter performances by slicing the training set into cross folds
-
+<p>In this scheme, we don't evaluate our model on the test set until the very end. Rather, we estimate our hyperparameter performances by slicing the training set into cross folds</p>
 <p align="center">
 <img src='https://scikit-learn.org/stable/_images/grid_search_cross_validation.png' width=500px></img>
 
 <small>[image src](https://scikit-learn.org/stable/modules/cross_validation.html)</small>
 </p>
 
-
-
-
-
 <pre><code class="language-python">from sklearn.model_selection import cross_val_score
 
 scores = cross_val_score(knn, X_train, y_train, cv=5)
 </code></pre>
-
-
-
-
 <pre><code class="language-python">scores
 </code></pre>
-
-
-
-
-
-    array([0.91666667, 0.81725888, 0.85714286, 1.        , 0.91      ])
-
-
-
-
-
+<pre><code>array([0.91666667, 0.81725888, 0.85714286, 1.        , 0.91      ])
+</code></pre>
 <pre><code class="language-python">print(&quot;%0.2f accuracy with a standard deviation of %0.3f&quot; % (scores.mean(), scores.std()))
 </code></pre>
-
-
-    0.90 accuracy with a standard deviation of 0.062
-
-
-More information on the cross_val_score method in sklearn can be found [here](https://scikit-learn.org/stable/modules/cross_validation.html)
-
-An additional topic on cross validation is the extreme leave-one-out validation, you can read more about that [here](https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Model-validation-via-cross-validation)
-
-<a name='1.1.3'></a>
-
-### 1.1.3 Bias-Variance Tradeoff
-
-[back to top](#top)
-
-This next concept will be most easily understood (imo) if we go ahead an make up some data ourselves, I'm going to do that now.
-
-
-
+<pre><code>0.90 accuracy with a standard deviation of 0.062
+</code></pre>
+<p>More information on the cross_val_score method in sklearn can be found <a href="https://scikit-learn.org/stable/modules/cross_validation.html">here</a></p>
+<p>An additional topic on cross validation is the extreme leave-one-out validation, you can read more about that <a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Model-validation-via-cross-validation">here</a></p>
+<p><a name='1.1.3'></a></p>
+<h3 id="113-bias-variance-tradeoff">1.1.3 Bias-Variance Tradeoff</h3>
+<p><a href="#top">back to top</a></p>
+<p>This next concept will be most easily understood (imo) if we go ahead an make up some data ourselves, I'm going to do that now.</p>
 <pre><code class="language-python"># we can throttle the error rate
 err = .5
 random.seed(42)
@@ -911,25 +1030,10 @@ plt.plot(x,y, ls='', marker='.')
 plt.xlabel('X')
 plt.ylabel('Y')
 </code></pre>
-
-
-
-
-
-    Text(0, 0.5, 'Y')
-
-
-
-
-
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_25_1.png)
-
-
-
-Let's fit to just a portion of this data
-
-
-
+<pre><code>Text(0, 0.5, 'Y')
+</code></pre>
+<p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_25_1.png" /></p>
+<p>Let's fit to just a portion of this data</p>
 <pre><code class="language-python">random.seed(42)
 X_train = random.sample(list(x), 10)
 
@@ -938,31 +1042,12 @@ indices = [list(x).index(i) for i in X_train]
 
 y_train = [y[i] for i in indices]
 </code></pre>
-
-
-
-
 <pre><code class="language-python">plt.plot(X_train,y_train, ls='', marker='.')
 </code></pre>
-
-
-
-
-
-    [<matplotlib.lines.Line2D at 0x7f3ea2189f10>]
-
-
-
-
-
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_28_1.png)
-
-
-
-Now let's take two extreme scenarios, fitting a linear line and a high order polynomial, to these datapoints. Keeping in mind the larger dataset, as well as the error we introduced in our data generating function, this will really illustrate our point!
-
-
-
+<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f3ea2189f10&gt;]
+</code></pre>
+<p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_28_1.png" /></p>
+<p>Now let's take two extreme scenarios, fitting a linear line and a high order polynomial, to these datapoints. Keeping in mind the larger dataset, as well as the error we introduced in our data generating function, this will really illustrate our point!</p>
 <pre><code class="language-python"># solving our training data with a n-degree polynomial
 coefs = np.polyfit(X_train, y_train, 9)
 
@@ -985,34 +1070,18 @@ ax[1].plot(X_train, y_train, ls='', marker='.')
 ax[1].set_ylim(min(y_train), max(y_train))
 ax[1].set_title(&quot;High Variance Model&quot;)
 </code></pre>
-
-
-
-
-
-    Text(0.5, 1.0, 'High Variance Model')
-
-
-
-
-
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_30_1.png)
-
-
-
-We've demonstrated two extreme cases. On the left, we limit our regression to only two parameters, a slope and a y-intercept. We say that this model has *high bias* because we are forcing the functional form without much consideration to the underlying data &mdash; we are saying this data is generated by a linear function, and no matter what data I train on, my final model will still be a straight line that more or less appears the same. Put another way, it has *low variance* with respect to the underlying data. 
-
-On the right, we've allowed our model just as many polynomials it needs to perfectly fit the training data! We say this model has *low bias* because we don't introduce many constraints on the final form of the model. it is *high variance* because depending on the underlying training data, the final outcome of the model can change quite drastically!
-
-In reality, the best model lies somewhere between these two cases. In the next few paragraphs we'll explore this concept further:
-
-1. what happens when we retrain these models on different samples of the data population
-  * and let's use this to better understand what we mean by *bias* and *variance*
-2. what happens when we tie this back in with the error we introduced to the data generator?
-  * and let's use this to better understand irreducible error
-
-
-
+<pre><code>Text(0.5, 1.0, 'High Variance Model')
+</code></pre>
+<p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_30_1.png" /></p>
+<p>We've demonstrated two extreme cases. On the left, we limit our regression to only two parameters, a slope and a y-intercept. We say that this model has <em>high bias</em> because we are forcing the functional form without much consideration to the underlying data &mdash; we are saying this data is generated by a linear function, and no matter what data I train on, my final model will still be a straight line that more or less appears the same. Put another way, it has <em>low variance</em> with respect to the underlying data. </p>
+<p>On the right, we've allowed our model just as many polynomials it needs to perfectly fit the training data! We say this model has <em>low bias</em> because we don't introduce many constraints on the final form of the model. it is <em>high variance</em> because depending on the underlying training data, the final outcome of the model can change quite drastically!</p>
+<p>In reality, the best model lies somewhere between these two cases. In the next few paragraphs we'll explore this concept further:</p>
+<ol>
+<li>what happens when we retrain these models on different samples of the data population</li>
+<li>and let's use this to better understand what we mean by <em>bias</em> and <em>variance</em></li>
+<li>what happens when we tie this back in with the error we introduced to the data generator?</li>
+<li>and let's use this to better understand irreducible error</li>
+</ol>
 <pre><code class="language-python">random.seed(42)
 fig, ax = plt.subplots(1,2,figsize=(15,5))
 for samples in range(5):
@@ -1042,20 +1111,9 @@ for samples in range(5):
   ax[1].set_ylim(min(y_train), max(y_train))
   ax[1].set_title(&quot;High Variance Model&quot;)
 </code></pre>
-
-
-
-
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_32_0.png)
-
-
-
-As we can see, depending on what data we train our model on, the *high bias* model changes relatively slightly, while the *high variance* model changes a whole awful lot!
-
-The *high variance* model is prone to something we call *overfitting*. It fits the training data very well, but at the expense of creating a good, generalizable model that does well on unseen data. Let's take our last models, and plot them along the rest of the unseen data, what we'll call the *population*
-
-
-
+<p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_32_0.png" /></p>
+<p>As we can see, depending on what data we train our model on, the <em>high bias</em> model changes relatively slightly, while the <em>high variance</em> model changes a whole awful lot!</p>
+<p>The <em>high variance</em> model is prone to something we call <em>overfitting</em>. It fits the training data very well, but at the expense of creating a good, generalizable model that does well on unseen data. Let's take our last models, and plot them along the rest of the unseen data, what we'll call the <em>population</em></p>
 <pre><code class="language-python"># solving our training data with a n-degree polynomial
 coefs = np.polyfit(X_train, y_train, 9)
 
@@ -1080,46 +1138,17 @@ ax[1].plot(X_train, y_train, ls='', marker='.')
 ax[1].set_ylim(min(y), max(y))
 ax[1].set_title(&quot;High Variance Model&quot;)
 </code></pre>
-
-
-
-
-
-    Text(0.5, 1.0, 'High Variance Model')
-
-
-
-
-
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_34_1.png)
-
-
-
-In particular, we see that the high variance model is doing very wacky things, demonstrating behaviors in the model where the underlying population data really gives no indication of such behavior. We say that these high variance models are particuarly prone to the phenomenon of *over fitting* and this is generally due to the fact that there is irreducible error in the underlying data. Let's demonstrate this.
-
-
-
+<pre><code>Text(0.5, 1.0, 'High Variance Model')
+</code></pre>
+<p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_34_1.png" /></p>
+<p>In particular, we see that the high variance model is doing very wacky things, demonstrating behaviors in the model where the underlying population data really gives no indication of such behavior. We say that these high variance models are particuarly prone to the phenomenon of <em>over fitting</em> and this is generally due to the fact that there is irreducible error in the underlying data. Let's demonstrate this.</p>
 <pre><code class="language-python">x = np.arange(20,100)
 y = [func(t, err=0) for t in x]
 plt.plot(x,y, ls='', marker='.')
 </code></pre>
-
-
-
-
-
-    [<matplotlib.lines.Line2D at 0x7f3ea05cbc90>]
-
-
-
-
-
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_36_1.png)
-
-
-
-
-
+<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f3ea05cbc90&gt;]
+</code></pre>
+<p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_36_1.png" /></p>
 <pre><code class="language-python">random.seed(42)
 X_train = random.sample(list(x), 10)
 
@@ -1152,46 +1181,65 @@ ax[1].plot(X_train, y_train, ls='', marker='.')
 ax[1].set_ylim(min(y), max(y))
 ax[1].set_title(&quot;High Variance Model&quot;)
 </code></pre>
-
-
-
-
-
-    Text(0.5, 1.0, 'High Variance Model')
-
-
-
-
-
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_37_1.png)
-
-
-
-This time, our high variance model really *gets it*! And this is because the data we trained on actually *is* a good representation of the entire population. But this, in reality, almost never, ever happens. In the real world, we have irreducible error in our data samples, and we must account for this when choosing our model. 
-
-I'm summary, we call this balance between error in our model functional form, and error from succumbing to irreducible error in our training data, the *bias variance tradeoff*
-
-#### 🏋️ Exercise 1: Quantitatively Define Performance
-
-Up until now, we've explored this idea of bias variance tradeoff from a qualitative standpoint. As an exercise, continue with this idea, this time calculating the mean squared error (MSE) and R-square between the model and UNSEEN (non-training data) population data. 
-
-error metrics
-* `r2_score` 
-* `mean_squared_error`
-
-Do this for a 9th order polynomial and repeat for population data with low, med, and high degrees of error and small and large training fractions. Complete the chart below.
-
-| error | training fraction | MSE | R2 |
-|-------|-------------------|-----|----|
-|       |                   |     |    |
-|       |                   |     |    |
-|       |                   |     |    |
-|       |                   |     |    |
-|       |                   |     |    |
-|       |                   |     |    |
-
-
-
+<pre><code>Text(0.5, 1.0, 'High Variance Model')
+</code></pre>
+<p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_37_1.png" /></p>
+<p>This time, our high variance model really <em>gets it</em>! And this is because the data we trained on actually <em>is</em> a good representation of the entire population. But this, in reality, almost never, ever happens. In the real world, we have irreducible error in our data samples, and we must account for this when choosing our model. </p>
+<p>I'm summary, we call this balance between error in our model functional form, and error from succumbing to irreducible error in our training data, the <em>bias variance tradeoff</em></p>
+<h4 id="exercise-1-quantitatively-define-performance">🏋️ Exercise 1: Quantitatively Define Performance</h4>
+<p>Up until now, we've explored this idea of bias variance tradeoff from a qualitative standpoint. As an exercise, continue with this idea, this time calculating the mean squared error (MSE) and R-square between the model and UNSEEN (non-training data) population data. </p>
+<p>error metrics
+* <code>r2_score</code> 
+* <code>mean_squared_error</code></p>
+<p>Do this for a 9th order polynomial and repeat for population data with low, med, and high degrees of error and small and large training fractions. Complete the chart below.</p>
+<table>
+<thead>
+<tr>
+<th>error</th>
+<th>training fraction</th>
+<th>MSE</th>
+<th>R2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <pre><code class="language-python"># Code Cell for Exercise 1
 from sklearn.preprocessing import PolynomialFeatures
 random.seed(42)
@@ -1232,40 +1280,20 @@ r2 = r2_score(y_test, y_pred)
 print(&quot;mean square error: {:.2f}&quot;.format(mse))
 print(&quot;r2: {:.2f}&quot;.format(r2))
 </code></pre>
-
-
-    mean square error: 5.20e-01
-    r2: -0.13
-
-
-<a name='1.1.4'></a>
-
-### 1.1.4 Learning Curves
-
-[back to top](#top)
-
-To move from qualitative to quantitative understanding of bias-variance tradeoff we need to introduce some metric for model performance. A good one to use here is R-square, a measure of the degree to which predictions match actual values. We can import a tool from sklearn to calculate this for us.
-
-
-
-
-
+<pre><code>mean square error: 5.20e-01
+r2: -0.13
+</code></pre>
+<p><a name='1.1.4'></a></p>
+<h3 id="114-learning-curves">1.1.4 Learning Curves</h3>
+<p><a href="#top">back to top</a></p>
+<p>To move from qualitative to quantitative understanding of bias-variance tradeoff we need to introduce some metric for model performance. A good one to use here is R-square, a measure of the degree to which predictions match actual values. We can import a tool from sklearn to calculate this for us.</p>
 <pre><code class="language-python">from sklearn.metrics import r2_score
 </code></pre>
-
-
-<a name='x.1.4.1'></a>
-
-#### 1.1.4.1 Considering Model Complexity
-
-[back to top](#top)
-
-In a learning curve, we will typically plot the training and testing scores together, to give a sense of when we have either too much bias or too much variance in our model.
-
-I'm going to go ahead and recreate the original data distribution we introduced in 1.1.3
-
-
-
+<p><a name='x.1.4.1'></a></p>
+<h4 id="1141-considering-model-complexity">1.1.4.1 Considering Model Complexity</h4>
+<p><a href="#top">back to top</a></p>
+<p>In a learning curve, we will typically plot the training and testing scores together, to give a sense of when we have either too much bias or too much variance in our model.</p>
+<p>I'm going to go ahead and recreate the original data distribution we introduced in 1.1.3</p>
 <pre><code class="language-python"># we can throttle the error rate
 err = .5
 random.seed(42)
@@ -1277,25 +1305,10 @@ x = np.arange(20,100)
 y = [func(t, err) for t in x]
 plt.plot(x,y, ls='', marker='.')
 </code></pre>
-
-
-
-
-
-    [<matplotlib.lines.Line2D at 0x7f3ea0305f90>]
-
-
-
-
-
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_44_1.png)
-
-
-
-Now let's itteratively introduce more complexity into our model
-
-
-
+<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f3ea0305f90&gt;]
+</code></pre>
+<p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_44_1.png" /></p>
+<p>Now let's itteratively introduce more complexity into our model</p>
 <pre><code class="language-python">random.seed(42)
 fig, ax = plt.subplots(1,2,figsize=(10,5))
 X_train = random.sample(list(x), 10)
@@ -1321,27 +1334,11 @@ for complexity in range(1,10):
   ax[1].set_title(&quot;Scores with Increasing Model Complexity&quot;)
 ax[1].legend()
 </code></pre>
-
-
-
-
-
-    <matplotlib.legend.Legend at 0x7f3ea0577d90>
-
-
-
-
-
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_46_1.png)
-
-
-
-As we see from both plots, the score on the training data increases with added model complexity. Giving us the expected perfect fit when the order is the same as the number of data points! This is part I of our learning curve. Part II consists of plotting the training data score with the testing data score.
-
-Something else I'm going to do, is define the training portion of the data as a fraction of the overall population size. To keep the comparisons the same as up until now, I will keep this training fraction low at .2
-
-
-
+<pre><code>&lt;matplotlib.legend.Legend at 0x7f3ea0577d90&gt;
+</code></pre>
+<p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_46_1.png" /></p>
+<p>As we see from both plots, the score on the training data increases with added model complexity. Giving us the expected perfect fit when the order is the same as the number of data points! This is part I of our learning curve. Part II consists of plotting the training data score with the testing data score.</p>
+<p>Something else I'm going to do, is define the training portion of the data as a fraction of the overall population size. To keep the comparisons the same as up until now, I will keep this training fraction low at .2</p>
 <pre><code class="language-python">random.seed(42)
 
 # defining my training fraction
@@ -1383,39 +1380,16 @@ for complexity in range(1,10):
 ax[1].legend(['Train $R^2$', 'Test $R^2$'])
 ax[0].legend()
 </code></pre>
-
-
-
-
-
-    <matplotlib.legend.Legend at 0x7f3ea0278850>
-
-
-
-
-
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_48_1.png)
-
-
-
-As we can see, The 2nd order polynomial achieves the greatest best test set data \\(R^2\\), while the highest order polynomial achieves the best training set data \\(R^2\\). This learning curve is explanative of what we see generally, namely a divergence after some degree of complexity between training and test set performances. In this case, we would resolve to choose the 2nd order polynomial as the best model for our data.
-
-<img src="https://jakevdp.github.io/PythonDataScienceHandbook/figures/05.03-validation-curve.png" width=500px></img>
-
-<small>[img src](https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html)</small>
-
-
-
-<a name='x.1.4.2'></a>
-
-#### 1.1.4.2 Considering Training Set Size
-
-[back to top](#top)
-
-The last piece of the puzzle we require, to fully cover learning curves, is the effect of training data size on the model. This is why I introduced the 'fraction of training data' parameter earlier. Let's explore.
-
-
-
+<pre><code>&lt;matplotlib.legend.Legend at 0x7f3ea0278850&gt;
+</code></pre>
+<p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_48_1.png" /></p>
+<p>As we can see, The 2nd order polynomial achieves the greatest best test set data \(R^2\), while the highest order polynomial achieves the best training set data \(R^2\). This learning curve is explanative of what we see generally, namely a divergence after some degree of complexity between training and test set performances. In this case, we would resolve to choose the 2nd order polynomial as the best model for our data.</p>
+<p><img src="https://jakevdp.github.io/PythonDataScienceHandbook/figures/05.03-validation-curve.png" width=500px></img></p>
+<p><small><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html">img src</a></small></p>
+<p><a name='x.1.4.2'></a></p>
+<h4 id="1142-considering-training-set-size">1.1.4.2 Considering Training Set Size</h4>
+<p><a href="#top">back to top</a></p>
+<p>The last piece of the puzzle we require, to fully cover learning curves, is the effect of training data size on the model. This is why I introduced the 'fraction of training data' parameter earlier. Let's explore.</p>
 <pre><code class="language-python">random.seed(42)
 # initialize the plot and display the data
 fig, ax = plt.subplots(1,1,figsize=(10,5))
@@ -1443,39 +1417,23 @@ ax.legend(['Train','Test'])
 ax.set_xlabel('Training Fraction')
 ax.set_ylabel('$R^2$')
 </code></pre>
-
-
-    /usr/local/lib/python3.7/dist-packages/IPython/core/interactiveshell.py:2882: RankWarning: Polyfit may be poorly conditioned
-      exec(code_obj, self.user_global_ns, self.user_ns)
-    /usr/local/lib/python3.7/dist-packages/IPython/core/interactiveshell.py:2882: RankWarning: Polyfit may be poorly conditioned
-      exec(code_obj, self.user_global_ns, self.user_ns)
-
-
-
-
-
-    Text(0, 0.5, '$R^2$')
+<pre><code>/usr/local/lib/python3.7/dist-packages/IPython/core/interactiveshell.py:2882: RankWarning: Polyfit may be poorly conditioned
+  exec(code_obj, self.user_global_ns, self.user_ns)
+/usr/local/lib/python3.7/dist-packages/IPython/core/interactiveshell.py:2882: RankWarning: Polyfit may be poorly conditioned
+  exec(code_obj, self.user_global_ns, self.user_ns)
 
 
 
 
 
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_51_2.png)
-
-
-
-What we see here is a trend that happens generally, as our amount of training data increases, our models handle more complexity. This is illustrated below. 
-
-<img src="https://jakevdp.github.io/PythonDataScienceHandbook/figures/05.03-learning-curve.png" width=500px></img>
-
-<small>[img src](https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html)
-
-#### 🏋️ Exercise 2: Visualization
-
-Starting with the code below, make a side-by-side plot of a 3rd degree polynomial and a 12th degree polynomial. On the x axis slowly increase the training set size, on the y axis plot the scores for the training and test sets.
-
-
-
+Text(0, 0.5, '$R^2$')
+</code></pre>
+<p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_51_2.png" /></p>
+<p>What we see here is a trend that happens generally, as our amount of training data increases, our models handle more complexity. This is illustrated below. </p>
+<p><img src="https://jakevdp.github.io/PythonDataScienceHandbook/figures/05.03-learning-curve.png" width=500px></img></p>
+<p><small><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html">img src</a></p>
+<h4 id="exercise-2-visualization">🏋️ Exercise 2: Visualization</h4>
+<p>Starting with the code below, make a side-by-side plot of a 3rd degree polynomial and a 12th degree polynomial. On the x axis slowly increase the training set size, on the y axis plot the scores for the training and test sets.</p>
 <pre><code class="language-python"># Code Cell for Exercise 2
 random.seed(42)
 
@@ -1507,37 +1465,18 @@ ax.legend(['Train','Test'])
 ax.set_xlabel('Training Fraction')
 ax.set_ylabel('$R^2$')
 </code></pre>
-
-
-
-
-
-    Text(0, 0.5, '$R^2$')
-
-
-
-
-
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_54_1.png)
-
-
-
-> As a visualization exercise, how would you attempt to combine the ideas of model performance with increasing training set size and increasing model complexity? Could you create this visualization with something other than a polynomial model?
-
-<a name='1.2'></a>
-
-## 1.2 Model Validation in Practice
-
-[back to top](#top)
-
-We will now turn our attention to practical implementation.
-
-In practice, there are a wide number of variables (called hyperparameters) to consider when choosing a model. Scikit learn has a useful method called Grid Search that will iterate through every possible combination of a range of hyperparameter settings you provide as input. 
-
-Before we get started with grid search, we'll need to switch over from our numpy polynomial fit method to one in sklearn. Here, the caveat is our actual model will solve for the *coefficients* infront of the polynomials. We will *engineer* the polynomial features ourselves. This is an example of *feature engineering* which we will revisit in depth in a later session.
-
-
-
+<pre><code>Text(0, 0.5, '$R^2$')
+</code></pre>
+<p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_54_1.png" /></p>
+<blockquote>
+<p>As a visualization exercise, how would you attempt to combine the ideas of model performance with increasing training set size and increasing model complexity? Could you create this visualization with something other than a polynomial model?</p>
+</blockquote>
+<p><a name='1.2'></a></p>
+<h2 id="12-model-validation-in-practice">1.2 Model Validation in Practice</h2>
+<p><a href="#top">back to top</a></p>
+<p>We will now turn our attention to practical implementation.</p>
+<p>In practice, there are a wide number of variables (called hyperparameters) to consider when choosing a model. Scikit learn has a useful method called Grid Search that will iterate through every possible combination of a range of hyperparameter settings you provide as input. </p>
+<p>Before we get started with grid search, we'll need to switch over from our numpy polynomial fit method to one in sklearn. Here, the caveat is our actual model will solve for the <em>coefficients</em> infront of the polynomials. We will <em>engineer</em> the polynomial features ourselves. This is an example of <em>feature engineering</em> which we will revisit in depth in a later session.</p>
 <pre><code class="language-python">from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 from sklearn.pipeline import make_pipeline
@@ -1546,18 +1485,9 @@ def PolynomialRegression(degree=2, **kwargs):
     return make_pipeline(PolynomialFeatures(degree),
                          LinearRegression(**kwargs))
 </code></pre>
-
-
-<a name='1.2.1'></a>
-
-### 1.2.1 Grid Search
-
-[back to top](#top)
-
-
-
-
-
+<p><a name='1.2.1'></a></p>
+<h3 id="121-grid-search">1.2.1 Grid Search</h3>
+<p><a href="#top">back to top</a></p>
 <pre><code class="language-python">from sklearn.model_selection import GridSearchCV
 
 param_grid = {'polynomialfeatures__degree': np.arange(10),
@@ -1566,10 +1496,6 @@ param_grid = {'polynomialfeatures__degree': np.arange(10),
 
 grid = GridSearchCV(PolynomialRegression(), param_grid, cv=7)
 </code></pre>
-
-
-
-
 <pre><code class="language-python"># create test and training data
 random.seed(42)
 X_train = random.sample(list(x), int(int(len(x))*.8))
@@ -1579,58 +1505,35 @@ test_indices = [i for i in range(len(x)) if i not in indices]
 X_test = [x[i] for i in test_indices]
 y_test = [y[i] for i in test_indices]
 </code></pre>
-
-
-
-
 <pre><code class="language-python">grid.fit(np.array(X_train).reshape(-1,1), y_train)
 </code></pre>
-
-
-
-
-
-    GridSearchCV(cv=7, error_score=nan,
-                 estimator=Pipeline(memory=None,
-                                    steps=[('polynomialfeatures',
-                                            PolynomialFeatures(degree=2,
-                                                               include_bias=True,
-                                                               interaction_only=False,
-                                                               order='C')),
-                                           ('linearregression',
-                                            LinearRegression(copy_X=True,
-                                                             fit_intercept=True,
-                                                             n_jobs=None,
-                                                             normalize=False))],
-                                    verbose=False),
-                 iid='deprecated', n_jobs=None,
-                 param_grid={'linearregression__fit_intercept': [True, False],
-                             'linearregression__normalize': [True, False],
-                             'polynomialfeatures__degree': array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])},
-                 pre_dispatch='2*n_jobs', refit=True, return_train_score=False,
-                 scoring=None, verbose=0)
-
-
-
-
-
+<pre><code>GridSearchCV(cv=7, error_score=nan,
+             estimator=Pipeline(memory=None,
+                                steps=[('polynomialfeatures',
+                                        PolynomialFeatures(degree=2,
+                                                           include_bias=True,
+                                                           interaction_only=False,
+                                                           order='C')),
+                                       ('linearregression',
+                                        LinearRegression(copy_X=True,
+                                                         fit_intercept=True,
+                                                         n_jobs=None,
+                                                         normalize=False))],
+                                verbose=False),
+             iid='deprecated', n_jobs=None,
+             param_grid={'linearregression__fit_intercept': [True, False],
+                         'linearregression__normalize': [True, False],
+                         'polynomialfeatures__degree': array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])},
+             pre_dispatch='2*n_jobs', refit=True, return_train_score=False,
+             scoring=None, verbose=0)
+</code></pre>
 <pre><code class="language-python">grid.best_params_
 </code></pre>
-
-
-
-
-
-    {'linearregression__fit_intercept': True,
-     'linearregression__normalize': False,
-     'polynomialfeatures__degree': 3}
-
-
-
-to grab the best model from the CV/search outcome. we use grid.best_estimator
-
-
-
+<pre><code>{'linearregression__fit_intercept': True,
+ 'linearregression__normalize': False,
+ 'polynomialfeatures__degree': 3}
+</code></pre>
+<p>to grab the best model from the CV/search outcome. we use grid.best_estimator</p>
 <pre><code class="language-python">model = grid.best_estimator_
 
 # create some x data to plot our functions
@@ -1643,31 +1546,17 @@ ax.plot(X_train, y_train, ls='', marker='.')
 ax.set_ylim(min(y), max(y))
 ax.set_title(&quot;Best Grid Search CV Model&quot;)
 </code></pre>
-
-
-
-
-
-    Text(0.5, 1.0, 'Best Grid Search CV Model')
-
-
-
-
-
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_64_1.png)
-
-
-
-<a name='reference'></a>
-
-# References
-
-[back to top](#top)
-
-## Model Validation
-
-* [cross_val_score](https://scikit-learn.org/stable/modules/cross_validation.html)
-* [leave-one-out](https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Model-validation-via-cross-validation)
+<pre><code>Text(0.5, 1.0, 'Best Grid Search CV Model')
+</code></pre>
+<p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_64_1.png" /></p>
+<p><a name='reference'></a></p>
+<h1 id="references">References</h1>
+<p><a href="#top">back to top</a></p>
+<h2 id="model-validation">Model Validation</h2>
+<ul>
+<li><a href="https://scikit-learn.org/stable/modules/cross_validation.html">cross_val_score</a></li>
+<li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Model-validation-via-cross-validation">leave-one-out</a></li>
+</ul>
 
               
             </article>
