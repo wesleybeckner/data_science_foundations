@@ -40,6 +40,8 @@
     
       <link rel="stylesheet" href="../extra.css">
     
+      <link rel="stylesheet" href="../styles.css">
+    
     <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -1113,9 +1115,9 @@
                 
 
 <p><a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/S4_Feature_Engineering.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
-<h1 id="data-science-foundations-session-4-feature-engineering">Data Science Foundations, Session 4: Feature Engineering</h1>
+<h1 id="data-science-foundations-session-4-feature-engineering">Data Science Foundations, Session 4: Feature Engineering<a class="headerlink" href="#data-science-foundations-session-4-feature-engineering" title="Permanent link">&para;</a></h1>
 <p><strong>Instructor</strong>: Wesley Beckner</p>
-<p><strong>Contact</strong>: wesleybeckner@gmail.com</p>
+<p><strong>Contact</strong>: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#119;&#101;&#115;&#108;&#101;&#121;&#98;&#101;&#99;&#107;&#110;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#119;&#101;&#115;&#108;&#101;&#121;&#98;&#101;&#99;&#107;&#110;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
 <hr />
 <p><br></p>
 <p>In the previous session we talked about model pipelines and conveniently began with a suitable set of input data. In the real world, this is hardly ever the case! What is constant is this: at the end of the day, our models need numbers. Not only this, but a suitable set of numbers. What does that mean? The answer to that question is the subject of our session today.</p>
@@ -1124,37 +1126,40 @@
 <p><br></p>
 <p><a name='top'></a></p>
 <p><a name='2.0'></a></p>
-<h2 id="40-preparing-environment-and-importing-data">4.0 Preparing Environment and Importing Data</h2>
+<h2 id="40-preparing-environment-and-importing-data">4.0 Preparing Environment and Importing Data<a class="headerlink" href="#40-preparing-environment-and-importing-data" title="Permanent link">&para;</a></h2>
 <p><a href="#top">back to top</a></p>
 <p><a name='x.0.1'></a></p>
-<h3 id="401-import-packages">4.0.1 Import Packages</h3>
+<h3 id="401-import-packages">4.0.1 Import Packages<a class="headerlink" href="#401-import-packages" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
-<pre><code class="language-python">import pandas as pd
-import numpy as np
-import datetime
-import matplotlib.pyplot as plt
-import plotly.express as px
-import random
-import scipy.stats as stats
-from scipy.stats import gamma
-from sklearn.preprocessing import OneHotEncoder
-from statsmodels.stats.outliers_influence import variance_inflation_factor
-import seaborn as sns; sns.set()
-from sklearn.datasets import load_iris
-from sklearn.metrics import mean_squared_error, r2_score
-</code></pre>
-<p><a name='x.0.2'></a></p>
-<h3 id="402-load-dataset">4.0.2 Load Dataset</h3>
-<p><a href="#top">back to top</a></p>
-<pre><code class="language-python">margin = pd.read_csv('https://raw.githubusercontent.com/wesleybeckner/'\
-        'ds_for_engineers/main/data/truffle_margin/truffle_margin_customer.csv')
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">gamma</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
+<span class="kn">from</span> <span class="nn">statsmodels.stats.outliers_influence</span> <span class="kn">import</span> <span class="n">variance_inflation_factor</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span><span class="p">;</span> <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
+</code></pre></div>
 
-orders = pd.read_csv('https://raw.githubusercontent.com/wesleybeckner/'\
-                 'ds_for_engineers/main/data/truffle_margin/truffle_orders.csv')
-time_cols = [i for i in orders.columns if '/' in i]
-</code></pre>
-<pre><code class="language-python">margin.head()
-</code></pre>
+<p><a name='x.0.2'></a></p>
+<h3 id="402-load-dataset">4.0.2 Load Dataset<a class="headerlink" href="#402-load-dataset" title="Permanent link">&para;</a></h3>
+<p><a href="#top">back to top</a></p>
+<div class="codehilite"><pre><span></span><code><span class="n">margin</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/wesleybeckner/&#39;</span>\
+        <span class="s1">&#39;ds_for_engineers/main/data/truffle_margin/truffle_margin_customer.csv&#39;</span><span class="p">)</span>
+
+<span class="n">orders</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/wesleybeckner/&#39;</span>\
+                 <span class="s1">&#39;ds_for_engineers/main/data/truffle_margin/truffle_orders.csv&#39;</span><span class="p">)</span>
+<span class="n">time_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">orders</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s1">&#39;/&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">margin</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1249,15 +1254,18 @@ time_cols = [i for i in orders.columns if '/' in i]
 </table>
 </div>
 
-<pre><code class="language-python">dfcat = margin.columns[:-2]
-dfcat
-</code></pre>
-<pre><code>Index(['Base Cake', 'Truffle Type', 'Primary Flavor', 'Secondary Flavor',
-       'Color Group', 'Customer', 'Date'],
-      dtype='object')
-</code></pre>
-<pre><code class="language-python">orders.head()
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">dfcat</span> <span class="o">=</span> <span class="n">margin</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">dfcat</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Index([&#39;Base Cake&#39;, &#39;Truffle Type&#39;, &#39;Primary Flavor&#39;, &#39;Secondary Flavor&#39;,
+       &#39;Color Group&#39;, &#39;Customer&#39;, &#39;Date&#39;],
+      dtype=&#39;object&#39;)
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">orders</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1407,65 +1415,73 @@ dfcat
 </div>
 
 <p><a name='2.1'></a></p>
-<h2 id="41-categorical-features">4.1 Categorical Features</h2>
+<h2 id="41-categorical-features">4.1 Categorical Features<a class="headerlink" href="#41-categorical-features" title="Permanent link">&para;</a></h2>
 <p><a href="#top">back to top</a></p>
 <p>At the end of the day, our algorithms operate on numerical values. How do you get from a series of string values to numerical values? </p>
-<pre><code class="language-python">margin['Customer'].unique()
-</code></pre>
-<pre><code>array(['Slugworth', 'Perk-a-Cola', 'Fickelgruber', 'Zebrabar',
-       "Dandy's Candies"], dtype=object)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">margin</span><span class="p">[</span><span class="s1">&#39;Customer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>array([&#39;Slugworth&#39;, &#39;Perk-a-Cola&#39;, &#39;Fickelgruber&#39;, &#39;Zebrabar&#39;,
+       &quot;Dandy&#39;s Candies&quot;], dtype=object)
+</code></pre></div>
+
 <p>A naive way to do it would be to assign a number to every entry</p>
-<pre><code>'Slugworth' = 1
-'Perk-a-Cola' = 2
-'Dandy's Candies' = 3
-</code></pre>
+<div class="codehilite"><pre><span></span><code>&#39;Slugworth&#39; = 1
+&#39;Perk-a-Cola&#39; = 2
+&#39;Dandy&#39;s Candies&#39; = 3
+</code></pre></div>
+
 <p>but we would inadvertently end up with some weird mathematical relationships between these variables, e.g. <code>Dandy's Candies - Perk-a-Cola = Slugworth</code> (3 - 2 = 1). </p>
 <p>A work around for this is to think <em>multi-dimensionally</em> we express our categorical values as vectors in a hyperspace where they cannot be expressed in terms of one another, i.e. they are <em>orthogonal</em> </p>
-<pre><code>'Slugworth' = [1,0,0]
-'Perk-a-Cola' = [0,1,0]
-'Dandy's Candies' = [0,0,1]
-</code></pre>
+<div class="codehilite"><pre><span></span><code>&#39;Slugworth&#39; = [1,0,0]
+&#39;Perk-a-Cola&#39; = [0,1,0]
+&#39;Dandy&#39;s Candies&#39; = [0,0,1]
+</code></pre></div>
+
 <p>such a scheme, in machine learning vernacular, is termed one-hot encoding. </p>
 <p><a name='2.1.1'></a></p>
-<h3 id="411-one-hot-encoding">4.1.1 One-Hot Encoding</h3>
+<h3 id="411-one-hot-encoding">4.1.1 One-Hot Encoding<a class="headerlink" href="#411-one-hot-encoding" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
 <p>sklearn has a couple useful libraries for one-hot encoding. let's start with the <code>OneHotEncoder</code> class in its <code>preprocessing</code> library</p>
-<pre><code class="language-python">from sklearn.preprocessing import OneHotEncoder
-</code></pre>
-<pre><code class="language-python"># create the encoder object
-enc = OneHotEncoder()
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
+</code></pre></div>
 
-# grab the columns we want to convert from strings
-X_cat = margin['Customer'].values.reshape(-1,1)
+<div class="codehilite"><pre><span></span><code><span class="c1"># create the encoder object</span>
+<span class="n">enc</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">()</span>
 
-# fit our encoder to this data
-enc.fit(X_cat)
-</code></pre>
-<pre><code>OneHotEncoder(categories='auto', drop=None, dtype=&lt;class 'numpy.float64'&gt;,
-              handle_unknown='error', sparse=True)
-</code></pre>
+<span class="c1"># grab the columns we want to convert from strings</span>
+<span class="n">X_cat</span> <span class="o">=</span> <span class="n">margin</span><span class="p">[</span><span class="s1">&#39;Customer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># fit our encoder to this data</span>
+<span class="n">enc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_cat</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>OneHotEncoder(categories=&#39;auto&#39;, drop=None, dtype=&lt;class &#39;numpy.float64&#39;&gt;,
+              handle_unknown=&#39;error&#39;, sparse=True)
+</code></pre></div>
+
 <p>After fitting our encoder, we can then use this object to create our training array.</p>
-<pre><code class="language-python"># as a reference here's our original data
-display(X_cat[:10])
-print(X_cat.shape, end='\n\n')
+<div class="codehilite"><pre><span></span><code><span class="c1"># as a reference here&#39;s our original data</span>
+<span class="n">display</span><span class="p">(</span><span class="n">X_cat</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_cat</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
-onehotlabels = enc.transform(X_cat).toarray()
-print(onehotlabels.shape, end='\n\n')
+<span class="n">onehotlabels</span> <span class="o">=</span> <span class="n">enc</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_cat</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">onehotlabels</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
-# And here is our new data
-onehotlabels[:10]
-</code></pre>
-<pre><code>array([['Slugworth'],
-       ['Slugworth'],
-       ['Perk-a-Cola'],
-       ['Fickelgruber'],
-       ['Fickelgruber'],
-       ['Fickelgruber'],
-       ['Slugworth'],
-       ['Zebrabar'],
-       ['Slugworth'],
-       ['Zebrabar']], dtype=object)
+<span class="c1"># And here is our new data</span>
+<span class="n">onehotlabels</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>array([[&#39;Slugworth&#39;],
+       [&#39;Slugworth&#39;],
+       [&#39;Perk-a-Cola&#39;],
+       [&#39;Fickelgruber&#39;],
+       [&#39;Fickelgruber&#39;],
+       [&#39;Fickelgruber&#39;],
+       [&#39;Slugworth&#39;],
+       [&#39;Zebrabar&#39;],
+       [&#39;Slugworth&#39;],
+       [&#39;Zebrabar&#39;]], dtype=object)
 
 
 (1668, 1)
@@ -1487,52 +1503,58 @@ array([[0., 0., 0., 1., 0.],
        [0., 0., 0., 0., 1.],
        [0., 0., 0., 1., 0.],
        [0., 0., 0., 0., 1.]])
-</code></pre>
+</code></pre></div>
+
 <p>We have our customer information one-hot encoded, we need to do this for all our variables and concatenate them with our regular numerical variables in our original dataframe.</p>
-<pre><code class="language-python"># create the encoder object
-enc = OneHotEncoder()
+<div class="codehilite"><pre><span></span><code><span class="c1"># create the encoder object</span>
+<span class="n">enc</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">()</span>
 
-# grab the columns we want to convert from strings
-X_cat = margin[dfcat].values
+<span class="c1"># grab the columns we want to convert from strings</span>
+<span class="n">X_cat</span> <span class="o">=</span> <span class="n">margin</span><span class="p">[</span><span class="n">dfcat</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
 
-# fit our encoder to this data
-enc.fit(X_cat)
-onehotlabels = enc.transform(X_cat).toarray()
-</code></pre>
-<pre><code class="language-python">X_num = margin[&quot;KG&quot;]
-print(X_num.shape)
-X = np.concatenate((onehotlabels, X_num.values.reshape(-1,1)),axis=1)
-X.shape
-</code></pre>
-<pre><code>(1668,)
+<span class="c1"># fit our encoder to this data</span>
+<span class="n">enc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_cat</span><span class="p">)</span>
+<span class="n">onehotlabels</span> <span class="o">=</span> <span class="n">enc</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_cat</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">X_num</span> <span class="o">=</span> <span class="n">margin</span><span class="p">[</span><span class="s2">&quot;KG&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_num</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">onehotlabels</span><span class="p">,</span> <span class="n">X_num</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>(1668,)
 
 
 
 
 
 (1668, 119)
-</code></pre>
+</code></pre></div>
+
 <p>And now we grab our EBITDA (margin) data for prediction</p>
-<pre><code class="language-python">y = margin[&quot;EBITDA/KG&quot;]
-</code></pre>
-<h4 id="exercise-1-create-a-simple-linear-model">🏋️ Exercise 1: Create a simple linear model</h4>
+<div class="codehilite"><pre><span></span><code><span class="n">y</span> <span class="o">=</span> <span class="n">margin</span><span class="p">[</span><span class="s2">&quot;EBITDA/KG&quot;</span><span class="p">]</span>
+</code></pre></div>
+
+<h4 id="exercise-1-create-a-simple-linear-model">🏋️ Exercise 1: Create a simple linear model<a class="headerlink" href="#exercise-1-create-a-simple-linear-model" title="Permanent link">&para;</a></h4>
 <p>Using the X and Y sets, use <code>train_test_split</code> and <code>LinearRegression</code> to make a baseline model based on what we've learned so far.</p>
 <p>Assess your model performance visually by plottying <code>y_test</code> vs <code>y_test_pred</code></p>
-<pre><code class="language-python"># Cell for Exercise 1
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
+<div class="codehilite"><pre><span></span><code><span class="c1"># Cell for Exercise 1</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+</code></pre></div>
 
-</code></pre>
-<pre><code>[&lt;matplotlib.lines.Line2D at 0x7fb3d1bb0890&gt;]
-</code></pre>
+<div class="codehilite"><pre><span></span><code>[&lt;matplotlib.lines.Line2D at 0x7fb3d1bb0890&gt;]
+</code></pre></div>
+
 <p><img alt="png" src="../S4_Feature_Engineering_files/S4_Feature_Engineering_24_1.png" /></p>
-<h4 id="question-1">🙋 Question 1:</h4>
+<h4 id="question-1">🙋 Question 1:<a class="headerlink" href="#question-1" title="Permanent link">&para;</a></h4>
 <blockquote>
 <p>How can we assess the relative feature importance of the features in our model?</p>
 </blockquote>
 <p>We could be tempted to inspect the coefficients (<code>linear.coef_</code>) of our  model to evaluate the relative feature importance, but in order to do this our features need to be scaled (so that the relative coefficient sizes are meaningful). What other issues might there be (think categorical vs continuous variables). </p>
 <p><a name='2.2'></a></p>
-<h2 id="42-derived-features">4.2 Derived Features</h2>
+<h2 id="42-derived-features">4.2 Derived Features<a class="headerlink" href="#42-derived-features" title="Permanent link">&para;</a></h2>
 <p><a href="#top">back to top</a></p>
 <p>Can we recall an example of where we've seen this previously? That's right earlier on in our first session we derived some polynomial features to create our polynomial model using the linear regression class in sklearn. </p>
 <p>We actually see this a lot in engineering, where we will describe log relationships or some other transformation of the original variable. Actually let me see if I can find an example in my handy BSL...</p>
@@ -1542,35 +1564,41 @@ from sklearn.linear_model import LinearRegression
 <p>Can we think of other examples where we would like to derive features from our input data?</p>
 </blockquote>
 <p><a name='2.2.1'></a></p>
-<h3 id="421-creating-polynomials">4.2.1 Creating Polynomials</h3>
+<h3 id="421-creating-polynomials">4.2.1 Creating Polynomials<a class="headerlink" href="#421-creating-polynomials" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
 <p>Let's revisit our example from the previous session, right before we introduced Grid Search in sklearn</p>
-<pre><code class="language-python"># from Model Selection and Validation, 1.2.1
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.linear_model import LinearRegression
-from sklearn.pipeline import make_pipeline
+<div class="codehilite"><pre><span></span><code><span class="c1"># from Model Selection and Validation, 1.2.1</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PolynomialFeatures</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
 
-def PolynomialRegression(degree=2, **kwargs):
-    return make_pipeline(PolynomialFeatures(degree),
-                         LinearRegression(**kwargs))
-</code></pre>
+<span class="k">def</span> <span class="nf">PolynomialRegression</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="p">),</span>
+                         <span class="n">LinearRegression</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+</code></pre></div>
+
 <p>in the above, we use sklearn's convenient tool, <code>make_pipeline</code> to join together the preprocessing tool <code>PolynomialFeatures</code> and the basic model <code>LinearRegression</code>. Let's take a look at what PolynomialFeatures does to some simple data</p>
-<pre><code class="language-python">x = np.arange(1,11)
-y = x**3
-print(x)
-print(y)
-</code></pre>
-<pre><code>[ 1  2  3  4  5  6  7  8  9 10]
+<div class="codehilite"><pre><span></span><code><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[ 1  2  3  4  5  6  7  8  9 10]
 [   1    8   27   64  125  216  343  512  729 1000]
-</code></pre>
-<pre><code class="language-python">features = PolynomialFeatures(degree=3)
-</code></pre>
-<pre><code class="language-python">X2 = features.fit_transform(x.reshape(-1,1))
-</code></pre>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">features</span> <span class="o">=</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">X2</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</code></pre></div>
+
 <p>we see our new feature set contains our original features, plus new features up to the nth-degree polynomial we set when creating the features object from <code>PolynomialFeatures</code></p>
-<pre><code class="language-python">print(X2)
-</code></pre>
-<pre><code>[[   1.    1.    1.    1.]
+<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">X2</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[[   1.    1.    1.    1.]
  [   1.    2.    4.    8.]
  [   1.    3.    9.   27.]
  [   1.    4.   16.   64.]
@@ -1580,88 +1608,94 @@ print(y)
  [   1.    8.   64.  512.]
  [   1.    9.   81.  729.]
  [   1.   10.  100. 1000.]]
-</code></pre>
-<pre><code class="language-python">model = LinearRegression().fit(X2, y)
-yhat = model.predict(X2)
-plt.scatter(x, y)
-plt.plot(x, yhat);
-</code></pre>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">yhat</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">yhat</span><span class="p">);</span>
+</code></pre></div>
+
 <p><img alt="png" src="../S4_Feature_Engineering_files/S4_Feature_Engineering_35_0.png" /></p>
 <p><a name='2.2.2'></a></p>
-<h3 id="422-dealing-with-time-series">4.2.2 Dealing with Time Series</h3>
+<h3 id="422-dealing-with-time-series">4.2.2 Dealing with Time Series<a class="headerlink" href="#422-dealing-with-time-series" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
 <p>Often, we will be dealing with time series data, whether its data generated by machinery, reactors, or sales and customers. In the following we discuss some simple practices for dealing with time series data.</p>
 <p><a name='2.2.2.1'></a></p>
-<h4 id="enrichment-2221-fast-fourier-transform"><strong>Enrichment</strong>: 2.2.2.1 Fast Fourier Transform</h4>
+<h4 id="enrichment-2221-fast-fourier-transform"><strong>Enrichment</strong>: 2.2.2.1 Fast Fourier Transform<a class="headerlink" href="#enrichment-2221-fast-fourier-transform" title="Permanent link">&para;</a></h4>
 <p><a href="#top">back to top</a></p>
 <p>Sometimes we'll want to create a more sophisticated transformation of our input data. As engineers, this can often have to do with some empirical knowledge we understand about our process.</p>
 <p>When working with equipment and machinery, we will often want to convert a signal from the time to frequency domain. Let's cover how we can do that with numpy!</p>
 <p><img src="https://www.nti-audio.com/portals/0/pic/news/FFT-Time-Frequency-View-540.png" width=400px></img></p>
-<p><small>[img src](https://www.nti-audio.com/en/support/know-how/fast-fourier-transform-fft#:~:text=The%20%22Fast%20Fourier%20Transform%22%20(,frequency%20information%20about%20the%20signal.)</small></p>
+<p><small>[img src](<a href="https://www.nti-audio.com/en/support/know-how/fast-fourier-transform-fft#:~:text=The%20%22Fast%20Fourier%20Transform%22%20(,frequency%20information%20about%20the%20signal">https://www.nti-audio.com/en/support/know-how/fast-fourier-transform-fft#:~:text=The%20%22Fast%20Fourier%20Transform%22%20(,frequency%20information%20about%20the%20signal</a>.)</small></p>
 <p>What I've drawn here in the following is called a <a href="https://en.wikipedia.org/wiki/Square_wave">square-wave signal</a></p>
-<pre><code class="language-python">t = np.linspace(0,5,200)
-w = 5
-h = 4
-s = 4 * h / np.pi * (np.sin(w*t) + np.sin(3*w*t)/3 + np.sin(5*w*t)/5)
+<div class="codehilite"><pre><span></span><code><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">w</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">h</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">s</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">h</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="mi">5</span><span class="p">)</span>
 
-# here is the call to numpy FFT
-F = np.fft.fft(s)
-freq = np.fft.fftfreq(t.shape[-1])
+<span class="c1"># here is the call to numpy FFT</span>
+<span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">freq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftfreq</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
-# amplitudes
-amps = [max(np.sin(w*t)), max(np.sin(w*t*3)/3), max(np.sin(w*t*5)/5)]
+<span class="c1"># amplitudes</span>
+<span class="n">amps</span> <span class="o">=</span> <span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">)),</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span><span class="o">/</span><span class="mi">5</span><span class="p">)]</span>
 
-fig, ax = plt.subplots(1,2,figsize=(10,5))
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
 
-ax[0].plot(t,s)
-ax[0].plot(t,np.sin(w*t), ls='--')
-ax[0].plot(t,np.sin(w*t*3)/3, ls='--')
-ax[0].plot(t,np.sin(w*t*5)/5, ls='--')
-ax[0].set_title('Time Domain')
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">),</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Time Domain&#39;</span><span class="p">)</span>
 
-# tells us about the amplitude of the component at the
-# corresponding frequency
-magnitude = np.sqrt(F.real**2 + F.imag**2)
+<span class="c1"># tells us about the amplitude of the component at the</span>
+<span class="c1"># corresponding frequency</span>
+<span class="n">magnitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">real</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">imag</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
-ax[1].plot(freq, magnitude)
-ax[1].set_xlim(0,.15)
-ax[1].set_title('Frequency Domain')
-</code></pre>
-<pre><code>Text(0.5, 1.0, 'Frequency Domain')
-</code></pre>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">magnitude</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">.15</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Frequency Domain&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Text(0.5, 1.0, &#39;Frequency Domain&#39;)
+</code></pre></div>
+
 <p><img alt="png" src="../S4_Feature_Engineering_files/S4_Feature_Engineering_39_1.png" /></p>
 <p>We can construct a similar plot with 4 signals contributing to the square-wave:</p>
-<pre><code class="language-python">t = np.linspace(0,5,200)
-w = 5
-h = 4
-s = 4 * h / np.pi * (np.sin(w*t) + np.sin(3*w*t)/3 + np.sin(5*w*t)/5
-                      + np.sin(10*w*t)/10)
+<div class="codehilite"><pre><span></span><code><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">w</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">h</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">s</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">h</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="mi">5</span>
+                      <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span>
 
-F = np.fft.fft(s)
-freq = np.fft.fftfreq(t.shape[-1])
+<span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">freq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftfreq</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
-fig, ax = plt.subplots(1,2,figsize=(10,5))
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
 
-ax[0].plot(t,s)
-ax[0].plot(t,np.sin(w*t), ls='--')
-ax[0].plot(t,np.sin(w*t*3)/3, ls='--')
-ax[0].plot(t,np.sin(w*t*5)/5, ls='--')
-ax[0].plot(t,np.sin(10*w*t)/10, ls='--')
-ax[0].set_title('Time Domain')
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">),</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="n">w</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Time Domain&#39;</span><span class="p">)</span>
 
-# tells us about the amplitude of the component at the
-# corresponding frequency
-magnitude = np.sqrt(F.real**2 + F.imag**2)
+<span class="c1"># tells us about the amplitude of the component at the</span>
+<span class="c1"># corresponding frequency</span>
+<span class="n">magnitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">real</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">imag</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
-ax[1].plot(freq, magnitude)
-ax[1].set_xlim(0)
-ax[1].set_title('Frequency Domain')
-</code></pre>
-<pre><code>Text(0.5, 1.0, 'Frequency Domain')
-</code></pre>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">magnitude</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Frequency Domain&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Text(0.5, 1.0, &#39;Frequency Domain&#39;)
+</code></pre></div>
+
 <p><img alt="png" src="../S4_Feature_Engineering_files/S4_Feature_Engineering_41_1.png" /></p>
 <p><a name='x.2.2.2'></a></p>
-<h4 id="4222-rolling-windows">4.2.2.2 Rolling Windows</h4>
+<h4 id="4222-rolling-windows">4.2.2.2 Rolling Windows<a class="headerlink" href="#4222-rolling-windows" title="Permanent link">&para;</a></h4>
 <p><a href="#top">back to top</a></p>
 <p>One powerful technique for dealing with time series data, is to create a rolling window of features based on the historical data. The proper window size can usually be determined by trial and error, or constraints around access to the data itself.</p>
 <p align=center>
@@ -1669,86 +1703,87 @@ ax[1].set_title('Frequency Domain')
 </p>
 
 <p>In the above gif, we have a window size of 7. What that means is for whatever time step units we are in (that could be minutes, days, months, etc.) we will have 7 of them included in a single instance or observation. This instance or observation is then interpreted by our model and used to assess the target value, typically the quantity in the very next time step after the window (the green bar in the gif).</p>
-<h5 id="exercise-2-optimize-rolling-window-size-for-customer-forecasts">🏋️ Exercise 2: Optimize Rolling Window Size for Customer Forecasts</h5>
+<h5 id="exercise-2-optimize-rolling-window-size-for-customer-forecasts">🏋️ Exercise 2: Optimize Rolling Window Size for Customer Forecasts<a class="headerlink" href="#exercise-2-optimize-rolling-window-size-for-customer-forecasts" title="Permanent link">&para;</a></h5>
 <p>For this exercise, you will use the <code>process_data</code> function below to help you optimize the <code>window</code> size for predicting the order quantity in any given month. </p>
 <ul>
 <li>create a model using a window size of 3 and predict the order quantity for the month immediately following the window</li>
 <li>create a model for window sizes 1-11 and report the \(R^2\) for each model</li>
 </ul>
-<pre><code class="language-python">def process_data(Xy, time_cols=12, window=3, remove_null=False):
-  &quot;&quot;&quot;
-  This function splits your time series data into the proper windows
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="n">Xy</span><span class="p">,</span> <span class="n">time_cols</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">remove_null</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  This function splits your time series data into the proper windows</span>
 
-  Parameters
-  ----------
-  Xy: array
-    The input data. If there are non-time series columns, assumes they are on
-    the left and time columns are on the right. 
-  time_cols: int
-    The number of time columns, default 12
-  window: int
-    The time window size, default 3
+<span class="sd">  Parameters</span>
+<span class="sd">  ----------</span>
+<span class="sd">  Xy: array</span>
+<span class="sd">    The input data. If there are non-time series columns, assumes they are on</span>
+<span class="sd">    the left and time columns are on the right. </span>
+<span class="sd">  time_cols: int</span>
+<span class="sd">    The number of time columns, default 12</span>
+<span class="sd">  window: int</span>
+<span class="sd">    The time window size, default 3</span>
 
-  Returns
-  -------
-  X_: array
-    The independent variables, includes time and non-time series columns with
-    the new window
-  y_: array
-    The dependent variable, selected from the time columns at the end of the 
-    window
-  labels:
-    The time series labels, can be used in subsequent plot
-  &quot;&quot;&quot;
-  # separate the non-time series columns
-  X_cat = Xy[:,:-time_cols]
+<span class="sd">  Returns</span>
+<span class="sd">  -------</span>
+<span class="sd">  X_: array</span>
+<span class="sd">    The independent variables, includes time and non-time series columns with</span>
+<span class="sd">    the new window</span>
+<span class="sd">  y_: array</span>
+<span class="sd">    The dependent variable, selected from the time columns at the end of the </span>
+<span class="sd">    window</span>
+<span class="sd">  labels:</span>
+<span class="sd">    The time series labels, can be used in subsequent plot</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="c1"># separate the non-time series columns</span>
+  <span class="n">X_cat</span> <span class="o">=</span> <span class="n">Xy</span><span class="p">[:,:</span><span class="o">-</span><span class="n">time_cols</span><span class="p">]</span>
 
-  # select the columns to apply the sweeping window
-  X = Xy[:,-time_cols:]
+  <span class="c1"># select the columns to apply the sweeping window</span>
+  <span class="n">X</span> <span class="o">=</span> <span class="n">Xy</span><span class="p">[:,</span><span class="o">-</span><span class="n">time_cols</span><span class="p">:]</span>
 
-  X_ = []
-  y = []
+  <span class="n">X_</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="p">[]</span>
 
-  for i in range(X.shape[1]-window):
-    # after attaching the current window to the non-time series 
-    # columns, add it to a growing list
-    X_.append(np.concatenate((X_cat, X[:, i:i+window]), axis=1))
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">window</span><span class="p">):</span>
+    <span class="c1"># after attaching the current window to the non-time series </span>
+    <span class="c1"># columns, add it to a growing list</span>
+    <span class="n">X_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">X_cat</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">window</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 
-    # add the next time delta after the window to the list of y
-    # values
-    y.append(X[:, i+window])
+    <span class="c1"># add the next time delta after the window to the list of y</span>
+    <span class="c1"># values</span>
+    <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">i</span><span class="o">+</span><span class="n">window</span><span class="p">])</span>
 
-  # X_ is 3D: [number of replicates from sweeping window,
-  #           length of input data, 
-  #           size of new feature with categories and time]
-  # we want to reshape X_ so that the replicates due to the sweeping window is 
-  # a part of the same dimension as the instances of the input data
-  X_ = np.array(X_).reshape(X.shape[0]*np.array(X_).shape[0],window+X_cat.shape[1])
-  y = np.array(y).reshape(X.shape[0]*np.array(y).shape[0],)
+  <span class="c1"># X_ is 3D: [number of replicates from sweeping window,</span>
+  <span class="c1">#           length of input data, </span>
+  <span class="c1">#           size of new feature with categories and time]</span>
+  <span class="c1"># we want to reshape X_ so that the replicates due to the sweeping window is </span>
+  <span class="c1"># a part of the same dimension as the instances of the input data</span>
+  <span class="n">X_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X_</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X_</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">window</span><span class="o">+</span><span class="n">X_cat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],)</span>
 
-  if remove_null:
-    # remove training data where the target is 0 (may be unfair advantage)
-    X_ = X_[np.where(~np.isnan(y.astype(float)))[0]]
-    y = y[np.where(~np.isnan(y.astype(float)))[0]]
+  <span class="k">if</span> <span class="n">remove_null</span><span class="p">:</span>
+    <span class="c1"># remove training data where the target is 0 (may be unfair advantage)</span>
+    <span class="n">X_</span> <span class="o">=</span> <span class="n">X_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)))[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)))[</span><span class="mi">0</span><span class="p">]]</span>
 
-  # create labels that show the previous month values used to train the model
-  labels = []
-  for row in X_:
-    labels.append(&quot;X: {}&quot;.format(np.array2string(row[-window:].astype(float).round())))
-  return X_, y, labels
-</code></pre>
-<pre><code class="language-python"># Code Cell for Exercise 2
-# use data and the function process_data to create your X, y arrays
-# then use train_test_split to create train and test portions
-data = orders.values[:,6:]
+  <span class="c1"># create labels that show the previous month values used to train the model</span>
+  <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">X_</span><span class="p">:</span>
+    <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;X: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array2string</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="o">-</span><span class="n">window</span><span class="p">:]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">())))</span>
+  <span class="k">return</span> <span class="n">X_</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">labels</span>
+</code></pre></div>
 
-### YOUR CODE HERE ###
-# USE y_test and  y_pred for your actual and true test data
-# name your labels for the test set labels_test
-# change only window parameter in process_data()
+<div class="codehilite"><pre><span></span><code><span class="c1"># Code Cell for Exercise 2</span>
+<span class="c1"># use data and the function process_data to create your X, y arrays</span>
+<span class="c1"># then use train_test_split to create train and test portions</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">orders</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="mi">6</span><span class="p">:]</span>
 
-</code></pre>
-<pre><code>1 0.762506752772391
+<span class="c1">### YOUR CODE HERE ###</span>
+<span class="c1"># USE y_test and  y_pred for your actual and true test data</span>
+<span class="c1"># name your labels for the test set labels_test</span>
+<span class="c1"># change only window parameter in process_data()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>1 0.762506752772391
 2 0.8895992010134899
 3 0.9413336982898548
 4 0.7532142077720143
@@ -1759,20 +1794,22 @@ data = orders.values[:,6:]
 9 1.0
 10 1.0
 11 1.0
-</code></pre>
-<pre><code class="language-python">#### RUN AFTER EXERCISE 2.2.2.2.1 ####
-fig = px.scatter(x=y_test, y=y_pred,
-                 labels={
-                     &quot;y&quot;: &quot;Prediction&quot;,
-                     &quot;x&quot;: &quot;Actual&quot;
-                 })
-fig.update_layout(
-  autosize=False,
-  width=800,
-  height=500,
-  title='R2: {:.3f}'.format(r2_score(y_test, y_pred))
-  )
-</code></pre>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1">#### RUN AFTER EXERCISE 2.2.2.2.1 ####</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span>
+                 <span class="n">labels</span><span class="o">=</span><span class="p">{</span>
+                     <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="s2">&quot;Prediction&quot;</span><span class="p">,</span>
+                     <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="s2">&quot;Actual&quot;</span>
+                 <span class="p">})</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+  <span class="n">autosize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span>
+  <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+  <span class="n">title</span><span class="o">=</span><span class="s1">&#39;R2: </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+  <span class="p">)</span>
+</code></pre></div>
+
 <p><html>
 <head><meta charset="utf-8" /></head></p>
 <body>
@@ -1823,47 +1860,54 @@ if (outputEl) {{
 </body>
 <p></html></p>
 <p><a name='2.2.3'></a></p>
-<h3 id="423-image-preprocessing">4.2.3 Image Preprocessing</h3>
+<h3 id="423-image-preprocessing">4.2.3 Image Preprocessing<a class="headerlink" href="#423-image-preprocessing" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
 <p>Image preprocessing is beyond the scope of this session. We will cover this in C4. For now, know that there is a wealth of considerations for how to handle images, and they all fit within the realm of feature engineering.</p>
 <p><a name='2.3'></a></p>
-<h2 id="43-transformed-features">4.3 Transformed Features</h2>
+<h2 id="43-transformed-features">4.3 Transformed Features<a class="headerlink" href="#43-transformed-features" title="Permanent link">&para;</a></h2>
 <p><a href="#top">back to top</a></p>
 <p><em>Transformed</em> features, are features that we would like to augment based on their relationship within their own distribution or to other (allegedly) independent data within our training set. e.g. we're not <em>deriving</em> new features based on some empirical knowledge of the data, rather we are changing them due to statistical properties that we can assess based on the data itself.</p>
 <p><a name='2.3.1'></a></p>
-<h3 id="431-skewness">4.3.1 Skewness</h3>
+<h3 id="431-skewness">4.3.1 Skewness<a class="headerlink" href="#431-skewness" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
 <p><img src="https://i.pinimg.com/originals/d1/9f/7c/d19f7c7f5daaed737ab2516decea9874.png" width=400px></img></p>
 <p>Skewed data can lead to imbalances in our model prediction. Why? Skewed values in the distribution will bias the mean. When assigning weights to this input feature, therefore, the model will give preferential treatment to these values.</p>
 <p>To demonstrate, I'm going to use scipy to create some skewed data.</p>
-<pre><code class="language-python">from scipy.stats import skewnorm
-</code></pre>
-<pre><code class="language-python">a = 10
-x = np.linspace(skewnorm.ppf(0.01, a),
-                skewnorm.ppf(0.99, a), 100)
-plt.plot(x, skewnorm.pdf(x, a),
-       'r-', lw=5, alpha=0.6, label='skewnorm pdf')
-</code></pre>
-<pre><code>[&lt;matplotlib.lines.Line2D at 0x7fb3cb441910&gt;]
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">skewnorm</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">a</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">skewnorm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">a</span><span class="p">),</span>
+                <span class="n">skewnorm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">,</span> <span class="n">a</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">skewnorm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">),</span>
+       <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;skewnorm pdf&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[&lt;matplotlib.lines.Line2D at 0x7fb3cb441910&gt;]
+</code></pre></div>
+
 <p><img alt="png" src="../S4_Feature_Engineering_files/S4_Feature_Engineering_51_1.png" /></p>
 <p>We can now generate a random population based on this distribution</p>
-<pre><code class="language-python">r = skewnorm.rvs(a, size=1000)
-plt.hist(r)
-</code></pre>
-<pre><code>(array([143., 290., 244., 160.,  96.,  43.,  13.,   7.,   3.,   1.]),
+<div class="codehilite"><pre><span></span><code><span class="n">r</span> <span class="o">=</span> <span class="n">skewnorm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>(array([143., 290., 244., 160.,  96.,  43.,  13.,   7.,   3.,   1.]),
  array([-0.24457186,  0.18369502,  0.61196191,  1.04022879,  1.46849568,
          1.89676256,  2.32502945,  2.75329633,  3.18156322,  3.60983011,
          4.03809699]),
  &lt;a list of 10 Patch objects&gt;)
-</code></pre>
+</code></pre></div>
+
 <p><img alt="png" src="../S4_Feature_Engineering_files/S4_Feature_Engineering_53_1.png" /></p>
 <p>Unskewed data will return something close to 0 from calling <code>df.skew()</code>. When dealing with actual data, we can use <code>df.skew()</code> to determine whether we should transform our data. </p>
-<pre><code class="language-python">x = pd.DataFrame(r, columns=['Skewed Data'])
-x['Skewed Data'].skew()
-</code></pre>
-<pre><code>0.9914234810526167
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Skewed Data&#39;</span><span class="p">])</span>
+<span class="n">x</span><span class="p">[</span><span class="s1">&#39;Skewed Data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">skew</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>0.9914234810526167
+</code></pre></div>
+
 <p>There are a handful of ways to deal with skewed data:</p>
 <ul>
 <li>log transform</li>
@@ -1871,18 +1915,19 @@ x['Skewed Data'].skew()
 <li>Box-Cox transform</li>
 </ul>
 <p>Let's try the first two</p>
-<pre><code class="language-python">print('square root transformed skew: {:.4f}'.format(np.sqrt(x['Skewed Data']).skew()))
-print('log transformed skew: {:.4f}'.format(np.log(x['Skewed Data']).skew()))
-fig, ax = plt.subplots(1, 1, figsize=(10,10))
-ax.hist(x['Skewed Data'], alpha=0.5, label='original: {:.2f}'.
-        format((x['Skewed Data']).skew()))
-ax.hist(np.sqrt(x['Skewed Data']), alpha=0.5, label='sqrt: {:.2f}'.
-        format(np.sqrt(x['Skewed Data']).skew()))
-ax.hist(np.log(x['Skewed Data']), alpha=0.5, label='log: {:.2f}'.
-        format(np.log(x['Skewed Data']).skew()))
-ax.legend()
-</code></pre>
-<pre><code>square root transformed skew: 0.1112
+<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;square root transformed skew: </span><span class="si">{:.4f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Skewed Data&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">skew</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;log transformed skew: </span><span class="si">{:.4f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Skewed Data&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">skew</span><span class="p">()))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Skewed Data&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;original: </span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span>
+        <span class="nb">format</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Skewed Data&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">skew</span><span class="p">()))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Skewed Data&#39;</span><span class="p">]),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sqrt: </span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span>
+        <span class="nb">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Skewed Data&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">skew</span><span class="p">()))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Skewed Data&#39;</span><span class="p">]),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;log: </span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span>
+        <span class="nb">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Skewed Data&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">skew</span><span class="p">()))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>square root transformed skew: 0.1112
 log transformed skew: -1.9834
 
 
@@ -1900,90 +1945,100 @@ invalid value encountered in log
 
 
 &lt;matplotlib.legend.Legend at 0x7fb3cb3525d0&gt;
-</code></pre>
+</code></pre></div>
+
 <p><img alt="png" src="../S4_Feature_Engineering_files/S4_Feature_Engineering_57_3.png" /></p>
 <p>We see we didn't get much traction with the log transform, and the log transform will not be able to handle 0 values, and so we will sometimes have to code exceptions for those. </p>
 <p>Boxplot is often a good route to go, but it has the added restriction that the data has to all be above 0.</p>
 <p>Let's create a new distribution with this added restriction</p>
-<pre><code class="language-python">a = 6
-r = skewnorm.rvs(a, size=1000)
-r = [i for i in r if i &gt; 0]
-plt.hist(r)
-</code></pre>
-<pre><code>(array([186., 194., 186., 134., 107.,  70.,  41.,  18.,   7.,   6.]),
+<div class="codehilite"><pre><span></span><code><span class="n">a</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">skewnorm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">r</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>(array([186., 194., 186., 134., 107.,  70.,  41.,  18.,   7.,   6.]),
  array([4.86688792e-04, 2.93460209e-01, 5.86433729e-01, 8.79407250e-01,
         1.17238077e+00, 1.46535429e+00, 1.75832781e+00, 2.05130133e+00,
         2.34427485e+00, 2.63724837e+00, 2.93022189e+00]),
  &lt;a list of 10 Patch objects&gt;)
-</code></pre>
+</code></pre></div>
+
 <p><img alt="png" src="../S4_Feature_Engineering_files/S4_Feature_Engineering_59_1.png" /></p>
-<pre><code class="language-python">from scipy import stats
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
 
-x = pd.DataFrame(r, columns=['Skewed Data'])
-fig, ax = plt.subplots(1, 1, figsize=(10,10))
-ax.hist(x['Skewed Data'], alpha=0.5, label='original: {:.2f}'.
-        format((x['Skewed Data']).skew()))
-ax.hist(np.sqrt(x['Skewed Data']), alpha=0.5, label='sqrt: {:.2f}'.
-        format(np.sqrt(x['Skewed Data']).skew()))
-ax.hist(np.log(x['Skewed Data']), alpha=0.5, label='log: {:.2f}'.
-        format(np.log(x['Skewed Data']).skew()))
-ax.hist(stats.boxcox(x['Skewed Data'])[0], alpha=0.5, label='box-cox: {:.2f}'.
-        format(pd.DataFrame(stats.boxcox(x['Skewed Data'])[0])[0].skew()))
-ax.legend()
+<span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Skewed Data&#39;</span><span class="p">])</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Skewed Data&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;original: </span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span>
+        <span class="nb">format</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Skewed Data&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">skew</span><span class="p">()))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Skewed Data&#39;</span><span class="p">]),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sqrt: </span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span>
+        <span class="nb">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Skewed Data&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">skew</span><span class="p">()))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Skewed Data&#39;</span><span class="p">]),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;log: </span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span>
+        <span class="nb">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Skewed Data&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">skew</span><span class="p">()))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">boxcox</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Skewed Data&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;box-cox: </span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span>
+        <span class="nb">format</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">boxcox</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Skewed Data&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">skew</span><span class="p">()))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</code></pre></div>
 
-</code></pre>
-<pre><code>&lt;matplotlib.legend.Legend at 0x7fb3cb35e310&gt;
-</code></pre>
+<div class="codehilite"><pre><span></span><code>&lt;matplotlib.legend.Legend at 0x7fb3cb35e310&gt;
+</code></pre></div>
+
 <p><img alt="png" src="../S4_Feature_Engineering_files/S4_Feature_Engineering_60_1.png" /></p>
-<h4 id="exercise-3-transform-data-from-a-gamma-distribution">🏋️ Exercise 3: Transform data from a gamma distribution</h4>
+<h4 id="exercise-3-transform-data-from-a-gamma-distribution">🏋️ Exercise 3: Transform data from a gamma distribution<a class="headerlink" href="#exercise-3-transform-data-from-a-gamma-distribution" title="Permanent link">&para;</a></h4>
 <p>Repeat section 2.3.1, this time synthesizing a gamma distribution and transforming it. Which transformation best reduces the skew? Do this for a dataset that does not contain values at or below 0.</p>
-<pre><code class="language-python"># code cell for exercise 3
-from scipy.stats import gamma
-</code></pre>
-<pre><code>&lt;matplotlib.legend.Legend at 0x7fb3cb31fe90&gt;
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="c1"># code cell for exercise 3</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">gamma</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&lt;matplotlib.legend.Legend at 0x7fb3cb31fe90&gt;
+</code></pre></div>
+
 <p><img alt="png" src="../S4_Feature_Engineering_files/S4_Feature_Engineering_62_1.png" /></p>
 <p><img alt="png" src="../S4_Feature_Engineering_files/S4_Feature_Engineering_62_2.png" /></p>
 <p><a name='2.3.2'></a></p>
-<h3 id="432-colinearity">4.3.2 Colinearity</h3>
+<h3 id="432-colinearity">4.3.2 Colinearity<a class="headerlink" href="#432-colinearity" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
 <p>Colinearity can also affect the performance of your machine learning model. In particular, if features are colinear, it can be easy for your model to overfit to your training dataset. This is often mitigated by regularization. If you're curious you can read more about it on <a href="https://stats.stackexchange.com/questions/168622/why-is-multicollinearity-not-checked-in-modern-statistics-machine-learning">this discussion from StackExchange</a>. We will still explore it explicitly here by calculating the <a href="https://www.statsmodels.org/stable/_modules/statsmodels/stats/outliers_influence.html#variance_inflation_factor">Variance Inflation Factor</a> (VIF) on some hypothetical data.</p>
 <p>
 <script type="math/tex; mode=display"> VIF = \frac{1}{1-R^2}</script>
 </p>
 <p><a name='x.3.2.1'></a></p>
-<h4 id="4321-detecting-colinearity">4.3.2.1 Detecting Colinearity</h4>
+<h4 id="4321-detecting-colinearity">4.3.2.1 Detecting Colinearity<a class="headerlink" href="#4321-detecting-colinearity" title="Permanent link">&para;</a></h4>
 <p><a href="#top">back to top</a></p>
-<pre><code class="language-python">from statsmodels.stats.outliers_influence import variance_inflation_factor
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">statsmodels.stats.outliers_influence</span> <span class="kn">import</span> <span class="n">variance_inflation_factor</span>
+</code></pre></div>
+
 <p><strong>Step 1: Make some data</strong></p>
-<pre><code class="language-python"># we can throttle the error rate
-random.seed(42)
+<div class="codehilite"><pre><span></span><code><span class="c1"># we can throttle the error rate</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-# x2 will be sqrt of x1 plus some error
-def func(x, err):
-  return x**.5 + (err * random.randint(-1,1) * random.random() * x)
+<span class="c1"># x2 will be sqrt of x1 plus some error</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">err</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mf">.5</span> <span class="o">+</span> <span class="p">(</span><span class="n">err</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
 
-x0 = range(100)
-x1 = [func(i, .05) for i in x0]
-x2 = [func(i, 1) for i in x0]
-x3 = [random.randint(0,100) for i in x0]
+<span class="n">x0</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="p">[</span><span class="n">func</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mf">.05</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x0</span><span class="p">]</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="p">[</span><span class="n">func</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x0</span><span class="p">]</span>
+<span class="n">x3</span> <span class="o">=</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x0</span><span class="p">]</span>
 
-# take a look
-fig, ax = plt.subplots(1,1, figsize=(5,5))
-ax.plot(x0, x1, label='x1')
-ax.plot(x0, x2, label='x2')
-ax.plot(x0, x3, label='x3')
-ax.legend()
-</code></pre>
-<pre><code>&lt;matplotlib.legend.Legend at 0x7fb3cbab8c90&gt;
-</code></pre>
+<span class="c1"># take a look</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;x1&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;x2&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;x3&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&lt;matplotlib.legend.Legend at 0x7fb3cbab8c90&gt;
+</code></pre></div>
+
 <p><img alt="png" src="../S4_Feature_Engineering_files/S4_Feature_Engineering_67_1.png" /></p>
 <p>To calculate the colinearities I'm going to aggregate these x's into a dataframe:</p>
-<pre><code class="language-python">colin = pd.DataFrame([x0,x1,x2,x3]).T
-colin.columns = ['x0','x1','x2','x3']
-colin.head()
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">colin</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">x0</span><span class="p">,</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">x3</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">colin</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x0&#39;</span><span class="p">,</span><span class="s1">&#39;x1&#39;</span><span class="p">,</span><span class="s1">&#39;x2&#39;</span><span class="p">,</span><span class="s1">&#39;x3&#39;</span><span class="p">]</span>
+<span class="n">colin</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2049,16 +2104,18 @@ colin.head()
 </div>
 
 <p><strong>Step 2: Calculate VIF factors</strong></p>
-<pre><code class="language-python"># calculate VIF factors
-vif = pd.DataFrame()
-vif[&quot;VIF Factor&quot;] = [variance_inflation_factor(colin.values, i) for i in 
-                     range(colin.shape[1])]
-vif[&quot;features&quot;] = colin.columns
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="c1"># calculate VIF factors</span>
+<span class="n">vif</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">vif</span><span class="p">[</span><span class="s2">&quot;VIF Factor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">variance_inflation_factor</span><span class="p">(</span><span class="n">colin</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> 
+                     <span class="nb">range</span><span class="p">(</span><span class="n">colin</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+<span class="n">vif</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">colin</span><span class="o">.</span><span class="n">columns</span>
+</code></pre></div>
+
 <p><strong>Step 3: Inspect VIF factors</strong></p>
-<pre><code class="language-python"># inspect VIF factors
-display(vif)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="c1"># inspect VIF factors</span>
+<span class="n">display</span><span class="p">(</span><span class="n">vif</span><span class="p">)</span>
+</code></pre></div>
+
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2107,37 +2164,44 @@ display(vif)
 </div>
 
 <p><a name='x.3.2.2'></a></p>
-<h4 id="4322-fixing-colinearity">4.3.2.2 Fixing Colinearity</h4>
+<h4 id="4322-fixing-colinearity">4.3.2.2 Fixing Colinearity<a class="headerlink" href="#4322-fixing-colinearity" title="Permanent link">&para;</a></h4>
 <p><a href="#top">back to top</a></p>
 <p>It is good to aknowledge where colinearity exists as this will influence the interpretability of your model. In most cases, however, it won't have a heavy influence on the performance of your model. </p>
 <p>A simple method of dealing with colinearity, is to remove the highest VIF features from your model, iteratively, assessing the performance and determining whether to keep the variable or not. </p>
 <p>Another method is to create some linear combination of the correlated variables. This is encapsulated in the section on dimensionality reduction.</p>
 <p><a name='2.3.3'></a></p>
-<h3 id="433-normalization">4.3.3 Normalization</h3>
+<h3 id="433-normalization">4.3.3 Normalization<a class="headerlink" href="#433-normalization" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
 <p>Many learning algorithms require zero mean and unit variance to behave optimally. Sklearn preprocessing library contains a very usefull class, <code>StandardScaler</code> for handling this automatically for us.</p>
-<pre><code class="language-python">from sklearn.preprocessing import StandardScaler
-</code></pre>
-<pre><code class="language-python">scaler = StandardScaler()
-normed = scaler.fit_transform(colin)
-</code></pre>
-<pre><code class="language-python">colin[['x0','x1','x2','x3']].plot(kind='kde')
-</code></pre>
-<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fb3cb102750&gt;
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">normed</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">colin</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">colin</span><span class="p">[[</span><span class="s1">&#39;x0&#39;</span><span class="p">,</span><span class="s1">&#39;x1&#39;</span><span class="p">,</span><span class="s1">&#39;x2&#39;</span><span class="p">,</span><span class="s1">&#39;x3&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;kde&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fb3cb102750&gt;
+</code></pre></div>
+
 <p><img alt="png" src="../S4_Feature_Engineering_files/S4_Feature_Engineering_78_1.png" /></p>
-<pre><code class="language-python">pd.DataFrame(normed, columns = [['x0','x1','x2','x3']]).plot(kind='kde')
-</code></pre>
-<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fb3cb102990&gt;
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">normed</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;x0&#39;</span><span class="p">,</span><span class="s1">&#39;x1&#39;</span><span class="p">,</span><span class="s1">&#39;x2&#39;</span><span class="p">,</span><span class="s1">&#39;x3&#39;</span><span class="p">]])</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;kde&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fb3cb102990&gt;
+</code></pre></div>
+
 <p><img alt="png" src="../S4_Feature_Engineering_files/S4_Feature_Engineering_79_1.png" /></p>
-<h4 id="exercise-4-normalization-affect-on-vif">🏋️ Exercise 4: Normalization affect on VIF</h4>
+<h4 id="exercise-4-normalization-affect-on-vif">🏋️ Exercise 4: Normalization affect on VIF<a class="headerlink" href="#exercise-4-normalization-affect-on-vif" title="Permanent link">&para;</a></h4>
 <p>In the above, we saw how to scale and center variables. How does this affect VIF? </p>
 <ul>
 <li>Calculate the VIF for the raw and scaled-centered data</li>
 </ul>
-<pre><code class="language-python"># Code Cell for Exercise 4
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Code Cell for Exercise 4</span>
+</code></pre></div>
+
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2186,45 +2250,48 @@ normed = scaler.fit_transform(colin)
 </div>
 
 <p><a name='2.3.4'></a></p>
-<h3 id="434-dimensionality-reduction">4.3.4 Dimensionality Reduction</h3>
+<h3 id="434-dimensionality-reduction">4.3.4 Dimensionality Reduction<a class="headerlink" href="#434-dimensionality-reduction" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
 <p>Dimensionality reduction is an awesome way to do feature engineering. It is very commonly used. Because it is also an unsupervised machine learning technique, we will visit this topic in that section.</p>
 <p><a name='2.4'></a></p>
-<h2 id="44-missing-data">4.4 Missing Data</h2>
+<h2 id="44-missing-data">4.4 Missing Data<a class="headerlink" href="#44-missing-data" title="Permanent link">&para;</a></h2>
 <p><a href="#top">back to top</a></p>
 <p>We will often have missing data in our datasets. How do we deal with this? Let's start by making some data with missing data. We'll use a numpy nan datatype to do this</p>
-<pre><code class="language-python">from numpy import nan
-X = np.array([[ nan, 0,   3  ],
-              [ 3,   7,   9  ],
-              [ 3,   5,   2  ],
-              [ 4,   nan, 6  ],
-              [ 8,   8,   1  ]])
-y = np.array([14, 16, -1,  8, -5])
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">nan</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span> <span class="n">nan</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>   <span class="mi">3</span>  <span class="p">],</span>
+              <span class="p">[</span> <span class="mi">3</span><span class="p">,</span>   <span class="mi">7</span><span class="p">,</span>   <span class="mi">9</span>  <span class="p">],</span>
+              <span class="p">[</span> <span class="mi">3</span><span class="p">,</span>   <span class="mi">5</span><span class="p">,</span>   <span class="mi">2</span>  <span class="p">],</span>
+              <span class="p">[</span> <span class="mi">4</span><span class="p">,</span>   <span class="n">nan</span><span class="p">,</span> <span class="mi">6</span>  <span class="p">],</span>
+              <span class="p">[</span> <span class="mi">8</span><span class="p">,</span>   <span class="mi">8</span><span class="p">,</span>   <span class="mi">1</span>  <span class="p">]])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">14</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">])</span>
+</code></pre></div>
+
 <p><a name='2.4.1'></a></p>
-<h3 id="441-imputation">4.4.1 Imputation</h3>
+<h3 id="441-imputation">4.4.1 Imputation<a class="headerlink" href="#441-imputation" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
 <p>A very common strategy is to impute or fill in the missing data, based on basic statistical descriptions of the feature column (mode, mean, and median)</p>
-<pre><code class="language-python">from sklearn.impute import SimpleImputer
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
 
-# strategy = 'mean' will replace nan's with mean value
-# of the column
-# others are median and most_frequent (mode)
-imp = SimpleImputer(strategy='mean')
-X2 = imp.fit_transform(X)
-X2
-</code></pre>
-<pre><code>array([[4.5, 0. , 3. ],
+<span class="c1"># strategy = &#39;mean&#39; will replace nan&#39;s with mean value</span>
+<span class="c1"># of the column</span>
+<span class="c1"># others are median and most_frequent (mode)</span>
+<span class="n">imp</span> <span class="o">=</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+<span class="n">X2</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">X2</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>array([[4.5, 0. , 3. ],
        [3. , 7. , 9. ],
        [3. , 5. , 2. ],
        [4. , 5. , 6. ],
        [8. , 8. , 1. ]])
-</code></pre>
+</code></pre></div>
+
 <p><a name='2.4.2'></a></p>
-<h3 id="442-other-strategies">4.4.2 Other Strategies</h3>
+<h3 id="442-other-strategies">4.4.2 Other Strategies<a class="headerlink" href="#442-other-strategies" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
 <p>Depending on the severity of missing data, you will sometimes opt to remove the whole column, or perhaps apply some simple learning to fill in the missing data. This is a great <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3668100/">article</a> on more advanced strategies for handling missing data.</p>
-<h1 id="references">References</h1>
+<h1 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h1>
 <p><a href="#top">back to top</a>
 * <a href="https://www.statisticshowto.com/box-cox-transformation/">Box Cox</a>
 * <a href="https://www.analyticsvidhya.com/blog/2020/03/what-is-multicollinearity/">Multicolinearity</a>

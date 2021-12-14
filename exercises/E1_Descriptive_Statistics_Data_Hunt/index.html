@@ -40,6 +40,8 @@
     
       <link rel="stylesheet" href="../../extra.css">
     
+      <link rel="stylesheet" href="../../styles.css">
+    
     <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -585,27 +587,29 @@
                 
 
 <p><a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/exercises/E1_Descriptive_Statistics_Data_Hunt.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
-<h1 id="data-science-foundations-lab-1-data-hunt-i">Data Science Foundations, Lab 1: Data Hunt I</h1>
+<h1 id="data-science-foundations-lab-1-data-hunt-i">Data Science Foundations, Lab 1: Data Hunt I<a class="headerlink" href="#data-science-foundations-lab-1-data-hunt-i" title="Permanent link">&para;</a></h1>
 <p><strong>Instructor</strong>: Wesley Beckner</p>
-<p><strong>Contact</strong>: wesleybeckner@gmail.com</p>
+<p><strong>Contact</strong>: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#119;&#101;&#115;&#108;&#101;&#121;&#98;&#101;&#99;&#107;&#110;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#119;&#101;&#115;&#108;&#101;&#121;&#98;&#101;&#99;&#107;&#110;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
 <hr />
 <p><br></p>
 <p>That's right you heard correctly. It's a data hunt.</p>
 <p><br></p>
 <hr />
-<pre><code class="language-python">import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-from ipywidgets import interact
-</code></pre>
-<pre><code class="language-python">df = pd.read_csv(&quot;https://raw.githubusercontent.com/wesleybeckner/&quot;\
-  &quot;technology_explorers/main/assets/imdb_movies.csv&quot;)
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span>
+</code></pre></div>
 
-# converting years to numbers for easy conditionals
-df['year'] = pd.to_numeric(df['year'], errors='coerce')
-df.shape
-</code></pre>
-<pre><code>/usr/local/lib/python3.7/dist-packages/IPython/core/interactiveshell.py:2718: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+<div class="codehilite"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/wesleybeckner/&quot;</span>\
+  <span class="s2">&quot;technology_explorers/main/assets/imdb_movies.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># converting years to numbers for easy conditionals</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>/usr/local/lib/python3.7/dist-packages/IPython/core/interactiveshell.py:2718: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
   interactivity=interactivity, compiler=compiler, result=result)
 
 
@@ -613,9 +617,11 @@ df.shape
 
 
 (85855, 22)
-</code></pre>
-<pre><code class="language-python">df.head(3)
-</code></pre>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div>
+
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -738,10 +744,11 @@ df.shape
 </table>
 </div>
 
-<h1 id="q1-what-american-director-has-the-highest-mean-avg_vote">Q1 What american director has the highest mean  avg_vote?</h1>
-<pre><code class="language-python">
-</code></pre>
-<pre><code>director
+<h1 id="q1-what-american-director-has-the-highest-mean-avg_vote">Q1 What american director has the highest mean  avg_vote?<a class="headerlink" href="#q1-what-american-director-has-the-highest-mean-avg_vote" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>director
 Daniel Keith, Snorri Sturluson    9.3
 Anthony Bawn                      9.3
 Derek Ahonen                      9.2
@@ -754,11 +761,13 @@ Aeneas Middleton                  1.1
 Steven A. Sandt                   1.1
 Francis Hamada                    1.1
 Name: avg_vote, Length: 12463, dtype: float64
-</code></pre>
-<h1 id="q2-what-american-director-with-more-than-5-movies-has-the-highest-mean-avg_vote">Q2 What american director with more than 5 movies, has the highest mean avg_vote?</h1>
-<pre><code class="language-python">
-</code></pre>
-<pre><code>director
+</code></pre></div>
+
+<h1 id="q2-what-american-director-with-more-than-5-movies-has-the-highest-mean-avg_vote">Q2 What american director with more than 5 movies, has the highest mean avg_vote?<a class="headerlink" href="#q2-what-american-director-with-more-than-5-movies-has-the-highest-mean-avg_vote" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>director
 Quentin Tarantino     7.811111
 Charles Chaplin       7.764286
 David Fincher         7.625000
@@ -771,11 +780,13 @@ Bill Zebub            2.483333
 Mark Polonia          2.462500
 Christopher Forbes    2.000000
 Name: avg_vote, Length: 859, dtype: float64
-</code></pre>
-<h1 id="q3-what-director-has-the-largest-variance-in-avg_vote">Q3 What director has the largest variance in avg_vote?</h1>
-<pre><code class="language-python">
-</code></pre>
-<pre><code>director
+</code></pre></div>
+
+<h1 id="q3-what-director-has-the-largest-variance-in-avg_vote">Q3 What director has the largest variance in avg_vote?<a class="headerlink" href="#q3-what-director-has-the-largest-variance-in-avg_vote" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>director
 Deniz Denizciler              4.030509
 Rudi Lagemann                 3.747666
 Emilio Ruiz Barrachina        3.676955
@@ -788,11 +799,13 @@ Milos Avramovic               3.606245
 Þorsteinn Gunnar Bjarnason         NaN
 Þórhildur Þorleifsdóttir           NaN
 Name: avg_vote, Length: 34733, dtype: float64
-</code></pre>
-<h1 id="q4-what-director-with-more-than-10-movies-has-the-largest-variance-in-avg_vote">Q4 What director with more than 10 movies has the largest variance in avg_vote?</h1>
-<pre><code class="language-python">
-</code></pre>
-<pre><code>director
+</code></pre></div>
+
+<h1 id="q4-what-director-with-more-than-10-movies-has-the-largest-variance-in-avg_vote">Q4 What director with more than 10 movies has the largest variance in avg_vote?<a class="headerlink" href="#q4-what-director-with-more-than-10-movies-has-the-largest-variance-in-avg_vote" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>director
 Harry Baweja         1.869954
 Shaji Kailas         1.854502
 Zdenek Troska        1.775984
@@ -805,11 +818,13 @@ Jean Grémillon       0.196946
 Louis Feuillade      0.156428
 Tsutomu Shibayama    0.126121
 Name: avg_vote, Length: 1135, dtype: float64
-</code></pre>
-<h1 id="q5-what-american-directors-with-more-than-5-movies-have-the-largest-variance-in-avg_vote">Q5 What american directors with more than 5 movies have the largest variance in avg_vote?</h1>
-<pre><code class="language-python">
-</code></pre>
-<pre><code>director
+</code></pre></div>
+
+<h1 id="q5-what-american-directors-with-more-than-5-movies-have-the-largest-variance-in-avg_vote">Q5 What american directors with more than 5 movies have the largest variance in avg_vote?<a class="headerlink" href="#q5-what-american-directors-with-more-than-5-movies-have-the-largest-variance-in-avg_vote" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>director
 Martin Brest          2.033716
 David Winters         1.926049
 Adam Rifkin           1.711251
@@ -822,11 +837,13 @@ Richard T. Heffron    0.136626
 Bill Plympton         0.136626
 Nate Watt             0.129099
 Name: avg_vote, Length: 859, dtype: float64
-</code></pre>
-<h1 id="q6-where-does-m-night-shyamalan-fall-on-this-rank-scale">Q6 Where does M. Night Shyamalan fall on this rank scale?</h1>
+</code></pre></div>
+
+<h1 id="q6-where-does-m-night-shyamalan-fall-on-this-rank-scale">Q6 Where does M. Night Shyamalan fall on this rank scale?<a class="headerlink" href="#q6-where-does-m-night-shyamalan-fall-on-this-rank-scale" title="Permanent link">&para;</a></h1>
 <p>(He's number 36/859)</p>
-<pre><code class="language-python">
-</code></pre>
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
+
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -859,10 +876,11 @@ Name: avg_vote, Length: 859, dtype: float64
 </table>
 </div>
 
-<h1 id="q7-how-many-movies-were-made-each-year-in-us-from-2000-2020">Q7 How many movies were made each year in US from 2000-2020</h1>
-<pre><code class="language-python">
-</code></pre>
-<pre><code>year
+<h1 id="q7-how-many-movies-were-made-each-year-in-us-from-2000-2020">Q7 How many movies were made each year in US from 2000-2020<a class="headerlink" href="#q7-how-many-movies-were-made-each-year-in-us-from-2000-2020" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>year
 2000.0    363
 2001.0    386
 2002.0    360
@@ -885,16 +903,20 @@ Name: avg_vote, Length: 859, dtype: float64
 2019.0    700
 2020.0    276
 Name: title, dtype: int64
-</code></pre>
-<h1 id="q8-visualize-the-results-of-q7">Q8 Visualize The Results of Q7!</h1>
-<pre><code class="language-python">
-</code></pre>
-<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fea042dc890&gt;
-</code></pre>
+</code></pre></div>
+
+<h1 id="q8-visualize-the-results-of-q7">Q8 Visualize The Results of Q7!<a class="headerlink" href="#q8-visualize-the-results-of-q7" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fea042dc890&gt;
+</code></pre></div>
+
 <p><img alt="png" src="../E1_Descriptive_Statistics_Data_Hunt_files/E1_Descriptive_Statistics_Data_Hunt_20_1.png" /></p>
-<h1 id="q9-for-single-country-movies-how-many-movies-were-made-each-year-in-each-country-from-2000-2020-only-include-countries-that-made-more-than-1000-movies-in-that-timeframe">Q9 For single country movies, how many movies were made each year in each country from 2000-2020, only include countries that made more than 1000 movies in that timeframe</h1>
-<pre><code class="language-python">
-</code></pre>
+<h1 id="q9-for-single-country-movies-how-many-movies-were-made-each-year-in-each-country-from-2000-2020-only-include-countries-that-made-more-than-1000-movies-in-that-timeframe">Q9 For single country movies, how many movies were made each year in each country from 2000-2020, only include countries that made more than 1000 movies in that timeframe<a class="headerlink" href="#q9-for-single-country-movies-how-many-movies-were-made-each-year-in-each-country-from-2000-2020-only-include-countries-that-made-more-than-1000-movies-in-that-timeframe" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
+
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -953,9 +975,10 @@ Name: title, dtype: int64
 </table>
 </div>
 
-<h1 id="q10-visualize-the-results-from-q9">Q10 Visualize the results from Q9!</h1>
-<pre><code class="language-python">
-</code></pre>
+<h1 id="q10-visualize-the-results-from-q9">Q10 Visualize the results from Q9!<a class="headerlink" href="#q10-visualize-the-results-from-q9" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
+
 <p><img alt="png" src="../E1_Descriptive_Statistics_Data_Hunt_files/E1_Descriptive_Statistics_Data_Hunt_24_0.png" /></p>
 
               

@@ -40,6 +40,8 @@
     
       <link rel="stylesheet" href="../extra.css">
     
+      <link rel="stylesheet" href="../styles.css">
+    
     <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -887,9 +889,9 @@
                 
 
 <p><a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/S3_Model_Selection_and_Validation.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
-<h1 id="data-science-foundations-session-3-model-selection-and-validation">Data Science Foundations, Session 3: Model Selection and Validation</h1>
+<h1 id="data-science-foundations-session-3-model-selection-and-validation">Data Science Foundations, Session 3: Model Selection and Validation<a class="headerlink" href="#data-science-foundations-session-3-model-selection-and-validation" title="Permanent link">&para;</a></h1>
 <p><strong>Instructor</strong>: Wesley Beckner</p>
-<p><strong>Contact</strong>: wesleybeckner@gmail.com</p>
+<p><strong>Contact</strong>: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#119;&#101;&#115;&#108;&#101;&#121;&#98;&#101;&#99;&#107;&#110;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#119;&#101;&#115;&#108;&#101;&#121;&#98;&#101;&#99;&#107;&#110;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
 <hr />
 <p><br></p>
 <p>At the end of session 1, we saw the basic recipe for creating a supervised machine learning model:</p>
@@ -912,97 +914,109 @@
 <p><br></p>
 <p><a name='top'></a></p>
 <p><a name='x.0'></a></p>
-<h2 id="30-preparing-environment-and-importing-data">3.0 Preparing Environment and Importing Data</h2>
+<h2 id="30-preparing-environment-and-importing-data">3.0 Preparing Environment and Importing Data<a class="headerlink" href="#30-preparing-environment-and-importing-data" title="Permanent link">&para;</a></h2>
 <p><a href="#top">back to top</a></p>
 <p><a name='x.0.1'></a></p>
-<h3 id="301-import-packages">3.0.1 Import Packages</h3>
+<h3 id="301-import-packages">3.0.1 Import Packages<a class="headerlink" href="#301-import-packages" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
-<pre><code class="language-python"># Pandas library for the pandas dataframes
-import pandas as pd
-import numpy as np
-import datetime
-import matplotlib.pyplot as plt
-import seaborn as sns
-import random
-import scipy.stats as stats
-from patsy import dmatrices
-from statsmodels.stats.outliers_influence import variance_inflation_factor
+<div class="codehilite"><pre><span></span><code><span class="c1"># Pandas library for the pandas dataframes</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
+<span class="kn">from</span> <span class="nn">patsy</span> <span class="kn">import</span> <span class="n">dmatrices</span>
+<span class="kn">from</span> <span class="nn">statsmodels.stats.outliers_influence</span> <span class="kn">import</span> <span class="n">variance_inflation_factor</span>
 
-from sklearn.neighbors import KNeighborsRegressor
-from sklearn.preprocessing import LabelEncoder, StandardScaler
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression, LinearRegression
-from sklearn import metrics
-from sklearn.metrics import r2_score, mean_squared_error
-from sklearn.datasets import load_iris
-</code></pre>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span><span class="p">,</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span><span class="p">,</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">r2_score</span><span class="p">,</span> <span class="n">mean_squared_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+</code></pre></div>
+
 <p><a name='x.0.2'></a></p>
-<h3 id="302-load-dataset">3.0.2 Load Dataset</h3>
+<h3 id="302-load-dataset">3.0.2 Load Dataset<a class="headerlink" href="#302-load-dataset" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
 <p>In course 1 we cursorily discussed why we may need strategies for validating our model. Here we'll discuss it more in depth. </p>
 <p>I'm going to take a simple example. In the following, I have a dataset that contains some data about flowers. It's a very famous dataset used in the ML world</p>
-<pre><code class="language-python">iris = load_iris()
-X = iris.data
-y = iris.target
-</code></pre>
-<pre><code class="language-python">print(X.shape)
-print(y.shape)
-</code></pre>
-<pre><code>(150, 4)
+<div class="codehilite"><pre><span></span><code><span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>(150, 4)
 (150,)
-</code></pre>
+</code></pre></div>
+
 <p>let's go ahead and load our wine dataset as well...</p>
-<pre><code class="language-python">wine = pd.read_csv(&quot;https://raw.githubusercontent.com/wesleybeckner/&quot;\
-      &quot;ds_for_engineers/main/data/wine_quality/winequalityN.csv&quot;)
-</code></pre>
-<pre><code class="language-python">wine.dropna(inplace=True)
-wine['quality_label'] = wine['quality'].apply(lambda x: 'low' if x &lt;=5 else
-                                              'med' if x &lt;= 7 else 'high')
-class_tp = {'red': 0, 'white': 1}
-y_tp = wine['type'].map(class_tp)
-wine['type_encoding'] = y_tp
+<div class="codehilite"><pre><span></span><code><span class="n">wine</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/wesleybeckner/&quot;</span>\
+      <span class="s2">&quot;ds_for_engineers/main/data/wine_quality/winequalityN.csv&quot;</span><span class="p">)</span>
+</code></pre></div>
 
-class_ql = {'low':0, 'med': 1, 'high': 2}
-y_ql = wine['quality_label'].map(class_ql)
-wine['quality_encoding'] = y_ql
+<div class="codehilite"><pre><span></span><code><span class="n">wine</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">wine</span><span class="p">[</span><span class="s1">&#39;quality_label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wine</span><span class="p">[</span><span class="s1">&#39;quality&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;low&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span><span class="mi">5</span> <span class="k">else</span>
+                                              <span class="s1">&#39;med&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">7</span> <span class="k">else</span> <span class="s1">&#39;high&#39;</span><span class="p">)</span>
+<span class="n">class_tp</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;red&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="n">y_tp</span> <span class="o">=</span> <span class="n">wine</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">class_tp</span><span class="p">)</span>
+<span class="n">wine</span><span class="p">[</span><span class="s1">&#39;type_encoding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_tp</span>
 
-wine.columns = wine.columns.str.replace(' ', '_')
-</code></pre>
+<span class="n">class_ql</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;low&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;med&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;high&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">y_ql</span> <span class="o">=</span> <span class="n">wine</span><span class="p">[</span><span class="s1">&#39;quality_label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">class_ql</span><span class="p">)</span>
+<span class="n">wine</span><span class="p">[</span><span class="s1">&#39;quality_encoding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_ql</span>
+
+<span class="n">wine</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+</code></pre></div>
+
 <p><a name='1.1'></a></p>
-<h2 id="31-model-validation">3.1 Model Validation</h2>
+<h2 id="31-model-validation">3.1 Model Validation<a class="headerlink" href="#31-model-validation" title="Permanent link">&para;</a></h2>
 <p><a href="#top">back to top</a></p>
 <p><em>doing it the wrong way</em><br></p>
 <p>While we're here, I'm going to introduce a VERY SIMPLE supervised learning method called K-Nearest Neighbors.</p>
 <p><a name='x.1.0'></a></p>
-<h2 id="310-k-nearest-neighbors">3.1.0 K-Nearest Neighbors</h2>
+<h2 id="310-k-nearest-neighbors">3.1.0 K-Nearest Neighbors<a class="headerlink" href="#310-k-nearest-neighbors" title="Permanent link">&para;</a></h2>
 <p><a href="#top">back to top</a></p>
 <p>K-Nearest Neighbors is perhaps the simplest algorithm of them all. It is essentially a lookup table: We select the hyperparameter K, and when assigning a new value a data label, assign it according to, the majority label in the vicinity of the new datapoint. The vicinity being determined by K, the number of nearest neighbors we are going to assess.</p>
-<pre><code class="language-python">knn = KNeighborsRegressor(n_neighbors=1)
-knn.fit(X,y)
-</code></pre>
-<pre><code>KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski',
+<div class="codehilite"><pre><span></span><code><span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>KNeighborsRegressor(algorithm=&#39;auto&#39;, leaf_size=30, metric=&#39;minkowski&#39;,
                     metric_params=None, n_jobs=None, n_neighbors=1, p=2,
-                    weights='uniform')
-</code></pre>
-<pre><code class="language-python">knn.score(X,y)
-</code></pre>
-<pre><code>1.0
-</code></pre>
+                    weights=&#39;uniform&#39;)
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>1.0
+</code></pre></div>
+
 <p>Wow! we achieved a model with a perfect score! But is this really how we would expect the model to perform on data it had never seen before? Probably not. How do we actually check the performance of our model?</p>
 <p><a name='1.1.1'></a></p>
-<h3 id="311-holdout-sets">3.1.1 Holdout Sets</h3>
+<h3 id="311-holdout-sets">3.1.1 Holdout Sets<a class="headerlink" href="#311-holdout-sets" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
 <p>The way we account for unseen data, in practice, is to leave a portion of the dataset out for testing. This way, we can estimate how our model will perform on entirely new data it may come across in application.</p>
-<pre><code class="language-python">X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.6, random_state=42)
-knn = KNeighborsRegressor(n_neighbors=1)
-knn.fit(X_train,y_train)
-print(knn.score(X_test, y_test))
-</code></pre>
-<pre><code>0.9753593429158111
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>0.9753593429158111
+</code></pre></div>
+
 <p>We see that we get a more reasonable value for our performance!</p>
 <p><a name='1.1.2'></a></p>
-<h3 id="312-data-leakage-and-cross-validation">3.1.2 Data Leakage and Cross-Validation</h3>
+<h3 id="312-data-leakage-and-cross-validation">3.1.2 Data Leakage and Cross-Validation<a class="headerlink" href="#312-data-leakage-and-cross-validation" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
 <p>An even more rigorous method to leaving out a single test set, is to perform cross validation. Imagine a situation where we are trying to estimate the best value of K in our KNN algorithm. If we continually train our model with new values of K on our training set, and test with our testing set, "knowledge" of our test set values with leak into our model, as we choose the best value for K based on how it performs on our test set (even though we did not train on this test set). We call this phenomenon <em>data leakage</em>. CV or Cross Validation overcomes this by only evaluating our parameters with our training set.</p>
 <p align="center">
@@ -1018,79 +1032,91 @@ print(knn.score(X_test, y_test))
 <small>[image src](https://scikit-learn.org/stable/modules/cross_validation.html)</small>
 </p>
 
-<pre><code class="language-python">from sklearn.model_selection import cross_val_score
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
 
-scores = cross_val_score(knn, X_train, y_train, cv=5)
-</code></pre>
-<pre><code class="language-python">scores
-</code></pre>
-<pre><code>array([0.91666667, 0.81725888, 0.85714286, 1.        , 0.91      ])
-</code></pre>
-<pre><code class="language-python">print(&quot;%0.2f accuracy with a standard deviation of %0.3f&quot; % (scores.mean(), scores.std()))
-</code></pre>
-<pre><code>0.90 accuracy with a standard deviation of 0.062
-</code></pre>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">knn</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">scores</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>array([0.91666667, 0.81725888, 0.85714286, 1.        , 0.91      ])
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%0.2f</span><span class="s2"> accuracy with a standard deviation of </span><span class="si">%0.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">scores</span><span class="o">.</span><span class="n">std</span><span class="p">()))</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>0.90 accuracy with a standard deviation of 0.062
+</code></pre></div>
+
 <p>More information on the cross_val_score method in sklearn can be found <a href="https://scikit-learn.org/stable/modules/cross_validation.html">here</a></p>
 <p>An additional topic on cross validation is the extreme leave-one-out validation, you can read more about that <a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Model-validation-via-cross-validation">here</a></p>
 <p><a name='1.1.3'></a></p>
-<h3 id="313-bias-variance-tradeoff">3.1.3 Bias-Variance Tradeoff</h3>
+<h3 id="313-bias-variance-tradeoff">3.1.3 Bias-Variance Tradeoff<a class="headerlink" href="#313-bias-variance-tradeoff" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
 <p>This next concept will be most easily understood (imo) if we go ahead an make up some data ourselves, I'm going to do that now.</p>
-<pre><code class="language-python"># we can throttle the error rate
-err = .5
-random.seed(42)
+<div class="codehilite"><pre><span></span><code><span class="c1"># we can throttle the error rate</span>
+<span class="n">err</span> <span class="o">=</span> <span class="mf">.5</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-# our data has a KNOWN underlying functional form (log(x))
-def func(x, err):
-  return np.log(x) + err * random.randint(-1,1) * random.random()
-x = np.arange(20,100)
-y = [func(t, err) for t in x]
-plt.plot(x,y, ls='', marker='.')
-plt.xlabel('X')
-plt.ylabel('Y')
-</code></pre>
-<pre><code>Text(0, 0.5, 'Y')
-</code></pre>
+<span class="c1"># our data has a KNOWN underlying functional form (log(x))</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">err</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">err</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">func</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Text(0, 0.5, &#39;Y&#39;)
+</code></pre></div>
+
 <p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_25_1.png" /></p>
 <p>Let's fit to just a portion of this data</p>
-<pre><code class="language-python">random.seed(42)
-X_train = random.sample(list(x), 10)
+<div class="codehilite"><pre><span></span><code><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span>
 
-indices = [list(x).index(i) for i in X_train]
-# we could also do it this way: np.argwhere([i in X_train for i in x])
+<span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">X_train</span><span class="p">]</span>
+<span class="c1"># we could also do it this way: np.argwhere([i in X_train for i in x])</span>
 
-y_train = [y[i] for i in indices]
-</code></pre>
-<pre><code class="language-python">plt.plot(X_train,y_train, ls='', marker='.')
-</code></pre>
-<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f3ea2189f10&gt;]
-</code></pre>
+<span class="n">y_train</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[&lt;matplotlib.lines.Line2D at 0x7f3ea2189f10&gt;]
+</code></pre></div>
+
 <p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_28_1.png" /></p>
 <p>Now let's take two extreme scenarios, fitting a linear line and a high order polynomial, to these datapoints. Keeping in mind the larger dataset, as well as the error we introduced in our data generating function, this will really illustrate our point!</p>
-<pre><code class="language-python"># solving our training data with a n-degree polynomial
-coefs = np.polyfit(X_train, y_train, 9)
+<div class="codehilite"><pre><span></span><code><span class="c1"># solving our training data with a n-degree polynomial</span>
+<span class="n">coefs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
 
-# solve the slope and intercept of our 1-degree polynomial ;)
-model = LinearRegression()
-model.fit(np.array(X_train).reshape(-1,1), y_train)
+<span class="c1"># solve the slope and intercept of our 1-degree polynomial ;)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">y_train</span><span class="p">)</span>
 
-# create some x data to plot our functions
-X_seq = np.linspace(min(X_train),max(X_train),300).reshape(-1,1)
+<span class="c1"># create some x data to plot our functions</span>
+<span class="n">X_seq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span><span class="nb">max</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span><span class="mi">300</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 
-fig, ax = plt.subplots(1,2,figsize=(15,5))
-ax[0].plot(X_seq, model.predict(X_seq), c='grey', ls='--')
-ax[0].plot(X_train, y_train, ls='', marker='.')
-ax[0].set_ylim(min(y_train), max(y_train))
-ax[0].set_title(&quot;High Bias Model&quot;)
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_seq</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_seq</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_train</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;High Bias Model&quot;</span><span class="p">)</span>
 
 
-ax[1].plot(X_seq, np.polyval(coefs, X_seq), c='grey', ls='--')
-ax[1].plot(X_train, y_train, ls='', marker='.')
-ax[1].set_ylim(min(y_train), max(y_train))
-ax[1].set_title(&quot;High Variance Model&quot;)
-</code></pre>
-<pre><code>Text(0.5, 1.0, 'High Variance Model')
-</code></pre>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_seq</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">coefs</span><span class="p">,</span> <span class="n">X_seq</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_train</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;High Variance Model&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Text(0.5, 1.0, &#39;High Variance Model&#39;)
+</code></pre></div>
+
 <p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_30_1.png" /></p>
 <p>We've demonstrated two extreme cases. On the left, we limit our regression to only two parameters, a slope and a y-intercept. We say that this model has <em>high bias</em> because we are forcing the functional form without much consideration to the underlying data &mdash; we are saying this data is generated by a linear function, and no matter what data I train on, my final model will still be a straight line that more or less appears the same. Put another way, it has <em>low variance</em> with respect to the underlying data. </p>
 <p>On the right, we've allowed our model just as many polynomials it needs to perfectly fit the training data! We say this model has <em>low bias</em> because we don't introduce many constraints on the final form of the model. it is <em>high variance</em> because depending on the underlying training data, the final outcome of the model can change quite drastically!</p>
@@ -1101,116 +1127,123 @@ ax[1].set_title(&quot;High Variance Model&quot;)
 <li>what happens when we tie this back in with the error we introduced to the data generator?</li>
 <li>and let's use this to better understand irreducible error</li>
 </ol>
-<pre><code class="language-python">random.seed(42)
-fig, ax = plt.subplots(1,2,figsize=(15,5))
-for samples in range(5):
-  X_train = random.sample(list(x), 10)
-  indices = [list(x).index(i) for i in X_train]
-  y_train = [y[i] for i in indices]
+<div class="codehilite"><pre><span></span><code><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">samples</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+  <span class="n">X_train</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span>
+  <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">X_train</span><span class="p">]</span>
+  <span class="n">y_train</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
 
-  # solving our training data with a n-degree polynomial
-  coefs = np.polyfit(X_train, y_train, 9)
+  <span class="c1"># solving our training data with a n-degree polynomial</span>
+  <span class="n">coefs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
 
-  # solve the slope and intercept of our 1-degree polynomial ;)
-  model = LinearRegression()
-  model.fit(np.array(X_train).reshape(-1,1), y_train)
+  <span class="c1"># solve the slope and intercept of our 1-degree polynomial ;)</span>
+  <span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+  <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">y_train</span><span class="p">)</span>
 
-  # create some x data to plot our functions
-  X_seq = np.linspace(min(X_train),max(X_train),300).reshape(-1,1)
-
-
-  ax[0].plot(X_seq, model.predict(X_seq), alpha=0.5, ls='--')
-  ax[0].plot(X_train, y_train, ls='', marker='.')
-  ax[0].set_ylim(min(y_train), max(y_train))
-  ax[0].set_title(&quot;High Bias Model&quot;)
+  <span class="c1"># create some x data to plot our functions</span>
+  <span class="n">X_seq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span><span class="nb">max</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span><span class="mi">300</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 
 
-  ax[1].plot(X_seq, np.polyval(coefs, X_seq), alpha=0.5, ls='--')
-  ax[1].plot(X_train, y_train, ls='', marker='.')
-  ax[1].set_ylim(min(y_train), max(y_train))
-  ax[1].set_title(&quot;High Variance Model&quot;)
-</code></pre>
+  <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_seq</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_seq</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+  <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+  <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_train</span><span class="p">))</span>
+  <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;High Bias Model&quot;</span><span class="p">)</span>
+
+
+  <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_seq</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">coefs</span><span class="p">,</span> <span class="n">X_seq</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+  <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+  <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_train</span><span class="p">))</span>
+  <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;High Variance Model&quot;</span><span class="p">)</span>
+</code></pre></div>
+
 <p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_32_0.png" /></p>
 <p>As we can see, depending on what data we train our model on, the <em>high bias</em> model changes relatively slightly, while the <em>high variance</em> model changes a whole awful lot!</p>
 <p>The <em>high variance</em> model is prone to something we call <em>overfitting</em>. It fits the training data very well, but at the expense of creating a good, generalizable model that does well on unseen data. Let's take our last models, and plot them along the rest of the unseen data, what we'll call the <em>population</em></p>
-<pre><code class="language-python"># solving our training data with a n-degree polynomial
-coefs = np.polyfit(X_train, y_train, 9)
+<div class="codehilite"><pre><span></span><code><span class="c1"># solving our training data with a n-degree polynomial</span>
+<span class="n">coefs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
 
-# solve the slope and intercept of our 1-degree polynomial ;)
-model = LinearRegression()
-model.fit(np.array(X_train).reshape(-1,1), y_train)
+<span class="c1"># solve the slope and intercept of our 1-degree polynomial ;)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">y_train</span><span class="p">)</span>
 
-# create some x data to plot our functions
-X_seq = np.linspace(min(X_train),max(X_train),300).reshape(-1,1)
+<span class="c1"># create some x data to plot our functions</span>
+<span class="n">X_seq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span><span class="nb">max</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span><span class="mi">300</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 
-fig, ax = plt.subplots(1,2,figsize=(15,5))
-ax[0].plot(X_seq, model.predict(X_seq), c='grey', ls='--')
-ax[0].plot(x, y, ls='', marker='*', alpha=0.6)
-ax[0].plot(X_train, y_train, ls='', marker='.')
-ax[0].set_ylim(min(y), max(y))
-ax[0].set_title(&quot;High Bias Model&quot;)
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_seq</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_seq</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;High Bias Model&quot;</span><span class="p">)</span>
 
 
-ax[1].plot(X_seq, np.polyval(coefs, X_seq), c='grey', ls='--')
-ax[1].plot(x, y, ls='', marker='*', alpha=0.6)
-ax[1].plot(X_train, y_train, ls='', marker='.')
-ax[1].set_ylim(min(y), max(y))
-ax[1].set_title(&quot;High Variance Model&quot;)
-</code></pre>
-<pre><code>Text(0.5, 1.0, 'High Variance Model')
-</code></pre>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_seq</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">coefs</span><span class="p">,</span> <span class="n">X_seq</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;High Variance Model&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Text(0.5, 1.0, &#39;High Variance Model&#39;)
+</code></pre></div>
+
 <p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_34_1.png" /></p>
 <p>In particular, we see that the high variance model is doing very wacky things, demonstrating behaviors in the model where the underlying population data really gives no indication of such behavior. We say that these high variance models are particuarly prone to the phenomenon of <em>over fitting</em> and this is generally due to the fact that there is irreducible error in the underlying data. Let's demonstrate this.</p>
-<pre><code class="language-python">x = np.arange(20,100)
-y = [func(t, err=0) for t in x]
-plt.plot(x,y, ls='', marker='.')
-</code></pre>
-<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f3ea05cbc90&gt;]
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">func</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[&lt;matplotlib.lines.Line2D at 0x7f3ea05cbc90&gt;]
+</code></pre></div>
+
 <p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_36_1.png" /></p>
-<pre><code class="language-python">random.seed(42)
-X_train = random.sample(list(x), 10)
+<div class="codehilite"><pre><span></span><code><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span>
 
-indices = [list(x).index(i) for i in X_train]
-# we could also do it this way: np.argwhere([i in X_train for i in x])
+<span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">X_train</span><span class="p">]</span>
+<span class="c1"># we could also do it this way: np.argwhere([i in X_train for i in x])</span>
 
-y_train = [y[i] for i in indices]
+<span class="n">y_train</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
 
-# solving our training data with a n-degree polynomial
-coefs = np.polyfit(X_train, y_train, 9)
+<span class="c1"># solving our training data with a n-degree polynomial</span>
+<span class="n">coefs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
 
-# solve the slope and intercept of our 1-degree polynomial ;)
-model = LinearRegression()
-model.fit(np.array(X_train).reshape(-1,1), y_train)
+<span class="c1"># solve the slope and intercept of our 1-degree polynomial ;)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">y_train</span><span class="p">)</span>
 
-# create some x data to plot our functions
-X_seq = np.linspace(min(X_train),max(X_train),300).reshape(-1,1)
+<span class="c1"># create some x data to plot our functions</span>
+<span class="n">X_seq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span><span class="nb">max</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span><span class="mi">300</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 
-fig, ax = plt.subplots(1,2,figsize=(15,5))
-ax[0].plot(X_seq, model.predict(X_seq), c='grey', ls='--')
-ax[0].plot(x, y, ls='', marker='o', alpha=0.2)
-ax[0].plot(X_train, y_train, ls='', marker='.')
-ax[0].set_ylim(min(y), max(y))
-ax[0].set_title(&quot;High Bias Model&quot;)
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_seq</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_seq</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;High Bias Model&quot;</span><span class="p">)</span>
 
 
-ax[1].plot(X_seq, np.polyval(coefs, X_seq), c='grey', ls='--')
-ax[1].plot(x, y, ls='', marker='o', alpha=0.2)
-ax[1].plot(X_train, y_train, ls='', marker='.')
-ax[1].set_ylim(min(y), max(y))
-ax[1].set_title(&quot;High Variance Model&quot;)
-</code></pre>
-<pre><code>Text(0.5, 1.0, 'High Variance Model')
-</code></pre>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_seq</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">coefs</span><span class="p">,</span> <span class="n">X_seq</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;High Variance Model&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Text(0.5, 1.0, &#39;High Variance Model&#39;)
+</code></pre></div>
+
 <p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_37_1.png" /></p>
 <p>This time, our high variance model really <em>gets it</em>! And this is because the data we trained on actually <em>is</em> a good representation of the entire population. But this, in reality, almost never, ever happens. In the real world, we have irreducible error in our data samples, and we must account for this when choosing our model. </p>
 <p>I'm summary, we call this balance between error in our model functional form, and error from succumbing to irreducible error in our training data, the <em>bias variance tradeoff</em></p>
-<h4 id="exercise-1-quantitatively-define-performance">🏋️ Exercise 1: Quantitatively Define Performance</h4>
+<h4 id="exercise-1-quantitatively-define-performance">🏋️ Exercise 1: Quantitatively Define Performance<a class="headerlink" href="#exercise-1-quantitatively-define-performance" title="Permanent link">&para;</a></h4>
 <p>Up until now, we've explored this idea of bias variance tradeoff from a qualitative standpoint. As an exercise, continue with this idea, this time calculating the mean squared error (MSE) and R-square between the model and UNSEEN (non-training data) population data. </p>
 <p>error metrics
 * <code>r2_score</code> 
 * <code>mean_squared_error</code></p>
-<p>Do this for a 9th order polynomial and repeat for population data with low, med, and high degrees of error and small and large training fractions. Complete the chart below.</p>
+<p>Do this for a 9<sup>th</sup> order polynomial and repeat for population data with low, med, and high degrees of error and small and large training fractions. Complete the chart below.</p>
 <table>
 <thead>
 <tr>
@@ -1259,184 +1292,194 @@ ax[1].set_title(&quot;High Variance Model&quot;)
 </tr>
 </tbody>
 </table>
-<pre><code class="language-python"># Code Cell for Exercise 1
-from sklearn.preprocessing import PolynomialFeatures
-random.seed(42)
+<div class="codehilite"><pre><span></span><code><span class="c1"># Code Cell for Exercise 1</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PolynomialFeatures</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-# function to generate data
-def func(x, err):
-  return np.log(x) + err * random.randint(-1,1) * random.random()
-x = np.arange(20,100)
+<span class="c1"># function to generate data</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">err</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">err</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
 
-################################################################################
-########## CHANGE ERR TO CHANGE THE AMOUNT OF NOISE IN YOUR DATA ###############
-################################################################################
-err = &lt;YOUR ERR&gt; # change the error (.001 - 1)
-y_actual = [func(t, err) for t in x]
+<span class="c1">################################################################################</span>
+<span class="c1">########## CHANGE ERR TO CHANGE THE AMOUNT OF NOISE IN YOUR DATA ###############</span>
+<span class="c1">################################################################################</span>
+<span class="n">err</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">YOUR</span> <span class="n">ERR</span><span class="o">&gt;</span> <span class="c1"># change the error (.001 - 1)</span>
+<span class="n">y_actual</span> <span class="o">=</span> <span class="p">[</span><span class="n">func</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
 
 
-################################################################################
-### SAMPLE THE DATA FOR TRAINING
-################################################################################
-x_train, x_test, y_train, y_test = train_test_split(x, 
-                                                    y_actual,
-                                                    train_size=&lt;YOUR NUMBER&gt;, # change the training size
-                                                    random_state=42)
+<span class="c1">################################################################################</span>
+<span class="c1">### SAMPLE THE DATA FOR TRAINING</span>
+<span class="c1">################################################################################</span>
+<span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> 
+                                                    <span class="n">y_actual</span><span class="p">,</span>
+                                                    <span class="n">train_size</span><span class="o">=&lt;</span><span class="n">YOUR</span> <span class="n">NUMBER</span><span class="o">&gt;</span><span class="p">,</span> <span class="c1"># change the training size</span>
+                                                    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
-# solving our training data with a 9-degree polynomial
-coefs = np.polyfit(x_train, y_train, 9)
+<span class="c1"># solving our training data with a 9-degree polynomial</span>
+<span class="n">coefs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
 
-# generate y data with 9-degree polynomial model and X_seq
-y_pred = np.polyval(coefs, x_test)
+<span class="c1"># generate y data with 9-degree polynomial model and X_seq</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">coefs</span><span class="p">,</span> <span class="n">x_test</span><span class="p">)</span>
 
-################################################################################
-### CALCULATE MSE AND R2
-################################################################################
-mse = mean_squared_error(y_test, y_pred)
-r2 = r2_score(y_test, y_pred)
+<span class="c1">################################################################################</span>
+<span class="c1">### CALCULATE MSE AND R2</span>
+<span class="c1">################################################################################</span>
+<span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 
-# look at results
-print(&quot;mean square error: {:.2f}&quot;.format(mse))
-print(&quot;r2: {:.2f}&quot;.format(r2))
-</code></pre>
-<pre><code>mean square error: 5.20e-01
+<span class="c1"># look at results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;mean square error: </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mse</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;r2: </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r2</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>mean square error: 5.20e-01
 r2: -0.13
-</code></pre>
+</code></pre></div>
+
 <p><a name='1.1.4'></a></p>
-<h3 id="314-learning-curves">3.1.4 Learning Curves</h3>
+<h3 id="314-learning-curves">3.1.4 Learning Curves<a class="headerlink" href="#314-learning-curves" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
 <p>To move from qualitative to quantitative understanding of bias-variance tradeoff we need to introduce some metric for model performance. A good one to use here is R-square, a measure of the degree to which predictions match actual values. We can import a tool from sklearn to calculate this for us.</p>
-<pre><code class="language-python">from sklearn.metrics import r2_score
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">r2_score</span>
+</code></pre></div>
+
 <p><a name='x.1.4.1'></a></p>
-<h4 id="3141-considering-model-complexity">3.1.4.1 Considering Model Complexity</h4>
+<h4 id="3141-considering-model-complexity">3.1.4.1 Considering Model Complexity<a class="headerlink" href="#3141-considering-model-complexity" title="Permanent link">&para;</a></h4>
 <p><a href="#top">back to top</a></p>
 <p>In a learning curve, we will typically plot the training and testing scores together, to give a sense of when we have either too much bias or too much variance in our model.</p>
 <p>I'm going to go ahead and recreate the original data distribution we introduced in 1.1.3</p>
-<pre><code class="language-python"># we can throttle the error rate
-err = .5
-random.seed(42)
+<div class="codehilite"><pre><span></span><code><span class="c1"># we can throttle the error rate</span>
+<span class="n">err</span> <span class="o">=</span> <span class="mf">.5</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-# our data has a KNOWN underlying functional form (log(x))
-def func(x, err):
-  return np.log(x) + err * random.randint(-1,1) * random.random()
-x = np.arange(20,100)
-y = [func(t, err) for t in x]
-plt.plot(x,y, ls='', marker='.')
-</code></pre>
-<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f3ea0305f90&gt;]
-</code></pre>
+<span class="c1"># our data has a KNOWN underlying functional form (log(x))</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">err</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">err</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">func</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[&lt;matplotlib.lines.Line2D at 0x7f3ea0305f90&gt;]
+</code></pre></div>
+
 <p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_44_1.png" /></p>
 <p>Now let's itteratively introduce more complexity into our model</p>
-<pre><code class="language-python">random.seed(42)
-fig, ax = plt.subplots(1,2,figsize=(10,5))
-X_train = random.sample(list(x), 10)
-indices = [list(x).index(i) for i in X_train]
-y_train = [y[i] for i in indices]
-ax[0].plot(X_train, y_train, ls='', marker='.', color='black')
-for complexity in range(1,10):
+<div class="codehilite"><pre><span></span><code><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">X_train</span><span class="p">]</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">complexity</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">):</span>
 
 
-  # solving our training data with a n-degree polynomial
-  coefs = np.polyfit(X_train, y_train, complexity)
+  <span class="c1"># solving our training data with a n-degree polynomial</span>
+  <span class="n">coefs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">complexity</span><span class="p">)</span>
 
-    # create some x data to plot our functions
-  X_seq = np.linspace(min(X_train),max(X_train),300).reshape(-1,1)
+    <span class="c1"># create some x data to plot our functions</span>
+  <span class="n">X_seq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span><span class="nb">max</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span><span class="mi">300</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 
-  score = r2_score(np.polyval(coefs, X_train), y_train)
-  ax[0].plot(X_seq, np.polyval(coefs, X_seq), alpha=0.5, ls='--')
-  ax[0].set_ylim(min(y_train), max(y_train))
-  ax[0].set_title(&quot;Predictions with Increasing Model Complexity&quot;)
+  <span class="n">score</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">coefs</span><span class="p">,</span> <span class="n">X_train</span><span class="p">),</span> <span class="n">y_train</span><span class="p">)</span>
+  <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_seq</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">coefs</span><span class="p">,</span> <span class="n">X_seq</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+  <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_train</span><span class="p">))</span>
+  <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Predictions with Increasing Model Complexity&quot;</span><span class="p">)</span>
 
-  ax[1].plot(complexity, score, ls='', marker='.',
-          label='{}-poly, {:.2f}-score'.format(complexity, score))
-  ax[1].set_title(&quot;Scores with Increasing Model Complexity&quot;)
-ax[1].legend()
-</code></pre>
-<pre><code>&lt;matplotlib.legend.Legend at 0x7f3ea0577d90&gt;
-</code></pre>
+  <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">complexity</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span>
+          <span class="n">label</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">-poly, </span><span class="si">{:.2f}</span><span class="s1">-score&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">complexity</span><span class="p">,</span> <span class="n">score</span><span class="p">))</span>
+  <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Scores with Increasing Model Complexity&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&lt;matplotlib.legend.Legend at 0x7f3ea0577d90&gt;
+</code></pre></div>
+
 <p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_46_1.png" /></p>
 <p>As we see from both plots, the score on the training data increases with added model complexity. Giving us the expected perfect fit when the order is the same as the number of data points! This is part I of our learning curve. Part II consists of plotting the training data score with the testing data score.</p>
 <p>Something else I'm going to do, is define the training portion of the data as a fraction of the overall population size. To keep the comparisons the same as up until now, I will keep this training fraction low at .2</p>
-<pre><code class="language-python">random.seed(42)
+<div class="codehilite"><pre><span></span><code><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-# defining my training fraction
-training_frac = .2
+<span class="c1"># defining my training fraction</span>
+<span class="n">training_frac</span> <span class="o">=</span> <span class="mf">.2</span>
 
-# create test and training data
-X_train = random.sample(list(x), int(int(len(x))*training_frac))
-train_indices = [list(x).index(i) for i in X_train]
-y_train = [y[i] for i in train_indices]
-test_indices = [i for i in range(len(x)) if i not in train_indices]
-X_test = [x[i] for i in test_indices]
-y_test = [y[i] for i in test_indices]
+<span class="c1"># create test and training data</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">*</span><span class="n">training_frac</span><span class="p">))</span>
+<span class="n">train_indices</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">X_train</span><span class="p">]</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">train_indices</span><span class="p">]</span>
+<span class="n">test_indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">train_indices</span><span class="p">]</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">test_indices</span><span class="p">]</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">test_indices</span><span class="p">]</span>
 
-# initialize the plot and display the data
-fig, ax = plt.subplots(1,2,figsize=(10,5))
-ax[0].plot(X_train, y_train, ls='', marker='.', color='black')
-ax[0].plot(X_test, y_test, ls='', marker='.', color='grey', alpha=0.5)
-for complexity in range(1,10):
+<span class="c1"># initialize the plot and display the data</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">complexity</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">):</span>
 
-  # solving our training data with a n-degree polynomial
-  coefs = np.polyfit(X_train, y_train, complexity)
+  <span class="c1"># solving our training data with a n-degree polynomial</span>
+  <span class="n">coefs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">complexity</span><span class="p">)</span>
 
-  # create some x data to plot our functions
-  X_seq = np.linspace(min(X_train),max(X_train),300).reshape(-1,1)
+  <span class="c1"># create some x data to plot our functions</span>
+  <span class="n">X_seq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span><span class="nb">max</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span><span class="mi">300</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 
-  score1 = r2_score(np.polyval(coefs, X_train), y_train)
-  score2 = r2_score(np.polyval(coefs, X_test), y_test)
-  ax[0].plot(X_seq, np.polyval(coefs, X_seq), alpha=0.5, ls='--',
-             label='{}-poly, {:.2f}-score'.format(complexity, score2))
-  ax[0].set_ylim(min(y_train), max(y_train))
-  ax[0].set_title(&quot;Predictions with Increasing Model Complexity&quot;)
+  <span class="n">score1</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">coefs</span><span class="p">,</span> <span class="n">X_train</span><span class="p">),</span> <span class="n">y_train</span><span class="p">)</span>
+  <span class="n">score2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">coefs</span><span class="p">,</span> <span class="n">X_test</span><span class="p">),</span> <span class="n">y_test</span><span class="p">)</span>
+  <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_seq</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">coefs</span><span class="p">,</span> <span class="n">X_seq</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">-poly, </span><span class="si">{:.2f}</span><span class="s1">-score&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">complexity</span><span class="p">,</span> <span class="n">score2</span><span class="p">))</span>
+  <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_train</span><span class="p">))</span>
+  <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Predictions with Increasing Model Complexity&quot;</span><span class="p">)</span>
 
-  ax[1].plot(complexity, score1, ls='', marker='.', color='blue',
-          label='{}-poly, {:.2f}-score'.format(complexity, score1))
-  ax[1].plot(complexity, score2, ls='', marker='o', color='red',
-          label='{}-poly, {:.2f}-score'.format(complexity, score2))
-  ax[1].set_title(&quot;Scores with Increasing Model Complexity&quot;)
+  <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">complexity</span><span class="p">,</span> <span class="n">score1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span>
+          <span class="n">label</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">-poly, </span><span class="si">{:.2f}</span><span class="s1">-score&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">complexity</span><span class="p">,</span> <span class="n">score1</span><span class="p">))</span>
+  <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">complexity</span><span class="p">,</span> <span class="n">score2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+          <span class="n">label</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">-poly, </span><span class="si">{:.2f}</span><span class="s1">-score&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">complexity</span><span class="p">,</span> <span class="n">score2</span><span class="p">))</span>
+  <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Scores with Increasing Model Complexity&quot;</span><span class="p">)</span>
 
-ax[1].legend(['Train $R^2$', 'Test $R^2$'])
-ax[0].legend()
-</code></pre>
-<pre><code>&lt;matplotlib.legend.Legend at 0x7f3ea0278850&gt;
-</code></pre>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;Train $R^2$&#39;</span><span class="p">,</span> <span class="s1">&#39;Test $R^2$&#39;</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&lt;matplotlib.legend.Legend at 0x7f3ea0278850&gt;
+</code></pre></div>
+
 <p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_48_1.png" /></p>
-<p>As we can see, The 2nd order polynomial achieves the greatest best test set data \(R^2\), while the highest order polynomial achieves the best training set data \(R^2\). This learning curve is explanative of what we see generally, namely a divergence after some degree of complexity between training and test set performances. In this case, we would resolve to choose the 2nd order polynomial as the best model for our data.</p>
+<p>As we can see, The 2<sup>nd</sup> order polynomial achieves the greatest best test set data \(R^2\), while the highest order polynomial achieves the best training set data \(R^2\). This learning curve is explanative of what we see generally, namely a divergence after some degree of complexity between training and test set performances. In this case, we would resolve to choose the 2<sup>nd</sup> order polynomial as the best model for our data.</p>
 <p><img src="https://jakevdp.github.io/PythonDataScienceHandbook/figures/05.03-validation-curve.png" width=500px></img></p>
 <p><small><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html">img src</a></small></p>
 <p><a name='x.1.4.2'></a></p>
-<h4 id="3142-considering-training-set-size">3.1.4.2 Considering Training Set Size</h4>
+<h4 id="3142-considering-training-set-size">3.1.4.2 Considering Training Set Size<a class="headerlink" href="#3142-considering-training-set-size" title="Permanent link">&para;</a></h4>
 <p><a href="#top">back to top</a></p>
 <p>The last piece of the puzzle we require, to fully cover learning curves, is the effect of training data size on the model. This is why I introduced the 'fraction of training data' parameter earlier. Let's explore.</p>
-<pre><code class="language-python">random.seed(42)
-# initialize the plot and display the data
-fig, ax = plt.subplots(1,1,figsize=(10,5))
-for training_frac in np.linspace(0.1,.9,50):
-  # create test and training data
-  X_train = random.sample(list(x), int(int(len(x))*training_frac))
-  indices = [list(x).index(i) for i in X_train]
-  y_train = [y[i] for i in indices]
-  test_indices = [i for i in range(len(x)) if i not in indices]
-  X_test = [x[i] for i in test_indices]
-  y_test = [y[i] for i in test_indices]
+<div class="codehilite"><pre><span></span><code><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="c1"># initialize the plot and display the data</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">training_frac</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">.9</span><span class="p">,</span><span class="mi">50</span><span class="p">):</span>
+  <span class="c1"># create test and training data</span>
+  <span class="n">X_train</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">*</span><span class="n">training_frac</span><span class="p">))</span>
+  <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">X_train</span><span class="p">]</span>
+  <span class="n">y_train</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
+  <span class="n">test_indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
+  <span class="n">X_test</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">test_indices</span><span class="p">]</span>
+  <span class="n">y_test</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">test_indices</span><span class="p">]</span>
 
-  # solving our training data with a n-degree polynomial
-  coefs = np.polyfit(X_train, y_train, 9)
+  <span class="c1"># solving our training data with a n-degree polynomial</span>
+  <span class="n">coefs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
 
-  score1 = r2_score(np.polyval(coefs, X_train), y_train)
-  score2 = r2_score(np.polyval(coefs, X_test), y_test)
+  <span class="n">score1</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">coefs</span><span class="p">,</span> <span class="n">X_train</span><span class="p">),</span> <span class="n">y_train</span><span class="p">)</span>
+  <span class="n">score2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">coefs</span><span class="p">,</span> <span class="n">X_test</span><span class="p">),</span> <span class="n">y_test</span><span class="p">)</span>
 
-  ax.plot(training_frac, score1, ls='', marker='.', color='blue',
-          label='{}-poly, {:.2f}-score'.format(training_frac, score1))
-  ax.plot(training_frac, score2, ls='', marker='o', color='red',
-          label='{}-poly, {:.2f}-score'.format(training_frac, score2))
-  ax.set_title(&quot;9th-order Polynomial Score with Increasing Training Set Size&quot;)
-ax.legend(['Train','Test'])
-ax.set_xlabel('Training Fraction')
-ax.set_ylabel('$R^2$')
-</code></pre>
-<pre><code>/usr/local/lib/python3.7/dist-packages/IPython/core/interactiveshell.py:2882: RankWarning: Polyfit may be poorly conditioned
+  <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">training_frac</span><span class="p">,</span> <span class="n">score1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span>
+          <span class="n">label</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">-poly, </span><span class="si">{:.2f}</span><span class="s1">-score&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">training_frac</span><span class="p">,</span> <span class="n">score1</span><span class="p">))</span>
+  <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">training_frac</span><span class="p">,</span> <span class="n">score2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+          <span class="n">label</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">-poly, </span><span class="si">{:.2f}</span><span class="s1">-score&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">training_frac</span><span class="p">,</span> <span class="n">score2</span><span class="p">))</span>
+  <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;9th-order Polynomial Score with Increasing Training Set Size&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;Train&#39;</span><span class="p">,</span><span class="s1">&#39;Test&#39;</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Training Fraction&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$R^2$&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>/usr/local/lib/python3.7/dist-packages/IPython/core/interactiveshell.py:2882: RankWarning: Polyfit may be poorly conditioned
   exec(code_obj, self.user_global_ns, self.user_ns)
 /usr/local/lib/python3.7/dist-packages/IPython/core/interactiveshell.py:2882: RankWarning: Polyfit may be poorly conditioned
   exec(code_obj, self.user_global_ns, self.user_ns)
@@ -1445,133 +1488,145 @@ ax.set_ylabel('$R^2$')
 
 
 
-Text(0, 0.5, '$R^2$')
-</code></pre>
+Text(0, 0.5, &#39;$R^2$&#39;)
+</code></pre></div>
+
 <p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_51_2.png" /></p>
 <p>What we see here is a trend that happens generally, as our amount of training data increases, our models handle more complexity. This is illustrated below. </p>
 <p><img src="https://jakevdp.github.io/PythonDataScienceHandbook/figures/05.03-learning-curve.png" width=500px></img></p>
 <p><small><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html">img src</a></p>
-<h4 id="exercise-2-visualization">🏋️ Exercise 2: Visualization</h4>
-<p>Starting with the code below, make a side-by-side plot of a 3rd degree polynomial and a 12th degree polynomial. On the x axis slowly increase the training set size, on the y axis plot the scores for the training and test sets.</p>
-<pre><code class="language-python"># Code Cell for Exercise 2
-random.seed(42)
+<h4 id="exercise-2-visualization">🏋️ Exercise 2: Visualization<a class="headerlink" href="#exercise-2-visualization" title="Permanent link">&para;</a></h4>
+<p>Starting with the code below, make a side-by-side plot of a 3<sup>rd</sup> degree polynomial and a 12<sup>th</sup> degree polynomial. On the x axis slowly increase the training set size, on the y axis plot the scores for the training and test sets.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Code Cell for Exercise 2</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-# create the figure and axes
-fig, ax = plt.subplots(1,1,figsize=(10,5))
+<span class="c1"># create the figure and axes</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
 
-for training_frac in np.linspace(0.1,.9,50):
+<span class="k">for</span> <span class="n">training_frac</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">.9</span><span class="p">,</span><span class="mi">50</span><span class="p">):</span>
 
-  # create test and training data
-  x_train, x_test, y_train, y_test = train_test_split(x, 
-                                                    y_actual,
-                                                    train_size=training_frac, 
-                                                    random_state=42)
+  <span class="c1"># create test and training data</span>
+  <span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> 
+                                                    <span class="n">y_actual</span><span class="p">,</span>
+                                                    <span class="n">train_size</span><span class="o">=</span><span class="n">training_frac</span><span class="p">,</span> 
+                                                    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
-  # solving our training data with a n-degree polynomial
-  coefs = np.polyfit(x_train, y_train, 9)
+  <span class="c1"># solving our training data with a n-degree polynomial</span>
+  <span class="n">coefs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
 
-  # recording the scores for the training and test sets
-  score1 = r2_score(np.polyval(coefs, x_train), y_train)
-  score2 = r2_score(np.polyval(coefs, x_test), y_test)
+  <span class="c1"># recording the scores for the training and test sets</span>
+  <span class="n">score1</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">coefs</span><span class="p">,</span> <span class="n">x_train</span><span class="p">),</span> <span class="n">y_train</span><span class="p">)</span>
+  <span class="n">score2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">coefs</span><span class="p">,</span> <span class="n">x_test</span><span class="p">),</span> <span class="n">y_test</span><span class="p">)</span>
 
-  ax.plot(training_frac, score1, ls='', marker='.', color='blue',
-          label='{}-poly, {:.2f}-score'.format(training_frac, score1))
-  ax.plot(training_frac, score2, ls='', marker='o', color='red',
-          label='{}-poly, {:.2f}-score'.format(training_frac, score2))
-  ax.set_title(&quot;9th-order Polynomial Score with Increasing Training Set Size&quot;)
+  <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">training_frac</span><span class="p">,</span> <span class="n">score1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span>
+          <span class="n">label</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">-poly, </span><span class="si">{:.2f}</span><span class="s1">-score&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">training_frac</span><span class="p">,</span> <span class="n">score1</span><span class="p">))</span>
+  <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">training_frac</span><span class="p">,</span> <span class="n">score2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+          <span class="n">label</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">-poly, </span><span class="si">{:.2f}</span><span class="s1">-score&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">training_frac</span><span class="p">,</span> <span class="n">score2</span><span class="p">))</span>
+  <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;9th-order Polynomial Score with Increasing Training Set Size&quot;</span><span class="p">)</span>
 
-ax.legend(['Train','Test'])
-ax.set_xlabel('Training Fraction')
-ax.set_ylabel('$R^2$')
-</code></pre>
-<pre><code>Text(0, 0.5, '$R^2$')
-</code></pre>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;Train&#39;</span><span class="p">,</span><span class="s1">&#39;Test&#39;</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Training Fraction&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$R^2$&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Text(0, 0.5, &#39;$R^2$&#39;)
+</code></pre></div>
+
 <p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_54_1.png" /></p>
 <blockquote>
 <p>As a visualization exercise, how would you attempt to combine the ideas of model performance with increasing training set size and increasing model complexity? Could you create this visualization with something other than a polynomial model?</p>
 </blockquote>
 <p><a name='1.2'></a></p>
-<h2 id="32-model-validation-in-practice">3.2 Model Validation in Practice</h2>
+<h2 id="32-model-validation-in-practice">3.2 Model Validation in Practice<a class="headerlink" href="#32-model-validation-in-practice" title="Permanent link">&para;</a></h2>
 <p><a href="#top">back to top</a></p>
 <p>We will now turn our attention to practical implementation.</p>
 <p>In practice, there are a wide number of variables (called hyperparameters) to consider when choosing a model. Scikit learn has a useful method called Grid Search that will iterate through every possible combination of a range of hyperparameter settings you provide as input. </p>
 <p>Before we get started with grid search, we'll need to switch over from our numpy polynomial fit method to one in sklearn. Here, the caveat is our actual model will solve for the <em>coefficients</em> infront of the polynomials. We will <em>engineer</em> the polynomial features ourselves. This is an example of <em>feature engineering</em> which we will revisit in depth in a later session.</p>
-<pre><code class="language-python">from sklearn.preprocessing import PolynomialFeatures
-from sklearn.linear_model import LinearRegression
-from sklearn.pipeline import make_pipeline
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PolynomialFeatures</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
 
-def PolynomialRegression(degree=2, **kwargs):
-    return make_pipeline(PolynomialFeatures(degree),
-                         LinearRegression(**kwargs))
-</code></pre>
+<span class="k">def</span> <span class="nf">PolynomialRegression</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="p">),</span>
+                         <span class="n">LinearRegression</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+</code></pre></div>
+
 <p><a name='1.2.1'></a></p>
-<h3 id="321-grid-search">3.2.1 Grid Search</h3>
+<h3 id="321-grid-search">3.2.1 Grid Search<a class="headerlink" href="#321-grid-search" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
-<pre><code class="language-python">from sklearn.model_selection import GridSearchCV
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
 
-param_grid = {'polynomialfeatures__degree': np.arange(10),
-              'linearregression__fit_intercept': [True, False],
-              'linearregression__normalize': [True, False]}
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;polynomialfeatures__degree&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+              <span class="s1">&#39;linearregression__fit_intercept&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+              <span class="s1">&#39;linearregression__normalize&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]}</span>
 
-grid = GridSearchCV(PolynomialRegression(), param_grid, cv=7)
-</code></pre>
-<pre><code class="language-python"># create test and training data
-random.seed(42)
-X_train = random.sample(list(x), int(int(len(x))*.8))
-indices = [list(x).index(i) for i in X_train]
-y_train = [y[i] for i in indices]
-test_indices = [i for i in range(len(x)) if i not in indices]
-X_test = [x[i] for i in test_indices]
-y_test = [y[i] for i in test_indices]
-</code></pre>
-<pre><code class="language-python">grid.fit(np.array(X_train).reshape(-1,1), y_train)
-</code></pre>
-<pre><code>GridSearchCV(cv=7, error_score=nan,
+<span class="n">grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">PolynomialRegression</span><span class="p">(),</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># create test and training data</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">*</span><span class="mf">.8</span><span class="p">))</span>
+<span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">X_train</span><span class="p">]</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
+<span class="n">test_indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">test_indices</span><span class="p">]</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">test_indices</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">y_train</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>GridSearchCV(cv=7, error_score=nan,
              estimator=Pipeline(memory=None,
-                                steps=[('polynomialfeatures',
+                                steps=[(&#39;polynomialfeatures&#39;,
                                         PolynomialFeatures(degree=2,
                                                            include_bias=True,
                                                            interaction_only=False,
-                                                           order='C')),
-                                       ('linearregression',
+                                                           order=&#39;C&#39;)),
+                                       (&#39;linearregression&#39;,
                                         LinearRegression(copy_X=True,
                                                          fit_intercept=True,
                                                          n_jobs=None,
                                                          normalize=False))],
                                 verbose=False),
-             iid='deprecated', n_jobs=None,
-             param_grid={'linearregression__fit_intercept': [True, False],
-                         'linearregression__normalize': [True, False],
-                         'polynomialfeatures__degree': array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])},
-             pre_dispatch='2*n_jobs', refit=True, return_train_score=False,
+             iid=&#39;deprecated&#39;, n_jobs=None,
+             param_grid={&#39;linearregression__fit_intercept&#39;: [True, False],
+                         &#39;linearregression__normalize&#39;: [True, False],
+                         &#39;polynomialfeatures__degree&#39;: array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])},
+             pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=False,
              scoring=None, verbose=0)
-</code></pre>
-<pre><code class="language-python">grid.best_params_
-</code></pre>
-<pre><code>{'linearregression__fit_intercept': True,
- 'linearregression__normalize': False,
- 'polynomialfeatures__degree': 3}
-</code></pre>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">grid</span><span class="o">.</span><span class="n">best_params_</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>{&#39;linearregression__fit_intercept&#39;: True,
+ &#39;linearregression__normalize&#39;: False,
+ &#39;polynomialfeatures__degree&#39;: 3}
+</code></pre></div>
+
 <p>to grab the best model from the CV/search outcome. we use grid.best_estimator</p>
-<pre><code class="language-python">model = grid.best_estimator_
+<div class="codehilite"><pre><span></span><code><span class="n">model</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">best_estimator_</span>
 
-# create some x data to plot our functions
-X_seq = np.linspace(min(X_train),max(X_train),300).reshape(-1,1)
+<span class="c1"># create some x data to plot our functions</span>
+<span class="n">X_seq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span><span class="nb">max</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span><span class="mi">300</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 
-fig, ax = plt.subplots(1,1,figsize=(15,5))
-ax.plot(X_seq, model.predict(X_seq), c='grey', ls='--')
-ax.plot(x, y, ls='', marker='*', alpha=0.6)
-ax.plot(X_train, y_train, ls='', marker='.')
-ax.set_ylim(min(y), max(y))
-ax.set_title(&quot;Best Grid Search CV Model&quot;)
-</code></pre>
-<pre><code>Text(0.5, 1.0, 'Best Grid Search CV Model')
-</code></pre>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_seq</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_seq</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Best Grid Search CV Model&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Text(0.5, 1.0, &#39;Best Grid Search CV Model&#39;)
+</code></pre></div>
+
 <p><img alt="png" src="../S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_64_1.png" /></p>
 <p><a name='reference'></a></p>
-<h1 id="references">References</h1>
+<h1 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h1>
 <p><a href="#top">back to top</a></p>
-<h2 id="model-validation">Model Validation</h2>
+<h2 id="model-validation">Model Validation<a class="headerlink" href="#model-validation" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://scikit-learn.org/stable/modules/cross_validation.html">cross_val_score</a></li>
 <li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Model-validation-via-cross-validation">leave-one-out</a></li>

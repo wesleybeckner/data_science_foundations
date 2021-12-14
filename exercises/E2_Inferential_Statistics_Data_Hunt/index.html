@@ -40,6 +40,8 @@
     
       <link rel="stylesheet" href="../../extra.css">
     
+      <link rel="stylesheet" href="../../styles.css">
+    
     <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -819,9 +821,9 @@
                 
 
 <p><a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/exercises/E2_Inferential_Statistics_Data_Hunt.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
-<h1 id="data-science-foundations-lab-2-data-hunt-ii">Data Science Foundations, Lab 2: Data Hunt II</h1>
+<h1 id="data-science-foundations-lab-2-data-hunt-ii">Data Science Foundations, Lab 2: Data Hunt II<a class="headerlink" href="#data-science-foundations-lab-2-data-hunt-ii" title="Permanent link">&para;</a></h1>
 <p><strong>Instructor</strong>: Wesley Beckner</p>
-<p><strong>Contact</strong>: wesleybeckner@gmail.com</p>
+<p><strong>Contact</strong>: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#119;&#101;&#115;&#108;&#101;&#121;&#98;&#101;&#99;&#107;&#110;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#119;&#101;&#115;&#108;&#101;&#121;&#98;&#101;&#99;&#107;&#110;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
 <hr />
 <p><br></p>
 <p align=center>
@@ -833,11 +835,12 @@ That's right you heard correctly. It's the data hunt part TWO.
 </p>
 
 <p><a name='x.0'></a></p>
-<h2 id="preparing-environment-and-importing-data">Preparing Environment and Importing Data</h2>
-<h3 id="import-packages">Import Packages</h3>
-<pre><code class="language-python">!pip install -U plotly
-</code></pre>
-<pre><code>Requirement already satisfied: plotly in /usr/local/lib/python3.7/dist-packages (4.4.1)
+<h2 id="preparing-environment-and-importing-data">Preparing Environment and Importing Data<a class="headerlink" href="#preparing-environment-and-importing-data" title="Permanent link">&para;</a></h2>
+<h3 id="import-packages">Import Packages<a class="headerlink" href="#import-packages" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">plotly</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Requirement already satisfied: plotly in /usr/local/lib/python3.7/dist-packages (4.4.1)
 Collecting plotly
   Downloading plotly-5.1.0-py2.py3-none-any.whl (20.6 MB)
 [K     |████████████████████████████████| 20.6 MB 1.3 MB/s 
@@ -850,35 +853,39 @@ Installing collected packages: tenacity, plotly
     Uninstalling plotly-4.4.1:
       Successfully uninstalled plotly-4.4.1
 Successfully installed plotly-5.1.0 tenacity-8.0.1
-</code></pre>
-<pre><code class="language-python"># our standard libraries
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import plotly.express as px
-import seaborn as sns
-from ipywidgets import interact
+</code></pre></div>
 
-# our stats libraries
-import random
-import scipy.stats as stats
-import statsmodels.api as sm
-from statsmodels.formula.api import ols
-import scipy
+<div class="codehilite"><pre><span></span><code><span class="c1"># our standard libraries</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span>
 
-# our scikit-Learn library for the regression models
-import sklearn         
-from sklearn import linear_model
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error, r2_score
-</code></pre>
-<h3 id="import-and-clean-data">Import and Clean Data</h3>
-<pre><code class="language-python">df = pd.read_csv(&quot;https://raw.githubusercontent.com/wesleybeckner/&quot;\
-                 &quot;technology_fundamentals/main/assets/truffle_rates.csv&quot;)
-df = df.loc[df['rate'] &gt; 0]
-</code></pre>
-<pre><code class="language-python">df.head()
-</code></pre>
+<span class="c1"># our stats libraries</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">ols</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+
+<span class="c1"># our scikit-Learn library for the regression models</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>         
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
+</code></pre></div>
+
+<h3 id="import-and-clean-data">Import and Clean Data<a class="headerlink" href="#import-and-clean-data" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/wesleybeckner/&quot;</span>\
+                 <span class="s2">&quot;technology_fundamentals/main/assets/truffle_rates.csv&quot;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rate&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -955,12 +962,14 @@ df = df.loc[df['rate'] &gt; 0]
 </table>
 </div>
 
-<pre><code class="language-python">df.shape
-</code></pre>
-<pre><code>(9210, 6)
-</code></pre>
-<h2 id="exploratory-data-analysis">Exploratory Data Analysis</h2>
-<h3 id="q1-finding-influential-features">Q1 Finding Influential Features</h3>
+<div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>(9210, 6)
+</code></pre></div>
+
+<h2 id="exploratory-data-analysis">Exploratory Data Analysis<a class="headerlink" href="#exploratory-data-analysis" title="Permanent link">&para;</a></h2>
+<h3 id="q1-finding-influential-features">Q1 Finding Influential Features<a class="headerlink" href="#q1-finding-influential-features" title="Permanent link">&para;</a></h3>
 <p>Which of the five features (base_cake, truffle_type, primary_flavor, secondary_flavor, color_group) of the truffles is most influential on production rate?</p>
 <p>Back your answer with both a visualization of the distributions (boxplot, kernel denisty estimate, histogram, violin plot) and a statistical test (moods median, ANOVA, t-test)</p>
 <ul>
@@ -970,38 +979,41 @@ df = df.loc[df['rate'] &gt; 0]
 </ul>
 </li>
 </ul>
-<h4 id="q11-visualization">Q1.1 Visualization</h4>
+<h4 id="q11-visualization">Q1.1 Visualization<a class="headerlink" href="#q11-visualization" title="Permanent link">&para;</a></h4>
 <p>Use any number of visualizations. Here is an example to get you started:</p>
-<pre><code class="language-python"># Example: a KDE of the truffle_type and base_cake columns
+<div class="codehilite"><pre><span></span><code><span class="c1"># Example: a KDE of the truffle_type and base_cake columns</span>
 
-fig, ax = plt.subplots(2, 1, figsize=(12,12))
-sns.kdeplot(x=df['rate'], hue=df['truffle_type'], fill=True, ax=ax[0])
-sns.kdeplot(x=df['rate'], hue=df['base_cake'], fill=True, ax=ax[1])
-</code></pre>
-<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f549eea03d0&gt;
-</code></pre>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rate&#39;</span><span class="p">],</span> <span class="n">hue</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;truffle_type&#39;</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rate&#39;</span><span class="p">],</span> <span class="n">hue</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;base_cake&#39;</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f549eea03d0&gt;
+</code></pre></div>
+
 <p><img alt="png" src="../E2_Inferential_Statistics_Data_Hunt_files/E2_Inferential_Statistics_Data_Hunt_13_1.png" /></p>
-<pre><code class="language-python">
-</code></pre>
-<pre><code>/usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
 
-Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+<div class="codehilite"><pre><span></span><code>/usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
 
-/usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
-
-Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify &#39;dtype=object&#39; when creating the ndarray
 
 /usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
 
-Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify &#39;dtype=object&#39; when creating the ndarray
 
 /usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
 
-Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify &#39;dtype=object&#39; when creating the ndarray
 
 /usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
 
-Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify &#39;dtype=object&#39; when creating the ndarray
+
+/usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
+
+Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify &#39;dtype=object&#39; when creating the ndarray
 
 /usr/local/lib/python3.7/dist-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning:
 
@@ -1010,14 +1022,16 @@ Glyph 9 missing from current font.
 /usr/local/lib/python3.7/dist-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning:
 
 Glyph 9 missing from current font.
-</code></pre>
+</code></pre></div>
+
 <p><img alt="png" src="../E2_Inferential_Statistics_Data_Hunt_files/E2_Inferential_Statistics_Data_Hunt_14_1.png" /></p>
-<h4 id="q12-statistical-analysis">Q1.2 Statistical Analysis</h4>
+<h4 id="q12-statistical-analysis">Q1.2 Statistical Analysis<a class="headerlink" href="#q12-statistical-analysis" title="Permanent link">&para;</a></h4>
 <p>What statistical tests can you perform to evaluate your hypothesis from the visualizations (maybe you think one particular feature is significant). Here's an ANOVA on the <code>truffle_type</code> column to get you started:</p>
-<pre><code class="language-python">model = ols('rate ~ C({})'.format('truffle_type'), data=df).fit()
-anova_table = sm.stats.anova_lm(model, typ=2)
-display(anova_table)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">model</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="s1">&#39;rate ~ C(</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;truffle_type&#39;</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">anova_table</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">anova_lm</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">anova_table</span><span class="p">)</span>
+</code></pre></div>
+
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1064,10 +1078,12 @@ display(anova_table)
 <blockquote>
 <p>Is this P value significant? What is the null hypothesis? How do we check the assumptions of ANOVA? </p>
 </blockquote>
-<pre><code class="language-python">
-</code></pre>
-<pre><code>base_cake
-</code></pre>
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>base_cake
+</code></pre></div>
+
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1111,7 +1127,7 @@ display(anova_table)
 </table>
 </div>
 
-<pre><code>Shapiro:  0.9281061887741089 0.0
+<div class="codehilite"><pre><span></span><code>Shapiro:  0.9281061887741089 0.0
 Bartlett:  619.3727153356931 1.3175663824168166e-131
 
 truffle_type
@@ -1120,7 +1136,8 @@ truffle_type
 /usr/local/lib/python3.7/dist-packages/scipy/stats/morestats.py:1676: UserWarning:
 
 p-value may not be accurate for N &gt; 5000.
-</code></pre>
+</code></pre></div>
+
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1164,7 +1181,7 @@ p-value may not be accurate for N &gt; 5000.
 </table>
 </div>
 
-<pre><code>Shapiro:  0.9645588994026184 1.3704698981096711e-42
+<div class="codehilite"><pre><span></span><code>Shapiro:  0.9645588994026184 1.3704698981096711e-42
 
 
 /usr/local/lib/python3.7/dist-packages/scipy/stats/morestats.py:1676: UserWarning:
@@ -1176,7 +1193,8 @@ p-value may not be accurate for N &gt; 5000.
 Bartlett:  533.0206680979852 1.8031528902362296e-116
 
 primary_flavor
-</code></pre>
+</code></pre></div>
+
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1220,7 +1238,7 @@ primary_flavor
 </table>
 </div>
 
-<pre><code>/usr/local/lib/python3.7/dist-packages/scipy/stats/morestats.py:1676: UserWarning:
+<div class="codehilite"><pre><span></span><code>/usr/local/lib/python3.7/dist-packages/scipy/stats/morestats.py:1676: UserWarning:
 
 p-value may not be accurate for N &gt; 5000.
 
@@ -1230,7 +1248,8 @@ Shapiro:  0.9738250970840454 6.485387538059916e-38
 Bartlett:  1609.0029005171464 1.848613457353585e-306
 
 secondary_flavor
-</code></pre>
+</code></pre></div>
+
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1274,7 +1293,7 @@ secondary_flavor
 </table>
 </div>
 
-<pre><code>Shapiro:  0.9717048406600952 4.3392384038527993e-39
+<div class="codehilite"><pre><span></span><code>Shapiro:  0.9717048406600952 4.3392384038527993e-39
 Bartlett:  1224.4882890761903 3.5546073028894766e-240
 
 color_group
@@ -1283,7 +1302,8 @@ color_group
 /usr/local/lib/python3.7/dist-packages/scipy/stats/morestats.py:1676: UserWarning:
 
 p-value may not be accurate for N &gt; 5000.
-</code></pre>
+</code></pre></div>
+
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1327,7 +1347,7 @@ p-value may not be accurate for N &gt; 5000.
 </table>
 </div>
 
-<pre><code>Shapiro:  0.9598756432533264 1.401298464324817e-44
+<div class="codehilite"><pre><span></span><code>Shapiro:  0.9598756432533264 1.401298464324817e-44
 Bartlett:  298.6432027161358 1.6917844519244488e-57
 
 
@@ -1335,23 +1355,29 @@ Bartlett:  298.6432027161358 1.6917844519244488e-57
 /usr/local/lib/python3.7/dist-packages/scipy/stats/morestats.py:1676: UserWarning:
 
 p-value may not be accurate for N &gt; 5000.
-</code></pre>
-<h3 id="q2-finding-best-and-worst-groups">Q2 Finding Best and Worst Groups</h3>
-<h4 id="q21-compare-every-group-to-the-whole">Q2.1 Compare Every Group to the Whole</h4>
+</code></pre></div>
+
+<h3 id="q2-finding-best-and-worst-groups">Q2 Finding Best and Worst Groups<a class="headerlink" href="#q2-finding-best-and-worst-groups" title="Permanent link">&para;</a></h3>
+<h4 id="q21-compare-every-group-to-the-whole">Q2.1 Compare Every Group to the Whole<a class="headerlink" href="#q21-compare-every-group-to-the-whole" title="Permanent link">&para;</a></h4>
 <p>Of the primary flavors (feature), what 5 flavors (groups) would you recommend Truffletopia discontinue?</p>
 <p>Iterate through every level (i.e. pound, cheese, sponge cakes) of every category (i.e. base cake, primary flavor, secondary flavor) and use moods median testing to compare the group distribution to the grand median rate.</p>
-<pre><code class="language-python">
-</code></pre>
-<pre><code>(98, 10)
-</code></pre>
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>(98, 10)
+</code></pre></div>
+
 <p>After you've computed a moods median test on every group, filter any data above a significance level of 0.05</p>
-<pre><code class="language-python">
-</code></pre>
-<pre><code>(76, 10)
-</code></pre>
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>(76, 10)
+</code></pre></div>
+
 <p>Return the groups with the lowest median performance (your table need not look exactly like the one I've created)</p>
-<pre><code class="language-python">
-</code></pre>
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
+
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1648,24 +1674,28 @@ p-value may not be accurate for N &gt; 5000.
 </div>
 
 <p>We would want to cut the following primary flavors. Check to see that you get a similar answer. rip wild cherry cream.</p>
-<pre><code>['Coconut', 'Pink Lemonade', 'Chocolate', 'Wild Cherry Cream', 'Gingersnap']
-</code></pre>
-<pre><code class="language-python">
-</code></pre>
-<pre><code>['Coconut', 'Pink Lemonade', 'Chocolate', 'Wild Cherry Cream', 'Gingersnap']
-</code></pre>
-<h4 id="q22-beyond-statistical-testing-using-reasoning">Q2.2 Beyond Statistical Testing: Using Reasoning</h4>
+<div class="codehilite"><pre><span></span><code>[&#39;Coconut&#39;, &#39;Pink Lemonade&#39;, &#39;Chocolate&#39;, &#39;Wild Cherry Cream&#39;, &#39;Gingersnap&#39;]
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[&#39;Coconut&#39;, &#39;Pink Lemonade&#39;, &#39;Chocolate&#39;, &#39;Wild Cherry Cream&#39;, &#39;Gingersnap&#39;]
+</code></pre></div>
+
+<h4 id="q22-beyond-statistical-testing-using-reasoning">Q2.2 Beyond Statistical Testing: Using Reasoning<a class="headerlink" href="#q22-beyond-statistical-testing-using-reasoning" title="Permanent link">&para;</a></h4>
 <p>Let's look at the total profile of the products associated with the five worst primary flavors. Given the number of different products made with any of these flavors, would you alter your answer at all?</p>
-<pre><code class="language-python"># 1. filter df for only bottom five flavors
-# 2. groupby all columns besides rate
-# 3. describe the rate column.
+<div class="codehilite"><pre><span></span><code><span class="c1"># 1. filter df for only bottom five flavors</span>
+<span class="c1"># 2. groupby all columns besides rate</span>
+<span class="c1"># 3. describe the rate column.</span>
 
-# by doing this we can evaluate just how much sampling variety we have for the
-# worst performing flavors.
+<span class="c1"># by doing this we can evaluate just how much sampling variety we have for the</span>
+<span class="c1"># worst performing flavors.</span>
 
-bottom_five = ['Coconut', 'Pink Lemonade', 'Chocolate', 'Wild Cherry Cream', 'Gingersnap']
-df.loc[df['primary_flavor'].isin(bottom_five)].groupby(list(df.columns[:-1]))['rate'].describe()
-</code></pre>
+<span class="n">bottom_five</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Coconut&#39;</span><span class="p">,</span> <span class="s1">&#39;Pink Lemonade&#39;</span><span class="p">,</span> <span class="s1">&#39;Chocolate&#39;</span><span class="p">,</span> <span class="s1">&#39;Wild Cherry Cream&#39;</span><span class="p">,</span> <span class="s1">&#39;Gingersnap&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;primary_flavor&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">bottom_five</span><span class="p">)]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))[</span><span class="s1">&#39;rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</code></pre></div>
+
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1832,32 +1862,34 @@ df.loc[df['primary_flavor'].isin(bottom_five)].groupby(list(df.columns[:-1]))['r
 </table>
 </div>
 
-<h4 id="q23-the-jelly-filled-conundrum">Q2.3 The Jelly Filled Conundrum</h4>
+<h4 id="q23-the-jelly-filled-conundrum">Q2.3 The Jelly Filled Conundrum<a class="headerlink" href="#q23-the-jelly-filled-conundrum" title="Permanent link">&para;</a></h4>
 <p>Your boss notices the Jelly filled truffles are being produced much faster than the candy outer truffles and suggests expanding into this product line. What is your response? Use the visualization tool below to help you think about this problem, then create any visualizations or analyses of your own.</p>
 <p><a href="https://plotly.com/python/sunburst-charts/">sunburst charts</a></p>
-<pre><code class="language-python">def sun(path=[['base_cake', 'truffle_type', 'primary_flavor', 'secondary_flavor', 'color_group'],
-              ['truffle_type', 'base_cake', 'primary_flavor', 'secondary_flavor', 'color_group']]):
-  fig = px.sunburst(df, path=path, 
-                    color='rate', 
-                    color_continuous_scale='viridis',
-                    )
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">sun</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39;base_cake&#39;</span><span class="p">,</span> <span class="s1">&#39;truffle_type&#39;</span><span class="p">,</span> <span class="s1">&#39;primary_flavor&#39;</span><span class="p">,</span> <span class="s1">&#39;secondary_flavor&#39;</span><span class="p">,</span> <span class="s1">&#39;color_group&#39;</span><span class="p">],</span>
+              <span class="p">[</span><span class="s1">&#39;truffle_type&#39;</span><span class="p">,</span> <span class="s1">&#39;base_cake&#39;</span><span class="p">,</span> <span class="s1">&#39;primary_flavor&#39;</span><span class="p">,</span> <span class="s1">&#39;secondary_flavor&#39;</span><span class="p">,</span> <span class="s1">&#39;color_group&#39;</span><span class="p">]]):</span>
+  <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">sunburst</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> 
+                    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;rate&#39;</span><span class="p">,</span> 
+                    <span class="n">color_continuous_scale</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
+                    <span class="p">)</span>
 
-  fig.update_layout(
-      margin=dict(l=20, r=20, t=20, b=20),
-      height=650
-  )
-  fig.show()
-</code></pre>
-<pre><code class="language-python">interact(sun)
-</code></pre>
-<pre><code>interactive(children=(Dropdown(description='path', options=(['base_cake', 'truffle_type', 'primary_flavor', 's…
+  <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+      <span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">20</span><span class="p">),</span>
+      <span class="n">height</span><span class="o">=</span><span class="mi">650</span>
+  <span class="p">)</span>
+  <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">interact</span><span class="p">(</span><span class="n">sun</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>interactive(children=(Dropdown(description=&#39;path&#39;, options=([&#39;base_cake&#39;, &#39;truffle_type&#39;, &#39;primary_flavor&#39;, &#39;s…
 
 
 
 
 
 &lt;function __main__.sun&gt;
-</code></pre>
+</code></pre></div>
 
               
             </article>

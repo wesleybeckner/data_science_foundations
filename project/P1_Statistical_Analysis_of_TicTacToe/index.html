@@ -40,6 +40,8 @@
     
       <link rel="stylesheet" href="../../extra.css">
     
+      <link rel="stylesheet" href="../../styles.css">
+    
     <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -931,9 +933,9 @@
                 
 
 <p><a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/project/P1_Statistical_Analysis_of_TicTacToe.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
-<h1 id="data-science-foundations-project-part-1-statistical-analysis">Data Science Foundations, Project Part 1: Statistical Analysis</h1>
+<h1 id="data-science-foundations-project-part-1-statistical-analysis">Data Science Foundations, Project Part 1: Statistical Analysis<a class="headerlink" href="#data-science-foundations-project-part-1-statistical-analysis" title="Permanent link">&para;</a></h1>
 <p><strong>Instructor</strong>: Wesley Beckner</p>
-<p><strong>Contact</strong>: wesleybeckner@gmail.com</p>
+<p><strong>Contact</strong>: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#119;&#101;&#115;&#108;&#101;&#121;&#98;&#101;&#99;&#107;&#110;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#119;&#101;&#115;&#108;&#101;&#121;&#98;&#101;&#99;&#107;&#110;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
 <hr />
 <p><br></p>
 <p>Today we are going to perform statistical analysis on data generated from our tictactoe program!</p>
@@ -941,174 +943,176 @@
 <hr />
 <p><br></p>
 <p><a name='x.0'></a></p>
-<h2 id="10-preparing-environment-and-importing-data">1.0 Preparing Environment and Importing Data</h2>
+<h2 id="10-preparing-environment-and-importing-data">1.0 Preparing Environment and Importing Data<a class="headerlink" href="#10-preparing-environment-and-importing-data" title="Permanent link">&para;</a></h2>
 <p><a href="#top">back to top</a></p>
 <p><a name='x.0.1'></a></p>
-<h3 id="101-import-packages">1.0.1 Import Packages</h3>
+<h3 id="101-import-packages">1.0.1 Import Packages<a class="headerlink" href="#101-import-packages" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
-<pre><code class="language-python">import random
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-class TicTacToe:
-  # can preset winner and starting player
-  def __init__(self, winner='', start_player=''): 
-    self.winner = winner
-    self.start_player = start_player
-    self.board = {1: ' ',
-         2: ' ',
-         3: ' ',
-         4: ' ',
-         5: ' ',
-         6: ' ',
-         7: ' ',
-         8: ' ',
-         9: ' ',}
-    self.win_patterns = [[1,2,3], [4,5,6], [7,8,9],
-                [1,4,7], [2,5,8], [3,6,9],
-                [1,5,9], [7,5,3]]
+<span class="k">class</span> <span class="nc">TicTacToe</span><span class="p">:</span>
+  <span class="c1"># can preset winner and starting player</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">winner</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">start_player</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span> 
+    <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">=</span> <span class="n">winner</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">start_player</span> <span class="o">=</span> <span class="n">start_player</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">board</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="p">,</span>
+         <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="p">,</span>
+         <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="p">,</span>
+         <span class="mi">4</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="p">,</span>
+         <span class="mi">5</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="p">,</span>
+         <span class="mi">6</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="p">,</span>
+         <span class="mi">7</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="p">,</span>
+         <span class="mi">8</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="p">,</span>
+         <span class="mi">9</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="p">,}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">win_patterns</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">9</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">]]</span>
 
-  # the other functions are now passed self
-  def visualize_board(self):
-    print(
-      &quot;|{}|{}|{}|\n|{}|{}|{}|\n|{}|{}|{}|\n&quot;.format(*self.board.values())
-      )
+  <span class="c1"># the other functions are now passed self</span>
+  <span class="k">def</span> <span class="nf">visualize_board</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span>
+      <span class="s2">&quot;|</span><span class="si">{}</span><span class="s2">|</span><span class="si">{}</span><span class="s2">|</span><span class="si">{}</span><span class="s2">|</span><span class="se">\n</span><span class="s2">|</span><span class="si">{}</span><span class="s2">|</span><span class="si">{}</span><span class="s2">|</span><span class="si">{}</span><span class="s2">|</span><span class="se">\n</span><span class="s2">|</span><span class="si">{}</span><span class="s2">|</span><span class="si">{}</span><span class="s2">|</span><span class="si">{}</span><span class="s2">|</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+      <span class="p">)</span>
 
-  def check_winning(self):
-    for pattern in self.win_patterns:
-      values = [self.board[i] for i in pattern] 
-      if values == ['X', 'X', 'X']:
-        self.winner = 'X' # we update the winner status
-        return &quot;'X' Won!&quot;
-      elif values == ['O', 'O', 'O']:
-        self.winner = 'O'
-        return &quot;'O' Won!&quot;
-    return ''
+  <span class="k">def</span> <span class="nf">check_winning</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">win_patterns</span><span class="p">:</span>
+      <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pattern</span><span class="p">]</span> 
+      <span class="k">if</span> <span class="n">values</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">]:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span> <span class="c1"># we update the winner status</span>
+        <span class="k">return</span> <span class="s2">&quot;&#39;X&#39; Won!&quot;</span>
+      <span class="k">elif</span> <span class="n">values</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;O&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">]:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">=</span> <span class="s1">&#39;O&#39;</span>
+        <span class="k">return</span> <span class="s2">&quot;&#39;O&#39; Won!&quot;</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span>
 
-  def check_stalemate(self):
-    if (' ' not in self.board.values()) and (self.check_winning() == ''):
-      self.winner = 'Stalemate'
-      return &quot;It's a stalemate!&quot;
+  <span class="k">def</span> <span class="nf">check_stalemate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_winning</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">=</span> <span class="s1">&#39;Stalemate&#39;</span>
+      <span class="k">return</span> <span class="s2">&quot;It&#39;s a stalemate!&quot;</span>
 
-class GameEngine(TicTacToe):
-  def __init__(self, setup='auto'):
-    super().__init__()
-    self.setup = setup
+<span class="k">class</span> <span class="nc">GameEngine</span><span class="p">(</span><span class="n">TicTacToe</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">setup</span> <span class="o">=</span> <span class="n">setup</span>
 
-  def setup_game(self):
+  <span class="k">def</span> <span class="nf">setup_game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-    if self.setup == 'user':
-      players = int(input(&quot;How many Players? (type 0, 1, or 2)&quot;))
-      self.player_meta = {'first': {'label': 'X',
-                                    'type': 'ai'}, 
-                    'second': {'label': 'O',
-                                    'type': 'human'}}
-      if players == 1:
-        first = input(&quot;who will go first? (X, (AI), or O (Player))&quot;)
-        if first == 'O':
-          self.player_meta = {'second': {'label': 'X',
-                                    'type': 'ai'}, 
-                        'first': {'label': 'O',
-                                    'type': 'human'}}
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span> <span class="o">==</span> <span class="s1">&#39;user&#39;</span><span class="p">:</span>
+      <span class="n">players</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;How many Players? (type 0, 1, or 2)&quot;</span><span class="p">))</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                    <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;human&#39;</span><span class="p">}}</span>
+      <span class="k">if</span> <span class="n">players</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;who will go first? (X, (AI), or O (Player))&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">first</span> <span class="o">==</span> <span class="s1">&#39;O&#39;</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                        <span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;human&#39;</span><span class="p">}}</span>
 
-      elif players == 0:
-        first = random.choice(['X', 'O'])
-        if first == 'O':
-          self.player_meta = {'second': {'label': 'X',
-                                    'type': 'ai'}, 
-                        'first': {'label': 'O',
-                                    'type': 'ai'}}                                
-        else:
-          self.player_meta = {'first': {'label': 'X',
-                                    'type': 'ai'}, 
-                        'second': {'label': 'O',
-                                    'type': 'ai'}}
+      <span class="k">elif</span> <span class="n">players</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">first</span> <span class="o">==</span> <span class="s1">&#39;O&#39;</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                        <span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">}}</span>                                
+        <span class="k">else</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                        <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">}}</span>
 
-    elif self.setup == 'auto':
-      first = random.choice(['X', 'O'])
-      if first == 'O':
-        self.start_player = 'O'
-        self.player_meta = {'second': {'label': 'X',
-                                  'type': 'ai'}, 
-                      'first': {'label': 'O',
-                                  'type': 'ai'}}                                
-      else:
-        self.start_player = 'X'
-        self.player_meta = {'first': {'label': 'X',
-                                  'type': 'ai'}, 
-                      'second': {'label': 'O',
-                                  'type': 'ai'}}
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
+      <span class="n">first</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">])</span>
+      <span class="k">if</span> <span class="n">first</span> <span class="o">==</span> <span class="s1">&#39;O&#39;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_player</span> <span class="o">=</span> <span class="s1">&#39;O&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                      <span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">}}</span>                                
+      <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_player</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">},</span> 
+                      <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ai&#39;</span><span class="p">}}</span>
 
-  def play_game(self):
-    while True:
-      for player in ['first', 'second']:  
-        self.visualize_board()
-        player_label = self.player_meta[player]['label']
-        player_type = self.player_meta[player]['type']
+  <span class="k">def</span> <span class="nf">play_game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">player</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">]:</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">visualize_board</span><span class="p">()</span>
+        <span class="n">player_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span><span class="p">[</span><span class="n">player</span><span class="p">][</span><span class="s1">&#39;label&#39;</span><span class="p">]</span>
+        <span class="n">player_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_meta</span><span class="p">[</span><span class="n">player</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]</span>
 
-        if player_type == 'human':
-          move = input(&quot;{}, what's your move?&quot;.format(player_label))
-          # we're going to allow the user to quit the game from the input line
-          if move in ['q', 'quit']:
-            self.winner = 'F'
-            print('quiting the game')
-            break
+        <span class="k">if</span> <span class="n">player_type</span> <span class="o">==</span> <span class="s1">&#39;human&#39;</span><span class="p">:</span>
+          <span class="n">move</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">, what&#39;s your move?&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">player_label</span><span class="p">))</span>
+          <span class="c1"># we&#39;re going to allow the user to quit the game from the input line</span>
+          <span class="k">if</span> <span class="n">move</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;q&#39;</span><span class="p">,</span> <span class="s1">&#39;quit&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">=</span> <span class="s1">&#39;F&#39;</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;quiting the game&#39;</span><span class="p">)</span>
+            <span class="k">break</span>
 
-          move = int(move)
-          if self.board[move] != ' ':
-            while True:
-              move = input(&quot;{}, that position is already taken! &quot;\
-                          &quot;What's your move?&quot;.format(player))  
-              move = int(move)            
-              if self.board[move] != ' ':
-                continue
-              else:
-                break
+          <span class="n">move</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">move</span><span class="p">)</span>
+          <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">move</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+              <span class="n">move</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">, that position is already taken! &quot;</span>\
+                          <span class="s2">&quot;What&#39;s your move?&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">player</span><span class="p">))</span>  
+              <span class="n">move</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">move</span><span class="p">)</span>            
+              <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">move</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+                <span class="k">continue</span>
+              <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>
 
-        else:
-          while True:
-            move = random.randint(1,9)
-            if self.board[move] != ' ':
-              continue
-              print('test')
-            else:
-              break
+        <span class="k">else</span><span class="p">:</span>
+          <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">move</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">move</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+              <span class="k">continue</span>
+              <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+              <span class="k">break</span>
 
-        self.board[move] = player_label
+        <span class="bp">self</span><span class="o">.</span><span class="n">board</span><span class="p">[</span><span class="n">move</span><span class="p">]</span> <span class="o">=</span> <span class="n">player_label</span>
 
-        # the winner varaible will now be check within the board object
-        self.check_winning()
-        self.check_stalemate()
+        <span class="c1"># the winner varaible will now be check within the board object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_winning</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_stalemate</span><span class="p">()</span>
 
-        if self.winner == '':
-          continue
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+          <span class="k">continue</span>
 
-        elif self.winner == 'Stalemate':
-          print(self.check_stalemate())
-          self.visualize_board()
-          break
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">==</span> <span class="s1">&#39;Stalemate&#39;</span><span class="p">:</span>
+          <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_stalemate</span><span class="p">())</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">visualize_board</span><span class="p">()</span>
+          <span class="k">break</span>
 
-        else:
-          print(self.check_winning())
-          self.visualize_board()
-          break
-      if self.winner != '':
-        return self
-</code></pre>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_winning</span><span class="p">())</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">visualize_board</span><span class="p">()</span>
+          <span class="k">break</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">winner</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span>
+</code></pre></div>
+
 <p><a name='x.0.1'></a></p>
-<h3 id="102-load-dataset">1.0.2 Load Dataset</h3>
+<h3 id="102-load-dataset">1.0.2 Load Dataset<a class="headerlink" href="#102-load-dataset" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
-<pre><code class="language-python">data = {}
-for i in range(1000):
-  game = GameEngine()
-  game.setup_game()
-  board = game.play_game()
-  data['game {}'.format(i)] = {'board': board.board,
-          'winner': board.winner,
-          'starting player': board.start_player}
-</code></pre>
-<pre><code>[1;30;43mStreaming output truncated to the last 5000 lines.[0m
+<div class="codehilite"><pre><span></span><code><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+  <span class="n">game</span> <span class="o">=</span> <span class="n">GameEngine</span><span class="p">()</span>
+  <span class="n">game</span><span class="o">.</span><span class="n">setup_game</span><span class="p">()</span>
+  <span class="n">board</span> <span class="o">=</span> <span class="n">game</span><span class="o">.</span><span class="n">play_game</span><span class="p">()</span>
+  <span class="n">data</span><span class="p">[</span><span class="s1">&#39;game </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;board&#39;</span><span class="p">:</span> <span class="n">board</span><span class="o">.</span><span class="n">board</span><span class="p">,</span>
+          <span class="s1">&#39;winner&#39;</span><span class="p">:</span> <span class="n">board</span><span class="o">.</span><span class="n">winner</span><span class="p">,</span>
+          <span class="s1">&#39;starting player&#39;</span><span class="p">:</span> <span class="n">board</span><span class="o">.</span><span class="n">start_player</span><span class="p">}</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[1;30;43mStreaming output truncated to the last 5000 lines.[0m
 
 |X|O| |
 | | |O|
@@ -1126,7 +1130,7 @@ for i in range(1000):
 | |O|O|
 |X|X|O|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|O| |
 |X|O|O|
 |X|X|O|
@@ -1167,7 +1171,7 @@ for i in range(1000):
 |X| |X|
 |O|X|O|
 
-'X' Won!
+&#39;X&#39; Won!
 |O|X|O|
 |X|X|X|
 |O|X|O|
@@ -1200,7 +1204,7 @@ for i in range(1000):
 |X|X| |
 | | |O|
 
-'O' Won!
+&#39;O&#39; Won!
 |X|O|O|
 |X|X|O|
 | | |O|
@@ -1241,7 +1245,7 @@ for i in range(1000):
 |O|X|O|
 |O|X|X|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|O|X|
 |O|X|O|
 |O|X|X|
@@ -1274,7 +1278,7 @@ for i in range(1000):
 |X|X| |
 | | |O|
 
-'O' Won!
+&#39;O&#39; Won!
 |X|O|O|
 |X|X|O|
 | | |O|
@@ -1311,7 +1315,7 @@ for i in range(1000):
 |O|O|X|
 |X| | |
 
-'X' Won!
+&#39;X&#39; Won!
 |O|O|X|
 |O|O|X|
 |X| |X|
@@ -1352,7 +1356,7 @@ for i in range(1000):
 | |O|X|
 |X|O|X|
 
-It's a stalemate!
+It&#39;s a stalemate!
 |O|X|O|
 |X|O|X|
 |X|O|X|
@@ -1393,7 +1397,7 @@ It's a stalemate!
 | |X|O|
 |O|X|O|
 
-It's a stalemate!
+It&#39;s a stalemate!
 |X|O|X|
 |O|X|O|
 |O|X|O|
@@ -1426,7 +1430,7 @@ It's a stalemate!
 |X|X| |
 | |O|O|
 
-'X' Won!
+&#39;X&#39; Won!
 | |X|O|
 |X|X|X|
 | |O|O|
@@ -1459,7 +1463,7 @@ It's a stalemate!
 |O|O| |
 | | |X|
 
-'O' Won!
+&#39;O&#39; Won!
 |O|X|X|
 |O|O| |
 |O| |X|
@@ -1500,7 +1504,7 @@ It's a stalemate!
 |X|X|O|
 | |O|X|
 
-It's a stalemate!
+It&#39;s a stalemate!
 |O|X|O|
 |X|X|O|
 |O|O|X|
@@ -1533,7 +1537,7 @@ It's a stalemate!
 |X|O|X|
 |X|O| |
 
-'O' Won!
+&#39;O&#39; Won!
 | |O|O|
 |X|O|X|
 |X|O| |
@@ -1566,7 +1570,7 @@ It's a stalemate!
 |O|X|X|
 |O| | |
 
-'O' Won!
+&#39;O&#39; Won!
 |O|O|X|
 |O|X|X|
 |O| | |
@@ -1607,7 +1611,7 @@ It's a stalemate!
 |O|O|X|
 |X|O|O|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|X|X|
 |O|O|X|
 |X|O|O|
@@ -1648,7 +1652,7 @@ It's a stalemate!
 |X|O|O|
 |X|O|X|
 
-It's a stalemate!
+It&#39;s a stalemate!
 |O|X|O|
 |X|O|O|
 |X|O|X|
@@ -1689,7 +1693,7 @@ It's a stalemate!
 |X|X|O|
 |O|X|O|
 
-It's a stalemate!
+It&#39;s a stalemate!
 |O|O|X|
 |X|X|O|
 |O|X|O|
@@ -1726,7 +1730,7 @@ It's a stalemate!
 |O|X|X|
 | |O|O|
 
-'X' Won!
+&#39;X&#39; Won!
 |O| |X|
 |O|X|X|
 |X|O|O|
@@ -1763,7 +1767,7 @@ It's a stalemate!
 |X| |O|
 |X|O|O|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|O|X|
 |X| |O|
 |X|O|O|
@@ -1800,7 +1804,7 @@ It's a stalemate!
 |O|X|O|
 |X| | |
 
-'X' Won!
+&#39;X&#39; Won!
 |X|O|O|
 |O|X|O|
 |X| |X|
@@ -1841,7 +1845,7 @@ It's a stalemate!
 |X|X| |
 |O|X|O|
 
-'O' Won!
+&#39;O&#39; Won!
 |X|O|O|
 |X|X|O|
 |O|X|O|
@@ -1882,7 +1886,7 @@ It's a stalemate!
 |O|X|X|
 |O|O| |
 
-'O' Won!
+&#39;O&#39; Won!
 |X|O|X|
 |O|X|X|
 |O|O|O|
@@ -1923,7 +1927,7 @@ It's a stalemate!
 |X|O|X|
 | |X|O|
 
-'O' Won!
+&#39;O&#39; Won!
 |X|O|O|
 |X|O|X|
 |O|X|O|
@@ -1952,7 +1956,7 @@ It's a stalemate!
 | | |O|
 |O|O| |
 
-'X' Won!
+&#39;X&#39; Won!
 |X|X|X|
 | | |O|
 |O|O| |
@@ -1989,7 +1993,7 @@ It's a stalemate!
 |X|O|X|
 |O| |X|
 
-'O' Won!
+&#39;O&#39; Won!
 |X|O|O|
 |X|O|X|
 |O| |X|
@@ -2022,7 +2026,7 @@ It's a stalemate!
 |O|O|X|
 | | |O|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|X|X|
 |O|O|X|
 | | |O|
@@ -2063,7 +2067,7 @@ It's a stalemate!
 |O|X|X|
 |X|X|O|
 
-'O' Won!
+&#39;O&#39; Won!
 |O|O|O|
 |O|X|X|
 |X|X|O|
@@ -2096,7 +2100,7 @@ It's a stalemate!
 |O| |O|
 | |X| |
 
-'O' Won!
+&#39;O&#39; Won!
 |O|X|X|
 |O| |O|
 |O|X| |
@@ -2137,7 +2141,7 @@ It's a stalemate!
 |O|O|X|
 |X|O|X|
 
-It's a stalemate!
+It&#39;s a stalemate!
 |X|X|O|
 |O|O|X|
 |X|O|X|
@@ -2174,7 +2178,7 @@ It's a stalemate!
 |O|X|X|
 | |O|O|
 
-'X' Won!
+&#39;X&#39; Won!
 | |O|X|
 |O|X|X|
 |X|O|O|
@@ -2207,7 +2211,7 @@ It's a stalemate!
 |O|X| |
 |X|X|O|
 
-'X' Won!
+&#39;X&#39; Won!
 |O| |X|
 |O|X| |
 |X|X|O|
@@ -2232,7 +2236,7 @@ It's a stalemate!
 |X| | |
 |O| | |
 
-'O' Won!
+&#39;O&#39; Won!
 |X| |O|
 |X|O| |
 |O| | |
@@ -2265,7 +2269,7 @@ It's a stalemate!
 |O|X| |
 |O| |O|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|X|X|
 |O|X| |
 |O| |O|
@@ -2298,7 +2302,7 @@ It's a stalemate!
 |X|O|O|
 | |O| |
 
-'X' Won!
+&#39;X&#39; Won!
 |X|X|X|
 |X|O|O|
 | |O| |
@@ -2327,7 +2331,7 @@ It's a stalemate!
 | |X|O|
 | |X| |
 
-'O' Won!
+&#39;O&#39; Won!
 |X| |O|
 | |X|O|
 | |X|O|
@@ -2364,7 +2368,7 @@ It's a stalemate!
 |O|O| |
 | |X|X|
 
-'X' Won!
+&#39;X&#39; Won!
 |O|O|X|
 |O|O|X|
 | |X|X|
@@ -2393,7 +2397,7 @@ It's a stalemate!
 |X|X| |
 |O|O| |
 
-'X' Won!
+&#39;X&#39; Won!
 | | |O|
 |X|X|X|
 |O|O| |
@@ -2426,7 +2430,7 @@ It's a stalemate!
 |O|X| |
 |X|X| |
 
-'X' Won!
+&#39;X&#39; Won!
 |O|O|X|
 |O|X| |
 |X|X| |
@@ -2467,7 +2471,7 @@ It's a stalemate!
 |O|X|O|
 |X|O|O|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|X|X|
 |O|X|O|
 |X|O|O|
@@ -2508,7 +2512,7 @@ It's a stalemate!
 |O|X|X|
 |X|O|O|
 
-It's a stalemate!
+It&#39;s a stalemate!
 |O|X|O|
 |O|X|X|
 |X|O|O|
@@ -2541,7 +2545,7 @@ It's a stalemate!
 | |X|O|
 |X|X|O|
 
-'O' Won!
+&#39;O&#39; Won!
 |O| |O|
 | |X|O|
 |X|X|O|
@@ -2574,7 +2578,7 @@ It's a stalemate!
 |X|X|O|
 |O|X| |
 
-'X' Won!
+&#39;X&#39; Won!
 | |X|O|
 |X|X|O|
 |O|X| |
@@ -2615,7 +2619,7 @@ It's a stalemate!
 |X|O|O|
 |O|X|O|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|X|X|
 |X|O|O|
 |O|X|O|
@@ -2656,7 +2660,7 @@ It's a stalemate!
 |O|O|X|
 |X|X|O|
 
-'O' Won!
+&#39;O&#39; Won!
 |O|O|X|
 |O|O|X|
 |X|X|O|
@@ -2697,7 +2701,7 @@ It's a stalemate!
 |O|O|X|
 | |X|O|
 
-It's a stalemate!
+It&#39;s a stalemate!
 |X|O|X|
 |O|O|X|
 |X|X|O|
@@ -2738,7 +2742,7 @@ It's a stalemate!
 |O|X|O|
 |X|O|X|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|X|O|
 |O|X|O|
 |X|O|X|
@@ -2771,7 +2775,7 @@ It's a stalemate!
 |X|O|X|
 |O| |X|
 
-'O' Won!
+&#39;O&#39; Won!
 | |O| |
 |X|O|X|
 |O|O|X|
@@ -2804,7 +2808,7 @@ It's a stalemate!
 |O|X| |
 |O|O|X|
 
-'X' Won!
+&#39;X&#39; Won!
 |X| |X|
 |O|X| |
 |O|O|X|
@@ -2837,7 +2841,7 @@ It's a stalemate!
 |O| | |
 |X|X| |
 
-'X' Won!
+&#39;X&#39; Won!
 |O|O|X|
 |O|X| |
 |X|X| |
@@ -2870,7 +2874,7 @@ It's a stalemate!
 |X| |O|
 |X|O| |
 
-'X' Won!
+&#39;X&#39; Won!
 |O| |X|
 |X|X|O|
 |X|O| |
@@ -2911,7 +2915,7 @@ It's a stalemate!
 |O| |X|
 |X|X|O|
 
-It's a stalemate!
+It&#39;s a stalemate!
 |X|O|O|
 |O|O|X|
 |X|X|O|
@@ -2952,7 +2956,7 @@ It's a stalemate!
 |X|X|O|
 |O|X|X|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|O|O|
 |X|X|O|
 |O|X|X|
@@ -2985,7 +2989,7 @@ It's a stalemate!
 |X| |O|
 | |O| |
 
-'X' Won!
+&#39;X&#39; Won!
 |X|O|X|
 |X| |O|
 |X|O| |
@@ -3026,7 +3030,7 @@ It's a stalemate!
 |X|X|O|
 |O|O|X|
 
-It's a stalemate!
+It&#39;s a stalemate!
 |O|X|O|
 |X|X|O|
 |O|O|X|
@@ -3067,7 +3071,7 @@ It's a stalemate!
 |O|O|X|
 |O|X|O|
 
-It's a stalemate!
+It&#39;s a stalemate!
 |X|O|X|
 |O|O|X|
 |O|X|O|
@@ -3104,7 +3108,7 @@ It's a stalemate!
 |O|X|X|
 |X|O|O|
 
-'X' Won!
+&#39;X&#39; Won!
 |O| |X|
 |O|X|X|
 |X|O|O|
@@ -3145,7 +3149,7 @@ It's a stalemate!
 |X|X|O|
 |O|O|X|
 
-It's a stalemate!
+It&#39;s a stalemate!
 |O|X|X|
 |X|X|O|
 |O|O|X|
@@ -3174,7 +3178,7 @@ It's a stalemate!
 | | |X|
 | |O| |
 
-'X' Won!
+&#39;X&#39; Won!
 |O|O|X|
 | | |X|
 | |O|X|
@@ -3215,7 +3219,7 @@ It's a stalemate!
 |X|O|O|
 |O|O|X|
 
-'O' Won!
+&#39;O&#39; Won!
 |X|X|O|
 |X|O|O|
 |O|O|X|
@@ -3252,7 +3256,7 @@ It's a stalemate!
 |X|X|O|
 |X|X| |
 
-'O' Won!
+&#39;O&#39; Won!
 |O|O|O|
 |X|X|O|
 |X|X| |
@@ -3293,7 +3297,7 @@ It's a stalemate!
 |X|X|O|
 | |O|X|
 
-It's a stalemate!
+It&#39;s a stalemate!
 |O|X|O|
 |X|X|O|
 |X|O|X|
@@ -3326,7 +3330,7 @@ It's a stalemate!
 |O|X|O|
 |X| | |
 
-'X' Won!
+&#39;X&#39; Won!
 |X|O|X|
 |O|X|O|
 |X| | |
@@ -3359,7 +3363,7 @@ It's a stalemate!
 |X| |O|
 |X| |X|
 
-'X' Won!
+&#39;X&#39; Won!
 |O|O| |
 |X| |O|
 |X|X|X|
@@ -3396,7 +3400,7 @@ It's a stalemate!
 |O|O|X|
 |O|O| |
 
-'X' Won!
+&#39;X&#39; Won!
 | |X|X|
 |O|O|X|
 |O|O|X|
@@ -3437,7 +3441,7 @@ It's a stalemate!
 |X|X| |
 |O|X|O|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|O|O|
 |X|X|X|
 |O|X|O|
@@ -3474,7 +3478,7 @@ It's a stalemate!
 |X|O| |
 |O| |X|
 
-'O' Won!
+&#39;O&#39; Won!
 |X|O|X|
 |X|O| |
 |O|O|X|
@@ -3507,7 +3511,7 @@ It's a stalemate!
 |O| |O|
 |X|X| |
 
-'O' Won!
+&#39;O&#39; Won!
 |X| |O|
 |O| |O|
 |X|X|O|
@@ -3548,7 +3552,7 @@ It's a stalemate!
 |X|X|O|
 |O|X|X|
 
-'O' Won!
+&#39;O&#39; Won!
 |O|O|O|
 |X|X|O|
 |O|X|X|
@@ -3581,7 +3585,7 @@ It's a stalemate!
 |O|X|O|
 |X|X| |
 
-'X' Won!
+&#39;X&#39; Won!
 |O|X| |
 |O|X|O|
 |X|X| |
@@ -3618,7 +3622,7 @@ It's a stalemate!
 | |X|X|
 |O|O| |
 
-'X' Won!
+&#39;X&#39; Won!
 |O|O|X|
 |X|X|X|
 |O|O| |
@@ -3651,7 +3655,7 @@ It's a stalemate!
 |X| | |
 |O|X|O|
 
-'O' Won!
+&#39;O&#39; Won!
 | |X|O|
 |X|O| |
 |O|X|O|
@@ -3684,7 +3688,7 @@ It's a stalemate!
 | | | |
 |X|O|O|
 
-'O' Won!
+&#39;O&#39; Won!
 |X|O|X|
 | |O| |
 |X|O|O|
@@ -3717,7 +3721,7 @@ It's a stalemate!
 | |O|O|
 | |X|X|
 
-'O' Won!
+&#39;O&#39; Won!
 | |O|X|
 |O|O|O|
 | |X|X|
@@ -3750,7 +3754,7 @@ It's a stalemate!
 |O| | |
 |X|X|O|
 
-'O' Won!
+&#39;O&#39; Won!
 |O| |X|
 |O|O| |
 |X|X|O|
@@ -3787,7 +3791,7 @@ It's a stalemate!
 |X|O|O|
 | |O| |
 
-'X' Won!
+&#39;X&#39; Won!
 |X|X|O|
 |X|O|O|
 |X|O| |
@@ -3828,7 +3832,7 @@ It's a stalemate!
 |X|O|O|
 |O|X|X|
 
-It's a stalemate!
+It&#39;s a stalemate!
 |O|X|X|
 |X|O|O|
 |O|X|X|
@@ -3853,7 +3857,7 @@ It's a stalemate!
 |X| | |
 |X| |O|
 
-'O' Won!
+&#39;O&#39; Won!
 |O| | |
 |X|O| |
 |X| |O|
@@ -3894,7 +3898,7 @@ It's a stalemate!
 |X|O|O|
 |O|X| |
 
-It's a stalemate!
+It&#39;s a stalemate!
 |O|X|X|
 |X|O|O|
 |O|X|X|
@@ -3935,7 +3939,7 @@ It's a stalemate!
 | |X|X|
 |X|O|O|
 
-'X' Won!
+&#39;X&#39; Won!
 |O|X|O|
 |X|X|X|
 |X|O|O|
@@ -3960,7 +3964,7 @@ It's a stalemate!
 | |O|X|
 | | |X|
 
-'O' Won!
+&#39;O&#39; Won!
 | |O| |
 | |O|X|
 | |O|X|
@@ -3997,7 +4001,7 @@ It's a stalemate!
 |X| |X|
 |O|X|X|
 
-'O' Won!
+&#39;O&#39; Won!
 | |O|O|
 |X|O|X|
 |O|X|X|
@@ -4022,7 +4026,7 @@ It's a stalemate!
 | | | |
 |X|X| |
 
-'O' Won!
+&#39;O&#39; Won!
 |O|O|O|
 | | | |
 |X|X| |
@@ -4055,7 +4059,7 @@ It's a stalemate!
 | |X|O|
 |O| |O|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|X|X|
 | |X|O|
 |O| |O|
@@ -4080,7 +4084,7 @@ It's a stalemate!
 | |X|O|
 | |O|X|
 
-'X' Won!
+&#39;X&#39; Won!
 |X| | |
 | |X|O|
 | |O|X|
@@ -4113,7 +4117,7 @@ It's a stalemate!
 |X| |O|
 |X| |X|
 
-'X' Won!
+&#39;X&#39; Won!
 |O| |O|
 |X| |O|
 |X|X|X|
@@ -4142,7 +4146,7 @@ It's a stalemate!
 | |X| |
 |O|X| |
 
-'X' Won!
+&#39;X&#39; Won!
 |O|X|O|
 | |X| |
 |O|X| |
@@ -4179,7 +4183,7 @@ It's a stalemate!
 |O|X|O|
 |O| |O|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|X|X|
 |O|X|O|
 |O| |O|
@@ -4220,7 +4224,7 @@ It's a stalemate!
 |X|O|O|
 | |X|O|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|O|X|
 |X|O|O|
 |X|X|O|
@@ -4253,7 +4257,7 @@ It's a stalemate!
 |O| | |
 |X|X|O|
 
-'O' Won!
+&#39;O&#39; Won!
 |O| |X|
 |O|O| |
 |X|X|O|
@@ -4286,7 +4290,7 @@ It's a stalemate!
 | |X|X|
 |O| |X|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|O|O|
 | |X|X|
 |O| |X|
@@ -4327,7 +4331,7 @@ It's a stalemate!
 |X|O|O|
 |X|O|X|
 
-It's a stalemate!
+It&#39;s a stalemate!
 |O|X|O|
 |X|O|O|
 |X|O|X|
@@ -4364,7 +4368,7 @@ It's a stalemate!
 |O| |O|
 | |X|X|
 
-'O' Won!
+&#39;O&#39; Won!
 |O|X|X|
 |O|O|O|
 | |X|X|
@@ -4393,7 +4397,7 @@ It's a stalemate!
 |X| | |
 | |X|X|
 
-'O' Won!
+&#39;O&#39; Won!
 |O|O|O|
 |X| | |
 | |X|X|
@@ -4422,7 +4426,7 @@ It's a stalemate!
 | | |O|
 |X| |O|
 
-'X' Won!
+&#39;X&#39; Won!
 |O| |X|
 | |X|O|
 |X| |O|
@@ -4455,7 +4459,7 @@ It's a stalemate!
 |X| |X|
 |O| |O|
 
-'X' Won!
+&#39;X&#39; Won!
 |O| |X|
 |X|X|X|
 |O| |O|
@@ -4496,7 +4500,7 @@ It's a stalemate!
 |X|O|O|
 | |O|X|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|X|O|
 |X|O|O|
 |X|O|X|
@@ -4537,7 +4541,7 @@ It's a stalemate!
 |X|O|O|
 |O| |X|
 
-'O' Won!
+&#39;O&#39; Won!
 |X|O|X|
 |X|O|O|
 |O|O|X|
@@ -4574,7 +4578,7 @@ It's a stalemate!
 | |O|X|
 |O|X|X|
 
-'O' Won!
+&#39;O&#39; Won!
 |X|O|O|
 | |O|X|
 |O|X|X|
@@ -4611,7 +4615,7 @@ It's a stalemate!
 |O|O|X|
 |X| |X|
 
-'X' Won!
+&#39;X&#39; Won!
 |O| |O|
 |O|O|X|
 |X|X|X|
@@ -4648,7 +4652,7 @@ It's a stalemate!
 |X|X|O|
 | |O|O|
 
-'O' Won!
+&#39;O&#39; Won!
 | |X|X|
 |X|X|O|
 |O|O|O|
@@ -4685,7 +4689,7 @@ It's a stalemate!
 |O|X|X|
 | | |O|
 
-'O' Won!
+&#39;O&#39; Won!
 |O|X|X|
 |O|X|X|
 |O| |O|
@@ -4726,7 +4730,7 @@ It's a stalemate!
 |X| |O|
 |X|O|X|
 
-It's a stalemate!
+It&#39;s a stalemate!
 |O|X|O|
 |X|X|O|
 |X|O|X|
@@ -4763,7 +4767,7 @@ It's a stalemate!
 |X|X|O|
 |O| | |
 
-'X' Won!
+&#39;X&#39; Won!
 |O|X|O|
 |X|X|O|
 |O|X| |
@@ -4804,7 +4808,7 @@ It's a stalemate!
 |O|X|X|
 |X|O|O|
 
-It's a stalemate!
+It&#39;s a stalemate!
 |O|X|O|
 |O|X|X|
 |X|O|O|
@@ -4845,7 +4849,7 @@ It's a stalemate!
 |O| |X|
 |X|O|X|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|O|O|
 |O|X|X|
 |X|O|X|
@@ -4886,7 +4890,7 @@ It's a stalemate!
 |X| |X|
 |O|X|O|
 
-'O' Won!
+&#39;O&#39; Won!
 |O|O|X|
 |X|O|X|
 |O|X|O|
@@ -4927,7 +4931,7 @@ It's a stalemate!
 |O|O|X|
 |O|X|O|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|X|X|
 |O|O|X|
 |O|X|O|
@@ -4960,7 +4964,7 @@ It's a stalemate!
 | | |X|
 |O| |X|
 
-'O' Won!
+&#39;O&#39; Won!
 |O|X|O|
 |O| |X|
 |O| |X|
@@ -5001,7 +5005,7 @@ It's a stalemate!
 |X|O|X|
 | |X|O|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|O|O|
 |X|O|X|
 |X|X|O|
@@ -5042,7 +5046,7 @@ It's a stalemate!
 |X| |O|
 |O|X|X|
 
-It's a stalemate!
+It&#39;s a stalemate!
 |O|O|X|
 |X|O|O|
 |O|X|X|
@@ -5083,7 +5087,7 @@ It's a stalemate!
 |X|O|O|
 |O| |X|
 
-'O' Won!
+&#39;O&#39; Won!
 |X|O|X|
 |X|O|O|
 |O|O|X|
@@ -5116,7 +5120,7 @@ It's a stalemate!
 |O| |X|
 |X| | |
 
-'X' Won!
+&#39;X&#39; Won!
 |O|O|X|
 |O|X|X|
 |X| | |
@@ -5149,7 +5153,7 @@ It's a stalemate!
 |O| |O|
 |X| |X|
 
-'O' Won!
+&#39;O&#39; Won!
 |X|O| |
 |O|O|O|
 |X| |X|
@@ -5186,7 +5190,7 @@ It's a stalemate!
 |X| |X|
 |O|X|O|
 
-'O' Won!
+&#39;O&#39; Won!
 |O|X| |
 |X|O|X|
 |O|X|O|
@@ -5227,7 +5231,7 @@ It's a stalemate!
 |X|X| |
 |X|O|O|
 
-'O' Won!
+&#39;O&#39; Won!
 |O|X|O|
 |X|X|O|
 |X|O|O|
@@ -5264,7 +5268,7 @@ It's a stalemate!
 |X| | |
 |O|O|X|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|O|O|
 |X|X| |
 |O|O|X|
@@ -5305,7 +5309,7 @@ It's a stalemate!
 |O|O|X|
 |O|X|O|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|X|X|
 |O|O|X|
 |O|X|O|
@@ -5342,7 +5346,7 @@ It's a stalemate!
 |X|O|O|
 |X|X| |
 
-'O' Won!
+&#39;O&#39; Won!
 | |X|O|
 |X|O|O|
 |X|X|O|
@@ -5379,7 +5383,7 @@ It's a stalemate!
 |X|O| |
 |X|X|O|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|O|O|
 |X|O| |
 |X|X|O|
@@ -5412,7 +5416,7 @@ It's a stalemate!
 |X|O|X|
 | |O|X|
 
-'O' Won!
+&#39;O&#39; Won!
 |O|O| |
 |X|O|X|
 | |O|X|
@@ -5453,7 +5457,7 @@ It's a stalemate!
 |O|X|O|
 |X|O|X|
 
-It's a stalemate!
+It&#39;s a stalemate!
 |O|X|O|
 |O|X|O|
 |X|O|X|
@@ -5494,7 +5498,7 @@ It's a stalemate!
 |X| |O|
 |O|X|O|
 
-It's a stalemate!
+It&#39;s a stalemate!
 |X|O|X|
 |X|O|O|
 |O|X|O|
@@ -5527,7 +5531,7 @@ It's a stalemate!
 |X|O| |
 | |O|O|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|X|X|
 |X|O| |
 | |O|O|
@@ -5568,7 +5572,7 @@ It's a stalemate!
 |X|X|O|
 |X|O|X|
 
-It's a stalemate!
+It&#39;s a stalemate!
 |O|X|O|
 |X|X|O|
 |X|O|X|
@@ -5601,7 +5605,7 @@ It's a stalemate!
 |X|O|X|
 | |O| |
 
-'O' Won!
+&#39;O&#39; Won!
 | |X|O|
 |X|O|X|
 |O|O| |
@@ -5634,7 +5638,7 @@ It's a stalemate!
 |X|X|O|
 |O| | |
 
-'X' Won!
+&#39;X&#39; Won!
 |X| |O|
 |X|X|O|
 |O| |X|
@@ -5667,7 +5671,7 @@ It's a stalemate!
 |O|X|O|
 |X|X| |
 
-'X' Won!
+&#39;X&#39; Won!
 | | |O|
 |O|X|O|
 |X|X|X|
@@ -5708,7 +5712,7 @@ It's a stalemate!
 |X|X|O|
 |O|X|O|
 
-'X' Won!
+&#39;X&#39; Won!
 |O|X|X|
 |X|X|O|
 |O|X|O|
@@ -5745,7 +5749,7 @@ It's a stalemate!
 |O|X|O|
 | |O|O|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|X|X|
 |O|X|O|
 | |O|O|
@@ -5778,7 +5782,7 @@ It's a stalemate!
 | | |X|
 |X|O|X|
 
-'O' Won!
+&#39;O&#39; Won!
 |O|O|O|
 | | |X|
 |X|O|X|
@@ -5803,7 +5807,7 @@ It's a stalemate!
 | |X|O|
 |O| | |
 
-'X' Won!
+&#39;X&#39; Won!
 | |X| |
 | |X|O|
 |O|X| |
@@ -5840,7 +5844,7 @@ It's a stalemate!
 |O|X|O|
 |X| |O|
 
-'O' Won!
+&#39;O&#39; Won!
 |X|X|O|
 |O|X|O|
 |X| |O|
@@ -5881,7 +5885,7 @@ It's a stalemate!
 |X|O|X|
 | |X|O|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|O|O|
 |X|O|X|
 |X|X|O|
@@ -5910,7 +5914,7 @@ It's a stalemate!
 |O|O|X|
 | |O|X|
 
-'X' Won!
+&#39;X&#39; Won!
 | | |X|
 |O|O|X|
 | |O|X|
@@ -5951,7 +5955,7 @@ It's a stalemate!
 |X| |O|
 |O|O|X|
 
-'X' Won!
+&#39;X&#39; Won!
 |X|X|O|
 |X|X|O|
 |O|O|X|
@@ -5984,7 +5988,7 @@ It's a stalemate!
 |X|O| |
 |O|O| |
 
-'X' Won!
+&#39;X&#39; Won!
 |X|X|X|
 |X|O| |
 |O|O| |
@@ -6017,7 +6021,7 @@ It's a stalemate!
 | |O|X|
 |X| | |
 
-'O' Won!
+&#39;O&#39; Won!
 |O|X|O|
 | |O|X|
 |X| |O|
@@ -6050,7 +6054,7 @@ It's a stalemate!
 | |O|O|
 | |X| |
 
-'O' Won!
+&#39;O&#39; Won!
 |O|X|X|
 | |O|O|
 | |X|O|
@@ -6079,7 +6083,7 @@ It's a stalemate!
 | |O|X|
 |X|O| |
 
-'O' Won!
+&#39;O&#39; Won!
 | |O|X|
 | |O|X|
 |X|O| |
@@ -6104,49 +6108,54 @@ It's a stalemate!
 | | |O|
 |O| | |
 
-'X' Won!
+&#39;X&#39; Won!
 |X|X|X|
 | | |O|
 |O| | |
-</code></pre>
-<h2 id="11-clean-data">1.1 Clean Data</h2>
+</code></pre></div>
+
+<h2 id="11-clean-data">1.1 Clean Data<a class="headerlink" href="#11-clean-data" title="Permanent link">&para;</a></h2>
 <p>We will first need to organize the data into a parsable format.</p>
-<h3 id="q1">Q1</h3>
+<h3 id="q1">Q1<a class="headerlink" href="#q1" title="Permanent link">&para;</a></h3>
 <p>What is the object <code>data</code> and what does it contain?</p>
 <ul>
 <li>what are the keys of data?</li>
 <li>what are the keys of each game?</li>
 </ul>
-<pre><code class="language-python"># inspect data below by grabbing the first key in data
-# what are the three different keys within each game?
-data['game 0']
-</code></pre>
-<pre><code>{'board': {1: 'X',
-  2: ' ',
-  3: 'O',
-  4: 'X',
-  5: 'X',
-  6: 'O',
-  7: 'O',
-  8: 'X',
-  9: 'O'},
- 'starting player': 'X',
- 'winner': 'O'}
-</code></pre>
-<h3 id="q2">Q2</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># inspect data below by grabbing the first key in data</span>
+<span class="c1"># what are the three different keys within each game?</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;game 0&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>{&#39;board&#39;: {1: &#39;X&#39;,
+  2: &#39; &#39;,
+  3: &#39;O&#39;,
+  4: &#39;X&#39;,
+  5: &#39;X&#39;,
+  6: &#39;O&#39;,
+  7: &#39;O&#39;,
+  8: &#39;X&#39;,
+  9: &#39;O&#39;},
+ &#39;starting player&#39;: &#39;X&#39;,
+ &#39;winner&#39;: &#39;O&#39;}
+</code></pre></div>
+
+<h3 id="q2">Q2<a class="headerlink" href="#q2" title="Permanent link">&para;</a></h3>
 <p>Using those keys, iterate through every <code>game</code> in <code>data</code> and append the board, the winner, and the starting player to separate lists. Call these lists: <code>boards, winners, and starters</code></p>
-<pre><code class="language-python">boards = []
-winners = []
-starters = []
-for game in data:
-  # YOUR CODE HERE
-</code></pre>
-<h3 id="q3">Q3</h3>
+<div class="codehilite"><pre><span></span><code><span class="n">boards</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">winners</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">starters</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">game</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+  <span class="c1"># YOUR CODE HERE</span>
+</code></pre></div>
+
+<h3 id="q3">Q3<a class="headerlink" href="#q3" title="Permanent link">&para;</a></h3>
 <p>Make a dataframe out of the list <code>boards</code> and call it <code>df</code>. Make a series out of the list <code>winners</code>. Make a series out of the list <code>starters</code>.</p>
 <p>Make a new column of <code>df</code> called "Winner" and set it equal to the pandas Series of the winners.</p>
 <p>Make a new column of <code>df</code> called "Starter" and set it equal to the pandas Series of the starters.</p>
-<pre><code class="language-python"># YOUR CODE HERE
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="c1"># YOUR CODE HERE</span>
+</code></pre></div>
+
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -6253,7 +6262,7 @@ for game in data:
 </table>
 </div>
 
-<h2 id="12-inferential-analysis">1.2 Inferential Analysis</h2>
+<h2 id="12-inferential-analysis">1.2 Inferential Analysis<a class="headerlink" href="#12-inferential-analysis" title="Permanent link">&para;</a></h2>
 <p>We're going to use Bayes Rule or Bayesian Inference to make a probability of winning based on positions of the board. The formula is:</p>
 <p>$ P(A|B) = \frac{P(B|A) * P(A)}{P(B)} = \frac{P(A \cap B)}{P(B)}$</p>
 <p>Where $\cap$ is the intersection of $A$ and $B$.</p>
@@ -6263,155 +6272,180 @@ for game in data:
 <p>So what is probability? We will define it in terms of frequencies. So if we are for instance asking what is the probability of player 'O' being in the center piece, it would be defined as:</p>
 <p>$ P(B) = \frac{|O_c|} {|O_c| + |X_c| + |empty|}$</p>
 <p>Where the pipes, <code>| |</code>, or cardinality represent the count of the indicated observation or set. In this case $O_c$ (O being in the center) and $X_c$ (X being in the center).</p>
-<pre><code class="language-python">Oc_Xc_empty = df[5].value_counts().sum()
-Oc_Xc_empty
-</code></pre>
-<pre><code>1000
-</code></pre>
-<pre><code class="language-python"># example of assessing the probability of B, O playing the center piece
-player = 'O'
-Oc = (df[5] == player).value_counts()
-Oc_Xc_empty = df[5].value_counts().sum()
+<div class="codehilite"><pre><span></span><code><span class="n">Oc_Xc_empty</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">Oc_Xc_empty</span>
+</code></pre></div>
 
-Oc/Oc_Xc_empty
-</code></pre>
-<pre><code>False    0.577
+<div class="codehilite"><pre><span></span><code>1000
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># example of assessing the probability of B, O playing the center piece</span>
+<span class="n">player</span> <span class="o">=</span> <span class="s1">&#39;O&#39;</span>
+<span class="n">Oc</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">==</span> <span class="n">player</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">Oc_Xc_empty</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="n">Oc</span><span class="o">/</span><span class="n">Oc_Xc_empty</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>False    0.577
 True     0.423
 Name: 5, dtype: float64
-</code></pre>
-<pre><code class="language-python"># we can also clean this up and replace the denominator with the whole
-# observation space (which is just the total number of games, df.shape[0]).
-# example of assesing probabiliy of A
+</code></pre></div>
 
-(df['Winner'] == 'O').value_counts()/df.shape[0]
-</code></pre>
-<pre><code>False    0.571
+<div class="codehilite"><pre><span></span><code><span class="c1"># we can also clean this up and replace the denominator with the whole</span>
+<span class="c1"># observation space (which is just the total number of games, df.shape[0]).</span>
+<span class="c1"># example of assesing probabiliy of A</span>
+
+<span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Winner&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;O&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">/</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>False    0.571
 True     0.429
 Name: Winner, dtype: float64
-</code></pre>
+</code></pre></div>
+
 <p>The $P(B|A) * P(A)$ is the intersection of $B$ and $A$. The intersection is defined as the two events occuring together.
 Continuing with the example, the probablity of 'O' playing the center piece AND 'O' being the winner is <em>the number of times these observations occured together divided by the whole observation space</em>:</p>
-<pre><code class="language-python"># in this view, the total times A and B occured together is 247
-player = 'O'
-df.loc[(df['Winner'] == player) &amp; (df[5] == player)].shape[0]
-</code></pre>
-<pre><code>247
-</code></pre>
-<pre><code class="language-python"># the total observation space is 1000 (1000 games)
-df.shape[0]
-</code></pre>
-<pre><code>1000
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="c1"># in this view, the total times A and B occured together is 247</span>
+<span class="n">player</span> <span class="o">=</span> <span class="s1">&#39;O&#39;</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Winner&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">player</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">==</span> <span class="n">player</span><span class="p">)]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>247
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># the total observation space is 1000 (1000 games)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>1000
+</code></pre></div>
+
 <p>And so we get:</p>
 <p>$P(B|A) * P(A) = \frac{247} {1000} = 0.247 $</p>
 <p>In code:</p>
-<pre><code class="language-python">df.loc[(df['Winner'] == player) &amp; (df[5] == player)].shape[0]/df.shape[0]
-</code></pre>
-<pre><code>0.247
-</code></pre>
-<h3 id="121-behavioral-analysis-of-the-winner">1.2.1 Behavioral Analysis of the Winner</h3>
-<h4 id="q4">Q4</h4>
+<div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Winner&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">player</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">==</span> <span class="n">player</span><span class="p">)]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>0.247
+</code></pre></div>
+
+<h3 id="121-behavioral-analysis-of-the-winner">1.2.1 Behavioral Analysis of the Winner<a class="headerlink" href="#121-behavioral-analysis-of-the-winner" title="Permanent link">&para;</a></h3>
+<h4 id="q4">Q4<a class="headerlink" href="#q4" title="Permanent link">&para;</a></h4>
 <p>define the 3 different board piece types and label them <code>middle</code>, <code>side</code>, and <code>corner</code>. Middle should be an int and the other two should be lists.</p>
-<pre><code class="language-python"># define the 3 different board piece types
+<div class="codehilite"><pre><span></span><code><span class="c1"># define the 3 different board piece types</span>
 
-# middle = 
-# side = 
-# corner = 
-</code></pre>
-<h4 id="1211-what-is-the-probability-of-winning-after-playing-the-middle-piece">1.2.1.1 What is the probability of winning after playing the middle piece?</h4>
-<h4 id="q5">Q5</h4>
-<pre><code class="language-python"># A intersect B: X played middle and X won / tot games
-# B: X played middle / tot games
-player = 'X'
+<span class="c1"># middle = </span>
+<span class="c1"># side = </span>
+<span class="c1"># corner = </span>
+</code></pre></div>
 
-# define the intersection of A AND B, A_B
-# A_B = 
+<h4 id="1211-what-is-the-probability-of-winning-after-playing-the-middle-piece">1.2.1.1 What is the probability of winning after playing the middle piece?<a class="headerlink" href="#1211-what-is-the-probability-of-winning-after-playing-the-middle-piece" title="Permanent link">&para;</a></h4>
+<h4 id="q5">Q5<a class="headerlink" href="#q5" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="c1"># A intersect B: X played middle and X won / tot games</span>
+<span class="c1"># B: X played middle / tot games</span>
+<span class="n">player</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
 
-# define prob B
-# B = 
+<span class="c1"># define the intersection of A AND B, A_B</span>
+<span class="c1"># A_B = </span>
 
-# return A_B over B (The prob B given A)
-A_B / B
-</code></pre>
-<pre><code>0.5732758620689655
-</code></pre>
-<h4 id="q6">Q6</h4>
-<pre><code class="language-python"># A intersect B: X played middle and X won / tot games
-# B: X played middle / tot games
-player = 'O'
-# define the intersection of A AND B, A_B
-# A_B = 
+<span class="c1"># define prob B</span>
+<span class="c1"># B = </span>
 
-# define prob B
-# B = 
+<span class="c1"># return A_B over B (The prob B given A)</span>
+<span class="n">A_B</span> <span class="o">/</span> <span class="n">B</span>
+</code></pre></div>
 
-# return A_B over B (The prob B given A)
-A_B / B
-</code></pre>
-<pre><code>0.5839243498817968
-</code></pre>
-<h4 id="1212-what-is-the-probability-of-winning-after-playing-a-side-piece">1.2.1.2 What is the probability of winning after playing a side piece?</h4>
-<h4 id="q7">Q7</h4>
-<pre><code class="language-python"># A intersect B: O played side and O won / tot games
-# B: O played side / tot games
-player = 'O'
+<div class="codehilite"><pre><span></span><code>0.5732758620689655
+</code></pre></div>
 
-A_B = df.loc[(df[side].T.apply(lambda x: player in x.values)) &amp;
-       (df['Winner'] == player)].shape[0] / df.shape[0]
-B = df.loc[(df[side].T.apply(lambda x: player in x.values))].shape[0] /\
-        df.shape[0]
+<h4 id="q6">Q6<a class="headerlink" href="#q6" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="c1"># A intersect B: X played middle and X won / tot games</span>
+<span class="c1"># B: X played middle / tot games</span>
+<span class="n">player</span> <span class="o">=</span> <span class="s1">&#39;O&#39;</span>
+<span class="c1"># define the intersection of A AND B, A_B</span>
+<span class="c1"># A_B = </span>
 
-A_B / B
-</code></pre>
-<pre><code>0.4158609451385117
-</code></pre>
-<pre><code class="language-python"># A intersect B: X played side and X won / tot games
-# B: X played side / tot games
+<span class="c1"># define prob B</span>
+<span class="c1"># B = </span>
 
-# player = # SET PLAYER
+<span class="c1"># return A_B over B (The prob B given A)</span>
+<span class="n">A_B</span> <span class="o">/</span> <span class="n">B</span>
+</code></pre></div>
 
-# A_B = df.loc[(df[&lt;SET PIECE&gt;].T.apply(lambda x: player in x.values)) &amp;
-#        (df['Winner'] == player)].shape[0] / df.shape[0]
-# B = df.loc[(df[&lt;SET PIECE&gt;].T.apply(lambda x: player in x.values))].shape[0] /\
-#         df.shape[0]
+<div class="codehilite"><pre><span></span><code>0.5839243498817968
+</code></pre></div>
 
-A_B / B
-</code></pre>
-<pre><code>0.38845460012026456
-</code></pre>
-<h4 id="1213-what-is-the-probability-of-winning-after-playing-a-corner-piece">1.2.1.3 What is the probability of winning after playing a corner piece?</h4>
-<h3 id="q8">Q8</h3>
-<pre><code class="language-python"># A intersect B: O played corner and O won / tot games
-# B: O played corner / tot games
+<h4 id="1212-what-is-the-probability-of-winning-after-playing-a-side-piece">1.2.1.2 What is the probability of winning after playing a side piece?<a class="headerlink" href="#1212-what-is-the-probability-of-winning-after-playing-a-side-piece" title="Permanent link">&para;</a></h4>
+<h4 id="q7">Q7<a class="headerlink" href="#q7" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="c1"># A intersect B: O played side and O won / tot games</span>
+<span class="c1"># B: O played side / tot games</span>
+<span class="n">player</span> <span class="o">=</span> <span class="s1">&#39;O&#39;</span>
 
-# player = # SET PLAYER
+<span class="n">A_B</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="n">side</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">player</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">values</span><span class="p">))</span> <span class="o">&amp;</span>
+       <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Winner&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">player</span><span class="p">)]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="n">side</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">player</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">values</span><span class="p">))]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span>\
+        <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-# A_B = df.loc[(df[&lt;SET PIECE&gt;].T.apply(lambda x: player in x.values)) &amp;
-#        (df['Winner'] == player)].shape[0] / df.shape[0]
-# B = df.loc[(df[&lt;SET PIECE&gt;].T.apply(lambda x: player in x.values))].shape[0] /\
-#         df.shape[0]
+<span class="n">A_B</span> <span class="o">/</span> <span class="n">B</span>
+</code></pre></div>
 
-A_B / B
-</code></pre>
-<pre><code>0.4779116465863454
-</code></pre>
-<h3 id="q9">Q9</h3>
-<pre><code class="language-python"># A intersect B: X played corner and X won / tot games
-# B: X played corner / tot games
+<div class="codehilite"><pre><span></span><code>0.4158609451385117
+</code></pre></div>
 
-# player = # SET PLAYER
+<div class="codehilite"><pre><span></span><code><span class="c1"># A intersect B: X played side and X won / tot games</span>
+<span class="c1"># B: X played side / tot games</span>
 
-# A_B = df.loc[(df[&lt;SET PIECE&gt;].T.apply(lambda x: player in x.values)) &amp;
-#        (df['Winner'] == player)].shape[0] / df.shape[0]
-# B = df.loc[(df[&lt;SET PIECE&gt;].T.apply(lambda x: player in x.values))].shape[0] /\
-#         df.shape[0]
+<span class="c1"># player = # SET PLAYER</span>
 
-A_B / B
-</code></pre>
-<pre><code>0.47386964180857316
-</code></pre>
+<span class="c1"># A_B = df.loc[(df[&lt;SET PIECE&gt;].T.apply(lambda x: player in x.values)) &amp;</span>
+<span class="c1">#        (df[&#39;Winner&#39;] == player)].shape[0] / df.shape[0]</span>
+<span class="c1"># B = df.loc[(df[&lt;SET PIECE&gt;].T.apply(lambda x: player in x.values))].shape[0] /\</span>
+<span class="c1">#         df.shape[0]</span>
+
+<span class="n">A_B</span> <span class="o">/</span> <span class="n">B</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>0.38845460012026456
+</code></pre></div>
+
+<h4 id="1213-what-is-the-probability-of-winning-after-playing-a-corner-piece">1.2.1.3 What is the probability of winning after playing a corner piece?<a class="headerlink" href="#1213-what-is-the-probability-of-winning-after-playing-a-corner-piece" title="Permanent link">&para;</a></h4>
+<h3 id="q8">Q8<a class="headerlink" href="#q8" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># A intersect B: O played corner and O won / tot games</span>
+<span class="c1"># B: O played corner / tot games</span>
+
+<span class="c1"># player = # SET PLAYER</span>
+
+<span class="c1"># A_B = df.loc[(df[&lt;SET PIECE&gt;].T.apply(lambda x: player in x.values)) &amp;</span>
+<span class="c1">#        (df[&#39;Winner&#39;] == player)].shape[0] / df.shape[0]</span>
+<span class="c1"># B = df.loc[(df[&lt;SET PIECE&gt;].T.apply(lambda x: player in x.values))].shape[0] /\</span>
+<span class="c1">#         df.shape[0]</span>
+
+<span class="n">A_B</span> <span class="o">/</span> <span class="n">B</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>0.4779116465863454
+</code></pre></div>
+
+<h3 id="q9">Q9<a class="headerlink" href="#q9" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># A intersect B: X played corner and X won / tot games</span>
+<span class="c1"># B: X played corner / tot games</span>
+
+<span class="c1"># player = # SET PLAYER</span>
+
+<span class="c1"># A_B = df.loc[(df[&lt;SET PIECE&gt;].T.apply(lambda x: player in x.values)) &amp;</span>
+<span class="c1">#        (df[&#39;Winner&#39;] == player)].shape[0] / df.shape[0]</span>
+<span class="c1"># B = df.loc[(df[&lt;SET PIECE&gt;].T.apply(lambda x: player in x.values))].shape[0] /\</span>
+<span class="c1">#         df.shape[0]</span>
+
+<span class="n">A_B</span> <span class="o">/</span> <span class="n">B</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>0.47386964180857316
+</code></pre></div>
+
 <p>Are these results surprising to you? Why? This <a href="https://www.cs.jhu.edu/~jorgev/cs106/ttt.pdf">resource</a> may be illustrative.</p>
-<h2 id="13-improving-the-analysis">1.3 Improving the Analysis</h2>
+<h2 id="13-improving-the-analysis">1.3 Improving the Analysis<a class="headerlink" href="#13-improving-the-analysis" title="Permanent link">&para;</a></h2>
 <p>In this analysis, we only tracked what moves were made, not the order they were made in. It really limited our assessment! How might we change our recording of the games to track order of moves as well? Do we need to track all the moves or just the first and the winner? </p>
 
               
