@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#technology-fundamentals-course-3-session-2-bagging-decision-trees-and-random-forests" class="md-skip">
+        <a href="#data-science-foundations-session-6-bagging-decision-trees-and-random-forests" class="md-skip">
           Skip to content
         </a>
       
@@ -313,9 +313,181 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Bagging
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Bagging
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#60-preparing-environment-and-importing-data" class="md-nav__link">
+    6.0 Preparing Environment and Importing Data
+  </a>
+  
+    <nav class="md-nav" aria-label="6.0 Preparing Environment and Importing Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#601-import-packages" class="md-nav__link">
+    6.0.1 Import Packages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#602-load-dataset" class="md-nav__link">
+    6.0.2 Load Dataset
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#61-decision-trees" class="md-nav__link">
+    6.1 Decision Trees
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1 Decision Trees">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#611-creating-a-decision-tree" class="md-nav__link">
+    6.1.1 Creating a Decision Tree
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#612-interpreting-a-decision-tree" class="md-nav__link">
+    6.1.2 Interpreting a Decision Tree
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1.2 Interpreting a Decision Tree">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6121-node-branch-diagram" class="md-nav__link">
+    6.1.2.1 Node &amp; Branch Diagram
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6121-decision-boundaries" class="md-nav__link">
+    6.1.2.1 Decision Boundaries
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#613-overfitting-a-decision-tree" class="md-nav__link">
+    6.1.3 Overfitting a Decision Tree
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1.3 Overfitting a Decision Tree">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-minimize-overfitting" class="md-nav__link">
+    🏋️ Exercise 1: Minimize Overfitting
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62-random-forests-and-bagging" class="md-nav__link">
+    6.2 Random Forests and Bagging
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2 Random Forests and Bagging">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#621-what-is-bagging" class="md-nav__link">
+    6.2.1 What is Bagging?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#622-random-forests-for-classification" class="md-nav__link">
+    6.2.2 Random Forests for Classification
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2.2 Random Forests for Classification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6221-interpreting-a-random-forest" class="md-nav__link">
+    6.2.2.1 Interpreting a Random Forest
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#623-random-forests-for-regression" class="md-nav__link">
+    6.2.3 Random Forests for Regression
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extended-exercise-practice-with-random-forests" class="md-nav__link">
+    🏋️ Extended Exercise: Practice with Random Forests
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -556,6 +728,162 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#60-preparing-environment-and-importing-data" class="md-nav__link">
+    6.0 Preparing Environment and Importing Data
+  </a>
+  
+    <nav class="md-nav" aria-label="6.0 Preparing Environment and Importing Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#601-import-packages" class="md-nav__link">
+    6.0.1 Import Packages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#602-load-dataset" class="md-nav__link">
+    6.0.2 Load Dataset
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#61-decision-trees" class="md-nav__link">
+    6.1 Decision Trees
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1 Decision Trees">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#611-creating-a-decision-tree" class="md-nav__link">
+    6.1.1 Creating a Decision Tree
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#612-interpreting-a-decision-tree" class="md-nav__link">
+    6.1.2 Interpreting a Decision Tree
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1.2 Interpreting a Decision Tree">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6121-node-branch-diagram" class="md-nav__link">
+    6.1.2.1 Node &amp; Branch Diagram
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6121-decision-boundaries" class="md-nav__link">
+    6.1.2.1 Decision Boundaries
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#613-overfitting-a-decision-tree" class="md-nav__link">
+    6.1.3 Overfitting a Decision Tree
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1.3 Overfitting a Decision Tree">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-minimize-overfitting" class="md-nav__link">
+    🏋️ Exercise 1: Minimize Overfitting
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62-random-forests-and-bagging" class="md-nav__link">
+    6.2 Random Forests and Bagging
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2 Random Forests and Bagging">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#621-what-is-bagging" class="md-nav__link">
+    6.2.1 What is Bagging?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#622-random-forests-for-classification" class="md-nav__link">
+    6.2.2 Random Forests for Classification
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2.2 Random Forests for Classification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6221-interpreting-a-random-forest" class="md-nav__link">
+    6.2.2.1 Interpreting a Random Forest
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#623-random-forests-for-regression" class="md-nav__link">
+    6.2.3 Random Forests for Regression
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extended-exercise-practice-with-random-forests" class="md-nav__link">
+    🏋️ Extended Exercise: Practice with Random Forests
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -567,13 +895,10 @@
               
                 
 
-<p><a href="https://colab.research.google.com/github/ronva-h/technology_fundamentals/blob/main/C3%20Machine%20Learning%20I/Tech%20Fun%20C3%20S2%20Random%20Forests.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
-<h1 id="technology-fundamentals-course-3-session-2-bagging-decision-trees-and-random-forests">Technology Fundamentals Course 3, Session 2: Bagging: Decision Trees and Random Forests</h1>
+<p><a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/S6_Bagging.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
+<h1 id="data-science-foundations-session-6-bagging-decision-trees-and-random-forests">Data Science Foundations, Session 6: Bagging: Decision Trees and Random Forests</h1>
 <p><strong>Instructor</strong>: Wesley Beckner</p>
 <p><strong>Contact</strong>: wesleybeckner@gmail.com</p>
-<p><strong>Teaching Assistants</strong>: Varsha Bang, Harsha Vardhan</p>
-<p><strong>Contact</strong>: vbang@uw.edu, harshav@uw.edu
-<br></p>
 <hr />
 <p><br></p>
 <p>In this session, we're going back to the topic of supervised learning models. These models however, belong to a special class of methods called bagging, or bootstrap aggregation. </p>
@@ -584,37 +909,12 @@
 </p>
 
 <p><br></p>
-<hr />
-<p><br></p>
 <p><a name='top'></a></p>
-<h1 id="contents">Contents</h1>
-<ul>
-<li>4.0 <a href="#x.0">Preparing Environment and Importing Data</a></li>
-<li>4.0.1 <a href="#x.0.1">Import Packages</a></li>
-<li>4.0.2 <a href="#x.0.2">Load Dataset</a></li>
-<li>4.1 <a href="#x.1">Decision Trees</a></li>
-<li>4.1.1 <a href="#x.1.1">Creating a Decision Tree</a></li>
-<li>4.1.2 <a href="#x.1.2">Interpreting a Decision Tree</a><ul>
-<li>4.1.2.1 <a href="#x.1.2.1">Node &amp; Branch Diagram</a></li>
-<li>4.1.2.2 <a href="#x.1.2.2">Decision Boundaries</a></li>
-</ul>
-</li>
-<li>4.1.3 <a href="#x.1.3">Overfitting a Decision Tree</a></li>
-<li>4.2 <a href="#x.2">Random Forests and Bagging</a></li>
-<li>4.2.1 <a href="#x.2.1">What is Bagging?</a></li>
-<li>4.2.2 <a href="#x.2.2">Random Forests for Classification</a><ul>
-<li>4.2.2.1 <a href="#x.2.2.1">Interpreting a Random Forest</a></li>
-</ul>
-</li>
-<li>4.2.3 <a href="#x.2.3">Random Forests for Regression</a></li>
-</ul>
-<p><br></p>
-<hr />
 <p><a name='x.0'></a></p>
-<h2 id="40-preparing-environment-and-importing-data">4.0 Preparing Environment and Importing Data</h2>
+<h2 id="60-preparing-environment-and-importing-data">6.0 Preparing Environment and Importing Data</h2>
 <p><a href="#top">back to top</a></p>
 <p><a name='x.0.1'></a></p>
-<h3 id="401-import-packages">4.0.1 Import Packages</h3>
+<h3 id="601-import-packages">6.0.1 Import Packages</h3>
 <p><a href="#top">back to top</a></p>
 <pre><code class="language-python">import pandas as pd
 import numpy as np
@@ -635,7 +935,7 @@ from sklearn.model_selection import train_test_split
 from sklearn import metrics
 </code></pre>
 <p><a name='x.0.2'></a></p>
-<h3 id="402-load-dataset">4.0.2 Load Dataset</h3>
+<h3 id="602-load-dataset">6.0.2 Load Dataset</h3>
 <p><a href="#top">back to top</a></p>
 <pre><code class="language-python">margin = pd.read_csv('https://raw.githubusercontent.com/wesleybeckner/'\
                  'ds_for_engineers/main/data/truffle_margin/truffle_margin_customer.csv')
@@ -899,13 +1199,13 @@ margin.head()
 </div>
 
 <p><a name='x.1'></a></p>
-<h2 id="41-decision-trees">4.1 Decision Trees</h2>
+<h2 id="61-decision-trees">6.1 Decision Trees</h2>
 <p><a href="#top">back to top</a></p>
 <p>In essence, a decision tree is a series of binary questions. </p>
 <p><img src="https://miro.medium.com/max/499/0*KQUBhmPmWeP8mHQz.jpeg" width=400px></img></p>
 <p>Let's begin this discussion by talking about how we make decision trees in sklearn.</p>
 <p><a name='x.1.1'></a></p>
-<h3 id="411-creating-a-decision-tree">4.1.1 Creating a Decision Tree</h3>
+<h3 id="611-creating-a-decision-tree">6.1.1 Creating a Decision Tree</h3>
 <p><a href="#top">back to top</a></p>
 <pre><code class="language-python">from sklearn import tree
 X = [[0, 0], [1, 1]]
@@ -925,11 +1225,11 @@ clf = clf.fit(X, y)
 </code></pre>
 <p>Let's now go on to using visual strategies to interpreting trees.</p>
 <p><a name='x.1.2'></a></p>
-<h3 id="412-interpreting-a-decision-tree">4.1.2 Interpreting a Decision Tree</h3>
+<h3 id="612-interpreting-a-decision-tree">6.1.2 Interpreting a Decision Tree</h3>
 <p><a href="#top">back to top</a></p>
 <p>Throughout today, we will discuss many ways to view both a single tree and a random forest of trees.</p>
 <p><a name='x.1.2.1'></a></p>
-<h4 id="4121-node-branch-diagram">4.1.2.1 Node &amp; Branch Diagram</h4>
+<h4 id="6121-node-branch-diagram">6.1.2.1 Node &amp; Branch Diagram</h4>
 <p><a href="#top">back to top</a></p>
 <p>We can visualize the decision tree:</p>
 <pre><code class="language-python">tree.plot_tree(clf)
@@ -1023,7 +1323,7 @@ enc.get_feature_names()[4]
 <p>This is one great aspect of decision trees, their <em>interpretability</em>.</p>
 <p>We will perform this analysis again, for now, let's proceed with simpler datasets while exploring the features of decision trees.</p>
 <p><a name='x.1.2.2'></a></p>
-<h4 id="4121-decision-boundaries">4.1.2.1 Decision Boundaries</h4>
+<h4 id="6121-decision-boundaries">6.1.2.1 Decision Boundaries</h4>
 <p><a href="#top">back to top</a></p>
 <p>Let's make some random blobs</p>
 <pre><code class="language-python">from sklearn.datasets import make_blobs as gen
@@ -1089,7 +1389,7 @@ plt.scatter(X[:,0], X[:,1], c=y, cmap='viridis')
 </code></pre>
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_59_0.png" /></p>
 <p><a name='x.1.3'></a></p>
-<h3 id="413-overfitting-a-decision-tree">4.1.3 Overfitting a Decision Tree</h3>
+<h3 id="613-overfitting-a-decision-tree">6.1.3 Overfitting a Decision Tree</h3>
 <p><a href="#top">back to top</a></p>
 <p>Let's increase the max_depth</p>
 <pre><code class="language-python">clf = tree.DecisionTreeClassifier(max_depth=5, random_state=42)
@@ -1102,15 +1402,15 @@ plot_tree(X, clf)
 <p>What we notice is that while the model accurately predicts the training data, we see some spurious labels, noteably the trailing purple bar that extends into the otherwise green region of the data. </p>
 <p>This is a well known fact about decision trees, that they tend to overfit their training data. In fact, this is a major motivation for why decision trees, a weak classifier, are conveniently packaged into ensembles.</p>
 <p>We combine the idea of bootstrapping, with decision trees, to come up with an overall better classifier.</p>
-<h4 id="4131-exercise-minimize-overfitting">4.1.3.1 Exercise: Minimize Overfitting</h4>
+<h4 id="exercise-1-minimize-overfitting">🏋️ Exercise 1: Minimize Overfitting</h4>
 <p>Repeat 4.1.3 with different max_depth settings, also read the docstring and play with any other hyperparameters available to you. What settings do you feel minimize overfitting?</p>
-<pre><code class="language-python"># Code Cell for 4.1.3.1
+<pre><code class="language-python"># Code Cell for 1
 </code></pre>
 <p><a name='x.2'></a></p>
-<h2 id="42-random-forests-and-bagging">4.2 Random Forests and Bagging</h2>
+<h2 id="62-random-forests-and-bagging">6.2 Random Forests and Bagging</h2>
 <p><a href="#top">back to top</a></p>
 <p><a name='x.2.1'></a></p>
-<h3 id="421-what-is-bagging">4.2.1 What is Bagging?</h3>
+<h3 id="621-what-is-bagging">6.2.1 What is Bagging?</h3>
 <p><a href="#top">back to top</a></p>
 <p><strong><em>Bagging</em></strong>, or Bootstrap AGGregation is the process of creating subsets of your data and training separate models on them, and using the aggregate votes of the models to make a final prediction.</p>
 <p><strong><em>Bootstrapping</em></strong> is a topic in and of itself that we will just touch on here. Without going through the statistical rigor of proof, bootstrapping, or sampling from your observations with replacement, simulates having drawn additional data from the true population. We use this method to create many new datasets that are then used to <em>train separate learners</em> in parallel. This overall approach is called <strong><em>Bagging</em></strong>.</p>
@@ -1120,7 +1420,7 @@ plot_tree(X, clf)
 
 <p>A <strong><em>Random Forest</em></strong> is an instance of bagging where the separate learners are decision trees. </p>
 <p><a name='x.2.2'></a></p>
-<h3 id="422-random-forests-for-classification">4.2.2 Random Forests for Classification</h3>
+<h3 id="622-random-forests-for-classification">6.2.2 Random Forests for Classification</h3>
 <p><a href="#top">back to top</a></p>
 <pre><code class="language-python">from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import BaggingClassifier
@@ -1146,7 +1446,7 @@ clf = clf.fit(X, y)
 </code></pre>
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_71_1.png" /></p>
 <p><a name='x.2.2.1'></a></p>
-<h4 id="4221-interpreting-a-random-forest">4.2.2.1 Interpreting a Random Forest</h4>
+<h4 id="6221-interpreting-a-random-forest">6.2.2.1 Interpreting a Random Forest</h4>
 <p><a href="#top">back to top</a></p>
 <p>Let's revisit our truffle dataset again, this time with random forests</p>
 <pre><code class="language-python"># fit the model
@@ -1279,7 +1579,7 @@ if (outputEl) {{
 </code></pre>
 <p>This is an example of how the interpretability of the random forest ensemble approach can be highly valuable.</p>
 <p><a name='x.2.3'></a></p>
-<h3 id="423-random-forests-for-regression">4.2.3 Random Forests for Regression</h3>
+<h3 id="623-random-forests-for-regression">6.2.3 Random Forests for Regression</h3>
 <p><a href="#top">back to top</a></p>
 <pre><code class="language-python">from sklearn.ensemble import RandomForestRegressor
 
@@ -1341,7 +1641,7 @@ ax.plot(t,clf.predict(t.reshape(-1,1)))
 </code></pre>
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_94_1.png" /></p>
 <p>Nice! without specifying any perdiodicity, the random forest does a good job of embedding this periodicity in the final output.</p>
-<h3 id="424-extended-exercise-practice-with-random-forests">4.2.4 Extended Exercise: Practice with Random Forests</h3>
+<h3 id="extended-exercise-practice-with-random-forests">🏋️ Extended Exercise: Practice with Random Forests</h3>
 <p>With the wine dataset:</p>
 <ul>
 <li>

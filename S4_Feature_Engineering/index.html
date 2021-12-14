@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#technology-fundamentals-course-3-session-1-feature-engineering" class="md-skip">
+        <a href="#data-science-foundations-session-4-feature-engineering" class="md-skip">
           Skip to content
         </a>
       
@@ -310,9 +310,250 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#schedule-for-this-week" class="md-nav__link">
-    Schedule for this week
+  <a href="#20-preparing-environment-and-importing-data" class="md-nav__link">
+    2.0 Preparing Environment and Importing Data
   </a>
+  
+    <nav class="md-nav" aria-label="2.0 Preparing Environment and Importing Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#201-import-packages" class="md-nav__link">
+    2.0.1 Import Packages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#202-load-dataset" class="md-nav__link">
+    2.0.2 Load Dataset
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-categorical-features" class="md-nav__link">
+    2.1 Categorical Features
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Categorical Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-one-hot-encoding" class="md-nav__link">
+    2.1.1 One-Hot Encoding
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.1 One-Hot Encoding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-create-a-simple-linear-model" class="md-nav__link">
+    🏋️ Exercise 1: Create a simple linear model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-1" class="md-nav__link">
+    🙋 Question 1:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-derived-features" class="md-nav__link">
+    2.2 Derived Features
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Derived Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-creating-polynomials" class="md-nav__link">
+    2.2.1 Creating Polynomials
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-dealing-with-time-series" class="md-nav__link">
+    2.2.2 Dealing with Time Series
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.2 Dealing with Time Series">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enrichment-2221-fast-fourier-transform" class="md-nav__link">
+    Enrichment: 2.2.2.1 Fast Fourier Transform
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2222-rolling-windows" class="md-nav__link">
+    2.2.2.2 Rolling Windows
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.2.2 Rolling Windows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-optimize-rolling-window-size-for-customer-forecasts" class="md-nav__link">
+    🏋️ Exercise 2: Optimize Rolling Window Size for Customer Forecasts
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223-image-preprocessing" class="md-nav__link">
+    2.2.3 Image Preprocessing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-transformed-features" class="md-nav__link">
+    2.3 Transformed Features
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Transformed Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231-skewness" class="md-nav__link">
+    2.3.1 Skewness
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.1 Skewness">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-transform-data-from-a-gamma-distribution" class="md-nav__link">
+    🏋️ Exercise 3: Transform data from a gamma distribution
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232-colinearity" class="md-nav__link">
+    2.3.2 Colinearity
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.2 Colinearity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2321-detecting-colinearity" class="md-nav__link">
+    2.3.2.1 Detecting Colinearity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2322-fixing-colinearity" class="md-nav__link">
+    2.3.2.2 Fixing Colinearity
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233-normalization" class="md-nav__link">
+    2.3.3 Normalization
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.3 Normalization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-normalization-affect-on-vif" class="md-nav__link">
+    🏋️ Exercise 4: Normalization affect on VIF
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#234-dimensionality-reduction" class="md-nav__link">
+    2.3.4 Dimensionality Reduction
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-missing-data" class="md-nav__link">
+    2.4 Missing Data
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 Missing Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241-imputation" class="md-nav__link">
+    2.4.1 Imputation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242-other-strategies" class="md-nav__link">
+    2.4.2 Other Strategies
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -594,9 +835,250 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#schedule-for-this-week" class="md-nav__link">
-    Schedule for this week
+  <a href="#20-preparing-environment-and-importing-data" class="md-nav__link">
+    2.0 Preparing Environment and Importing Data
   </a>
+  
+    <nav class="md-nav" aria-label="2.0 Preparing Environment and Importing Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#201-import-packages" class="md-nav__link">
+    2.0.1 Import Packages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#202-load-dataset" class="md-nav__link">
+    2.0.2 Load Dataset
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-categorical-features" class="md-nav__link">
+    2.1 Categorical Features
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Categorical Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-one-hot-encoding" class="md-nav__link">
+    2.1.1 One-Hot Encoding
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.1 One-Hot Encoding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-create-a-simple-linear-model" class="md-nav__link">
+    🏋️ Exercise 1: Create a simple linear model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-1" class="md-nav__link">
+    🙋 Question 1:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-derived-features" class="md-nav__link">
+    2.2 Derived Features
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Derived Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-creating-polynomials" class="md-nav__link">
+    2.2.1 Creating Polynomials
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-dealing-with-time-series" class="md-nav__link">
+    2.2.2 Dealing with Time Series
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.2 Dealing with Time Series">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enrichment-2221-fast-fourier-transform" class="md-nav__link">
+    Enrichment: 2.2.2.1 Fast Fourier Transform
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2222-rolling-windows" class="md-nav__link">
+    2.2.2.2 Rolling Windows
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.2.2 Rolling Windows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-optimize-rolling-window-size-for-customer-forecasts" class="md-nav__link">
+    🏋️ Exercise 2: Optimize Rolling Window Size for Customer Forecasts
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223-image-preprocessing" class="md-nav__link">
+    2.2.3 Image Preprocessing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-transformed-features" class="md-nav__link">
+    2.3 Transformed Features
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Transformed Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231-skewness" class="md-nav__link">
+    2.3.1 Skewness
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.1 Skewness">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-transform-data-from-a-gamma-distribution" class="md-nav__link">
+    🏋️ Exercise 3: Transform data from a gamma distribution
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232-colinearity" class="md-nav__link">
+    2.3.2 Colinearity
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.2 Colinearity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2321-detecting-colinearity" class="md-nav__link">
+    2.3.2.1 Detecting Colinearity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2322-fixing-colinearity" class="md-nav__link">
+    2.3.2.2 Fixing Colinearity
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233-normalization" class="md-nav__link">
+    2.3.3 Normalization
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.3 Normalization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-normalization-affect-on-vif" class="md-nav__link">
+    🏋️ Exercise 4: Normalization affect on VIF
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#234-dimensionality-reduction" class="md-nav__link">
+    2.3.4 Dimensionality Reduction
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-missing-data" class="md-nav__link">
+    2.4 Missing Data
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 Missing Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241-imputation" class="md-nav__link">
+    2.4.1 Imputation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242-other-strategies" class="md-nav__link">
+    2.4.2 Other Strategies
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -613,17 +1095,10 @@
               
                 
 
-<p><a href="https://colab.research.google.com/github/wesleybeckner/technology_fundamentals/blob/main/C3%20Machine%20Learning%20I/Tech%20Fun%20C3%20S1%20Feature%20Engineering.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
-<h1 id="technology-fundamentals-course-3-session-1-feature-engineering">Technology Fundamentals Course 3, Session 1: Feature Engineering</h1>
+<p><a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/S4_Feature_Engineering.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
+<h1 id="data-science-foundations-session-4-feature-engineering">Data Science Foundations, Session 4: Feature Engineering</h1>
 <p><strong>Instructor</strong>: Wesley Beckner</p>
 <p><strong>Contact</strong>: wesleybeckner@gmail.com</p>
-<p><strong>Teaching Assitants</strong>: Varsha Bang, Harsha Vardhan</p>
-<p><strong>Contact</strong>: vbang@uw.edu, harshav@uw.edu
-<br></p>
-<h2 id="schedule-for-this-week">Schedule for this week</h2>
-<p align="center">
-<img src="https://raw.githubusercontent.com/wesleybeckner/technology_fundamentals/main/assets/week3.png" width=800></img>
-</p>
 <hr />
 <p><br></p>
 <p>In the previous session we talked about model pipelines and conveniently began with a suitable set of input data. In the real world, this is hardly ever the case! What is constant is this: at the end of the day, our models need numbers. Not only this, but a suitable set of numbers. What does that mean? The answer to that question is the subject of our session today.</p>
@@ -631,35 +1106,6 @@
 <hr />
 <p><br></p>
 <p><a name='top'></a></p>
-<h1 id="contents">Contents</h1>
-<ul>
-<li>2.0 <a href="#x.0">Preparing Environment and Importing Data</a></li>
-<li>2.0.1 <a href="#x.0.1">Import Packages</a></li>
-<li>2.0.2 <a href="#x.0.2">Load Dataset</a></li>
-<li>2.1 <a href="#2.1">Categorical Features</a></li>
-<li>2.1.1 <a href="#2.1.1">One-Hot-Encoding</a></li>
-<li>2.2 <a href="#2.2">Derived Features</a></li>
-<li>2.2.1 <a href="#2.2.1">Creating Polynomials</a></li>
-<li>2.2.2 <a href="#2.2.2">Dealing with Time Series</a><ul>
-<li>2.2.2.1 <a href="#2.2.2.1">Fast Fourier Transform</a></li>
-</ul>
-</li>
-<li>2.2.3 <a href="#2.2.3">Image Preprocessing</a></li>
-<li>2.3 <a href="#2.3">Transformed Features</a></li>
-<li>2.3.1 <a href="#2.3.1">Skewness</a></li>
-<li>2.3.2 <a href="#2.3.2">Colinearity</a><ul>
-<li>2.3.2.1 <a href="#x.3.2.1">Detecting Colinearity</a></li>
-<li>2.3.2.1 <a href="#x.3.2.2">Fixing Colinearity</a></li>
-</ul>
-</li>
-<li>2.3.3 <a href="#2.3.3">Normalization</a></li>
-<li>2.3.4 <a href="#2.3.4">Dimensionality Reduction</a></li>
-<li>2.4 <a href="#2.4">Missing Data</a></li>
-<li>2.4.1 <a href="#2.4.1">Imputation</a></li>
-<li>2.4.2 <a href="#2.4.2">Other Strategies</a></li>
-</ul>
-<p><br></p>
-<hr />
 <p><a name='2.0'></a></p>
 <h2 id="20-preparing-environment-and-importing-data">2.0 Preparing Environment and Importing Data</h2>
 <p><a href="#top">back to top</a></p>
@@ -1052,10 +1498,10 @@ X.shape
 <p>And now we grab our EBITDA (margin) data for prediction</p>
 <pre><code class="language-python">y = margin[&quot;EBITDA/KG&quot;]
 </code></pre>
-<h4 id="2112-exercise-create-a-simple-linear-model">2.1.1.2 Exercise: Create a simple linear model</h4>
+<h4 id="exercise-1-create-a-simple-linear-model">🏋️ Exercise 1: Create a simple linear model</h4>
 <p>Using the X and Y sets, use <code>train_test_split</code> and <code>LinearRegression</code> to make a baseline model based on what we've learned so far.</p>
 <p>Assess your model performance visually by plottying <code>y_test</code> vs <code>y_test_pred</code></p>
-<pre><code class="language-python"># Cell for Exercise 2.1.1.2
+<pre><code class="language-python"># Cell for Exercise 1
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 
@@ -1063,7 +1509,7 @@ from sklearn.linear_model import LinearRegression
 <pre><code>[&lt;matplotlib.lines.Line2D at 0x7fb3d1bb0890&gt;]
 </code></pre>
 <p><img alt="png" src="../S4_Feature_Engineering_files/S4_Feature_Engineering_24_1.png" /></p>
-<h4 id="2113-question">2.1.1.3 Question:</h4>
+<h4 id="question-1">🙋 Question 1:</h4>
 <blockquote>
 <p>How can we assess the relative feature importance of the features in our model?</p>
 </blockquote>
@@ -1206,11 +1652,11 @@ ax[1].set_title('Frequency Domain')
 </p>
 
 <p>In the above gif, we have a window size of 7. What that means is for whatever time step units we are in (that could be minutes, days, months, etc.) we will have 7 of them included in a single instance or observation. This instance or observation is then interpreted by our model and used to assess the target value, typically the quantity in the very next time step after the window (the green bar in the gif).</p>
-<h5 id="22221-exercise-optimize-rolling-window-size-for-customer-forecasts">2.2.2.2.1 Exercise: Optimize Rolling Window Size for Customer Forecasts</h5>
+<h5 id="exercise-2-optimize-rolling-window-size-for-customer-forecasts">🏋️ Exercise 2: Optimize Rolling Window Size for Customer Forecasts</h5>
 <p>For this exercise, you will use the <code>process_data</code> function below to help you optimize the <code>window</code> size for predicting the order quantity in any given month. </p>
 <ul>
 <li>create a model using a window size of 3 and predict the order quantity for the month immediately following the window</li>
-<li>create a model for window sizes 1-11 and report the $R^2$ for each model</li>
+<li>create a model for window sizes 1-11 and report the \(R^2\) for each model</li>
 </ul>
 <pre><code class="language-python">def process_data(Xy, time_cols=12, window=3, remove_null=False):
   &quot;&quot;&quot;
@@ -1274,7 +1720,7 @@ ax[1].set_title('Frequency Domain')
     labels.append(&quot;X: {}&quot;.format(np.array2string(row[-window:].astype(float).round())))
   return X_, y, labels
 </code></pre>
-<pre><code class="language-python"># Code Cell for Exercise 2.2.2.2.1
+<pre><code class="language-python"># Code Cell for Exercise 2
 # use data and the function process_data to create your X, y arrays
 # then use train_test_split to create train and test portions
 data = orders.values[:,6:]
@@ -1472,9 +1918,9 @@ ax.legend()
 <pre><code>&lt;matplotlib.legend.Legend at 0x7fb3cb35e310&gt;
 </code></pre>
 <p><img alt="png" src="../S4_Feature_Engineering_files/S4_Feature_Engineering_60_1.png" /></p>
-<h4 id="2311-exercise-transform-data-from-a-gamma-distribution">2.3.1.1 Exercise: Transform data from a gamma distribution</h4>
+<h4 id="exercise-3-transform-data-from-a-gamma-distribution">🏋️ Exercise 3: Transform data from a gamma distribution</h4>
 <p>Repeat section 2.3.1, this time synthesizing a gamma distribution and transforming it. Which transformation best reduces the skew? Do this for a dataset that does not contain values at or below 0.</p>
-<pre><code class="language-python"># code cell for exercise 2.3.1.1
+<pre><code class="language-python"># code cell for exercise 3
 from scipy.stats import gamma
 </code></pre>
 <pre><code>&lt;matplotlib.legend.Legend at 0x7fb3cb31fe90&gt;
@@ -1668,12 +2114,12 @@ normed = scaler.fit_transform(colin)
 <pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fb3cb102990&gt;
 </code></pre>
 <p><img alt="png" src="../S4_Feature_Engineering_files/S4_Feature_Engineering_79_1.png" /></p>
-<h4 id="2331-exercise-normalization-affect-on-vif">2.3.3.1 Exercise: Normalization affect on VIF</h4>
+<h4 id="exercise-4-normalization-affect-on-vif">🏋️ Exercise 4: Normalization affect on VIF</h4>
 <p>In the above, we saw how to scale and center variables. How does this affect VIF? </p>
 <ul>
 <li>Calculate the VIF for the raw and scaled-centered data</li>
 </ul>
-<pre><code class="language-python"># Code Cell for Exercise 2.3.3.1
+<pre><code class="language-python"># Code Cell for Exercise 4
 </code></pre>
 <div>
 <style scoped>

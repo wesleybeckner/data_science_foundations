@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#technology-fundamentals-course-3-enrichment-1-unsupervised-learning-clustering-dimensionality-reduction" class="md-skip">
+        <a href="#data-science-foundations-session-5-unsupervised-learning-clustering-and-dimensionality-reduction" class="md-skip">
           Skip to content
         </a>
       
@@ -299,9 +299,80 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Unsupervised Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Unsupervised Learning
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#50-preparing-environment-and-importing-data" class="md-nav__link">
+    5.0 Preparing Environment and Importing Data
+  </a>
+  
+    <nav class="md-nav" aria-label="5.0 Preparing Environment and Importing Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#501-import-packages" class="md-nav__link">
+    5.0.1 Import Packages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#502-load-dataset" class="md-nav__link">
+    5.0.2 Load Dataset
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#51-principal-component-analysis" class="md-nav__link">
+    5.1 Principal Component Analysis
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1 Principal Component Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#511-introduction-to-pca" class="md-nav__link">
+    5.1.1 Introduction to PCA
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -556,6 +627,61 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#50-preparing-environment-and-importing-data" class="md-nav__link">
+    5.0 Preparing Environment and Importing Data
+  </a>
+  
+    <nav class="md-nav" aria-label="5.0 Preparing Environment and Importing Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#501-import-packages" class="md-nav__link">
+    5.0.1 Import Packages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#502-load-dataset" class="md-nav__link">
+    5.0.2 Load Dataset
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#51-principal-component-analysis" class="md-nav__link">
+    5.1 Principal Component Analysis
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1 Principal Component Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#511-introduction-to-pca" class="md-nav__link">
+    5.1.1 Introduction to PCA
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -567,13 +693,10 @@
               
                 
 
-<p><a href="https://colab.research.google.com/github/ronva-h/technology_fundamentals/blob/main/C3%20Machine%20Learning%20I/Tech%20Fun%20C3%20E1%20Unsupervised%20Learning.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
-<h1 id="technology-fundamentals-course-3-enrichment-1-unsupervised-learning-clustering-dimensionality-reduction">Technology Fundamentals, Course 3 Enrichment 1: Unsupervised Learning: Clustering, Dimensionality Reduction</h1>
+<p><a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/S5_Unsupervised_Learning.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
+<h1 id="data-science-foundations-session-5-unsupervised-learning-clustering-and-dimensionality-reduction">Data Science Foundations, Session 5: Unsupervised Learning: Clustering and Dimensionality Reduction</h1>
 <p><strong>Instructor</strong>: Wesley Beckner</p>
 <p><strong>Contact</strong>: wesleybeckner@gmail.com</p>
-<p><strong>Teaching Assistants</strong>: Varsha Bang, Harsha Vardhan</p>
-<p><strong>Contact</strong>: vbang@uw.edu, harshav@uw.edu</p>
-<p><br></p>
 <hr />
 <p><br></p>
 <p>In the previous session we began our discussion on feature engineering and ended with a sneak peak into dimensionality reduction. This last topic deserves a whole session on its own because its use case is not limited to feature engineering! It can also be used as a tool for visualization, for noise filtering, and much more. In this session we discuss dimensionality reduction along with other unsupervised learning methods. </p>
@@ -582,35 +705,11 @@
 <hr />
 <p><br></p>
 <p><a name='top'></a></p>
-<h1 id="contents">Contents</h1>
-<ul>
-<li>3.0 <a href="#3.0">Preparing Environment and Importing Data</a></li>
-<li>3.0.1 <a href="#x.0.1">Import Packages</a></li>
-<li>3.0.2 <a href="#x.0.2">Load Dataset</a></li>
-<li>3.1 <a href="#3.1">Principal Component Analysis</a></li>
-<li>3.1.1 <a href="#x.1.1">Introduction to PCA</a></li>
-<li>3.1.2 <a href="#3.1.1">PCA as Dimensionality Reduction</a></li>
-<li>3.1.3 <a href="#3.1.2">PCA for visualization</a></li>
-<li>3.1.4 <a href="#3.1.3">Enrichment: PCA as Noise Filtering</a></li>
-<li>3.1.5 <a href="#3.1.4">PCA for Feature Engineering</a></li>
-<li>3.2 <a href="#3.2">K-Means Clustering</a></li>
-<li>3.2.1 <a href="#3.2.1">The Algorithm: Expectation-Maximization</a></li>
-<li>3.2.2 <a href="#3.2.2">Limitations</a></li>
-<li>3.3 <a href="#3.3">Gaussian Mixture Models</a></li>
-<li>3.3.1 <a href="#3.3.1">Generalizing E-M for GMMs</a></li>
-<li>3.3.2 <a href="#3.3.2">GMMs as a Data Generator</a><ul>
-<li>3.3.2.1 <a href="#x.3.2.1">Determining the Number of Components</a></li>
-</ul>
-</li>
-<li>3.4 <a href="#x.4">K-Nearest Neighbors</a></li>
-</ul>
-<p><br></p>
-<hr />
 <p><a name='3.0'></a></p>
-<h2 id="30-preparing-environment-and-importing-data">3.0 Preparing Environment and Importing Data</h2>
+<h2 id="50-preparing-environment-and-importing-data">5.0 Preparing Environment and Importing Data</h2>
 <p><a href="#top">back to top</a></p>
 <p><a name='x.0.1'></a></p>
-<h3 id="301-import-packages">3.0.1 Import Packages</h3>
+<h3 id="501-import-packages">5.0.1 Import Packages</h3>
 <p><a href="#top">back to top</a></p>
 <pre><code class="language-python">import pandas as pd
 import numpy as np
@@ -633,7 +732,7 @@ import copy
 pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
 </code></pre>
 <p><a name='x.0.2'></a></p>
-<h3 id="302-load-dataset">3.0.2 Load Dataset</h3>
+<h3 id="502-load-dataset">5.0.2 Load Dataset</h3>
 <p><a href="#top">back to top</a></p>
 <pre><code class="language-python">wine = pd.read_csv(&quot;https://raw.githubusercontent.com/wesleybeckner/&quot;\
       &quot;ds_for_engineers/main/data/wine_quality/winequalityN.csv&quot;)
@@ -653,12 +752,12 @@ features.remove('quality_label')
 features.remove('quality')
 </code></pre>
 <p><a name='3.1'></a></p>
-<h2 id="31-principal-component-analysis">3.1 Principal Component Analysis</h2>
+<h2 id="51-principal-component-analysis">5.1 Principal Component Analysis</h2>
 <p><a href="#top">back to top</a></p>
 <p>Principle Component Analysis or PCA is one of the most wide spread implementations of dimensionality reduction. In PCA, we find the principle components, or linear recombinations of the dimensions of the data, that best explain the variance of the data. </p>
 <p>There are mathematical arguments abound for describing how we analytically solve for the principle components and how they relate to other concepts in mathematics (like pythagorean theorem). We'll sidestep that conversation for now, and proceed to our pragmatic demonstrations, as we have done in the past.</p>
 <p><a name='x.1.1'></a></p>
-<h3 id="311-introduction-to-pca">3.1.1 Introduction to PCA</h3>
+<h3 id="511-introduction-to-pca">5.1.1 Introduction to PCA</h3>
 <p><a href="#top">back to top</a></p>
 <p>In the cell below, we have plotted acidity and density from our familiar wine dataset.</p>
 <pre><code class="language-python">fig, ax = plt.subplots(1, 1, figsize=(5,5))
@@ -927,7 +1026,7 @@ And the eigenvalues are under `pca.explained_variance_`
 
 <a name='3.1.1'></a>
 
-### 3.1.2 PCA as Dimensionality Reduction
+### 5.1.2 PCA as Dimensionality Reduction
 
 [back to top](#top)
 
@@ -1055,7 +1154,7 @@ plt.scatter(X_pca[:, 0], X_pca[:, 1], alpha=0.8)
 
 <a name='3.1.2'></a>
 
-### 3.1.3 PCA for visualization
+### 5.1.3 PCA for visualization
 
 [back to top](#top)
 
@@ -1093,7 +1192,7 @@ plt.ylabel('Second PC')
 
 <a name='3.1.3'></a>
 
-### 3.1.4 Enrichment: PCA as Outlier Removal and Noise Filtering
+### 5.1.4 Enrichment: PCA as Outlier Removal and Noise Filtering
 
 [back to top](#top)
 
@@ -1101,13 +1200,13 @@ In some cases, it can be advantageous to use PCA as a method for outlier removal
 
 <a name='3.1.4'></a>
 
-### 3.1.5 PCA for Feature Engineering
+### 5.1.5 PCA for Feature Engineering
 
 [back to top](#top)
 
 Finally, PCA is actually a commonly used preprocessing technique for supervised machine learning models. In the next exercise, our goal will be to use PCA to generate a new set of features, to feed into our linear model.
 
-#### 3.1.5.1 Exercise: PCA as Preprocessing for Models
+#### 🏋️ Exercise 1: PCA as Preprocessing for Models
 
 Using the wine data, select any number of the first principal components and attemp to predict density for the red wine data.
 
@@ -1304,7 +1403,7 @@ wine[features]
 
 
 
-<pre><code class="language-python"># Code Cell for Exercise 3.1.5.1
+<pre><code class="language-python"># Code Cell for Exercise 1
 
 X = wine[features].values
 X_std = StandardScaler().fit_transform(X)
@@ -1354,7 +1453,7 @@ lr = LinearRegression().fit(X_pca, y)
 
 <a name='3.2'></a>
 
-## 3.2 K-Means Clustering
+## 5.2 K-Means Clustering
 
 [back to top](#top)
 
@@ -1424,7 +1523,7 @@ wa-la! Our simple unsupervised algorithm does a pretty good job of differentiati
 
 <a name='3.2.1'></a>
 
-### 3.2.1 The Algorithm: Expectation-Maximization
+### 5.2.1 The Algorithm: Expectation-Maximization
 
 [back to top](#top)
 
@@ -1439,7 +1538,7 @@ More information on K-means algorithm can be explored [here](https://jakevdp.git
 
 <a name='3.2.2'></a>
 
-### 3.2.2 Limitations
+### 5.2.2 Limitations
 
 [back to top](#top)
 
@@ -1456,7 +1555,7 @@ A few brief notes on limitations:
 
 <a name='3.3'></a>
 
-## 3.3 Gaussian Mixture Models
+## 5.3 Gaussian Mixture Models
 
 [back to top](#top)
 
@@ -1538,7 +1637,7 @@ probs.max(1)
 
 <a name='3.3.1'></a>
 
-### 3.3.1 Generalizing E-M for GMMs
+### 5.3.1 Generalizing E-M for GMMs
 
 [back to top](#top)
 
@@ -1552,7 +1651,7 @@ The algorithm for GMMs is very similar to K-means, but now the EM steps are prob
 
 <a name='3.3.2'></a>
 
-### 3.3.2 GMMs as a Data Generator
+### 5.3.2 GMMs as a Data Generator
 
 [back to top](#top)
 
@@ -1669,7 +1768,7 @@ plt.scatter(Xnew[:, 0], Xnew[:, 1]);
 
 <a name='x.3.2.1'></a>
 
-#### 3.3.2.1 Determining the number of components
+#### 5.3.2.1 Determining the number of components
 
 [back to top](#top)
 
@@ -1732,13 +1831,13 @@ plt.scatter(Xnew[:, 0], Xnew[:, 1]);
 
 
 
-#### 3.3.2.2 Exercise: Determine Number of Components for Circular Moons
+#### 🏋️ Exercise 2: Determine Number of Components for Circular Moons
 
 Repeat the above, this time using `sklearn.datasets.make_moons`
 
 
 
-<pre><code class="language-python"># Code Cell for Exercise 3.3.2.2
+<pre><code class="language-python"># Code Cell for Exercise 2
 from sklearn.datasets import make_moons as gen
 X, y = gen(200, noise=0.02, random_state=42)
 
