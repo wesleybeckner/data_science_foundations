@@ -1,16 +1,10 @@
-<a href="https://colab.research.google.com/github/ronva-h/technology_fundamentals/blob/main/C3%20Machine%20Learning%20I/Tech%20Fun%20C3%20E1%20Unsupervised%20Learning.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/S5_Unsupervised_Learning.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-# Technology Fundamentals, Course 3 Enrichment 1: Unsupervised Learning: Clustering, Dimensionality Reduction
+# Data Science Foundations, Session 5: Unsupervised Learning: Clustering and Dimensionality Reduction
 
 **Instructor**: Wesley Beckner
 
 **Contact**: wesleybeckner@gmail.com
-
-**Teaching Assistants**: Varsha Bang, Harsha Vardhan
-
-**Contact**: vbang@uw.edu, harshav@uw.edu
-
-<br>
 
 ---
 
@@ -28,39 +22,15 @@ Up until now, the only learning estimators we've looked at were supervised ones:
 
 <a name='top'></a>
 
-# Contents
-
-* 3.0 [Preparing Environment and Importing Data](#3.0)
-  * 3.0.1 [Import Packages](#x.0.1)
-  * 3.0.2 [Load Dataset](#x.0.2)
-* 3.1 [Principal Component Analysis](#3.1)
-  * 3.1.1 [Introduction to PCA](#x.1.1)
-  * 3.1.2 [PCA as Dimensionality Reduction](#3.1.1)
-  * 3.1.3 [PCA for visualization](#3.1.2)
-  * 3.1.4 [Enrichment: PCA as Noise Filtering](#3.1.3)
-  * 3.1.5 [PCA for Feature Engineering](#3.1.4)
-* 3.2 [K-Means Clustering](#3.2)
-  * 3.2.1 [The Algorithm: Expectation-Maximization](#3.2.1)
-  * 3.2.2 [Limitations](#3.2.2)
-* 3.3 [Gaussian Mixture Models](#3.3)
-  * 3.3.1 [Generalizing E-M for GMMs](#3.3.1)
-  * 3.3.2 [GMMs as a Data Generator](#3.3.2)
-    * 3.3.2.1 [Determining the Number of Components](#x.3.2.1)
-* 3.4 [K-Nearest Neighbors](#x.4)
-
-<br>
-
----
-
 <a name='3.0'></a>
 
-## 3.0 Preparing Environment and Importing Data
+## 5.0 Preparing Environment and Importing Data
 
 [back to top](#top)
 
 <a name='x.0.1'></a>
 
-### 3.0.1 Import Packages
+### 5.0.1 Import Packages
 
 [back to top](#top)
 
@@ -91,7 +61,7 @@ import copy
 
 <a name='x.0.2'></a>
 
-### 3.0.2 Load Dataset
+### 5.0.2 Load Dataset
 
 [back to top](#top)
 
@@ -117,7 +87,7 @@ features.remove('quality')
 
 <a name='3.1'></a>
 
-## 3.1 Principal Component Analysis
+## 5.1 Principal Component Analysis
 
 [back to top](#top)
 
@@ -127,7 +97,7 @@ There are mathematical arguments abound for describing how we analytically solve
 
 <a name='x.1.1'></a>
 
-### 3.1.1 Introduction to PCA
+### 5.1.1 Introduction to PCA
 
 [back to top](#top)
 
@@ -190,16 +160,18 @@ The covariance can be expressed as:
 
 $$ cov(X,Y) = \frac{1}{n^2}\sum\sum(x_i - x_j)(y_i - y_j) $$
 
-Every $(x_i - x_j)(y_i - y_j) $ is the area described by the rectangle between points $i$ and $j$, and we if we deem to color positive changes as red and negative ones as blue, we get a picture like the following: 
+Every \\((x_i - x_j)(y_i - y_j)\\) is the area described by the rectangle between points \\(i\\) and \\(j\\), and we if we deem to color positive changes as red and negative ones as blue, we get a picture like the following: 
 
 
 <p align=center>
 <img src="https://i.stack.imgur.com/XPGjN.png"></img>
+</p>
 
 When we view all the pairwise interactions in aggregate we get a sense of how the areas of rectangles made by each observation influence the covariance:
 
 <p align=center>
 <img src="https://i.stack.imgur.com/Kfmhn.png"></img>
+</p>
 
 As a side note, the covariance term is the numerator in the pearsons correlation we covered last week:
 
@@ -417,7 +389,7 @@ print(pca.explained_variance_)
 
 <a name='3.1.1'></a>
 
-### 3.1.2 PCA as Dimensionality Reduction
+### 5.1.2 PCA as Dimensionality Reduction
 
 [back to top](#top)
 
@@ -541,7 +513,7 @@ X_pca
 
 <a name='3.1.2'></a>
 
-### 3.1.3 PCA for visualization
+### 5.1.3 PCA for visualization
 
 [back to top](#top)
 
@@ -578,7 +550,7 @@ plt.ylabel('Second PC')
 
 <a name='3.1.3'></a>
 
-### 3.1.4 Enrichment: PCA as Outlier Removal and Noise Filtering
+### 5.1.4 Enrichment: PCA as Outlier Removal and Noise Filtering
 
 [back to top](#top)
 
@@ -586,13 +558,13 @@ In some cases, it can be advantageous to use PCA as a method for outlier removal
 
 <a name='3.1.4'></a>
 
-### 3.1.5 PCA for Feature Engineering
+### 5.1.5 PCA for Feature Engineering
 
 [back to top](#top)
 
 Finally, PCA is actually a commonly used preprocessing technique for supervised machine learning models. In the next exercise, our goal will be to use PCA to generate a new set of features, to feed into our linear model.
 
-#### 3.1.5.1 Exercise: PCA as Preprocessing for Models
+#### 🏋️ Exercise 1: PCA as Preprocessing for Models
 
 Using the wine data, select any number of the first principal components and attemp to predict density for the red wine data.
 
@@ -788,7 +760,7 @@ wine[features]
 
 
 ```python
-# Code Cell for Exercise 3.1.5.1
+# Code Cell for Exercise 1
 
 X = wine[features].values
 X_std = StandardScaler().fit_transform(X)
@@ -835,7 +807,7 @@ r2_score(y, lr.predict(X_pca)),
 
 <a name='3.2'></a>
 
-## 3.2 K-Means Clustering
+## 5.2 K-Means Clustering
 
 [back to top](#top)
 
@@ -902,7 +874,7 @@ wa-la! Our simple unsupervised algorithm does a pretty good job of differentiati
 
 <a name='3.2.1'></a>
 
-### 3.2.1 The Algorithm: Expectation-Maximization
+### 5.2.1 The Algorithm: Expectation-Maximization
 
 [back to top](#top)
 
@@ -917,7 +889,7 @@ More information on K-means algorithm can be explored [here](https://jakevdp.git
 
 <a name='3.2.2'></a>
 
-### 3.2.2 Limitations
+### 5.2.2 Limitations
 
 [back to top](#top)
 
@@ -934,7 +906,7 @@ A few brief notes on limitations:
 
 <a name='3.3'></a>
 
-## 3.3 Gaussian Mixture Models
+## 5.3 Gaussian Mixture Models
 
 [back to top](#top)
 
@@ -1012,7 +984,7 @@ plt.scatter(X_pca[:, 0], X_pca[:, 1],
 
 <a name='3.3.1'></a>
 
-### 3.3.1 Generalizing E-M for GMMs
+### 5.3.1 Generalizing E-M for GMMs
 
 [back to top](#top)
 
@@ -1026,7 +998,7 @@ The algorithm for GMMs is very similar to K-means, but now the EM steps are prob
 
 <a name='3.3.2'></a>
 
-### 3.3.2 GMMs as a Data Generator
+### 5.3.2 GMMs as a Data Generator
 
 [back to top](#top)
 
@@ -1137,7 +1109,7 @@ plt.scatter(Xnew[:, 0], Xnew[:, 1]);
 
 <a name='x.3.2.1'></a>
 
-#### 3.3.2.1 Determining the number of components
+#### 5.3.2.1 Determining the number of components
 
 [back to top](#top)
 
@@ -1197,13 +1169,13 @@ plt.scatter(Xnew[:, 0], Xnew[:, 1]);
     
 
 
-#### 3.3.2.2 Exercise: Determine Number of Components for Circular Moons
+#### 🏋️ Exercise 2: Determine Number of Components for Circular Moons
 
 Repeat the above, this time using `sklearn.datasets.make_moons`
 
 
 ```python
-# Code Cell for Exercise 3.3.2.2
+# Code Cell for Exercise 2
 from sklearn.datasets import make_moons as gen
 X, y = gen(200, noise=0.02, random_state=42)
 

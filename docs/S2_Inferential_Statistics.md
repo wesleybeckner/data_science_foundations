@@ -1,16 +1,10 @@
-<a href="https://colab.research.google.com/github/wesleybeckner/technology_fundamentals/blob/main/C2%20Statistics%20and%20Model%20Creation/Tech_Fun_C2_S3_Inferential_Statistics.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/S2_Inferential_Statistics.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-# Technology Fundamentals Course 2, Session 3: Inferential Statistics
+# Data Science Foundations, Session 2: Inferential Statistics
 
 **Instructor**: Wesley Beckner
 
 **Contact**: wesleybeckner@gmail.com
-
-**Teaching Assitants**: Varsha Bang, Harsha Vardhan
-
-**Contact**: vbang@uw.edu, harshav@uw.edu
-
-<br>
 
 ---
 
@@ -25,13 +19,13 @@ In this session we will look at the utility of EDA combined with inferential sta
 
 <a name='x.0'></a>
 
-## 6.0 Preparing Environment and Importing Data
+## 2.0 Preparing Environment and Importing Data
 
 [back to top](#top)
 
 <a name='x.0.1'></a>
 
-### 6.0.1 Import Packages
+### 2.0.1 Import Packages
 
 [back to top](#top)
 
@@ -54,7 +48,7 @@ import scipy
 
 <a name='x.0.2'></a>
 
-### 6.0.2 Load Dataset
+### 2.0.2 Load Dataset
 
 [back to top](#top)
 
@@ -284,7 +278,7 @@ for col in df.columns[:-5]:
     
 
 
-## 6.1 Many Flavors of Statistical Tests
+## 2.1 Many Flavors of Statistical Tests
 
 <p align="center">
 <img src="https://luminousmen.com/media/descriptive-and-inferential-statistics.jpeg" width=400px></img>
@@ -307,7 +301,7 @@ When do I use each of these? We will talk about this as we proceed through the e
 
 
 
-### 6.1.1 What is Mood's Median?
+### 2.1.1 What is Mood's Median?
 
 > You can use Chi-Square to test for a goodness of fit (whether a sample of data represents a distribution) or whether two variables are related (using a contingency table, which we will create below!)
 
@@ -317,9 +311,9 @@ Null hypothesis: the Medians are all equal
 
 The chi-square test statistic:
 
-$x^2 = \sum{\frac{(O-E)^2}{E}}$
+$$x^2 = \sum{\frac{(O-E)^2}{E}}$$
 
-Where $O$ is the observed frequency and $E$ is the expected frequency.
+Where \\(O\\) is the observed frequency and \\(E\\) is the expected frequency.
 
 **Let's take an example**, say we have three shifts with the following production rates:
 
@@ -408,7 +402,7 @@ For shift two, only two are at or below the grand median.
 
 Since the sample sizes are the same, the expected value for both groups is the same, 5 above and 5 below the grand median. The chi-square is then:
 
-$X^2 = \frac{(2-5)^2}{5} + \frac{(8-5)^2}{5} + \frac{(8-5)^2}{5} + \frac{(2-5)^2}{5}$
+$$X^2 = \frac{(2-5)^2}{5} + \frac{(8-5)^2}{5} + \frac{(8-5)^2}{5} + \frac{(2-5)^2}{5}$$
 
 
 
@@ -471,7 +465,7 @@ table
 
 
 
-### 6.1.2 When to Use Mood's?
+### 2.1.2 When to Use Mood's?
 
 **Mood's Median Test is highly flexible** but has the following assumptions:
 
@@ -485,7 +479,7 @@ Other considerations:
 
 * Not as powerful as Kruskal-Wallis Test but still useful for small sample sizes or when there are outliers
 
-#### 6.1.2.1 Exercise: Use Mood's Median Test
+#### 🏋️ Exercise 1: Use Mood's Median Test
 
 
 ##### **Part A** Perform moods median test on Base Cake in Truffle data
@@ -763,7 +757,7 @@ for desc in descriptors:
     
 
 
-### 6.1.3 **Enrichment**: What is a T-test?
+### 2.1.3 **Enrichment**: What is a T-test?
 
 There are 1-sample and 2-sample T-tests 
 
@@ -788,7 +782,7 @@ For dependent T-tests:
 A full discussion on T-tests is outside the scope of this session, but we can refer to wikipedia for more information, including formulas on how each statistic is computed:
 * [student's T-test](https://en.wikipedia.org/wiki/Student%27s_t-test#Dependent_t-test_for_paired_samples)
 
-### 6.1.4 **Enrichment**: Demonstration of T-tests
+### 2.1.4 **Enrichment**: Demonstration of T-tests
 
 [back to top](#top)
 
@@ -877,7 +871,7 @@ _mean squares_ is the estimate of population variance that accounts for the degr
 
 We will explore this in the context of ANOVA
 
-### 6.1.6 **Enrichment**: What is Analysis of Variance? 
+### 2.1.6 **Enrichment**: What is Analysis of Variance? 
 
 ANOVA uses the F-test to determine whether the variability between group means is larger than the variability within the groups. If that statistic is large enough, you can conclude that the means of the groups are not equal.
 
@@ -913,9 +907,9 @@ There are two main types:
 ### Steps for ANOVA
 
 * Check sample sizes: equal observations must be in each group
-* Calculate Sum of Square between groups and within groups ($SS_B, SS_E$)
-* Calculate Mean Square between groups and within groups ($MS_B, MS_E$)
-* Calculate F value ($MS_B/MS_E$)
+* Calculate Sum of Square between groups and within groups (\\(SS_B, SS_E\\))
+* Calculate Mean Square between groups and within groups (\\(MS_B, MS_E\\))
+* Calculate F value (\\(MS_B/MS_E\\))
 
 <br>
 
@@ -958,7 +952,7 @@ shifts.boxplot()
     
 
 
-#### 6.1.6.0 **Enrichment**: SNS Boxplot
+#### 2.1.6.0 **Enrichment**: SNS Boxplot
 
 this is another great way to view boxplot data. Notice how sns also shows us the raw data alongside the box and whiskers using a _swarmplot_.
 
@@ -1079,7 +1073,7 @@ print(w, pvalue)
     1.9492677462621584 0.5830028540285896
 
 
-#### 6.1.6.1 ANOVA Interpretation
+#### 2.1.6.1 ANOVA Interpretation
 
 The _p_ value form ANOVA analysis is significant (_p_ < 0.05) and we can conclude there are significant difference between the shifts. But we do not know which shift(s) are different. For this we need to perform a post hoc test. There are a multitude of these that are beyond the scope of this discussion ([Tukey-kramer](https://www.real-statistics.com/one-way-analysis-of-variance-anova/unplanned-comparisons/tukey-kramer-test/) is one such test) 
 
@@ -1087,7 +1081,7 @@ The _p_ value form ANOVA analysis is significant (_p_ < 0.05) and we can conclud
 <img src="https://media.tenor.com/images/4da4d46c8df02570a9a1219cac42bf27/tenor.gif"></img>
 </p>
 
-### 6.1.7 Putting it all together
+### 2.1.7 Putting it all together
 
 In summary, there are many statistical tests at our disposal when performing inferential statistical analysis. In times like these, a simple decision tree can be extraordinarily useful!
 
@@ -1095,9 +1089,9 @@ In summary, there are many statistical tests at our disposal when performing inf
 
 <small>source: [scribbr](https://www.scribbr.com/statistics/statistical-tests/)</small>
 
-## 6.2 Evaluate statistical significance of product margin: a snake in the garden
+## 2.2 Evaluate statistical significance of product margin: a snake in the garden
 
-### 6.2.1 Mood's Median on product descriptors
+### 2.2.1 Mood's Median on product descriptors
 
 The first issue we run into with moods is... what? 
 
@@ -2020,7 +2014,7 @@ moodsdf
 
 
 
-### 6.2.2 **Enrichment**: Broad Analysis of Categories: ANOVA
+### 2.2.2 **Enrichment**: Broad Analysis of Categories: ANOVA
 
 
 
@@ -2469,7 +2463,7 @@ for col in df.columns[:5]:
     
 
 
-### 6.2.3 **Enrichment**: Visual Analysis of Residuals: QQ-Plots
+### 2.2.3 **Enrichment**: Visual Analysis of Residuals: QQ-Plots
 
 This can be distressing and is often why we want visual methods to see what is going on with our data!
 

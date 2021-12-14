@@ -1,15 +1,10 @@
-<a href="https://colab.research.google.com/github/wesleybeckner/technology_fundamentals/blob/main/C4%20Machine%20Learning%20II/LABS_PROJECT/Tech_Fun_C4_P6_Game_AI_N_Step_Look_Ahead.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/project/P4_N_Step_Look_Ahead_Agents.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-# Technology Fundamentals Course 4, Project Part 6: N-Step Look Ahead
+# Data Science Foundations, Project Part 4: N-Step Look Ahead
 
 **Instructor**: Wesley Beckner
 
 **Contact**: wesleybeckner@gmail.com
-
-**Teaching Assitants**: Varsha Bang, Harsha Vardhan
-
-**Contact**: vbang@uw.edu, harshav@uw.edu
-
 <br>
 
 ---
@@ -25,13 +20,13 @@ For this lesson, we will be adding N-step Look Ahead algorithm to our ensemble o
 
 <a name='x.0'></a>
 
-## 6.0 Preparing Environment and Importing Data
+## 4.0 Preparing Environment and Importing Data
 
 [back to top](#top)
 
 <a name='x.0.1'></a>
 
-### 6.0.1 Import Packages
+### 4.0.1 Import Packages
 
 [back to top](#top)
 
@@ -341,7 +336,7 @@ class GameEngine(TicTacToe):
         return self
 ```
 
-## 6.1 N-Step Look Ahead and Minimax
+## 4.1 N-Step Look Ahead and Minimax
 
 In the previous tic tac toe module, our AI only looked 1 step ahead, and we can probably see how this has disadvantages. When we play strategy games ourselves, we often do better by looking a number of steps into the future. One new idea that this requires, is how we will anticipate our opponents move. This gets us into _game theory_. We're not going to borrow a whole lot from here, just the following:
 
@@ -578,7 +573,7 @@ n_step_ai_temp(board=board, win_patterns=win_patterns, player_label='X', n_steps
 
 
 
-## 6.2 Packaging for GameEngine
+## 4.2 Packaging for GameEngine
 
 Nice. Let's finish packaging our `n_steps_ai` so we can feed it to our game engine.
 
@@ -719,7 +714,7 @@ n_step_ai_temp(board=board, win_patterns=win_patterns, player_label='X', n_steps
 
 
 
-## 6.3 Writing Tests
+## 4.3 Writing Tests
 
 
 ```python

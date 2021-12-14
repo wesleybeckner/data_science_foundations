@@ -1,22 +1,16 @@
-<a href="https://colab.research.google.com/github/wesleybeckner/technology_fundamentals/blob/main/C2%20Statistics%20and%20Model%20Creation/Tech_Fun_C2_S4_Model_Selection_and_Validation.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/S3_Model_Selection_and_Validation.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-# Technology Fundamentals Course 2, Session 4: Model Selection and Validation
+# Data Science Foundations, Session 3: Model Selection and Validation
 
 **Instructor**: Wesley Beckner
 
 **Contact**: wesleybeckner@gmail.com
 
-**Teaching Assitants**: Varsha Bang, Harsha Vardhan
-
-**Contact**: vbang@uw.edu, harshav@uw.edu
-
-<br>
-
 ---
 
 <br>
 
-At the end of C2 S1, we saw the basic recipe for creating a supervised machine learning model:
+At the end of session 1, we saw the basic recipe for creating a supervised machine learning model:
 
 1. Environment setup and importing data
 2. Rudimentary exploratory data analysis
@@ -27,7 +21,7 @@ At the end of C2 S1, we saw the basic recipe for creating a supervised machine l
   3. fit using (training) data
   4. predict using (validation) data
 
-In C2 S1, I chose our model and hyperparameters preemptively. How did I do that? In the real world, you won't necessarily have the best intution about how to make these choices. In today's session, we will algorithmize the way we approach choosing and training a model
+In session 1, I chose our model and hyperparameters preemptively. How did I do that? In the real world, you won't necessarily have the best intution about how to make these choices. In today's session, we will algorithmize the way we approach choosing and training a model
 
 Note: I will import libraries at the beginning of this notebook, as is good practice, but will reimport them as they are used to remind ourselves where each method came from!
 
@@ -38,27 +32,6 @@ Note: I will import libraries at the beginning of this notebook, as is good prac
 <br>
 
 <a name='top'></a>
-
-# Contents
-
-* 1.0 [Preparing Environment and Importing Data](#x.0)
-  * 1.0.1 [Import Packages](#x.0.1)
-  * 1.0.2 [Load Dataset](#x.0.2)
-* 1.1 [Model Validation](#1.1)
-  * 1.1.1 [Holdout Sets](#1.1.1)
-  * 1.1.2 [Data Leakage and Cross-Validation](#1.1.2)
-  * 1.1.3 [Bias-Variance Tradeoff](#1.1.3)
-  * 1.1.4 [Learning Curves](#1.1.4)
-    * 1.1.4.1 [Considering Model Complexity](#x.1.4.1)
-    * 1.1.4.1 [Considering Training Set Size](#x.1.4.2)
-* 1.2 [Model Validation in Practice](#1.2)
-  * 1.2.1 [Grid Search](#1.2.1)
-
-<br>
-
-[References](#reference)
-
----
 
 <a name='x.0'></a>
 
@@ -225,7 +198,7 @@ An even more rigorous method to leaving out a single test set, is to perform cro
 <img src='https://scikit-learn.org/stable/_images/grid_search_workflow.png' width=500px></img>
 
 <small>[image src](https://scikit-learn.org/stable/modules/cross_validation.html)</small>
-<p/>
+</p>
 
 In this scheme, we don't evaluate our model on the test set until the very end. Rather, we estimate our hyperparameter performances by slicing the training set into cross folds
 
@@ -543,7 +516,7 @@ This time, our high variance model really *gets it*! And this is because the dat
 
 I'm summary, we call this balance between error in our model functional form, and error from succumbing to irreducible error in our training data, the *bias variance tradeoff*
 
-#### 1.1.3.1 Exercise: Quantitatively Define Performance
+#### 🏋️ Exercise 1: Quantitatively Define Performance
 
 Up until now, we've explored this idea of bias variance tradeoff from a qualitative standpoint. As an exercise, continue with this idea, this time calculating the mean squared error (MSE) and R-square between the model and UNSEEN (non-training data) population data. 
 
@@ -564,7 +537,7 @@ Do this for a 9th order polynomial and repeat for population data with low, med,
 
 
 ```python
-# Code Cell for Exercise 1.1.3.1
+# Code Cell for Exercise 1
 from sklearn.preprocessing import PolynomialFeatures
 random.seed(42)
 
@@ -765,7 +738,7 @@ ax[0].legend()
     
 
 
-As we can see, The 2nd order polynomial achieves the greatest best test set data $R^2$, while the highest order polynomial achieves the best training set data $R^2$. This learning curve is explanative of what we see generally, namely a divergence after some degree of complexity between training and test set performances. In this case, we would resolve to choose the 2nd order polynomial as the best model for our data.
+As we can see, The 2nd order polynomial achieves the greatest best test set data \\(R^2\\), while the highest order polynomial achieves the best training set data \\(R^2\\). This learning curve is explanative of what we see generally, namely a divergence after some degree of complexity between training and test set performances. In this case, we would resolve to choose the 2nd order polynomial as the best model for our data.
 
 <img src="https://jakevdp.github.io/PythonDataScienceHandbook/figures/05.03-validation-curve.png" width=500px></img>
 
@@ -836,13 +809,13 @@ What we see here is a trend that happens generally, as our amount of training da
 
 <small>[img src](https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html)
 
-#### 1.1.4.3 Exercise: Visualization
+#### 🏋️ Exercise 2: Visualization
 
 Starting with the code below, make a side-by-side plot of a 3rd degree polynomial and a 12th degree polynomial. On the x axis slowly increase the training set size, on the y axis plot the scores for the training and test sets.
 
 
 ```python
-# Code Cell for Exercise 1.1.4.3
+# Code Cell for Exercise 2
 random.seed(42)
 
 # create the figure and axes
@@ -1027,8 +1000,3 @@ ax.set_title("Best Grid Search CV Model")
 
 * [cross_val_score](https://scikit-learn.org/stable/modules/cross_validation.html)
 * [leave-one-out](https://jakevdp.github.io/PythonDataScienceHandbook/05.03-hyperparameters-and-model-validation.html#Model-validation-via-cross-validation)
-
-
-```python
-
-```

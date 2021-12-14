@@ -1,22 +1,11 @@
-<a href="https://colab.research.google.com/github/wesleybeckner/technology_fundamentals/blob/main/C3%20Machine%20Learning%20I/Tech%20Fun%20C3%20S1%20Feature%20Engineering.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/S4_Feature_Engineering.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-# Technology Fundamentals Course 3, Session 1: Feature Engineering
+# Data Science Foundations, Session 4: Feature Engineering
 
 **Instructor**: Wesley Beckner
 
 **Contact**: wesleybeckner@gmail.com
 
-**Teaching Assitants**: Varsha Bang, Harsha Vardhan
-
-**Contact**: vbang@uw.edu, harshav@uw.edu
-<br>
-
-
-## Schedule for this week
-
-<p align="center">
-<img src="https://raw.githubusercontent.com/wesleybeckner/technology_fundamentals/main/assets/week3.png" width=800></img>
-</p>
 ---
 
 <br>
@@ -31,42 +20,15 @@ In the previous session we talked about model pipelines and conveniently began w
 
 <a name='top'></a>
 
-# Contents
-
-* 2.0 [Preparing Environment and Importing Data](#x.0)
-  * 2.0.1 [Import Packages](#x.0.1)
-  * 2.0.2 [Load Dataset](#x.0.2)
-* 2.1 [Categorical Features](#2.1)
-  * 2.1.1 [One-Hot-Encoding](#2.1.1)
-* 2.2 [Derived Features](#2.2)
-  * 2.2.1 [Creating Polynomials](#2.2.1)
-  * 2.2.2 [Dealing with Time Series](#2.2.2)
-    * 2.2.2.1 [Fast Fourier Transform](#2.2.2.1)
-  * 2.2.3 [Image Preprocessing](#2.2.3)
-* 2.3 [Transformed Features](#2.3)
-  * 2.3.1 [Skewness](#2.3.1)
-  * 2.3.2 [Colinearity](#2.3.2)
-    * 2.3.2.1 [Detecting Colinearity](#x.3.2.1)
-    * 2.3.2.1 [Fixing Colinearity](#x.3.2.2)
-  * 2.3.3 [Normalization](#2.3.3)
-  * 2.3.4 [Dimensionality Reduction](#2.3.4)
-* 2.4 [Missing Data](#2.4)
-  * 2.4.1 [Imputation](#2.4.1)
-  * 2.4.2 [Other Strategies](#2.4.2)
-
-<br>
-
----
-
 <a name='2.0'></a>
 
-## 2.0 Preparing Environment and Importing Data
+## 4.0 Preparing Environment and Importing Data
 
 [back to top](#top)
 
 <a name='x.0.1'></a>
 
-### 2.0.1 Import Packages
+### 4.0.1 Import Packages
 
 [back to top](#top)
 
@@ -89,7 +51,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 
 <a name='x.0.2'></a>
 
-### 2.0.2 Load Dataset
+### 4.0.2 Load Dataset
 
 [back to top](#top)
 
@@ -382,7 +344,7 @@ orders.head()
 
 <a name='2.1'></a>
 
-## 2.1 Categorical Features
+## 4.1 Categorical Features
 
 [back to top](#top)
 
@@ -419,7 +381,7 @@ such a scheme, in machine learning vernacular, is termed one-hot encoding.
 
 <a name='2.1.1'></a>
 
-### 2.1.1 One-Hot Encoding
+### 4.1.1 One-Hot Encoding
 
 [back to top](#top)
 
@@ -540,7 +502,7 @@ And now we grab our EBITDA (margin) data for prediction
 y = margin["EBITDA/KG"]
 ```
 
-#### 2.1.1.2 Exercise: Create a simple linear model
+#### 🏋️ Exercise 1: Create a simple linear model
 
 Using the X and Y sets, use `train_test_split` and `LinearRegression` to make a baseline model based on what we've learned so far.
 
@@ -548,7 +510,7 @@ Assess your model performance visually by plottying `y_test` vs `y_test_pred`
 
 
 ```python
-# Cell for Exercise 2.1.1.2
+# Cell for Exercise 1
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 
@@ -567,7 +529,7 @@ from sklearn.linear_model import LinearRegression
     
 
 
-#### 2.1.1.3 Question:
+#### 🙋 Question 1:
 
 > How can we assess the relative feature importance of the features in our model?
 
@@ -575,7 +537,7 @@ We could be tempted to inspect the coefficients (`linear.coef_`) of our  model t
 
 <a name='2.2'></a>
 
-## 2.2 Derived Features
+## 4.2 Derived Features
 
 [back to top](#top)
 
@@ -591,7 +553,7 @@ We actually see this a lot in engineering, where we will describe log relationsh
 
 <a name='2.2.1'></a>
 
-### 2.2.1 Creating Polynomials
+### 4.2.1 Creating Polynomials
 
 [back to top](#top)
 
@@ -668,7 +630,7 @@ plt.plot(x, yhat);
 
 <a name='2.2.2'></a>
 
-### 2.2.2 Dealing with Time Series
+### 4.2.2 Dealing with Time Series
 
 [back to top](#top)
 
@@ -780,7 +742,7 @@ ax[1].set_title('Frequency Domain')
 
 <a name='x.2.2.2'></a>
 
-#### 2.2.2.2 Rolling Windows
+#### 4.2.2.2 Rolling Windows
 
 [back to top](#top)
 
@@ -792,12 +754,12 @@ One powerful technique for dealing with time series data, is to create a rolling
 
 In the above gif, we have a window size of 7. What that means is for whatever time step units we are in (that could be minutes, days, months, etc.) we will have 7 of them included in a single instance or observation. This instance or observation is then interpreted by our model and used to assess the target value, typically the quantity in the very next time step after the window (the green bar in the gif).
 
-##### 2.2.2.2.1 Exercise: Optimize Rolling Window Size for Customer Forecasts
+##### 🏋️ Exercise 2: Optimize Rolling Window Size for Customer Forecasts
 
 For this exercise, you will use the `process_data` function below to help you optimize the `window` size for predicting the order quantity in any given month. 
 
 * create a model using a window size of 3 and predict the order quantity for the month immediately following the window
-* create a model for window sizes 1-11 and report the $R^2$ for each model
+* create a model for window sizes 1-11 and report the \\(R^2\\) for each model
 
 
 ```python
@@ -866,7 +828,7 @@ def process_data(Xy, time_cols=12, window=3, remove_null=False):
 
 
 ```python
-# Code Cell for Exercise 2.2.2.2.1
+# Code Cell for Exercise 2
 # use data and the function process_data to create your X, y arrays
 # then use train_test_split to create train and test portions
 data = orders.values[:,6:]
@@ -961,7 +923,7 @@ if (outputEl) {{
 
 <a name='2.2.3'></a>
 
-### 2.2.3 Image Preprocessing
+### 4.2.3 Image Preprocessing
 
 [back to top](#top)
 
@@ -969,7 +931,7 @@ Image preprocessing is beyond the scope of this session. We will cover this in C
 
 <a name='2.3'></a>
 
-## 2.3 Transformed Features
+## 4.3 Transformed Features
 
 [back to top](#top)
 
@@ -978,7 +940,7 @@ Image preprocessing is beyond the scope of this session. We will cover this in C
 
 <a name='2.3.1'></a>
 
-### 2.3.1 Skewness
+### 4.3.1 Skewness
 
 [back to top](#top)
 
@@ -1166,13 +1128,13 @@ ax.legend()
     
 
 
-#### 2.3.1.1 Exercise: Transform data from a gamma distribution
+#### 🏋️ Exercise 3: Transform data from a gamma distribution
 
 Repeat section 2.3.1, this time synthesizing a gamma distribution and transforming it. Which transformation best reduces the skew? Do this for a dataset that does not contain values at or below 0.
 
 
 ```python
-# code cell for exercise 2.3.1.1
+# code cell for exercise 3
 from scipy.stats import gamma
 ```
 
@@ -1197,7 +1159,7 @@ from scipy.stats import gamma
 
 <a name='2.3.2'></a>
 
-### 2.3.2 Colinearity
+### 4.3.2 Colinearity
 
 [back to top](#top)
 
@@ -1211,7 +1173,7 @@ $$ VIF = \frac{1}{1-R^2}$$
 
 <a name='x.3.2.1'></a>
 
-#### 2.3.2.1 Detecting Colinearity
+#### 4.3.2.1 Detecting Colinearity
 
 [back to top](#top)
 
@@ -1405,7 +1367,7 @@ display(vif)
 
 <a name='x.3.2.2'></a>
 
-#### 2.3.2.2 Fixing Colinearity
+#### 4.3.2.2 Fixing Colinearity
 
 [back to top](#top)
 
@@ -1417,7 +1379,7 @@ Another method is to create some linear combination of the correlated variables.
 
 <a name='2.3.3'></a>
 
-### 2.3.3 Normalization
+### 4.3.3 Normalization
 
 [back to top](#top)
 
@@ -1471,7 +1433,7 @@ pd.DataFrame(normed, columns = [['x0','x1','x2','x3']]).plot(kind='kde')
     
 
 
-#### 2.3.3.1 Exercise: Normalization affect on VIF 
+#### 🏋️ Exercise 4: Normalization affect on VIF 
 
 In the above, we saw how to scale and center variables. How does this affect VIF? 
 
@@ -1479,7 +1441,7 @@ In the above, we saw how to scale and center variables. How does this affect VIF
 
 
 ```python
-# Code Cell for Exercise 2.3.3.1
+# Code Cell for Exercise 4
 ```
 
 
@@ -1533,7 +1495,7 @@ In the above, we saw how to scale and center variables. How does this affect VIF
 
 <a name='2.3.4'></a>
 
-### 2.3.4 Dimensionality Reduction
+### 4.3.4 Dimensionality Reduction
 
 [back to top](#top)
 
@@ -1544,7 +1506,7 @@ Dimensionality reduction is an awesome way to do feature engineering. It is very
 
 <a name='2.4'></a>
 
-## 2.4 Missing Data
+## 4.4 Missing Data
 
 [back to top](#top)
 
@@ -1564,7 +1526,7 @@ y = np.array([14, 16, -1,  8, -5])
 
 <a name='2.4.1'></a>
 
-### 2.4.1 Imputation
+### 4.4.1 Imputation
 
 [back to top](#top)
 
@@ -1597,7 +1559,7 @@ X2
 
 <a name='2.4.2'></a>
 
-### 2.4.2 Other Strategies
+### 4.4.2 Other Strategies
 
 [back to top](#top)
 
