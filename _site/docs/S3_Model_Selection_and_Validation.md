@@ -16,10 +16,10 @@ At the end of session 1, we saw the basic recipe for creating a supervised machi
 2. Rudimentary exploratory data analysis
 3. Feature engineering
 4. Choosing and training a model:
-    1. choose model
-    2. choose hyperparameters
-    3. fit using (training) data
-    4. predict using (validation) data
+  1. choose model
+  2. choose hyperparameters
+  3. fit using (training) data
+  4. predict using (validation) data
 
 In session 1, I chose our model and hyperparameters preemptively. How did I do that? In the real world, you won't necessarily have the best intution about how to make these choices. In today's session, we will algorithmize the way we approach choosing and training a model
 
@@ -35,13 +35,13 @@ Note: I will import libraries at the beginning of this notebook, as is good prac
 
 <a name='x.0'></a>
 
-## 3.0 Preparing Environment and Importing Data
+## 1.0 Preparing Environment and Importing Data
 
 [back to top](#top)
 
 <a name='x.0.1'></a>
 
-### 3.0.1 Import Packages
+### 1.0.1 Import Packages
 
 [back to top](#top)
 
@@ -69,7 +69,7 @@ from sklearn.datasets import load_iris
 
 <a name='x.0.2'></a>
 
-### 3.0.2 Load Dataset
+### 1.0.2 Load Dataset
 
 [back to top](#top)
 
@@ -120,7 +120,7 @@ wine.columns = wine.columns.str.replace(' ', '_')
 
 <a name='1.1'></a>
 
-## 3.1 Model Validation
+## 1.1 Model Validation
 
 [back to top](#top)
 
@@ -130,7 +130,7 @@ While we're here, I'm going to introduce a VERY SIMPLE supervised learning metho
 
 <a name='x.1.0'></a>
 
-## 3.1.0 K-Nearest Neighbors
+## 1.1.0 K-Nearest Neighbors
 
 [back to top](#top)
 
@@ -167,7 +167,7 @@ Wow! we achieved a model with a perfect score! But is this really how we would e
 
 <a name='1.1.1'></a>
 
-### 3.1.1 Holdout Sets
+### 1.1.1 Holdout Sets
 
 [back to top](#top)
 
@@ -188,7 +188,7 @@ We see that we get a more reasonable value for our performance!
 
 <a name='1.1.2'></a>
 
-### 3.1.2 Data Leakage and Cross-Validation
+### 1.1.2 Data Leakage and Cross-Validation
 
 [back to top](#top)
 
@@ -243,7 +243,7 @@ An additional topic on cross validation is the extreme leave-one-out validation,
 
 <a name='1.1.3'></a>
 
-### 3.1.3 Bias-Variance Tradeoff
+### 1.1.3 Bias-Variance Tradeoff
 
 [back to top](#top)
 
@@ -584,7 +584,7 @@ print("r2: {:.2f}".format(r2))
 
 <a name='1.1.4'></a>
 
-### 3.1.4 Learning Curves
+### 1.1.4 Learning Curves
 
 [back to top](#top)
 
@@ -599,7 +599,7 @@ from sklearn.metrics import r2_score
 
 <a name='x.1.4.1'></a>
 
-#### 3.1.4.1 Considering Model Complexity
+#### 1.1.4.1 Considering Model Complexity
 
 [back to top](#top)
 
@@ -748,7 +748,7 @@ As we can see, The 2nd order polynomial achieves the greatest best test set data
 
 <a name='x.1.4.2'></a>
 
-#### 3.1.4.2 Considering Training Set Size
+#### 1.1.4.2 Considering Training Set Size
 
 [back to top](#top)
 
@@ -864,7 +864,7 @@ ax.set_ylabel('$R^2$')
 
 <a name='1.2'></a>
 
-## 3.2 Model Validation in Practice
+## 1.2 Model Validation in Practice
 
 [back to top](#top)
 
@@ -887,7 +887,7 @@ def PolynomialRegression(degree=2, **kwargs):
 
 <a name='1.2.1'></a>
 
-### 3.2.1 Grid Search
+### 1.2.1 Grid Search
 
 [back to top](#top)
 
