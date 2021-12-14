@@ -1801,11 +1801,11 @@ df.loc[df['type'] == 'red'].plot(x='fixed acidity', y='density', ax=ax,
 <h3 id="123-estimating-the-regression-coefficients">1.2.3 Estimating the regression coefficients</h3>
 <p>It looks like density increases with fixed acidity following a line, maybe something like</p>
 <p>
-<script type="math/tex; mode=display">y(x)= m \cdot x + b  \;\;\;\;\;\;\;\;\sf{eq. 1}</script>
+<script type="math/tex; mode=display">y(x)= m \cdot x + b  \;\;\;\;\;\;\;\; \sf{eq. 1}</script>
 </p>
 <p>with \( y=\sf density \), \(x=\sf fixed acidity\), and \(m\) the slope and \(b\) the intercept. </p>
-<p>To solve the problem, we need to find the values of $b$ and $m$ in equation 1 to best fit the data. This is called <strong>linear regression</strong>.</p>
-<p>In linear regression our goal is to minimize the error between computed values of positions $y^{\sf calc}(x_i)\equiv y^{\sf calc}_i$ and known values $y^{\sf exact}(x_i)\equiv y^{\sf exact}_i$, i.e. find $b$ and $m$ which lead to lowest value of</p>
+<p>To solve the problem, we need to find the values of \(b\) and \(m\) in equation 1 to best fit the data. This is called <strong>linear regression</strong>.</p>
+<p>In linear regression our goal is to minimize the error between computed values of positions \(y^{\sf calc}(x_i)\equiv y^{\sf calc}_i\) and known values \(y^{\sf exact}(x_i)\equiv y^{\sf exact}_i\), i.e. find \(b\) and \(m\) which lead to lowest value of</p>
 <p>
 <script type="math/tex; mode=display">\epsilon (m,b) =SS_{\sf res}=\sum_{i=1}^{N}\left(y^{\sf exact}_i - y^{\sf calc}_i\right)^2 = \sum_{i=1}^{N}\left(y^{\sf exact}_i - m\cdot x_i - b \right)^2\;\;\;\;\;\;\;\;\;\;\;\sf{eq. 2}</script>
 </p>
@@ -1928,13 +1928,13 @@ print('Mean squared error: %.2f' % mean_squared_error(y, y_pred))
 print('Mean squared error: %.2f' % mean_squared_error(y, y_pred))
 </code></pre>
 <h4 id="1312-r-square">1.3.1.2 R-square</h4>
-<p>Another way to measure error is the regression score, $R^2$. $R^2$ is generally defined as the ratio of the total sum of squares $SS_{\sf tot} $ to the residual sum of squares $SS_{\sf res} $:</p>
+<p>Another way to measure error is the regression score, \(R^2\). \(R^2\) is generally defined as the ratio of the total sum of squares \(SS_{\sf tot}\) to the residual sum of squares \(SS_{\sf res}\):</p>
 <p>
 <script type="math/tex; mode=display">SS_{\sf tot}=\sum_{i=1}^{N} \left(y^{\sf exact}_i-\bar{y}\right)^2\;\;\;\;\; \sf eq. 4</script>
 <script type="math/tex; mode=display">SS_{\sf res}=\sum_{i=1}^{N} \left(y^{\sf exact}_i - y^{\sf calc}_i\right)^2\;\;\;\;\; \sf eq. 5</script>
 <script type="math/tex; mode=display">R^2 = 1 - {SS_{\sf res}\over SS_{\sf tot}} \;\;\;\;\;\; \sf eq. 6</script>
 </p>
-<p>In eq. 4, $\bar{y}=\sum_i y^{\sf exact}_i/N$ is the average value of y for $N$ points. The best value of $R^2$ is 1 but it can also take a negative value if the error is large.</p>
+<p>In eq. 4, \(\bar{y}=\sum_i y^{\sf exact}_i/N\) is the average value of y for \(N\) points. The best value of \(R^2\) is 1 but it can also take a negative value if the error is large.</p>
 <p>See all the different regression metrics <a href="https://scikit-learn.org/stable/modules/model_evaluation.html">here</a>.</p>
 <h4 id="question-3">🙋 Question 3</h4>
 <blockquote>
@@ -1950,7 +1950,7 @@ print('Coefficient of determination: %.2f' % r2_score(y, y_pred))
 <p>For classification tasks, we typically assess accuracy vs MSE or R-square, since we are dealing with categorical rather than numerical predictions.</p>
 <p>What is accuracy? It is defined as the ratio of True assignments to all assignments. For a binary positive/negative classification task this can be written as the following:</p>
 <p>$ Acc = \frac{T_p + T_n}{F_p + F_n + T_p + T_n} $</p>
-<p>Where $T$ is True, $F$ is false, $p$ is positive, $n$ is negative</p>
+<p>Where \(T\) is True, \(F\) is false, \(p\) is positive, \(n\) is negative</p>
 <p>Just as a quick example, we can perform this type of task on our wine dataset by predicting on quality, which is a discrete 3-9 quality score:</p>
 <pre><code class="language-python">y_train = df['type'].values.reshape(-1,1)
 x_train = df['quality'].values.reshape(-1,1)
@@ -2042,7 +2042,7 @@ else:
     print(&quot;Hmm .. something strange is going on.&quot;)
 </code></pre>
 <h3 id="exercise-4-evaluate-the-error">🏋️ Exercise 4: evaluate the error</h3>
-<p>Let's <strong>evaluate the error</strong> by computing the MSE and $R^2$ metrics (see eq. 3 and 6).</p>
+<p>Let's <strong>evaluate the error</strong> by computing the MSE and \(R^2\) metrics (see eq. 3 and 6).</p>
 <pre><code># The mean squared error
 
 # part A 
@@ -2131,7 +2131,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y,
     # Predict on the test set
     y_pred_test = model.predict(X_test)
 </code></pre>
-<p>Now we can plot our predicted values to see how accurate we are in predicting. We will generate a scatterplot and computing the MSE and $R^2$ metrics of error.</p>
+<p>Now we can plot our predicted values to see how accurate we are in predicting. We will generate a scatterplot and computing the MSE and \(R^2\) metrics of error.</p>
 <pre><code>sns.scatterplot(x=y_pred_test, y=y_test, color=&quot;mediumvioletred&quot;, s=50)
 
 plt.title(&quot;Linear regression - predict test set&quot;, fontsize=16)
@@ -2211,7 +2211,7 @@ print('Coefficient of determination: %.2f' % r2_score(y_test, y_calc_test))
 </code></pre>
 <h4 id="exercise-6-tune-hyperparameter-for-ridge-regression">🏋️ Exercise 6: Tune Hyperparameter for Ridge Regression</h4>
 <p>Use the docstring to peak into the hyperparameters for Ridge Regression. What is the optimal value of lambda?</p>
-<p>Plot the $\beta$ values vs $\lambda$ from the results of your analysis</p>
+<p>Plot the \(\beta\) values vs \(\lambda\) from the results of your analysis</p>
 <pre><code class="language-python"># cell for exercise 3
 out_lambdas = []
 out_coefs = []
@@ -2298,7 +2298,7 @@ print(X_test_five.shape)
 <p>Questions to think about while you work on this problem
 - How does the error change with each model?
 - Which model seems to perform best?
-- How can you optimize the hyperparameter, $\lambda$
+- How can you optimize the hyperparameter, \(\lambda\)
 - Does one model do better than the other at determining which input features are more important?
 - How about non linear regression / what if the data does not follow a line?
 - How do the bias and variance change for each model</p>
