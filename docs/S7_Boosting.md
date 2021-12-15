@@ -1,6 +1,6 @@
 <a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/S7_Boosting.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-# Data Science Foundation, Session 7: Boosting
+# Data Science Foundations, Session 7: Boosting
 
 **Instructor**: Wesley Beckner
 
