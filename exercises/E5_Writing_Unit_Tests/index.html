@@ -9,7 +9,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
     
     
       
@@ -17,7 +17,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.23b6d78a.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bb3983ee.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -479,18 +479,47 @@
     Import Libraries
   </a>
   
-    <nav class="md-nav" aria-label="Import Libraries">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#exercise-1-debug-a-class-method" class="md-nav__link">
-    🏋️ Exercise 1: Debug a Class Method
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-tests" class="md-nav__link">
+    Types of Tests
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#unit-tests" class="md-nav__link">
+    Unit Tests
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l5-q1-write-a-unit-test" class="md-nav__link">
+    ✍🏽 L5 Q1 Write a Unit Test
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l5-q2-write-a-unit-test-for-the-catch-rate" class="md-nav__link">
+    ⛹️ L5 Q2 Write a Unit Test for the Catch Rate
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l5-q3-write-a-unit-test-that-checks-whether-the-overall-catch-rate-is-5050" class="md-nav__link">
+    ⚖️ L5 Q3 Write a Unit Test that Checks Whether the Overall Catch Rate is 50/50
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-runners" class="md-nav__link">
+    Test Runners
+  </a>
   
 </li>
       
@@ -630,18 +659,47 @@
     Import Libraries
   </a>
   
-    <nav class="md-nav" aria-label="Import Libraries">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#exercise-1-debug-a-class-method" class="md-nav__link">
-    🏋️ Exercise 1: Debug a Class Method
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-tests" class="md-nav__link">
+    Types of Tests
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#unit-tests" class="md-nav__link">
+    Unit Tests
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l5-q1-write-a-unit-test" class="md-nav__link">
+    ✍🏽 L5 Q1 Write a Unit Test
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l5-q2-write-a-unit-test-for-the-catch-rate" class="md-nav__link">
+    ⛹️ L5 Q2 Write a Unit Test for the Catch Rate
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l5-q3-write-a-unit-test-that-checks-whether-the-overall-catch-rate-is-5050" class="md-nav__link">
+    ⚖️ L5 Q3 Write a Unit Test that Checks Whether the Overall Catch Rate is 50/50
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-runners" class="md-nav__link">
+    Test Runners
+  </a>
   
 </li>
       
@@ -659,23 +717,18 @@
                 
 
 <p><a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/exercises/E5_Writing_Unit_Tests.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
-<h1 id="data-science-foundations-lab-5-writing-unit-tests">Data Science Foundations, Lab 5: Writing Unit Tests<a class="headerlink" href="#data-science-foundations-lab-5-writing-unit-tests" title="Permanent link">&para;</a></h1>
+<h1 id="data-science-foundations-lab-5-writing-unit-tests">Data Science Foundations <br> Lab 5: Writing Unit Tests<a class="headerlink" href="#data-science-foundations-lab-5-writing-unit-tests" title="Permanent link">&para;</a></h1>
 <p><strong>Instructor</strong>: Wesley Beckner</p>
 <p><strong>Contact</strong>: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#119;&#101;&#115;&#108;&#101;&#121;&#98;&#101;&#99;&#107;&#110;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#119;&#101;&#115;&#108;&#101;&#121;&#98;&#101;&#99;&#107;&#110;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>
 <br></p>
 <hr />
 <p><br></p>
-<p>We will try our hand at writing unit tests</p>
+<p>In this lab, we will try our hand at writing unit tests</p>
 <p><br></p>
 <hr />
 <h2 id="import-libraries">Import Libraries<a class="headerlink" href="#import-libraries" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># for numpy section</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="c1"># for debugging section</span>
-<span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 <span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
 
@@ -690,8 +743,123 @@
             <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">old_stdout</span>
 </code></pre></div>
 
-<h3 id="exercise-1-debug-a-class-method">🏋️ Exercise 1: Debug a Class Method<a class="headerlink" href="#exercise-1-debug-a-class-method" title="Permanent link">&para;</a></h3>
-<p>Your friend is developing a new pokemon game. They are excited to release but are running into some trouble! </p>
+<h2 id="types-of-tests">Types of Tests<a class="headerlink" href="#types-of-tests" title="Permanent link">&para;</a></h2>
+<p>There are two main types of tests we want to distinguish:
+* <strong><em>Unit test</em></strong>: an automatic test to test the internal workings of a class or function. It should be a stand-alone test which is not related to other resources.
+* <strong><em>Integration test</em></strong>: an automatic test that is done on an environment, it tests the coordination of different classes and functions as well as with the running environment. This usually precedes sending code to a QA team.</p>
+<p>To this I will add:</p>
+<ul>
+<li><strong><em>Acid test</em></strong>: extremely rigorous tests that push beyond the intended use cases for your classes/functions. Written when you, like me, cannot afford QA employees to actually test your code. (word origin: <a href="https://en.wikipedia.org/wiki/Acid_test_(gold)">gold acid tests in the 1850s</a>, <a href="https://en.wikipedia.org/wiki/Acid_Tests">acid tests in the 70's</a>)</li>
+</ul>
+<p>In this lab we will focus on <em>unit tests</em>.</p>
+<h2 id="unit-tests">Unit Tests<a class="headerlink" href="#unit-tests" title="Permanent link">&para;</a></h2>
+<p>Each unit test should test the smallest portion of your code possible, i.e. a single method or function. Any random number generators should be seeded so that they run the exact same way every time. Unit tests should not rely on any local files or the local environment. </p>
+<p>Why bother with Unit Tests when we have Integration tests?</p>
+<p>A major challenge with integration testing is when an integration test fails. It’s very hard to diagnose a system issue without being able to isolate which part of the system is failing. Here comes the unit test to the rescue. </p>
+<p>Let's take a simple example. If I wanted to test that the sume of two numbers is correct</p>
+<div class="codehilite"><pre><span></span><code><span class="k">assert</span> <span class="nb">sum</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span> <span class="o">==</span> <span class="mi">7</span><span class="p">,</span> <span class="s2">&quot;should be 7&quot;</span>
+</code></pre></div>
+
+<p>Nothing is sent to the print out because the condition is satisfied. If we run, however:</p>
+<div class="codehilite"><pre><span></span><code>assert sum([2, 4]) == 7, &quot;should be 7&quot;
+</code></pre></div>
+
+<p>we get an error message:</p>
+<div class="codehilite"><pre><span></span><code>---------------------------------------------------------------------------
+AssertionError                            Traceback (most recent call last)
+&lt;ipython-input-3-d5724b127818&gt; in &lt;module&gt;()
+----&gt; 1 assert sum([2, 4]) == 7, &quot;should be 7&quot;
+
+AssertionError: should be 7
+</code></pre></div>
+
+<p>To make this a Unit Test, you will want to wrap it in a function</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">test_sum</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="nb">sum</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span> <span class="o">==</span> <span class="mi">6</span><span class="p">,</span> <span class="s2">&quot;Should be 6&quot;</span>
+
+<span class="n">test_sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Everything passed&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Everything passed
+</code></pre></div>
+
+<p>And if we include a test that does not pass:</p>
+<div class="codehilite"><pre><span></span><code>def test_sum():
+  assert sum([3, 3]) == 6, &quot;Should be 6&quot;
+
+def test_my_broken_func():
+  assert sum([1, 2]) == 5, &quot;Should be 5&quot;
+
+test_sum()
+test_my_broken_func()
+print(&quot;Everything passed&quot;)
+</code></pre></div>
+
+<p>Here our test fails, because the sum of 1 and 2 is 3 and not 5. We get a traceback that tells us the source of the error:</p>
+<div class="codehilite"><pre><span></span><code>---------------------------------------------------------------------------
+AssertionError                            Traceback (most recent call last)
+&lt;ipython-input-13-8a552fbf52bd&gt; in &lt;module&gt;()
+      6 
+      7 test_sum()
+----&gt; 8 test_my_broken_func()
+      9 print(&quot;Everything passed&quot;)
+
+&lt;ipython-input-13-8a552fbf52bd&gt; in test_my_broken_func()
+      3 
+      4 def test_my_broken_func():
+----&gt; 5   assert sum([1, 2]) == 5, &quot;Should be 5&quot;
+      6 
+      7 test_sum()
+
+AssertionError: Should be 5
+</code></pre></div>
+
+<p>Before sending us on our merry way to practice writing unit tests, we will want to ask, what do I want to write a test about? Here, we've been testing sum(). There are many behaviors in sum() we could check, such as:</p>
+<ul>
+<li>Does it sum a list of whole numbers (integers)?</li>
+<li>Can it sum a tuple or set?</li>
+<li>Can it sum a list of floats?</li>
+<li>What happens if one of the numbers is negative? etc..</li>
+</ul>
+<p>In the end, what you test is up to you, and depends on your intended use cases. As a general rule of thumb, your unit test should test what is relevant.</p>
+<p>The only caveat to that, is that many continuous integration services (like <a href="https://travis-ci.com/">TravisCI</a>) will benchmark you based on the percentage of lines of code you have that are covered by your unit tests (ex: <a href="https://github.com/wesleybeckner/gains">85% coverage</a>).</p>
+<h2 id="l5-q1-write-a-unit-test">✍🏽 L5 Q1 Write a Unit Test<a class="headerlink" href="#l5-q1-write-a-unit-test" title="Permanent link">&para;</a></h2>
+<p>Remember our Pokeball discussion in C2? We'll return to that here. This time writing unit tests for our classes.</p>
+<p>Sometimes when writing unit tests, it can be more complicated than checking the return value of a function. Think back on our pokemon example:</p>
+<p><br></p>
+<p align=center>
+<img src="https://cdn2.bulbagarden.net/upload/thumb/2/23/Pok%C3%A9_Balls_GL.png/250px-Pok%C3%A9_Balls_GL.png"></img>
+</p>
+
+<div class="codehilite"><pre><span></span><code>class Pokeball:
+  def __init__(self, contains=None, type_name=&quot;poke ball&quot;):
+    self.contains = contains
+    self.type_name = type_name
+    self.catch_rate = 0.50 # note this attribute is not accessible upon init
+
+  # the method catch, will update self.contains, if a catch is successful
+  # it will also use self.catch_rate to set the performance of the catch
+  def catch(self, pokemon):
+    if self.contains == None:
+      if random.random() &lt; self.catch_rate:
+        self.contains = pokemon
+        print(f&quot;{pokemon} captured!&quot;)
+      else:
+        print(f&quot;{pokemon} escaped!&quot;)
+        pass
+    else:
+      print(&quot;pokeball is not empty!&quot;)
+
+  def release(self):
+    if self.contains == None:
+      print(&quot;Pokeball is already empty&quot;)
+    else:
+      print(self.contains, &quot;has been released&quot;)
+      self.contains = None
+</code></pre></div>
+
+<p>If I wanted to write a unit test for the release method, I couldn't directly check for the output of a function. I'll have to check for a <strong><em>side effect</em></strong>, in this case, the change of an attribute belonging to a pokeball object; that is the change to the attribute <em>contains</em>.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Pokeball</span><span class="p">:</span>
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contains</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="s2">&quot;poke ball&quot;</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">contains</span> <span class="o">=</span> <span class="n">contains</span>
@@ -717,147 +885,150 @@
     <span class="k">else</span><span class="p">:</span>
       <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contains</span><span class="p">,</span> <span class="s2">&quot;has been released&quot;</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">contains</span> <span class="o">=</span> <span class="kc">None</span>
-
-
-<span class="k">class</span> <span class="nc">Pokemon</span><span class="p">():</span>
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">speed</span><span class="p">,</span> <span class="n">type_</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">weight</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="n">speed</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">type_</span> <span class="o">=</span> <span class="n">type_</span>
-
-<span class="k">class</span> <span class="nc">FastBall</span><span class="p">(</span><span class="n">Pokeball</span><span class="p">):</span>
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contains</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="s2">&quot;Fastball&quot;</span><span class="p">):</span>
-    <span class="n">Pokeball</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contains</span><span class="p">,</span> <span class="n">type_name</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">catch_rate</span> <span class="o">=</span> <span class="mf">0.6</span>
-
-  <span class="k">def</span> <span class="nf">catch_fast</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pokemon</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">pokemon</span><span class="o">.</span><span class="n">speed</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
-      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">contains</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">contains</span> <span class="o">=</span> <span class="n">pokemon</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">pokemon</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;has been captured&quot;</span><span class="p">)</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pokeball is not empty&quot;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">pokemon</span><span class="p">)</span>
 </code></pre></div>
 
-<p>They're concerned that the object <code>FastBall</code> doesn't return the pokemon's name when executing <code>print(fast.contains)</code> when they know the pokeball contains a pokemon. Help them find the bug, then write the following unit tests:</p>
-<ol>
-<li>showing that the pokeball updates properly with the name of the pokemon after it makes a capture of a pokemon with a speed &gt; 100</li>
-<li>showing that the <code>catch_rate</code> of 0.6 is resulting in a 60% catch rate for pokemon with speeds &lt; 100</li>
-</ol>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Your friend shows you this code </span>
-<span class="n">fast</span> <span class="o">=</span> <span class="n">FastBall</span><span class="p">()</span>
+<p>In the following cell, finish the code to test the functionality of the <em>release</em> method:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">test_release</span><span class="p">():</span>
+  <span class="n">ball</span> <span class="o">=</span> <span class="n">Pokeball</span><span class="p">()</span>
+  <span class="n">ball</span><span class="o">.</span><span class="n">contains</span> <span class="o">=</span> <span class="s1">&#39;Pikachu&#39;</span>
+  <span class="n">ball</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+  <span class="c1"># turn the pseudo code below into an assert statement</span>
 
-<span class="n">mewtwo</span> <span class="o">=</span> <span class="n">Pokemon</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Mewtwo&#39;</span><span class="p">,</span> 
-                 <span class="n">weight</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
-                 <span class="n">speed</span><span class="o">=</span><span class="mi">110</span><span class="p">,</span> 
-                 <span class="n">type_</span><span class="o">=</span><span class="s1">&#39;Psychic&#39;</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">fast</span><span class="o">.</span><span class="n">contains</span><span class="p">)</span>
-
-<span class="n">fast</span><span class="o">.</span><span class="n">catch_fast</span><span class="p">(</span><span class="n">mewtwo</span><span class="p">)</span>
-
-<span class="c1"># this is the line they are concerned about</span>
-<span class="c1"># why does this not return MewTwo?</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">fast</span><span class="o">.</span><span class="n">contains</span><span class="p">)</span>
-
-<span class="n">fast</span><span class="o">.</span><span class="n">catch_fast</span><span class="p">(</span><span class="n">mewtwo</span><span class="p">)</span>
+  <span class="c1">### YOUR CODE HERE ###</span>
+  <span class="c1"># assert &lt;object.attribute&gt; == &lt;something&gt;</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>None
-Mewtwo has been captured
-&lt;__main__.Pokemon object at 0x7fd4bfe612d0&gt;
-Pokeball is not empty
+<div class="codehilite"><pre><span></span><code><span class="n">test_release</span><span class="p">()</span>
 </code></pre></div>
 
-<h1 id="part-2-optional-use-a-test-runner">Part 2 (Optional): Use a Test Runner<a class="headerlink" href="#part-2-optional-use-a-test-runner" title="Permanent link">&para;</a></h1>
-<p>Create the following files:</p>
-<ul>
-<li><code>pokemon.py</code></li>
-<li><code>test_pokemon.py</code></li>
-</ul>
-<p>paste the following into <code>pokemon.py</code>:</p>
-<div class="codehilite"><pre><span></span><code>import random
-import numpy as np
+<div class="codehilite"><pre><span></span><code>Pikachu has been released
+</code></pre></div>
 
-class Pokeball:
-  def __init__(self, contains=None, type_name=&quot;poke ball&quot;):
-    self.contains = contains
-    self.type_name = type_name
-    self.catch_rate = 0.50 # note this attribute is not accessible upon init
-
-  # the method catch, will update self.contains, if a catch is successful
-  # it will also use self.catch_rate to set the performance of the catch
-  def catch(self, pokemon):
-    if self.contains == None:
+<h2 id="l5-q2-write-a-unit-test-for-the-catch-rate">⛹️ L5 Q2 Write a Unit Test for the Catch Rate<a class="headerlink" href="#l5-q2-write-a-unit-test-for-the-catch-rate" title="Permanent link">&para;</a></h2>
+<p>First, we will check that the succcessful catch is operating correctly. Remember that we depend on <code>random.random</code> and condition our success on whether that random value is less than the <code>catch_rate</code> of the pokeball:</p>
+<div class="codehilite"><pre><span></span><code>if self.contains == None:
       if random.random() &lt; self.catch_rate:
         self.contains = pokemon
-        print(f&quot;{pokemon} captured!&quot;)
-      else:
-        print(f&quot;{pokemon} escaped!&quot;)
-        pass
-    else:
-      print(&quot;pokeball is not empty!&quot;)
-
-  def release(self):
-    if self.contains == None:
-      print(&quot;Pokeball is already empty&quot;)
-    else:
-      print(self.contains, &quot;has been released&quot;)
-      self.contains = None
-
-
-class Pokemon():
-  def __init__(self, name, weight, speed, type_):
-    self.name = name
-    self.weight = weight
-    self.speed = speed
-    self.type_ = type_
-
-class FastBall(Pokeball):
-  def __init__(self, contains=None, type_name=&quot;Fastball&quot;):
-    Pokeball.__init__(self, contains, type_name)
-    self.catch_rate = 0.6
-
-  def catch_fast(self, pokemon):
-    if pokemon.speed &gt; 100:
-      if self.contains == None:
-        self.contains = pokemon
-        print(pokemon.name, &quot;has been captured&quot;)
-      else:
-        print(&quot;Pokeball is not empty&quot;)
-    else:
-      self.catch(pokemon)
 </code></pre></div>
 
-<p>in <code>test_pokemon.py</code> paste any unit tests you've written along with the imports at the top of the file (be sure to import any other libraries you used in your unit tests as well)</p>
-<div class="codehilite"><pre><span></span><code>from pokemon import *
-import random
-import numpy as np
+<p>so to test whether the successful catch is working we will seed our random number generator with a value that returns less than the <code>catch_rate</code> of the pokeball and then write our assert statement:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">test_successful_catch</span><span class="p">():</span>
+  <span class="c1"># choose a random seed such that</span>
+  <span class="c1"># we know the catch call should succeed</span>
 
-### YOUR UNIT TESTS HERE ###
-def test_&lt;name_of_your_test&gt;():
-  # ....
-  assert &lt;your assert statement&gt;
+  <span class="c1">### YOUR CODE BELOW ###</span>
+  <span class="c1"># random.seed(&lt;your number here&gt;)</span>
+  <span class="n">ball</span> <span class="o">=</span> <span class="n">Pokeball</span><span class="p">()</span>
+  <span class="n">ball</span><span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="s1">&#39;Psyduck&#39;</span><span class="p">)</span> <span class="c1"># Sabrina&#39;s fave pokemon</span>
+
+  <span class="c1">### YOUR CODE BELOW ###</span>
+  <span class="c1"># &lt;object.attribute&gt; == &lt;something&gt;, &quot;ball did not catch as expected&quot;</span>
 </code></pre></div>
 
-<p>make sure <code>pokemon.py</code> and <code>test_pokemon.py</code> are in the same directory then run the command</p>
-<div class="codehilite"><pre><span></span><code>pytest
+<p>NICE. Now we will do the same thing again, this time testing for an unsuccessful catch. SO in order to do this, we need to choose a random seed that will cause our catch to fail:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">test_unsuccessful_catch</span><span class="p">():</span>
+  <span class="c1"># choose a random seed such that</span>
+  <span class="c1"># we know the catch call should FAIL</span>
+
+  <span class="c1">### YOUR CODE BELOW ###</span>
+  <span class="c1"># random.seed(&lt;your number here&gt;)</span>
+  <span class="n">ball</span> <span class="o">=</span> <span class="n">Pokeball</span><span class="p">()</span>
+  <span class="n">ball</span><span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="s1">&#39;Psyduck&#39;</span><span class="p">)</span> <span class="c1"># Sabrina&#39;s fave pokemon</span>
+
+  <span class="c1">### YOUR CODE BELOW ###</span>
+  <span class="c1"># &lt;object.attribute&gt; == &lt;something&gt;, &quot;ball did not fail as expected&quot;</span>
 </code></pre></div>
 
-<p>from the command line. You should get a readout like the following</p>
-<div class="codehilite"><pre><span></span><code>================================================= test session starts ==================================================
-platform linux -- Python 3.8.1, pytest-6.2.1, py-1.10.0, pluggy-0.13.1
-rootdir: /mnt/c/Users/wesley/Documents/apps/temp_c3_l2
-plugins: dash-1.20.0, anyio-2.2.0
-collected 1 item
-
-test_pokemon.py .                                                                                                [100%]
-
-================================================== 1 passed in 0.06s ===================================================
+<p>When you are finished test your functions below</p>
+<div class="codehilite"><pre><span></span><code><span class="n">test_unsuccessful_catch</span><span class="p">()</span>
 </code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Psyduck captured!
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">test_successful_catch</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Psyduck captured!
+</code></pre></div>
+
+<h2 id="l5-q3-write-a-unit-test-that-checks-whether-the-overall-catch-rate-is-5050">⚖️ L5 Q3 Write a Unit Test that Checks Whether the Overall Catch Rate is 50/50<a class="headerlink" href="#l5-q3-write-a-unit-test-that-checks-whether-the-overall-catch-rate-is-5050" title="Permanent link">&para;</a></h2>
+<p>For this one, we're going to take those same ideas around seeding the random number generator. However, here we'd like to run the catch function multiple times to check whether it is truly creating a 50/50 catch rate situation.</p>
+<p>Here's a pseudo code outline:</p>
+<ol>
+<li>seed the random number generator</li>
+<li>for 100 iterations: </li>
+<li>create a pokeball</li>
+<li>try to catch something</li>
+<li>log whether it was successful</li>
+<li>check that for the 100 attempts the success was approximately 50/50</li>
+</ol>
+<p><em>note:</em> you can use my <code>suppress stdout()</code> function to suppress the print statements from <code>ball.catch</code></p>
+<p>ex:</p>
+<div class="codehilite"><pre><span></span><code>with suppress_stdout():
+  print(&quot;HELLO OUT THERE!&quot;)
+</code></pre></div>
+
+<blockquote>
+<p>quick segway: what is the actual behavior of <code>random.seed()</code>? Does it produce the same number every time we call <code>random.random()</code> now? Check for yourself:</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[0.6394267984578837,
+ 0.025010755222666936,
+ 0.27502931836911926,
+ 0.22321073814882275,
+ 0.7364712141640124]
+</code></pre></div>
+
+<p>We see that it still produces random numbers with each call to <code>random.random</code>. However, those numbers are the same with every execution of the cell. What happens when we do this:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[0.6766994874229113,
+ 0.8921795677048454,
+ 0.08693883262941615,
+ 0.4219218196852704,
+ 0.029797219438070344]
+</code></pre></div>
+
+<p>The numbers are different. BUT:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[0.6394267984578837,
+ 0.025010755222666936,
+ 0.27502931836911926,
+ 0.22321073814882275,
+ 0.7364712141640124,
+ 0.6766994874229113,
+ 0.8921795677048454,
+ 0.08693883262941615,
+ 0.4219218196852704,
+ 0.029797219438070344]
+</code></pre></div>
+
+<p>We see them here in the bottom half of the list again. So, random.seed() is <em>seeding</em> the random number generator such that it will produce the same sequence of random numbers every time, from the given seed. This will reset whenever random.seed() is set again. This behavior is useful because it allows us to continue using random number generation in our code, (for testing, creating examples and demos, etc.) but it will be reproducable each time.</p>
+<p><em>End Segway</em></p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">test_catch_rate</span><span class="p">():</span>
+  <span class="c1">### YOUR CODE HERE ###</span>
+
+  <span class="c1">### END YOUR CODE ###</span>
+  <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s2">&quot;catch rate not 50/50&quot;</span>
+<span class="n">test_catch_rate</span><span class="p">()</span>
+</code></pre></div>
+
+<h2 id="test-runners">Test Runners<a class="headerlink" href="#test-runners" title="Permanent link">&para;</a></h2>
+<p>When we start to create many tests like this, it can be cumbersome to run them all at once and log which ones fail. To handle our unit tests we use what are called <strong><em>test runners</em></strong>. We won't dedicate time to any single one here but the three most common are:</p>
+<ul>
+<li>unittest</li>
+<li>nose2</li>
+<li>pytest</li>
+</ul>
+<p>unittest is built into python. I don't like it because you have to follow a strict class/method structure when writing the tests. nose2 is popular with many useful features and is generally good for high volumes of tests. My favorite is pytest, it's flexible and has an ecosystem of plugins for extensibility. </p>
 
               
             </article>
@@ -923,10 +1094,10 @@ test_pokemon.py .                                                               
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.c7dec7e7.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.361d90f1.min.js"}</script>
     
     
-      <script src="../../assets/javascripts/bundle.da79ceb7.min.js"></script>
+      <script src="../../assets/javascripts/bundle.289a2a4b.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       
