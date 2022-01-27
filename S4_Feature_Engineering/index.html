@@ -1146,6 +1146,10 @@
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
 </code></pre></div>
 
+<div class="codehilite"><pre><span></span><code>/usr/local/lib/python3.7/dist-packages/statsmodels/tools/_testing.py:19: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
+  import pandas.util.testing as tm
+</code></pre></div>
+
 <p><a name='x.0.2'></a></p>
 <h3 id="402-load-dataset">4.0.2 Load Dataset<a class="headerlink" href="#402-load-dataset" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
@@ -1160,7 +1164,9 @@
 <div class="codehilite"><pre><span></span><code><span class="n">margin</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </code></pre></div>
 
-<div>
+<div id="df-cfe07248-0454-4b72-a14c-daeb37bf271f">
+    <div class="colab-df-container">
+      <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1253,6 +1259,11 @@
   </tbody>
 </table>
 </div>
+
+
+
+    </div>
+  </div>
 
 <div class="codehilite"><pre><span></span><code><span class="n">dfcat</span> <span class="o">=</span> <span class="n">margin</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
 <span class="n">dfcat</span>
