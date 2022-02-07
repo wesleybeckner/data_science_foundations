@@ -46,6 +46,10 @@ from statsmodels.formula.api import ols
 import scipy
 ```
 
+    /usr/local/lib/python3.7/dist-packages/statsmodels/tools/_testing.py:19: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
+      import pandas.util.testing as tm
+
+
 <a name='x.0.2'></a>
 
 ### 2.0.2 Load Dataset
@@ -68,7 +72,10 @@ df
 
 
 
-<div>
+
+  <div id="df-ad049ed0-1071-4091-b1c6-d7d00fee878d">
+    <div class="colab-df-container">
+      <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -234,6 +241,10 @@ df
 </table>
 <p>1668 rows × 9 columns</p>
 </div>
+      
+    </div>
+  </div>
+
 
 
 
@@ -556,6 +567,7 @@ Ok, so we know `gp` is separate dataframes. How do we turn them into arrays to t
 ```python
 # complete this for loop
 for i, j in gp:
+  pass
   # turn j into an array using the .values attribute
   # print this to the screen
 ```
@@ -580,9 +592,9 @@ print("p-value of the test: {:.2e}".format(p))
 print("the grand median: {:.2e}".format(m))
 ```
 
-    The pearsons chi-square test statistic: 448.81
-    p-value of the test: 8.85e-95
-    the grand median: 2.16e-01
+    The pearsons chi-square test statistic: 0.00
+    p-value of the test: 1.00e+00
+    the grand median: 1.55e+01
 
 
 ##### **Part B** View the distributions of the data using matplotlib and seaborn
@@ -594,25 +606,6 @@ What a fantastic statistical result we found! Can we affirm our result with some
 # YOUR BOXPLOT HERE
 ```
 
-    /usr/local/lib/python3.7/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning:
-    
-    Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
-    
-
-
-
-
-
-    <matplotlib.axes._subplots.AxesSubplot at 0x7fb512f782d0>
-
-
-
-
-    
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_44_2.png)
-    
-
-
 For comparison, I've shown the boxplot below using seaborn!
 
 
@@ -622,9 +615,7 @@ ax = sns.boxplot(x='Base Cake', y='EBITDA/KG', data=df, color='#A0cbe8')
 ```
 
 
-    
 ![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_46_0.png)
-    
 
 
 ##### **Part C** Perform Moods Median on all the other groups
@@ -660,39 +651,39 @@ for desc in descriptors:
 ```
 
     Base Cake
-    The pearsons chi-square test statistic: 448.81
-    p-value of the test: 8.851450e-95
-    the grand median: 0.2160487288076019
+    The pearsons chi-square test statistic: 0.00
+    p-value of the test: 1.000000e+00
+    the grand median: 15.5
     
     Truffle Type
-    The pearsons chi-square test statistic: 22.86
-    p-value of the test: 1.088396e-05
-    the grand median: 0.2160487288076019
+    The pearsons chi-square test statistic: 0.00
+    p-value of the test: 1.000000e+00
+    the grand median: 15.5
     
     Primary Flavor
-    The pearsons chi-square test statistic: 638.99
-    p-value of the test: 3.918933e-103
-    the grand median: 0.2160487288076019
+    The pearsons chi-square test statistic: 0.00
+    p-value of the test: 1.000000e+00
+    the grand median: 15.5
     
     Secondary Flavor
-    The pearsons chi-square test statistic: 323.13
-    p-value of the test: 6.083210e-52
-    the grand median: 0.2160487288076019
+    The pearsons chi-square test statistic: 0.00
+    p-value of the test: 1.000000e+00
+    the grand median: 15.5
     
     Color Group
-    The pearsons chi-square test statistic: 175.18
-    p-value of the test: 1.011412e-31
-    the grand median: 0.2160487288076019
+    The pearsons chi-square test statistic: 0.00
+    p-value of the test: 1.000000e+00
+    the grand median: 15.5
     
     Customer
-    The pearsons chi-square test statistic: 5.66
-    p-value of the test: 2.257760e-01
-    the grand median: 0.2160487288076019
+    The pearsons chi-square test statistic: 0.00
+    p-value of the test: 1.000000e+00
+    the grand median: 15.5
     
     Date
-    The pearsons chi-square test statistic: 5.27
-    p-value of the test: 9.175929e-01
-    the grand median: 0.2160487288076019
+    The pearsons chi-square test statistic: 0.00
+    p-value of the test: 1.000000e+00
+    the grand median: 15.5
     
 
 
@@ -707,56 +698,32 @@ for desc in descriptors:
   # sns.boxplot(x=<YOUR X VARIABLE HERE>, y='EBITDA/KG', data=df, color='#A0cbe8', ax=ax)
 ```
 
-    /usr/local/lib/python3.7/dist-packages/matplotlib/backends/backend_agg.py:214: RuntimeWarning:
-    
-    Glyph 9 missing from current font.
-    
-    /usr/local/lib/python3.7/dist-packages/matplotlib/backends/backend_agg.py:183: RuntimeWarning:
-    
-    Glyph 9 missing from current font.
-    
+
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_0.png)
 
 
 
-    
 ![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_1.png)
-    
 
 
 
-    
 ![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_2.png)
-    
 
 
 
-    
 ![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_3.png)
-    
 
 
 
-    
 ![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_4.png)
-    
 
 
 
-    
 ![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_5.png)
-    
 
 
 
-    
 ![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_6.png)
-    
-
-
-
-    
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_7.png)
-    
 
 
 ### 2.1.3 **Enrichment**: What is a T-test?
@@ -944,14 +911,12 @@ shifts.boxplot()
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0x7fb5128c6690>
+    <matplotlib.axes._subplots.AxesSubplot at 0x7fafb63120d0>
 
 
 
 
-    
 ![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_65_1.png)
-    
 
 
 #### 2.1.6.0 **Enrichment**: SNS Boxplot
@@ -968,9 +933,7 @@ ax = sns.swarmplot(x="shift", y="rate", data=shift_melt, color='#79706e')
 ```
 
 
-    
 ![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_67_0.png)
-    
 
 
 Anyway back to ANOVA...
@@ -1005,7 +968,10 @@ anova_table
 
 
 
-<div>
+
+  <div id="df-ee6181e4-6944-4057-ae76-e9936056ac1c">
+    <div class="colab-df-container">
+      <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1047,6 +1013,9 @@ anova_table
   </tbody>
 </table>
 </div>
+    </div>
+  </div>
+
 
 
 
@@ -1183,7 +1152,10 @@ moodsdf.sort_values('p_value')
 
 
 
-<div>
+
+  <div id="df-454973ee-99a5-4f68-ba45-07a3ec3ec7d4">
+    <div class="colab-df-container">
+      <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1252,6 +1224,10 @@ moodsdf.sort_values('p_value')
   </tbody>
 </table>
 </div>
+      
+    </div>
+  </div>
+
 
 
 
@@ -1316,7 +1292,10 @@ moodsdf
 
 
 
-<div>
+
+  <div id="df-1344c1dc-78a4-49b0-ae73-6882f12e5628">
+    <div class="colab-df-container">
+      <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -2013,6 +1992,11 @@ moodsdf
   </tbody>
 </table>
 </div>
+      
+
+    </div>
+  </div>
+
 
 
 
@@ -2030,7 +2014,10 @@ shift_melt.head()
 
 
 
-<div>
+
+  <div id="df-d48631b7-b109-4627-aa30-b85e20e0f05c">
+    <div class="colab-df-container">
+      <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -2087,6 +2074,10 @@ shift_melt.head()
   </tbody>
 </table>
 </div>
+     
+    </div>
+  </div>
+
 
 
 
@@ -2109,7 +2100,10 @@ anova_table
 
 
 
-<div>
+
+  <div id="df-6482d5af-de98-431a-99f6-9afefa83eae3">
+    <div class="colab-df-container">
+      <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -2151,6 +2145,10 @@ anova_table
   </tbody>
 </table>
 </div>
+      
+    </div>
+  </div>
+
 
 
 
@@ -2176,7 +2174,7 @@ gb
 
 
 
-    <pandas.core.groupby.generic.SeriesGroupBy object at 0x7fb5127814d0>
+    <pandas.core.groupby.generic.SeriesGroupBy object at 0x7fafac7cfd10>
 
 
 
@@ -2212,7 +2210,10 @@ for col in df.columns[:5]:
 
 
 
-<div>
+
+  <div id="df-7ab530db-b767-4222-a1eb-b8d9494d63c2">
+    <div class="colab-df-container">
+      <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -2254,6 +2255,10 @@ for col in df.columns[:5]:
   </tbody>
 </table>
 </div>
+      
+    </div>
+  </div>
+
 
 
     Shapiro:  0.9634131193161011 4.1681337029688696e-20
@@ -2263,7 +2268,10 @@ for col in df.columns[:5]:
 
 
 
-<div>
+
+  <div id="df-925cf159-35c7-459a-b8ef-99d535050c04">
+    <div class="colab-df-container">
+      <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -2305,6 +2313,10 @@ for col in df.columns[:5]:
   </tbody>
 </table>
 </div>
+      
+    </div>
+  </div>
+
 
 
     Shapiro:  0.9576056599617004 1.2598073820281984e-21
@@ -2314,7 +2326,10 @@ for col in df.columns[:5]:
 
 
 
-<div>
+
+  <div id="df-940e5512-3a8a-463f-a5a8-a221bee351c5">
+    <div class="colab-df-container">
+      <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -2356,6 +2371,10 @@ for col in df.columns[:5]:
   </tbody>
 </table>
 </div>
+     
+    </div>
+  </div>
+
 
 
     Shapiro:  0.948470413684845 9.90281706784179e-24
@@ -2365,7 +2384,10 @@ for col in df.columns[:5]:
 
 
 
-<div>
+
+  <div id="df-c4875fd1-47ab-4223-92f4-82173a73e7e4">
+    <div class="colab-df-container">
+      <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -2407,6 +2429,10 @@ for col in df.columns[:5]:
   </tbody>
 </table>
 </div>
+      
+    </div>
+  </div>
+
 
 
     Shapiro:  0.9548103213310242 2.649492974953278e-22
@@ -2416,7 +2442,10 @@ for col in df.columns[:5]:
 
 
 
-<div>
+
+  <div id="df-b3ea2010-fdc1-49d7-b22e-6e115f99a217">
+    <div class="colab-df-container">
+      <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -2458,6 +2487,10 @@ for col in df.columns[:5]:
   </tbody>
 </table>
 </div>
+      
+    </div>
+  </div>
+
 
 
     Shapiro:  0.969061017036438 1.8926407335144587e-18
@@ -2493,15 +2526,11 @@ plt.show()
 ```
 
 
-    
 ![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_103_0.png)
-    
 
 
 
-    
 ![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_103_1.png)
-    
 
 
 We see that a lot of our data is swayed by extremely high and low values, so what can we conclude? 

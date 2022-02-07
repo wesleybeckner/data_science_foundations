@@ -5,8 +5,8 @@ theme:
     primary: "blue"
     accent: "indigo"
 nav:
-  - Introduction: index.md
-  - About: about.md
+  - About: index.md
+  - Introduction: about.md
   - Sessions:
       - Regression and Analysis: S1_Regression_and_Analysis.md
       - Inferential Statistics: S2_Inferential_Statistics.md

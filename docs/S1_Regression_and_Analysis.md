@@ -70,13 +70,16 @@ df.shape
 
 
 ```python
-df.describe()
+df.head()
 ```
 
 
 
 
-<div>
+
+  <div id="df-d5897cfd-13e1-4904-acb9-14a741424131">
+    <div class="colab-df-container">
+      <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -94,6 +97,7 @@ df.describe()
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>type</th>
       <th>fixed acidity</th>
       <th>volatile acidity</th>
       <th>citric acid</th>
@@ -110,128 +114,92 @@ df.describe()
   </thead>
   <tbody>
     <tr>
-      <th>count</th>
-      <td>6487.000000</td>
-      <td>6489.000000</td>
-      <td>6494.000000</td>
-      <td>6495.000000</td>
-      <td>6495.000000</td>
-      <td>6497.000000</td>
-      <td>6497.000000</td>
-      <td>6497.000000</td>
-      <td>6488.000000</td>
-      <td>6493.000000</td>
-      <td>6497.000000</td>
-      <td>6497.000000</td>
+      <th>0</th>
+      <td>white</td>
+      <td>7.0</td>
+      <td>0.27</td>
+      <td>0.36</td>
+      <td>20.7</td>
+      <td>0.045</td>
+      <td>45.0</td>
+      <td>170.0</td>
+      <td>1.0010</td>
+      <td>3.00</td>
+      <td>0.45</td>
+      <td>8.8</td>
+      <td>6</td>
     </tr>
     <tr>
-      <th>mean</th>
-      <td>7.216579</td>
-      <td>0.339691</td>
-      <td>0.318722</td>
-      <td>5.444326</td>
-      <td>0.056042</td>
-      <td>30.525319</td>
-      <td>115.744574</td>
-      <td>0.994697</td>
-      <td>3.218395</td>
-      <td>0.531215</td>
-      <td>10.491801</td>
-      <td>5.818378</td>
+      <th>1</th>
+      <td>white</td>
+      <td>6.3</td>
+      <td>0.30</td>
+      <td>0.34</td>
+      <td>1.6</td>
+      <td>0.049</td>
+      <td>14.0</td>
+      <td>132.0</td>
+      <td>0.9940</td>
+      <td>3.30</td>
+      <td>0.49</td>
+      <td>9.5</td>
+      <td>6</td>
     </tr>
     <tr>
-      <th>std</th>
-      <td>1.296750</td>
-      <td>0.164649</td>
-      <td>0.145265</td>
-      <td>4.758125</td>
-      <td>0.035036</td>
-      <td>17.749400</td>
-      <td>56.521855</td>
-      <td>0.002999</td>
-      <td>0.160748</td>
-      <td>0.148814</td>
-      <td>1.192712</td>
-      <td>0.873255</td>
+      <th>2</th>
+      <td>white</td>
+      <td>8.1</td>
+      <td>0.28</td>
+      <td>0.40</td>
+      <td>6.9</td>
+      <td>0.050</td>
+      <td>30.0</td>
+      <td>97.0</td>
+      <td>0.9951</td>
+      <td>3.26</td>
+      <td>0.44</td>
+      <td>10.1</td>
+      <td>6</td>
     </tr>
     <tr>
-      <th>min</th>
-      <td>3.800000</td>
-      <td>0.080000</td>
-      <td>0.000000</td>
-      <td>0.600000</td>
-      <td>0.009000</td>
-      <td>1.000000</td>
-      <td>6.000000</td>
-      <td>0.987110</td>
-      <td>2.720000</td>
-      <td>0.220000</td>
-      <td>8.000000</td>
-      <td>3.000000</td>
+      <th>3</th>
+      <td>white</td>
+      <td>7.2</td>
+      <td>0.23</td>
+      <td>0.32</td>
+      <td>8.5</td>
+      <td>0.058</td>
+      <td>47.0</td>
+      <td>186.0</td>
+      <td>0.9956</td>
+      <td>3.19</td>
+      <td>0.40</td>
+      <td>9.9</td>
+      <td>6</td>
     </tr>
     <tr>
-      <th>25%</th>
-      <td>6.400000</td>
-      <td>0.230000</td>
-      <td>0.250000</td>
-      <td>1.800000</td>
-      <td>0.038000</td>
-      <td>17.000000</td>
-      <td>77.000000</td>
-      <td>0.992340</td>
-      <td>3.110000</td>
-      <td>0.430000</td>
-      <td>9.500000</td>
-      <td>5.000000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>7.000000</td>
-      <td>0.290000</td>
-      <td>0.310000</td>
-      <td>3.000000</td>
-      <td>0.047000</td>
-      <td>29.000000</td>
-      <td>118.000000</td>
-      <td>0.994890</td>
-      <td>3.210000</td>
-      <td>0.510000</td>
-      <td>10.300000</td>
-      <td>6.000000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>7.700000</td>
-      <td>0.400000</td>
-      <td>0.390000</td>
-      <td>8.100000</td>
-      <td>0.065000</td>
-      <td>41.000000</td>
-      <td>156.000000</td>
-      <td>0.996990</td>
-      <td>3.320000</td>
-      <td>0.600000</td>
-      <td>11.300000</td>
-      <td>6.000000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>15.900000</td>
-      <td>1.580000</td>
-      <td>1.660000</td>
-      <td>65.800000</td>
-      <td>0.611000</td>
-      <td>289.000000</td>
-      <td>440.000000</td>
-      <td>1.038980</td>
-      <td>4.010000</td>
-      <td>2.000000</td>
-      <td>14.900000</td>
-      <td>9.000000</td>
+      <th>4</th>
+      <td>white</td>
+      <td>7.2</td>
+      <td>0.23</td>
+      <td>0.32</td>
+      <td>8.5</td>
+      <td>0.058</td>
+      <td>47.0</td>
+      <td>186.0</td>
+      <td>0.9956</td>
+      <td>3.19</td>
+      <td>0.40</td>
+      <td>9.9</td>
+      <td>6</td>
     </tr>
   </tbody>
 </table>
 </div>
+      
+    </div>
+  </div>
+
 
 
 
@@ -302,10 +270,10 @@ df.isnull().sum()
 
 # part A 
 # using df.<method> define the following four variables with the results from
-# skew(), kurtosis(), corr() (and selecting for quality), and isnull()
+# skew(), kurtosis(), corr() (whilst selecting for quality), and isnull()
 # for isnull() you'll notice the return is a dataframe of booleans. we would
 # like to simply know the number of null values for each column. change the
-# return of isnull() using the sum() method
+# return of isnull() using the sum() method along the columns
 
 # skew =
 # kurt =
@@ -331,7 +299,7 @@ df.isnull().sum()
 
 
 # Now return dff to the output to view your hand work
-# dff
+# dff # uncomment this line
 ```
 
 I have gone ahead and repeated this exercise with the red vs white wine types:
@@ -369,7 +337,10 @@ desc
 
 
 
-<div>
+
+  <div id="df-51a854ff-ebb7-47bc-b525-dddc3ad2be51">
+    <div class="colab-df-container">
+      <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -636,6 +607,10 @@ desc
   </tbody>
 </table>
 </div>
+      
+    </div>
+  </div>
+
 
 
 
@@ -648,19 +623,8 @@ def my_fig(metric=desc.columns):
 
 
 ```python
-interact(my_fig)
+# interact(my_fig)
 ```
-
-
-    interactive(children=(Dropdown(description='metric', options=('skew', 'kurtosis', 'pearsons _quality', 'null c…
-
-
-
-
-
-    <function __main__.my_fig>
-
-
 
 #### 🙋 Question 1: Discussion Around EDA Plot
 
@@ -671,8 +635,11 @@ What do we think of this plot?
 `metric = pearsons _quality`, _magnitudes_ and _directions_ <br>
 How to improve the plot, what other plots would we like to see?
 
+For instance, what if we were really curious about the high kurtosis for chlorides content? What more would we like to glean about the distribution of chloride content?
+
 
 ```python
+# we can use df.describe() to take a look at the quantile values and min/max
 df['chlorides'].describe()
 ```
 
@@ -693,6 +660,7 @@ df['chlorides'].describe()
 
 
 ```python
+# and see how these values appear in a KDE
 fig, ax = plt.subplots(1,1,figsize=(10,10))
 df['chlorides'].plot(kind='kde',ax=ax)
 ax.set_xlim(0,.61)
@@ -706,13 +674,13 @@ ax.set_xlim(0,.61)
 
 
 
-    
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_21_1.png)
-    
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_22_1.png)
 
 
 
 ```python
+# lastly we may want to look at the raw values themselves. We can sort them 
+# too view outliers
 df['chlorides'].sort_values(ascending=False)[:50]
 ```
 
@@ -775,7 +743,9 @@ df['chlorides'].sort_values(ascending=False)[:50]
 
 ### 1.2.2 Visualizing the data set - motivating regression analysis
 
-We can create a scatter plot of fixed acidity vs density of red wine in the dataset using `df.plot()` and see that there appears to be a general trend between the two features:
+In order to demonstrate simple linear regression with this dataset we will look at two particular features: `fixed acidity` and `density`.
+
+We can create a scatter plot of `fixed acidity` vs `density` for the red wine in the dataset using `df.plot()` and see that there appears to be a general trend between the two features:
 
 
 ```python
@@ -787,15 +757,15 @@ df.loc[df['type'] == 'red'].plot(x='fixed acidity', y='density', ax=ax,
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0x7f3158ad7290>
+    <matplotlib.axes._subplots.AxesSubplot at 0x7f43dcd31790>
 
 
 
 
-    
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_25_1.png)
-    
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_26_1.png)
 
+
+Now the question is: How do we quantify this trend?
 
 ### 1.2.3 Estimating the regression coefficients
 
@@ -810,6 +780,8 @@ To solve the problem, we need to find the values of \\(b\\) and \\(m\\) in equat
 In linear regression our goal is to minimize the error between computed values of positions \\(y^{\sf calc}(x_i)\equiv y^{\sf calc}_i\\) and known values \\(y^{\sf exact}(x_i)\equiv y^{\sf exact}_i\\), i.e. find \\(b\\) and \\(m\\) which lead to lowest value of
 
 $$\epsilon (m,b) =SS_{\sf res}=\sum_{i=1}^{N}\left(y^{\sf exact}_i - y^{\sf calc}_i\right)^2 = \sum_{i=1}^{N}\left(y^{\sf exact}_i - m\cdot x_i - b \right)^2\;\;\;\;\;\;\;\;\;\;\;\sf{eq. 2}$$
+
+Otherwise known as the **residual sum of squares**
 
 To find out more see e.g. https://en.wikipedia.org/wiki/Simple_linear_regression
 
@@ -960,6 +932,17 @@ ax.plot(x, y_pred, ls='', marker='*')
 ax.plot(x, y, ls='', marker='.')
 ```
 
+
+
+
+    [<matplotlib.lines.Line2D at 0x7f43dc46b910>]
+
+
+
+
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_45_1.png)
+
+
 ## 1.3 Error and topics of model fitting (assessing model accuracy)
 
 ### 1.3.1 Measuring the quality of fit
@@ -980,6 +963,9 @@ print('Mean squared error: %.2f' % mean_squared_error(y, y_pred))
 # The mean squared error
 print('Mean squared error: %.2f' % mean_squared_error(y, y_pred))
 ```
+
+    Mean squared error: 1.68
+
 
 #### 1.3.1.2 R-square
 
@@ -1006,6 +992,9 @@ print('Coefficient of determination: %.2f' % r2_score(y, y_pred))
 # Print the coefficient of determination - 1 is perfect prediction
 print('Coefficient of determination: %.2f' % r2_score(y, y_pred))
 ```
+
+    Coefficient of determination: 0.45
+
 
 ### 1.3.2 Corollaries with classification models
 
@@ -1037,6 +1026,17 @@ logreg = LogisticRegression()
 logreg.fit(x_train, y_train)
 ```
 
+    /usr/local/lib/python3.7/dist-packages/sklearn/utils/validation.py:993: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
+      y = column_or_1d(y, warn=True)
+
+
+
+
+
+    LogisticRegression()
+
+
+
 
 ```python
 # make class predictions for the testing set
@@ -1049,6 +1049,9 @@ y_pred_class = logreg.predict(x_train)
 from sklearn import metrics
 print(metrics.accuracy_score(y_train, y_pred_class))
 ```
+
+    0.7538864091118977
+
 
 ### 1.3.3 Beyond a single input feature
 
@@ -1071,12 +1074,142 @@ So in our lab today we will look at folding in additional variables in our datas
 
 Let's now turn our attention to wine quality.
 
-The value we aim to predict or evaluate is the quality of each wine in our dataset. This is our dependent variable. We will look at how this is related to the 12 other independent variables, also known as *input features*. We're going to do this is just the red wine data
+The value we aim to predict or evaluate is the quality of each wine in our dataset. This is our dependent variable. We will look at how this is related to the 12 other independent variables, also known as *input features*. We're going to do this with only the red wine data
 
 
 ```python
 red.head()
 ```
+
+
+
+
+
+  <div id="df-af37fac3-3643-41b6-b8bb-970ac86ff2f9">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>type</th>
+      <th>fixed acidity</th>
+      <th>volatile acidity</th>
+      <th>citric acid</th>
+      <th>residual sugar</th>
+      <th>chlorides</th>
+      <th>free sulfur dioxide</th>
+      <th>total sulfur dioxide</th>
+      <th>density</th>
+      <th>pH</th>
+      <th>sulphates</th>
+      <th>alcohol</th>
+      <th>quality</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>4898</th>
+      <td>red</td>
+      <td>7.4</td>
+      <td>0.70</td>
+      <td>0.00</td>
+      <td>1.9</td>
+      <td>0.076</td>
+      <td>11.0</td>
+      <td>34.0</td>
+      <td>0.9978</td>
+      <td>3.51</td>
+      <td>0.56</td>
+      <td>9.4</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>4899</th>
+      <td>red</td>
+      <td>7.8</td>
+      <td>0.88</td>
+      <td>0.00</td>
+      <td>2.6</td>
+      <td>0.098</td>
+      <td>25.0</td>
+      <td>67.0</td>
+      <td>0.9968</td>
+      <td>3.20</td>
+      <td>0.68</td>
+      <td>9.8</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>4900</th>
+      <td>red</td>
+      <td>7.8</td>
+      <td>0.76</td>
+      <td>0.04</td>
+      <td>2.3</td>
+      <td>0.092</td>
+      <td>15.0</td>
+      <td>54.0</td>
+      <td>0.9970</td>
+      <td>3.26</td>
+      <td>0.65</td>
+      <td>9.8</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>4901</th>
+      <td>red</td>
+      <td>11.2</td>
+      <td>0.28</td>
+      <td>0.56</td>
+      <td>1.9</td>
+      <td>0.075</td>
+      <td>17.0</td>
+      <td>60.0</td>
+      <td>0.9980</td>
+      <td>3.16</td>
+      <td>0.58</td>
+      <td>9.8</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>4902</th>
+      <td>red</td>
+      <td>7.4</td>
+      <td>0.70</td>
+      <td>0.00</td>
+      <td>1.9</td>
+      <td>0.076</td>
+      <td>11.0</td>
+      <td>34.0</td>
+      <td>0.9978</td>
+      <td>3.51</td>
+      <td>0.56</td>
+      <td>9.4</td>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+      
+    </div>
+  </div>
+
+
+
 
 ### 1.4.1 Linear regression with all input fields
 
@@ -1100,6 +1233,26 @@ y = red.dropna(axis=0)['density'].values
 ```python
 red.isnull().sum(axis=0) # we are getting rid of some nasty nulls!
 ```
+
+
+
+
+    type                    0
+    fixed acidity           2
+    volatile acidity        1
+    citric acid             1
+    residual sugar          0
+    chlorides               0
+    free sulfur dioxide     0
+    total sulfur dioxide    0
+    density                 0
+    pH                      2
+    sulphates               2
+    alcohol                 0
+    quality                 0
+    dtype: int64
+
+
 
 
 
@@ -1131,6 +1284,13 @@ print("Fit coefficients: \n", model.coef_, "\nNumber of coefficients:", len(mode
 print("Fit coefficients: \n", model.coef_, "\nNumber of coefficients:", len(model.coef_))
 ```
 
+    Fit coefficients: 
+     [ 9.42796851e-04  6.91804101e-04  5.96131573e-05  4.13002753e-04
+      1.77414632e-03 -8.79414703e-06  2.61750150e-06  5.06277080e-03
+      1.32356143e-03 -9.20862092e-04 -2.17464295e-05] 
+    Number of coefficients: 11
+
+
 We have 11 !!! That's because we are regressing respect to all **11 independent variables**!!!
 
 So now, $$y_{\sf calc}= m_1x_1 +\, m_2x_2 \,+ \,m_3x_3 \,+\,... \,+ \,b =\sum_{i=1}^{13}m_i x_i + b\;\;\;\;\; \sf eq. 7$$
@@ -1146,6 +1306,15 @@ print("We have 11 slopes / weights:\n\n", model.coef_)
 print("\nAnd one intercept: ", model.intercept_)
 ```
 
+    We have 11 slopes / weights:
+    
+     [ 9.42796851e-04  6.91804101e-04  5.96131573e-05  4.13002753e-04
+      1.77414632e-03 -8.79414703e-06  2.61750150e-06  5.06277080e-03
+      1.32356143e-03 -9.20862092e-04 -2.17464295e-05]
+    
+    And one intercept:  0.9794206207830903
+
+
 ```
 # This size should match the number of columns in X
 if len(X[0]) == len(model.coef_):
@@ -1162,6 +1331,9 @@ if len(X[0]) == len(model.coef_):
 else:
     print("Hmm .. something strange is going on.")
 ```
+
+    All good! The number of coefficients matches the number of input features.
+
 
 ### 🏋️ Exercise 4: evaluate the error
 
@@ -1194,8 +1366,8 @@ print('Coefficient of determination: {:.2f}'.format(r2)
 # calculate the R square using r2_score()
 # r2 = 
 
-print('Mean squared error: {:.2f}'.format(mse)
-print('Coefficient of determination: {:.2f}'.format(r2)
+# print('Mean squared error: {:.2f}'.format(mse))
+# print('Coefficient of determination: {:.2f}'.format(r2))
 ```
 
 ### 🏋️ Exercise 5: make a plot of y actual vs y predicted
@@ -1225,11 +1397,15 @@ plt.ylabel("y$^{\sf true}$")
 plt.show()
 ```
 
-### 1.4.2 **Enrichment**: Splitting into train and test sets
+
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_78_0.png)
+
+
+### 🍒 1.4.2 **Enrichment**: Splitting into train and test sets
 
 To see whether we can predict, we will carry out our regression only on a part, 80%, of the full data set. This part is called the **training** data. We will then test the trained model to predict the rest of the data, 20% - the **test** data. The function which fits won't see the test data until it has to predict it. 
 
-**We will motivate the use of train/test sets more explicitly in Course 2 Session 1**
+**We will motivate the use of train/test sets more explicitly in [Model Selection and Validation](https://wesleybeckner.github.io/data_science_foundations/S3_Model_Selection_and_Validation/)**
 
 We start by splitting out data using scikit-learn's <code> train_test_split() </code> function:
 
@@ -1279,6 +1455,19 @@ if len(y_test)+len(y_train) == len(y):
     y_pred_test = model.predict(X_test)
 ```
 
+    All good, ready to to go and regress!
+    
+    Running linear regression algorithm on the training set
+    
+    Fit coefficients and intercept:
+    
+     [ 9.33178495e-04  6.16926970e-04  3.97991174e-06  4.16370328e-04
+      1.62394928e-03 -9.91971827e-06  2.69686071e-06  5.05056377e-03
+      1.31752524e-03 -9.38947432e-04  7.24835766e-06] 
+    
+     0.9796448738246895
+
+
 Now we can plot our predicted values to see how accurate we are in predicting. We will generate a scatterplot and computing the MSE and \\(R^2\\) metrics of error.
 
 ```
@@ -1306,6 +1495,14 @@ print('Mean squared error: %.2f' % mean_squared_error(y_test, y_pred_test))
 print('Coefficient of determination: %.2f' % r2_score(y_test, y_pred_test))
 ```
 
+
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_85_0.png)
+
+
+    Mean squared error: 0.00
+    Coefficient of determination: 0.87
+
+
 #### 1.4.2.1 Other data considerations
 
 * Do we need all the independent variables? 
@@ -1314,7 +1511,7 @@ print('Coefficient of determination: %.2f' % r2_score(y_test, y_pred_test))
 * Can we output integer quality scores? 
   * Topics of non-binary classification tasks covered in week 4
 
-### 1.4.3 **Enrichment**: Other regression algorithms
+### 🍒 1.4.3 **Enrichment**: Other regression algorithms
 
 There are many other regression algorithms the two we want to highlight here are Ridge, LASSO, and Elastic Net. They differ by an added term to the loss function. Let's review. Eq. 2 expanded to multivariate form yields:
 
@@ -1350,6 +1547,15 @@ print('Fit coefficients and intercept:\n\n', model.coef_, '\n\n', model.intercep
 y_calc_test = model.predict(X_test)
 ```
 
+    Fit coefficients and intercept:
+    
+     [ 9.09641067e-04  6.43264795e-04  2.78882604e-05  4.16939725e-04
+      1.03446440e-03 -9.27657730e-06  2.32153681e-06  4.66188798e-03
+      1.32184520e-03 -9.33484848e-04 -2.26313220e-07] 
+    
+     0.9811476280427127
+
+
 ```
 sns.scatterplot(x=y_calc_test, y=y_test, color="lightseagreen", s=50)
 plt.title("Ridge regression - predict test set",fontsize=16)
@@ -1372,6 +1578,14 @@ plt.show()
 print('Mean squared error: %.2f' % mean_squared_error(y_test, y_calc_test))
 print('Coefficient of determination: %.2f' % r2_score(y_test, y_calc_test))
 ```
+
+
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_92_0.png)
+
+
+    Mean squared error: 0.00
+    Coefficient of determination: 0.87
+
 
 #### 🏋️ Exercise 6: Tune Hyperparameter for Ridge Regression
 
@@ -1405,6 +1619,7 @@ for i in range(10):
 ```
 
 
+
 ```python
 coef_means = np.array(out_coefs).mean(axis=0)
 coef_stds = np.array(out_coefs).std(axis=0)
@@ -1423,6 +1638,17 @@ ax.legend()
 ```
 
 
+
+
+    <matplotlib.legend.Legend at 0x7f43d3915210>
+
+
+
+
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_96_1.png)
+
+
+
 ```python
 results = pd.DataFrame(coefs,columns=features)
 results['lambda'] = [i/50 for i in lambdas]
@@ -1437,7 +1663,18 @@ for feat in features:
 results.plot('lambda', 'scores', ax=ax[1])
 ```
 
-## 1.5 **Enrichment**: Additional Regression Exercises
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0x7f43d3984510>
+
+
+
+
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_98_1.png)
+
+
+## 🍒 1.5 **Enrichment**: Additional Regression Exercises
 
 
 ### Problem 1) Number and choice of input features
@@ -1453,6 +1690,9 @@ print(X_train.shape)
 ```python
 print(X_train.shape)
 ```
+
+    (1274, 11)
+
 
 If you want to use the first 5 features you could proceed as following:
 
@@ -1479,6 +1719,10 @@ print(X_test_five.shape)
 print(X_train_five.shape)
 print(X_test_five.shape)
 ```
+
+    (1274, 5)
+    (319, 5)
+
 
 Now you can use these to train your linear regression model and repeat for different numbers or sets of input features! Note that you do not need to change the output feature! It's size is independent from the number of input features, yet recall that its length is the same as the number of values per input feature.
 
@@ -1525,6 +1769,16 @@ for model in [ElasticNet, Lasso, Ridge, LinearRegression]:
   print('Coefficient of determination: %.2f' % r2_score(y_test, model.predict(X_test)))
 ```
 
+    Mean squared error: 0.00
+    Coefficient of determination: -0.01
+    Mean squared error: 0.00
+    Coefficient of determination: -0.01
+    Mean squared error: 0.00
+    Coefficient of determination: 0.84
+    Mean squared error: 0.00
+    Coefficient of determination: 0.84
+
+
 <hr style="border:1px solid grey"> </hr>
 
 # References
@@ -1545,8 +1799,3 @@ To find out more see [pearson](https://en.wikipedia.org/wiki/Pearson_correlation
     * Great Coursera videos [here](https://www.coursera.org/lecture/ml-regression/irreducible-error-and-bias-qlMrZ)
 and [here](https://www.coursera.org/lecture/ml-regression/variance-and-the-bias-variance-tradeoff-ZvP40)
 
-
-
-```python
-
-```

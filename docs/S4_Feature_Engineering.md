@@ -49,6 +49,10 @@ from sklearn.datasets import load_iris
 from sklearn.metrics import mean_squared_error, r2_score
 ```
 
+    /usr/local/lib/python3.7/dist-packages/statsmodels/tools/_testing.py:19: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
+      import pandas.util.testing as tm
+
+
 <a name='x.0.2'></a>
 
 ### 4.0.2 Load Dataset
@@ -73,7 +77,10 @@ margin.head()
 
 
 
-<div>
+
+  <div id="df-cfe07248-0454-4b72-a14c-daeb37bf271f">
+    <div class="colab-df-container">
+      <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -166,6 +173,12 @@ margin.head()
   </tbody>
 </table>
 </div>
+      
+
+
+    </div>
+  </div>
+
 
 
 
@@ -524,9 +537,7 @@ from sklearn.linear_model import LinearRegression
 
 
 
-    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_24_1.png)
-    
 
 
 #### 🙋 Question 1:
@@ -623,9 +634,7 @@ plt.plot(x, yhat);
 ```
 
 
-    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_35_0.png)
-    
 
 
 <a name='2.2.2'></a>
@@ -691,9 +700,7 @@ ax[1].set_title('Frequency Domain')
 
 
 
-    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_39_1.png)
-    
 
 
 We can construct a similar plot with 4 signals contributing to the square-wave:
@@ -735,9 +742,7 @@ ax[1].set_title('Frequency Domain')
 
 
 
-    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_41_1.png)
-    
 
 
 <a name='x.2.2.2'></a>
@@ -972,9 +977,7 @@ plt.plot(x, skewnorm.pdf(x, a),
 
 
 
-    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_51_1.png)
-    
 
 
 We can now generate a random population based on this distribution
@@ -997,9 +1000,7 @@ plt.hist(r)
 
 
 
-    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_53_1.png)
-    
 
 
 Unskewed data will return something close to 0 from calling `df.skew()`. When dealing with actual data, we can use `df.skew()` to determine whether we should transform our data. 
@@ -1061,9 +1062,7 @@ ax.legend()
 
 
 
-    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_57_3.png)
-    
 
 
 We see we didn't get much traction with the log transform, and the log transform will not be able to handle 0 values, and so we will sometimes have to code exceptions for those. 
@@ -1092,9 +1091,7 @@ plt.hist(r)
 
 
 
-    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_59_1.png)
-    
 
 
 
@@ -1123,9 +1120,7 @@ ax.legend()
 
 
 
-    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_60_1.png)
-    
 
 
 #### 🏋️ Exercise 3: Transform data from a gamma distribution
@@ -1146,15 +1141,11 @@ from scipy.stats import gamma
 
 
 
-    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_62_1.png)
-    
 
 
 
-    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_62_2.png)
-    
 
 
 <a name='2.3.2'></a>
@@ -1214,9 +1205,7 @@ ax.legend()
 
 
 
-    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_67_1.png)
-    
 
 
 To calculate the colinearities I'm going to aggregate these x's into a dataframe:
@@ -1410,9 +1399,7 @@ colin[['x0','x1','x2','x3']].plot(kind='kde')
 
 
 
-    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_78_1.png)
-    
 
 
 
@@ -1428,9 +1415,7 @@ pd.DataFrame(normed, columns = [['x0','x1','x2','x3']]).plot(kind='kde')
 
 
 
-    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_79_1.png)
-    
 
 
 #### 🏋️ Exercise 4: Normalization affect on VIF 
