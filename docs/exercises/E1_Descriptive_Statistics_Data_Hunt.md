@@ -37,8 +37,8 @@ df['year'] = pd.to_numeric(df['year'], errors='coerce')
 df.shape
 ```
 
-    /usr/local/lib/python3.7/dist-packages/IPython/core/interactiveshell.py:2718: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
-      interactivity=interactivity, compiler=compiler, result=result)
+    /home/wbeckner/anaconda3/envs/py39/lib/python3.9/site-packages/IPython/core/interactiveshell.py:3251: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+      exec(code_obj, self.user_global_ns, self.user_ns)
 
 
 
@@ -84,8 +84,7 @@ df.head(3)
       <th>country</th>
       <th>language</th>
       <th>director</th>
-      <th>writer</th>
-      <th>production_company</th>
+      <th>...</th>
       <th>actors</th>
       <th>description</th>
       <th>avg_vote</th>
@@ -111,8 +110,7 @@ df.head(3)
       <td>USA</td>
       <td>None</td>
       <td>Alexander Black</td>
-      <td>Alexander Black</td>
-      <td>Alexander Black Photoplays</td>
+      <td>...</td>
       <td>Blanche Bayliss, William Courtenay, Chauncey D...</td>
       <td>The adventures of a female reporter in the 1890s.</td>
       <td>5.9</td>
@@ -136,8 +134,7 @@ df.head(3)
       <td>Australia</td>
       <td>None</td>
       <td>Charles Tait</td>
-      <td>Charles Tait</td>
-      <td>J. and N. Tait</td>
+      <td>...</td>
       <td>Elizabeth Tait, John Tait, Norman Campbell, Be...</td>
       <td>True story of notorious Australian outlaw Ned ...</td>
       <td>6.1</td>
@@ -161,8 +158,7 @@ df.head(3)
       <td>Germany, Denmark</td>
       <td>NaN</td>
       <td>Urban Gad</td>
-      <td>Urban Gad, Gebhard Schätzler-Perasini</td>
-      <td>Fotorama</td>
+      <td>...</td>
       <td>Asta Nielsen, Valdemar Psilander, Gunnar Helse...</td>
       <td>Two men of high rank are both wooing the beaut...</td>
       <td>5.8</td>
@@ -176,6 +172,7 @@ df.head(3)
     </tr>
   </tbody>
 </table>
+<p>3 rows × 22 columns</p>
 </div>
 
 
@@ -319,42 +316,14 @@ df.head(3)
 
 ```
 
+what happens when you only include directors who, on average (based on mean), have made most their movies after 1990 and have produced 10 or more movies?
+
+(Shyamalan rises to 3/41)
 
 
+```python
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>director</th>
-      <th>avg_vote</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>36</th>
-      <td>M. Night Shyamalan</td>
-      <td>1.258791</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
+```
 
 # Q7 How many movies were made each year in US from 2000-2020
 
@@ -408,7 +377,7 @@ df.head(3)
 
 
     
-![png](E1_Descriptive_Statistics_Data_Hunt_files/E1_Descriptive_Statistics_Data_Hunt_20_1.png)
+![png](E1_Descriptive_Statistics_Data_Hunt_files/E1_Descriptive_Statistics_Data_Hunt_22_1.png)
     
 
 
@@ -491,6 +460,6 @@ df.head(3)
 
 
     
-![png](E1_Descriptive_Statistics_Data_Hunt_files/E1_Descriptive_Statistics_Data_Hunt_24_0.png)
+![png](E1_Descriptive_Statistics_Data_Hunt_files/E1_Descriptive_Statistics_Data_Hunt_26_0.png)
     
 

@@ -202,7 +202,7 @@ It is the process of finding a relationship between **_dependent_** and **_indep
 
 **Housing Prices Example**
 
-We can imagine this scenario with housing prices. Envision a **_mixed_** dataset of **_continuous_** and **_discrete_** independent variables. Some features could be continuous, floating point values like location ranking and housing condition. Others could be discrete like the number of rooms or bathrooms. We could take these features and use them to predict a house value. This would be a **_regression_** model.
+We can imagine this scenario with housing prices. Envision a **_mixed_** dataset of **_continuous_** and **_discrete_** independent variables. Some features could be continuous, floating point values like location ranking and housing condition. Others could be descrete like the number of rooms or bathrooms. We could take these features and use them to predict a house value. This would be a **_regression_** model.
 
 <p align=center>
 <img src="https://raw.githubusercontent.com/wesleybeckner/technology_explorers/main/assets/machine_learning/ML3.png" width=1000px></img>
@@ -230,7 +230,7 @@ and organize this into a new dataframe
 </li>
 </ul>
 
-_note:_ pearsons is just one type of correlation, another correlation available to us is **_spearman_** which differs from pearsons in that it depends on ranked values rather than their direct quantities, you can read more [here](https://support.minitab.com/en-us/minitab-express/1/help-and-how-to/modeling-statistics/regression/supporting-topics/basics/a-comparison-of-the-pearson-and-spearman-correlation-methods/)
+_note:_ pearsons is just one type of correlation, another available to us **_spearman_** which differs from pearsons in that it depends on ranked values rather than their direct quantities, you can read more [here](https://support.minitab.com/en-us/minitab-express/1/help-and-how-to/modeling-statistics/regression/supporting-topics/basics/a-comparison-of-the-pearson-and-spearman-correlation-methods/)
 
 
 ```python
@@ -268,32 +268,163 @@ df.isnull().sum()
 # like to simply know the number of null values for each column. change the
 # return of isnull() using the sum() method along the columns
 
-# skew =
-# kurt =
-# pear =
-# null =
+skew = df.skew()
+kurt = df.kurtosis()
+pear = df.corr()['quality']
+null = df.isnull().sum(axis=0)
 
 # part B
 # on line 13, put these results in a list using square brackets and call 
 # pd.DataFrame on the list to make your new DataFrame! store it under the
 # variable name dff
 
-
+dff = pd.DataFrame([skew, kurt, pear, null])
 
 # part C
 # take the transpose of this DataFrame using dff.T. reassign dff to this copy
 
-
+dff = dff.T
 
 # part D
 # set the column names to 'skew', 'kurtosis', 'pearsons _quality', and 
 # 'null count' using dff.columns
 
-
+dff.columns=['skew', 'kurtosis', 'pearsons _quality', 'null count']
 
 # Now return dff to the output to view your hand work
-# dff # uncomment this line
+dff # uncomment this line
 ```
+
+    /tmp/ipykernel_1422/4028752270.py:10: FutureWarning: Dropping of nuisance columns in DataFrame reductions (with 'numeric_only=None') is deprecated; in a future version this will raise TypeError.  Select only valid columns before calling the reduction.
+      skew = df.skew()
+    /tmp/ipykernel_1422/4028752270.py:11: FutureWarning: Dropping of nuisance columns in DataFrame reductions (with 'numeric_only=None') is deprecated; in a future version this will raise TypeError.  Select only valid columns before calling the reduction.
+      kurt = df.kurtosis()
+
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>skew</th>
+      <th>kurtosis</th>
+      <th>pearsons _quality</th>
+      <th>null count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>fixed acidity</th>
+      <td>1.722805</td>
+      <td>5.057727</td>
+      <td>-0.077031</td>
+      <td>10.0</td>
+    </tr>
+    <tr>
+      <th>volatile acidity</th>
+      <td>1.495512</td>
+      <td>2.827081</td>
+      <td>-0.265953</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>citric acid</th>
+      <td>0.473032</td>
+      <td>2.401582</td>
+      <td>0.085706</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>residual sugar</th>
+      <td>1.435000</td>
+      <td>4.358134</td>
+      <td>-0.036825</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>chlorides</th>
+      <td>5.399849</td>
+      <td>50.894874</td>
+      <td>-0.200886</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>free sulfur dioxide</th>
+      <td>1.220066</td>
+      <td>7.906238</td>
+      <td>0.055463</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>total sulfur dioxide</th>
+      <td>-0.001177</td>
+      <td>-0.371664</td>
+      <td>-0.041385</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>density</th>
+      <td>0.503602</td>
+      <td>6.606067</td>
+      <td>-0.305858</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>pH</th>
+      <td>0.386966</td>
+      <td>0.370068</td>
+      <td>0.019366</td>
+      <td>9.0</td>
+    </tr>
+    <tr>
+      <th>sulphates</th>
+      <td>1.798467</td>
+      <td>8.659892</td>
+      <td>0.038729</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>alcohol</th>
+      <td>0.565718</td>
+      <td>-0.531687</td>
+      <td>0.444319</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>quality</th>
+      <td>0.189623</td>
+      <td>0.232322</td>
+      <td>1.000000</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
 
 I have gone ahead and repeated this exercise with the red vs white wine types:
 
@@ -322,13 +453,13 @@ dffw = get_summary(wht)
 desc = pd.concat([dffr, dffw], keys=['red', 'white'])
 ```
 
-    /tmp/ipykernel_1419/2387423026.py:5: FutureWarning: Dropping of nuisance columns in DataFrame reductions (with 'numeric_only=None') is deprecated; in a future version this will raise TypeError.  Select only valid columns before calling the reduction.
+    /tmp/ipykernel_1422/2387423026.py:5: FutureWarning: Dropping of nuisance columns in DataFrame reductions (with 'numeric_only=None') is deprecated; in a future version this will raise TypeError.  Select only valid columns before calling the reduction.
       skew = df.skew()
-    /tmp/ipykernel_1419/2387423026.py:6: FutureWarning: Dropping of nuisance columns in DataFrame reductions (with 'numeric_only=None') is deprecated; in a future version this will raise TypeError.  Select only valid columns before calling the reduction.
+    /tmp/ipykernel_1422/2387423026.py:6: FutureWarning: Dropping of nuisance columns in DataFrame reductions (with 'numeric_only=None') is deprecated; in a future version this will raise TypeError.  Select only valid columns before calling the reduction.
       kurt = df.kurtosis()
-    /tmp/ipykernel_1419/2387423026.py:9: FutureWarning: Dropping of nuisance columns in DataFrame reductions (with 'numeric_only=None') is deprecated; in a future version this will raise TypeError.  Select only valid columns before calling the reduction.
+    /tmp/ipykernel_1422/2387423026.py:9: FutureWarning: Dropping of nuisance columns in DataFrame reductions (with 'numeric_only=None') is deprecated; in a future version this will raise TypeError.  Select only valid columns before calling the reduction.
       med = df.median()
-    /tmp/ipykernel_1419/2387423026.py:10: FutureWarning: Dropping of nuisance columns in DataFrame reductions (with 'numeric_only=None') is deprecated; in a future version this will raise TypeError.  Select only valid columns before calling the reduction.
+    /tmp/ipykernel_1422/2387423026.py:10: FutureWarning: Dropping of nuisance columns in DataFrame reductions (with 'numeric_only=None') is deprecated; in a future version this will raise TypeError.  Select only valid columns before calling the reduction.
       men = df.mean()
 
 
@@ -619,8 +750,21 @@ def my_fig(metric=desc.columns):
 
 
 ```python
-# interact(my_fig)
+interact(my_fig)
 ```
+
+
+    interactive(children=(Dropdown(description='metric', options=('skew', 'kurtosis', 'pearsons _quality', 'null c…
+
+
+
+
+
+    <function __main__.my_fig(metric=Index(['skew', 'kurtosis', 'pearsons _quality', 'null count', 'median',
+           'mean'],
+          dtype='object'))>
+
+
 
 #### 🙋 Question 1: Discussion Around EDA Plot
 
@@ -671,7 +815,7 @@ ax.set_xlim(0,.61)
 
 
     
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_22_1.png)
+![png](SOLN_S1_Regression_and_Analysis_files/SOLN_S1_Regression_and_Analysis_22_1.png)
     
 
 
@@ -761,7 +905,7 @@ df.loc[df['type'] == 'red'].plot(x='fixed acidity', y='density', ax=ax,
 
 
     
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_26_1.png)
+![png](SOLN_S1_Regression_and_Analysis_files/SOLN_S1_Regression_and_Analysis_26_1.png)
     
 
 
@@ -867,21 +1011,31 @@ There are several strategies for dealing with null values. For now let's take th
 # step A
 # select the 'density' and 'fixed acidity' columns of red. make sure the return
 # is a dataframe
+df[['density', 'fixed acidity']]
 
 # step B
 # now use the dropna() method on axis 0 (the rows) to drop any null values 
 
+df[['density', 'fixed acidity']].dropna(axis=0)
+
 # step B
 # select column 'density'
 
+df[['density', 'fixed acidity']].dropna(axis=0)['density']
+
 # step C
 # select the values
+
+df[['density', 'fixed acidity']].dropna(axis=0)['density'].values
 
 # step D
 # reshape the result with an empty second dimension using .reshape() and store
 # the result under variable x
 
+x = df[['density', 'fixed acidity']].dropna(axis=0)['density'].values.reshape(-1, 1)
+
 # repeat the same process with 'fixed acidity' and variable y
+y = df[['density', 'fixed acidity']].dropna(axis=0)['fixed acidity'].values.reshape(-1, 1)
 ```
 
 Now that we have our x and y arrays we can fit using ScikitLearn
@@ -919,15 +1073,29 @@ Estimate the values of \\(y\\) by using your fitted parameters. Hint: Use your <
 
 ```python
 # define y_pred in terms of m, x, and b
-# y_pred = 
+y_pred = m * x + b
 
 # uncomment the following lines!
-# fig, ax = plt.subplots(1,1, figsize=(10,10))
-# ax.plot(x, y_pred, ls='', marker='*')
-# ax.plot(x, y, ls='', marker='.')
+fig, ax = plt.subplots(1,1, figsize=(10,10))
+ax.plot(x, y_pred, ls='', marker='*')
+ax.plot(x, y, ls='', marker='.')
 ```
 
+
+
+
+    [<matplotlib.lines.Line2D at 0x7f6781becca0>]
+
+
+
+
+    
+![png](SOLN_S1_Regression_and_Analysis_files/SOLN_S1_Regression_and_Analysis_44_1.png)
+    
+
+
 We can also return predictions directly with the model object using the predict() method
+
 > note: it is great to get in the habit of utilizing model outputs this way, as the API will be similar across all scikit-learn models (and sometimes models in other libraries as well!)
 
 
@@ -942,13 +1110,13 @@ ax.plot(x, y, ls='', marker='.')
 
 
 
-    [<matplotlib.lines.Line2D at 0x7fdd881875e0>]
+    [<matplotlib.lines.Line2D at 0x7f6781b5c790>]
 
 
 
 
     
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_46_1.png)
+![png](SOLN_S1_Regression_and_Analysis_files/SOLN_S1_Regression_and_Analysis_46_1.png)
     
 
 
@@ -1015,12 +1183,13 @@ $$ Acc = \frac{T_p + T_n}{F_p + F_n + T_p + T_n} $$
 
 Where \\(T\\) is True, \\(F\\) is false, \\(p\\) is positive, \\(n\\) is negative
 
-Just as a quick example, we can perform this type of task on our wine dataset by predicting on quality, which is a discrete 3-9 quality score:
+Just as a quick example, we can perform this type of task on our wine dataset by predicting whether a given data entry is for red or white wine:
 
 
 ```python
-y_train = df['type'].values.reshape(-1,1)
-x_train = df['quality'].values.reshape(-1,1)
+logdf = df.copy().dropna(axis=0)
+y_train = logdf.pop('type').values.reshape(-1,1)
+x_train = logdf.dropna(axis=0).values
 ```
 
 
@@ -1037,6 +1206,14 @@ logreg.fit(x_train, y_train)
 
     /home/wbeckner/anaconda3/envs/py39/lib/python3.9/site-packages/sklearn/utils/validation.py:993: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
       y = column_or_1d(y, warn=True)
+    /home/wbeckner/anaconda3/envs/py39/lib/python3.9/site-packages/sklearn/linear_model/_logistic.py:814: ConvergenceWarning: lbfgs failed to converge (status=1):
+    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+    
+    Increase the number of iterations (max_iter) or scale the data as shown in:
+        https://scikit-learn.org/stable/modules/preprocessing.html
+    Please also refer to the documentation for alternative solver options:
+        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+      n_iter_i = _check_optimize_result(
 
 
 
@@ -1059,7 +1236,7 @@ from sklearn import metrics
 print(metrics.accuracy_score(y_train, y_pred_class))
 ```
 
-    0.7538864091118977
+    0.9797307751818041
 
 
 ### 1.3.3 Beyond a single input feature
@@ -1365,15 +1542,19 @@ print('Coefficient of determination: {:.2f}'.format(r2)
 
 # part A 
 # calculate the MSE using mean_squared_error()
-# mse = 
+mse = mean_squared_error(y, model.predict(X))
 
 # part B
 # calculate the R square using r2_score()
-# r2 = 
+r2 = r2_score(y, model.predict(X))
 
-# print('Mean squared error: {:.2f}'.format(mse))
-# print('Coefficient of determination: {:.2f}'.format(r2))
+print('Mean squared error: {:.2e}'.format(mse))
+print('Coefficient of determination: {:.2f}'.format(r2))
 ```
+
+    Mean squared error: 5.62e-07
+    Coefficient of determination: 0.84
+
 
 ### 🏋️ Exercise 5: make a plot of y actual vs y predicted
 
@@ -1395,7 +1576,7 @@ plt.show()
 # generate a plot of y predicted vs y actual using plt.plot()
 # remember you must set ls to an empty string and marker to some marker style
 
-# plt.plot()
+plt.plot(y, model.predict(X), ls='', marker='.')
 plt.title("Linear regression - computed values on entire data set", fontsize=16)
 plt.xlabel("y$^{\sf calc}$")
 plt.ylabel("y$^{\sf true}$")
@@ -1404,7 +1585,7 @@ plt.show()
 
 
     
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_79_0.png)
+![png](SOLN_S1_Regression_and_Analysis_files/SOLN_S1_Regression_and_Analysis_79_0.png)
     
 
 
@@ -1504,7 +1685,7 @@ print('Coefficient of determination: %.2f' % r2_score(y_test, y_pred_test))
 
 
     
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_86_0.png)
+![png](SOLN_S1_Regression_and_Analysis_files/SOLN_S1_Regression_and_Analysis_86_0.png)
     
 
 
@@ -1521,7 +1702,7 @@ print('Coefficient of determination: %.2f' % r2_score(y_test, y_pred_test))
 
 ### 🍒 1.4.3 **Enrichment**: Other regression algorithms
 
-There are many other regression algorithms the two we want to highlight here are Ridge, LASSO, and Elastic Net. They differ by an added term to the loss function. Let's review. Eq. 2 expanded to multivariate form yields:
+There are many other regression algorithms. The two we want to highlight here are Ridge, LASSO, and Elastic Net. They differ by an added term to the loss function. Let's review. Eq. 2 expanded to multivariate form yields:
 
 $$\sum_{i=1}^{N}(y_i - \sum_{j=1}^{P}x_{ij}\beta_{j})^2$$
 
@@ -1583,17 +1764,17 @@ plt.xlabel("y$^{\sf calc}$")
 plt.ylabel("y$^{\sf true}$")
 plt.show()
 
-print('Mean squared error: %.2f' % mean_squared_error(y_test, y_calc_test))
+print('Mean squared error: %.2e' % mean_squared_error(y_test, y_calc_test))
 print('Coefficient of determination: %.2f' % r2_score(y_test, y_calc_test))
 ```
 
 
     
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_93_0.png)
+![png](SOLN_S1_Regression_and_Analysis_files/SOLN_S1_Regression_and_Analysis_93_0.png)
     
 
 
-    Mean squared error: 0.00
+    Mean squared error: 5.45e-07
     Coefficient of determination: 0.87
 
 
@@ -1609,6 +1790,7 @@ Plot the \\(\beta\\) values vs \\(\lambda\\) from the results of your analysis
 out_lambdas = []
 out_coefs = []
 out_scores = []
+
 for i in range(10):
   lambdas = []
   coefs = []
@@ -1649,13 +1831,13 @@ ax.legend()
 
 
 
-    <matplotlib.legend.Legend at 0x7fdd72270fd0>
+    <matplotlib.legend.Legend at 0x7f6777ffbe20>
 
 
 
 
     
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_97_1.png)
+![png](SOLN_S1_Regression_and_Analysis_files/SOLN_S1_Regression_and_Analysis_97_1.png)
     
 
 
@@ -1683,7 +1865,7 @@ results.plot('lambda', 'scores', ax=ax[1])
 
 
     
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_99_1.png)
+![png](SOLN_S1_Regression_and_Analysis_files/SOLN_S1_Regression_and_Analysis_99_1.png)
     
 
 
@@ -1763,7 +1945,6 @@ Questions to think about while you work on this problem
 - How can you optimize the hyperparameter, \\(\lambda\\)
 - Does one model do better than the other at determining which input features are more important?
 - How about non linear regression / what if the data does not follow a line?
-- How do the bias and variance change for each model
 
 
 ```python
@@ -1786,19 +1967,19 @@ for model in [ElasticNet, Lasso, Ridge, LinearRegression]:
 
     ElasticNet()
     Mean squared error: 4e-06f
-    Coefficient of determination: -0.00
+    Coefficient of determination: -0.01
     
     Lasso()
     Mean squared error: 4e-06f
-    Coefficient of determination: -0.00
+    Coefficient of determination: -0.01
     
     Ridge()
-    Mean squared error: 7e-07f
-    Coefficient of determination: 0.83
+    Mean squared error: 6e-07f
+    Coefficient of determination: 0.85
     
     LinearRegression()
-    Mean squared error: 7e-07f
-    Coefficient of determination: 0.83
+    Mean squared error: 6e-07f
+    Coefficient of determination: 0.85
     
 
 
