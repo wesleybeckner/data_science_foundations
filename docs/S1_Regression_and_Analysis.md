@@ -1692,7 +1692,7 @@ results.plot('lambda', 'scores', ax=ax[1])
 
 ### Problem 1) Number and choice of input features
 
-* Load the red wine dataset and evaluate how the linear regression predictions changes as you change the **number and choice of input features**. The total number of columns in X  is 11 and each column represent a specific input feature. 
+* Load the red wine dataset and evaluate how the linear regression predictions changes as you change the **number and choice of input features**. The total number of columns in X  is 11 and each column represents a specific input feature. 
 
 * Estimate the MSE
 ```

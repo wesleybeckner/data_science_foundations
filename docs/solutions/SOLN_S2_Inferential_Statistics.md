@@ -420,17 +420,17 @@ $$X^2 = \frac{(2-5)^2}{5} + \frac{(8-5)^2}{5} + \frac{(8-5)^2}{5} + \frac{(2-5)^
 
 
 ```python
-(2-5)**2/5 + (8-5)**2/5 + (8-5)**2/5 + (2-5)**2/5
+(3-5)**2/5 + (7-5)**2/5 + (7-5)**2/5 + (3-5)**2/5
 ```
 
 
 
 
-    7.2
+    3.2
 
 
 
-Our p-value, or the probability of observing the null-hypothsis, is under 0.05 (at 0.007). We can conclude that these shift performances were drawn under seperate distributions.
+Our p-value, or the probability of observing the null-hypothsis, is under 0.05. We can conclude that these shift performances were drawn under seperate distributions.
 
 For comparison, let's do this analysis again with shifts of equal performances
 
@@ -587,23 +587,142 @@ going back to our diagram from our earlier pandas session. It looks like wheneve
 
 <img src="https://swcarpentry.github.io/r-novice-gapminder/fig/12-plyr-fig1.png" width=500></img>
 
-Ok, so we know `gp` is separate dataframes. How do we turn them into arrays to then pass to `median_test`?
+Ok, so we know `gp` is separate dataframes. How do we turn the 'EBITDA/KG' column of each dataframe into arrays to then pass to `median_test`?
 
 
 ```python
 # complete this for loop
 for i, j in gp:
-  pass
+  print(i)
+  print(j['EBITDA/KG'].values)
+  break
   # turn 'EBITDA/KG' of j into an array using the .values attribute
   # print this to the screen
 ```
+
+    Butter
+    [ 5.00423594e-01  2.20395451e-01  1.71013869e-01  2.33024872e-01
+      4.80689371e-01  1.64934546e-01  2.03213256e-01  1.78681400e-01
+      1.25050726e-01  2.17021951e-01  7.95955185e-02  3.25042287e-01
+      2.17551215e-01  2.48152299e-01 -1.20503094e-02  1.47190567e-01
+      3.84488948e-01  2.05438764e-01  1.32190256e-01  3.23019144e-01
+     -9.73361477e-03  1.98397692e-01  1.67067902e-01 -2.60063690e-02
+      1.30365325e-01  2.36337749e-01 -9.70556780e-02  1.59051819e-01
+     -8.76572259e-02 -3.32199843e-02 -5.05704451e-02 -5.56458806e-02
+     -8.86273564e-02  4.32267857e-02 -1.88615579e-01  4.24939227e-01
+      9.35136847e-02 -3.43605950e-02  1.63823520e-01  2.78522916e-01
+      1.29207730e-01  1.79194495e-01  1.37419569e-01  1.31372653e-01
+      2.53275225e-01  2.26761431e-01  1.10173466e-01  1.99338787e-01
+     -2.01250197e-01  1.16567591e-01  1.32324984e-01  4.02912418e-01
+      9.35051765e-02  1.65865814e-01  2.12269112e-01  2.53461571e-01
+      1.89055713e-01  1.20416365e-01  3.95276612e-02  2.93121770e-01
+      1.40947082e-01 -1.21555832e-01  1.56455622e-01 -1.29776953e-02
+     -6.17934014e-02 -8.19904808e-02 -3.14711557e-02 -8.03820228e-02
+      1.63839981e-01  8.34406336e-02  1.49369698e-01  1.05990633e-01
+      1.27399979e-01  2.26634255e-01 -2.20801929e-03 -6.92044284e-02
+      1.74048414e-01  1.30933438e-01  1.27620323e-01  2.78652749e-01
+      2.14772018e-01  1.40864278e-01  1.23745138e-01  1.66586809e-01
+      2.91940995e-01  2.49925584e-01  8.65447719e-02  3.80907774e-01
+      2.70851719e-01  3.32946265e-01  9.00795862e-03  2.00960974e-01
+      2.72623570e-01  3.35902190e-01  1.27337723e-01  2.36618545e-01
+     -6.82774785e-02  3.13166906e-01  2.15752651e-01  9.29694447e-02
+      3.60809152e-02  2.32488112e-01  3.38200308e-02  1.70916188e-01
+      2.81620452e-01 -1.61981289e-01 -4.14570666e-02  1.13465970e-02
+      2.28733252e-01  9.87516565e-02  3.52732668e-02  6.32598661e-02
+      2.10300526e-01  1.98761726e-01  1.38832882e-01  2.95465366e-01
+      2.68022024e-01  3.22389724e-01  4.04867623e-01  2.38086167e-01
+      1.12586985e-01  1.94010438e-01  1.96757297e-01  1.65215620e-01
+      1.22730941e-02  1.14415249e-01  3.26252563e-01  1.89080695e-01
+     -5.11830382e-02  2.41661008e-01  2.00063672e-01  3.07633312e-01
+      4.20740234e-01  1.34764192e-01 -4.75993730e-02  1.52973888e-02
+      1.87709908e-01  7.20193743e-02  3.48745346e-02  2.77659158e-01
+      2.73466257e-01  1.32419725e-01  2.85933859e-02  3.99622870e-02
+     -7.46829380e-02  9.03915641e-02 -9.61708181e-02  7.16896946e-02
+      1.08714611e-01  1.18536709e-01  8.52229628e-02  4.13523715e-01
+      7.71194281e-01  1.73738798e-01  3.05406909e-01  1.53831064e-01
+      2.06911408e-01  1.13075512e-01  1.29416734e-01  1.60275533e-01
+      2.29962628e-01  2.50895646e-01  1.73060658e-01  2.01020670e-01
+      3.16227457e-01  1.57652647e-01  5.47188384e-02  2.61436808e-01
+      1.46570523e-01  1.58977569e-01  2.11215119e-01  1.40679855e-01
+     -8.00696326e-02  1.59842103e-01  2.00211820e-01  9.92221921e-02
+     -1.91516176e-02 -5.02510162e-02 -9.15402427e-02  4.28019215e-02
+      1.06537078e-01 -3.24195486e-01  1.79861627e-02 -1.29900711e-01
+     -1.18627679e-01 -1.26903307e-01 -1.12941251e-01  2.81344485e-01
+     -5.75519167e-02  1.62155727e-02  2.14084866e-01  2.05315240e-01
+      1.27598359e-01  1.89025252e-01  3.96820478e-01  1.20290515e-01
+      3.32130996e-01  1.37858897e-01  9.78393589e-02  3.51731323e-01
+      1.10782088e-01  2.27390210e-01  3.89559348e-01  1.74184808e-01
+      3.08568571e-01  1.71747215e-01  2.33275587e-01  2.56728635e-01
+      3.02423314e-01  2.74374851e-01  3.27629705e-02  5.61005655e-02
+      1.68330538e-01  1.12578506e-01  1.08314409e-02  1.33944964e-01
+     -2.12285231e-01 -1.21224032e-01  1.07819533e-01  3.17613330e-02
+      2.84300351e-01 -1.58586907e-01  1.36753020e-01  1.26197635e-01
+      7.40448636e-02  2.35065994e-01 -6.15319415e-02 -7.51966701e-02
+      4.13427726e-01  1.60539980e-01  1.09901498e-01  1.74329568e-01
+      1.48135527e-01  1.85728609e-01  2.85476612e-01  2.24898461e-01
+      1.33343564e-01  1.80618963e-01  2.03080820e-02  2.16728570e-01
+      1.86566493e-01  1.25929822e-01  1.79317565e-01  3.88162321e-01
+      2.03009067e-01  2.64872648e-01  4.95978731e-01  1.52347749e-01
+     -7.23596372e-02  1.29552280e-01  6.16496157e-02  1.05956924e-01
+     -2.71699836e-01 -5.64473565e-03 -2.50275527e-02  1.29269950e-01
+     -1.87247727e-01 -3.49347255e-01 -1.93280406e-01  7.87217542e-02
+      2.21951811e-01  7.10999656e-02  3.49382049e-02  1.48398799e-01
+      5.65517753e-02  1.05690961e-01  2.55476023e-01  1.28401889e-01
+      1.33289903e-01  1.14201836e-01  1.43169893e-01  5.69591438e-01
+      1.54755202e-01  1.55028578e-01  1.64827975e-01  4.67083700e-01
+      3.31029661e-02  1.62382617e-01  1.54156022e-01  6.55873722e-01
+     -5.31208735e-02  2.37122763e-01  2.71368392e-01  4.69144223e-01
+      1.62923984e-01  1.22718216e-01  1.68055251e-01  1.35999904e-01
+      2.04736813e-01  1.27146904e-01 -1.12549423e-01  3.24840692e-03
+      7.10375441e-02  7.90146006e-03  5.79775663e-02 -1.57867224e-01
+      1.33194074e-01  1.11364361e-01  1.95665062e-01  5.57144416e-02
+     -6.22623725e-02  2.59366443e-01  1.96512306e-02 -2.47699823e-02
+      3.37429602e-01  1.84628626e-01  2.42417229e-01  1.88852778e-01
+      2.10930109e-01  2.10416004e-01  2.81527817e-01  5.45666352e-01
+      1.85856370e-01  4.88939364e-01  1.29308220e-01  1.30534366e-01
+      4.31600221e-01  1.42478827e-01  1.11633119e-01  1.45026679e-01
+      2.79724659e-01  3.33422150e-01  4.92846588e-01  1.88026032e-01
+      4.35734950e-01  1.29765005e-01  1.36498013e-01  1.27056277e-01
+      2.39063615e-01 -1.49002763e-01  2.00230923e-02  1.23378339e-01
+      6.12350194e-02 -1.57952580e-01  5.93742728e-02 -6.88460761e-03
+      7.48854198e-02  6.45607765e-02  8.47908994e-03  2.15403273e-01
+      6.38359483e-02 -6.30232436e-04  4.09513551e-01  3.59478228e-01
+      1.15102395e-01  1.56907967e-01  1.60361237e-01  3.16259692e-01
+      4.37763243e-01  1.82457530e-01  3.12791208e-01  1.59771151e-01
+     -6.63636501e-02  3.37363422e-01  2.58858115e-01  1.81217734e-01
+      3.73234115e-02  1.44936318e-01  3.16879135e-01  4.73967251e-01
+      2.43696316e-01  2.73749525e-01  2.46270449e-02  2.27465471e-01
+      1.71915626e-01  6.96528119e-02  1.51926333e-01  1.91790172e-01
+     -1.70457889e-01  1.94258861e-02  1.05929285e-01  2.46869777e-01
+     -6.42981449e-03  1.22480623e-01  1.27650832e-01  1.23734951e-01
+      2.01582021e-01  7.66321281e-02  1.25943788e-01 -5.22321249e-02
+      2.95908687e-01  3.44925520e-01  1.07812252e-01  1.15365733e-01
+      2.13185926e-01  1.29626595e-01  4.15526961e-01  1.23294607e-01
+      1.45059294e-01  1.81411556e-01  1.06561684e-01  1.20626826e-01
+      2.19538968e-01  3.16034720e-01  9.72365601e-02  1.83261409e-01
+      1.47228661e-01  1.57946602e-01  3.83712037e-01  1.36031656e-01
+      3.75214905e-02  1.97768668e-02  3.06073435e-02 -1.01445936e-01
+      1.41457346e-01  4.89799924e-02  1.35908206e-01  2.95765484e-02
+      1.34596792e-01 -2.45031560e-01  9.09800159e-02 -2.80465423e-02
+      4.60956009e-03  4.76391647e-02  9.71343281e-02  6.71838252e-02
+     -1.45994631e-02 -5.39188915e-02  2.79919933e-01  2.31919186e-01
+      1.12801182e-01  1.13704532e-01  4.26356671e-01  1.90428244e-01
+      1.10496872e-01  3.31699294e-01  1.36443699e-01  1.97119264e-01
+     -5.57694684e-03  1.11270325e-01  4.61516648e-01  2.68630982e-01
+      1.00774945e-01  1.41438672e-01  3.97197924e-01  1.92009640e-01
+      1.34873803e-01  2.20134800e-01  1.11572142e-01  2.04669213e-02
+      2.21970350e-01 -1.13088611e-01  2.39645009e-01  2.70424952e-01
+      2.65250470e-01  7.79145265e-02  4.09394578e-03 -2.78502700e-01
+     -1.88647588e-02 -8.11508107e-02  2.05797599e-01  1.58278762e-01
+     -1.59274599e-01  4.31328198e-01  1.05097241e-01  1.85069899e-01]
+
 
 After you've completed the previous step, turn this into a list comprehension and pass the result to a variable called `margins`
 
 
 ```python
 # complete the code below
-# margins = [# YOUR LIST COMPREHENSION HERE]
+margins = [j['EBITDA/KG'].values for i,j in gp]
 ```
 
 Remember the list unpacking we did for the tic tac toe project? We're going to do the same thing here. Unpack the margins list for `median_test` and run the cell below!
@@ -611,16 +730,16 @@ Remember the list unpacking we did for the tic tac toe project? We're going to d
 
 ```python
 # complete the following line
-# stat, p, m, table = scipy.stats.median_test(<UNPACK MARGINS HERE>, correction=False)
+stat, p, m, table = scipy.stats.median_test(*margins, correction=False)
 
 print("The pearsons chi-square test statistic: {:.2f}".format(stat))
 print("p-value of the test: {:.2e}".format(p))
 print("the grand median: {:.2e}".format(m))
 ```
 
-    The pearsons chi-square test statistic: 0.00
-    p-value of the test: 1.00e+00
-    the grand median: 1.55e+01
+    The pearsons chi-square test statistic: 448.81
+    p-value of the test: 8.85e-95
+    the grand median: 2.16e-01
 
 
 ##### **Part B** View the distributions of the data using matplotlib and seaborn
@@ -630,7 +749,22 @@ What a fantastic statistical result we found! Can we affirm our result with some
 
 ```python
 # YOUR BOXPLOT HERE
+fig, ax = plt.subplots(figsize=(10,5))
+df.boxplot(by='Base Cake', column='EBITDA/KG', ax=ax)
 ```
+
+
+
+
+    <AxesSubplot:title={'center':'EBITDA/KG'}, xlabel='Base Cake'>
+
+
+
+
+    
+![png](SOLN_S2_Inferential_Statistics_files/SOLN_S2_Inferential_Statistics_44_1.png)
+    
+
 
 For comparison, I've shown the boxplot below using seaborn!
 
@@ -642,7 +776,7 @@ ax = sns.boxplot(x='Base Cake', y='EBITDA/KG', data=df, color='#A0cbe8')
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_46_0.png)
+![png](SOLN_S2_Inferential_Statistics_files/SOLN_S2_Inferential_Statistics_46_0.png)
     
 
 
@@ -668,10 +802,11 @@ descriptors
 for desc in descriptors:
 
   # YOUR CODE FORM MARGINS BELOW
-  # margins = [<YOUR LIST COMPREHENSION>]
+  gp = df.groupby(desc)
+  margins = [j['EBITDA/KG'].values for i, j in gp]
 
   # UNPACK MARGINS INTO MEDIAN_TEST
-  # stat, p, m, table = scipy.stats.median_test(<YOUR UNPACKING METHOD>, correction=False)
+  stat, p, m, table = scipy.stats.median_test(*margins, correction=False)
   print(desc)
   print("The pearsons chi-square test statistic: {:.2f}".format(stat))
   print("p-value of the test: {:e}".format(p))
@@ -679,39 +814,39 @@ for desc in descriptors:
 ```
 
     Base Cake
-    The pearsons chi-square test statistic: 0.00
-    p-value of the test: 1.000000e+00
-    the grand median: 15.5
+    The pearsons chi-square test statistic: 448.81
+    p-value of the test: 8.851450e-95
+    the grand median: 0.21604872880760184
     
     Truffle Type
-    The pearsons chi-square test statistic: 0.00
-    p-value of the test: 1.000000e+00
-    the grand median: 15.5
+    The pearsons chi-square test statistic: 22.86
+    p-value of the test: 1.088396e-05
+    the grand median: 0.21604872880760184
     
     Primary Flavor
-    The pearsons chi-square test statistic: 0.00
-    p-value of the test: 1.000000e+00
-    the grand median: 15.5
+    The pearsons chi-square test statistic: 638.99
+    p-value of the test: 3.918933e-103
+    the grand median: 0.21604872880760184
     
     Secondary Flavor
-    The pearsons chi-square test statistic: 0.00
-    p-value of the test: 1.000000e+00
-    the grand median: 15.5
+    The pearsons chi-square test statistic: 323.13
+    p-value of the test: 6.083210e-52
+    the grand median: 0.21604872880760184
     
     Color Group
-    The pearsons chi-square test statistic: 0.00
-    p-value of the test: 1.000000e+00
-    the grand median: 15.5
+    The pearsons chi-square test statistic: 175.18
+    p-value of the test: 1.011412e-31
+    the grand median: 0.21604872880760184
     
     Customer
-    The pearsons chi-square test statistic: 0.00
-    p-value of the test: 1.000000e+00
-    the grand median: 15.5
+    The pearsons chi-square test statistic: 5.66
+    p-value of the test: 2.257760e-01
+    the grand median: 0.21604872880760184
     
     Date
-    The pearsons chi-square test statistic: 0.00
-    p-value of the test: 1.000000e+00
-    the grand median: 15.5
+    The pearsons chi-square test statistic: 5.27
+    p-value of the test: 9.175929e-01
+    the grand median: 0.21604872880760184
     
 
 
@@ -723,48 +858,52 @@ And finally, we will confirm these visually. Complete the Boxplot for each group
 ```python
 for desc in descriptors:
   fig, ax = plt.subplots(figsize=(10,5))
-  # sns.boxplot(x=<YOUR X VARIABLE HERE>, y='EBITDA/KG', data=df, color='#A0cbe8', ax=ax)
+  sns.boxplot(x=desc, y='EBITDA/KG', data=df, color='#A0cbe8', ax=ax)
 ```
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_0.png)
+![png](SOLN_S2_Inferential_Statistics_files/SOLN_S2_Inferential_Statistics_51_0.png)
     
 
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_1.png)
+![png](SOLN_S2_Inferential_Statistics_files/SOLN_S2_Inferential_Statistics_51_1.png)
+    
+
+
+    /home/wbeckner/anaconda3/envs/py39/lib/python3.9/site-packages/IPython/core/pylabtools.py:151: UserWarning: Glyph 9 (	) missing from current font.
+      fig.canvas.print_figure(bytes_io, **kw)
+
+
+
+    
+![png](SOLN_S2_Inferential_Statistics_files/SOLN_S2_Inferential_Statistics_51_3.png)
     
 
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_2.png)
+![png](SOLN_S2_Inferential_Statistics_files/SOLN_S2_Inferential_Statistics_51_4.png)
     
 
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_3.png)
+![png](SOLN_S2_Inferential_Statistics_files/SOLN_S2_Inferential_Statistics_51_5.png)
     
 
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_4.png)
+![png](SOLN_S2_Inferential_Statistics_files/SOLN_S2_Inferential_Statistics_51_6.png)
     
 
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_5.png)
-    
-
-
-
-    
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_6.png)
+![png](SOLN_S2_Inferential_Statistics_files/SOLN_S2_Inferential_Statistics_51_7.png)
     
 
 
@@ -959,7 +1098,7 @@ shifts.boxplot()
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_65_1.png)
+![png](SOLN_S2_Inferential_Statistics_files/SOLN_S2_Inferential_Statistics_65_1.png)
     
 
 
@@ -978,7 +1117,7 @@ ax = sns.swarmplot(x="shift", y="rate", data=shift_melt, color='#79706e')
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_67_0.png)
+![png](SOLN_S2_Inferential_Statistics_files/SOLN_S2_Inferential_Statistics_67_0.png)
     
 
 
@@ -1165,7 +1304,7 @@ moodsdf.columns = [col, 'pearsons_chi_square', 'p_value',
 
     Candy Outer: N=288
     Welch's T-Test for Unequal Variances
-    Ttest_indResult(statistic=-2.7615297773427527, pvalue=0.005911048922657976)
+    Ttest_indResult(statistic=-2.7615297773427474, pvalue=0.0059110489226580736)
     
     Chocolate Outer: N=1356
     Welch's T-Test for Unequal Variances
@@ -1173,7 +1312,7 @@ moodsdf.columns = [col, 'pearsons_chi_square', 'p_value',
     
     Jelly Filled: N=24
     Welch's T-Test for Unequal Variances
-    Ttest_indResult(statistic=-8.4142523067935, pvalue=7.929912531660173e-09)
+    Ttest_indResult(statistic=-8.414252306793504, pvalue=7.929912531660087e-09)
     
 
 
@@ -1192,10 +1331,7 @@ moodsdf.sort_values('p_value')
 
 
 
-
-  <div id="df-454973ee-99a5-4f68-ba45-07a3ec3ec7d4">
-    <div class="colab-df-container">
-      <div>
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1228,118 +1364,42 @@ moodsdf.sort_values('p_value')
     <tr>
       <th>0</th>
       <td>Jelly Filled</td>
-      <td>18.6432</td>
-      <td>1.57604e-05</td>
+      <td>18.643248</td>
+      <td>0.000016</td>
       <td>0.216049</td>
-      <td>0.0513823</td>
-      <td>0.0179334</td>
+      <td>0.051382</td>
+      <td>0.017933</td>
       <td>24</td>
-      <td>7.92991e-09</td>
+      <td>0.0</td>
       <td>[[1, 833], [23, 811]]</td>
     </tr>
     <tr>
       <th>0</th>
       <td>Chocolate Outer</td>
-      <td>6.6275</td>
-      <td>0.0100416</td>
+      <td>6.627496</td>
+      <td>0.010042</td>
       <td>0.216049</td>
       <td>0.262601</td>
       <td>0.225562</td>
       <td>1356</td>
-      <td>1.19327e-05</td>
+      <td>0.000012</td>
       <td>[[699, 135], [657, 177]]</td>
     </tr>
     <tr>
       <th>0</th>
       <td>Candy Outer</td>
-      <td>1.51507</td>
+      <td>1.515066</td>
       <td>0.218368</td>
       <td>0.216049</td>
       <td>0.230075</td>
       <td>0.204264</td>
       <td>288</td>
-      <td>0.00591105</td>
+      <td>0.005911</td>
       <td>[[134, 700], [154, 680]]</td>
     </tr>
   </tbody>
 </table>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-454973ee-99a5-4f68-ba45-07a3ec3ec7d4')"
-              title="Convert this dataframe to an interactive table."
-              style="display:none;">
-
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
-       width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"/>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
-  </svg>
-      </button>
-
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-454973ee-99a5-4f68-ba45-07a3ec3ec7d4 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-454973ee-99a5-4f68-ba45-07a3ec3ec7d4');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-
 
 
 
@@ -1404,10 +1464,7 @@ moodsdf
 
 
 
-
-  <div id="df-1344c1dc-78a4-49b0-ae73-6882f12e5628">
-    <div class="colab-df-container">
-      <div>
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1442,744 +1499,668 @@ moodsdf
       <th>0</th>
       <td>Secondary Flavor</td>
       <td>Papaya</td>
-      <td>18.6432</td>
-      <td>1.57604e-05</td>
+      <td>18.643248</td>
+      <td>0.000016</td>
       <td>0.216049</td>
-      <td>0.0167466</td>
-      <td>0.00245839</td>
+      <td>0.016747</td>
+      <td>0.002458</td>
       <td>24</td>
-      <td>1.04879e-10</td>
+      <td>0.0</td>
       <td>[[1, 833], [23, 811]]</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Primary Flavor</td>
       <td>Orange Pineapple\tP</td>
-      <td>18.6432</td>
-      <td>1.57604e-05</td>
+      <td>18.643248</td>
+      <td>0.000016</td>
       <td>0.216049</td>
-      <td>0.0167466</td>
-      <td>0.00245839</td>
+      <td>0.016747</td>
+      <td>0.002458</td>
       <td>24</td>
-      <td>1.04879e-10</td>
+      <td>0.0</td>
       <td>[[1, 833], [23, 811]]</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Primary Flavor</td>
       <td>Cherry Cream Spice</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
       <td>0.216049</td>
-      <td>0.0187023</td>
-      <td>0.00970093</td>
+      <td>0.018702</td>
+      <td>0.009701</td>
       <td>12</td>
-      <td>7.15389e-07</td>
+      <td>0.000001</td>
       <td>[[0, 834], [12, 822]]</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Secondary Flavor</td>
       <td>Cucumber</td>
-      <td>18.6432</td>
-      <td>1.57604e-05</td>
+      <td>18.643248</td>
+      <td>0.000016</td>
       <td>0.216049</td>
-      <td>0.0513823</td>
-      <td>0.0179334</td>
+      <td>0.051382</td>
+      <td>0.017933</td>
       <td>24</td>
-      <td>7.92991e-09</td>
+      <td>0.0</td>
       <td>[[1, 833], [23, 811]]</td>
     </tr>
     <tr>
       <th>4</th>
       <td>Truffle Type</td>
       <td>Jelly Filled</td>
-      <td>18.6432</td>
-      <td>1.57604e-05</td>
+      <td>18.643248</td>
+      <td>0.000016</td>
       <td>0.216049</td>
-      <td>0.0513823</td>
-      <td>0.0179334</td>
+      <td>0.051382</td>
+      <td>0.017933</td>
       <td>24</td>
-      <td>7.92991e-09</td>
+      <td>0.0</td>
       <td>[[1, 833], [23, 811]]</td>
     </tr>
     <tr>
       <th>5</th>
       <td>Primary Flavor</td>
       <td>Orange</td>
-      <td>18.6432</td>
-      <td>1.57604e-05</td>
+      <td>18.643248</td>
+      <td>0.000016</td>
       <td>0.216049</td>
-      <td>0.0513823</td>
-      <td>0.0179334</td>
+      <td>0.051382</td>
+      <td>0.017933</td>
       <td>24</td>
-      <td>7.92991e-09</td>
+      <td>0.0</td>
       <td>[[1, 833], [23, 811]]</td>
     </tr>
     <tr>
       <th>6</th>
       <td>Primary Flavor</td>
       <td>Toasted Coconut</td>
-      <td>15.2613</td>
-      <td>9.36173e-05</td>
+      <td>15.261253</td>
+      <td>0.000094</td>
       <td>0.216049</td>
-      <td>0.0370021</td>
-      <td>0.0283916</td>
+      <td>0.037002</td>
+      <td>0.028392</td>
       <td>24</td>
-      <td>3.13722e-08</td>
+      <td>0.0</td>
       <td>[[2, 832], [22, 812]]</td>
     </tr>
     <tr>
       <th>7</th>
       <td>Secondary Flavor</td>
       <td>Apricot</td>
-      <td>15.2613</td>
-      <td>9.36173e-05</td>
+      <td>15.261253</td>
+      <td>0.000094</td>
       <td>0.216049</td>
-      <td>0.0603122</td>
-      <td>0.0374225</td>
+      <td>0.060312</td>
+      <td>0.037422</td>
       <td>24</td>
-      <td>4.5952e-08</td>
+      <td>0.0</td>
       <td>[[2, 832], [22, 812]]</td>
     </tr>
     <tr>
       <th>8</th>
       <td>Primary Flavor</td>
       <td>Kettle Corn</td>
-      <td>29.0621</td>
-      <td>7.00962e-08</td>
+      <td>29.062065</td>
+      <td>0.0</td>
       <td>0.216049</td>
-      <td>0.0554518</td>
+      <td>0.055452</td>
       <td>0.045891</td>
       <td>60</td>
-      <td>6.3013e-18</td>
+      <td>0.0</td>
       <td>[[9, 825], [51, 783]]</td>
     </tr>
     <tr>
       <th>9</th>
       <td>Primary Flavor</td>
       <td>Acai Berry</td>
-      <td>18.6432</td>
-      <td>1.57604e-05</td>
+      <td>18.643248</td>
+      <td>0.000016</td>
       <td>0.216049</td>
-      <td>0.0365051</td>
-      <td>0.0494656</td>
+      <td>0.036505</td>
+      <td>0.049466</td>
       <td>24</td>
-      <td>1.49539e-10</td>
+      <td>0.0</td>
       <td>[[1, 833], [23, 811]]</td>
     </tr>
     <tr>
       <th>10</th>
       <td>Primary Flavor</td>
       <td>Pink Lemonade</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
       <td>0.216049</td>
-      <td>0.0398622</td>
-      <td>0.0563492</td>
+      <td>0.039862</td>
+      <td>0.056349</td>
       <td>12</td>
-      <td>1.06677e-05</td>
+      <td>0.000011</td>
       <td>[[0, 834], [12, 822]]</td>
     </tr>
     <tr>
       <th>11</th>
       <td>Secondary Flavor</td>
       <td>Black Cherry</td>
-      <td>58.9004</td>
-      <td>1.65861e-14</td>
+      <td>58.900366</td>
+      <td>0.0</td>
       <td>0.216049</td>
-      <td>0.0559745</td>
-      <td>0.0628979</td>
+      <td>0.055975</td>
+      <td>0.062898</td>
       <td>96</td>
-      <td>6.65441e-31</td>
+      <td>0.0</td>
       <td>[[11, 823], [85, 749]]</td>
     </tr>
     <tr>
       <th>12</th>
       <td>Primary Flavor</td>
       <td>Watermelon</td>
-      <td>15.2613</td>
-      <td>9.36173e-05</td>
+      <td>15.261253</td>
+      <td>0.000094</td>
       <td>0.216049</td>
-      <td>0.0440497</td>
-      <td>0.0678958</td>
+      <td>0.04405</td>
+      <td>0.067896</td>
       <td>24</td>
-      <td>5.20636e-08</td>
+      <td>0.0</td>
       <td>[[2, 832], [22, 812]]</td>
     </tr>
     <tr>
       <th>13</th>
       <td>Primary Flavor</td>
       <td>Plum</td>
-      <td>34.8516</td>
-      <td>3.55816e-09</td>
+      <td>34.851608</td>
+      <td>0.0</td>
       <td>0.216049</td>
-      <td>0.0849632</td>
-      <td>0.0799934</td>
+      <td>0.084963</td>
+      <td>0.079993</td>
       <td>72</td>
-      <td>1.20739e-16</td>
+      <td>0.0</td>
       <td>[[11, 823], [61, 773]]</td>
     </tr>
     <tr>
       <th>14</th>
       <td>Secondary Flavor</td>
       <td>Dill Pickle</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
       <td>0.216049</td>
-      <td>0.0370421</td>
-      <td>0.0824944</td>
+      <td>0.037042</td>
+      <td>0.082494</td>
       <td>12</td>
-      <td>7.45639e-06</td>
+      <td>0.000007</td>
       <td>[[0, 834], [12, 822]]</td>
     </tr>
     <tr>
       <th>15</th>
       <td>Primary Flavor</td>
       <td>Horchata</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
       <td>0.216049</td>
-      <td>0.0370421</td>
-      <td>0.0824944</td>
+      <td>0.037042</td>
+      <td>0.082494</td>
       <td>12</td>
-      <td>7.45639e-06</td>
+      <td>0.000007</td>
       <td>[[0, 834], [12, 822]]</td>
     </tr>
     <tr>
       <th>16</th>
       <td>Primary Flavor</td>
       <td>Lemon Custard</td>
-      <td>12.2175</td>
-      <td>0.000473444</td>
+      <td>12.217457</td>
+      <td>0.000473</td>
       <td>0.216049</td>
-      <td>0.0793894</td>
+      <td>0.079389</td>
       <td>0.087969</td>
       <td>24</td>
-      <td>6.19493e-06</td>
+      <td>0.000006</td>
       <td>[[3, 831], [21, 813]]</td>
     </tr>
     <tr>
       <th>17</th>
       <td>Primary Flavor</td>
       <td>Fruit Punch</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
       <td>0.216049</td>
-      <td>0.0789353</td>
-      <td>0.0903256</td>
+      <td>0.078935</td>
+      <td>0.090326</td>
       <td>12</td>
-      <td>7.61061e-05</td>
+      <td>0.000076</td>
       <td>[[0, 834], [12, 822]]</td>
     </tr>
     <tr>
       <th>18</th>
       <td>Base Cake</td>
       <td>Chiffon</td>
-      <td>117.046</td>
-      <td>2.80454e-27</td>
+      <td>117.046226</td>
+      <td>0.0</td>
       <td>0.216049</td>
       <td>0.127851</td>
       <td>0.125775</td>
       <td>288</td>
-      <td>6.79655e-43</td>
+      <td>0.0</td>
       <td>[[60, 774], [228, 606]]</td>
     </tr>
     <tr>
       <th>19</th>
       <td>Base Cake</td>
       <td>Butter</td>
-      <td>134.367</td>
-      <td>4.54085e-31</td>
+      <td>134.36727</td>
+      <td>0.0</td>
       <td>0.216049</td>
       <td>0.142082</td>
       <td>0.139756</td>
       <td>456</td>
-      <td>9.8457e-52</td>
+      <td>0.0</td>
       <td>[[122, 712], [334, 500]]</td>
     </tr>
     <tr>
       <th>20</th>
       <td>Secondary Flavor</td>
       <td>Banana</td>
-      <td>10.8053</td>
-      <td>0.00101207</td>
+      <td>10.805348</td>
+      <td>0.001012</td>
       <td>0.216049</td>
       <td>0.163442</td>
       <td>0.15537</td>
       <td>60</td>
-      <td>7.23966e-09</td>
+      <td>0.0</td>
       <td>[[17, 817], [43, 791]]</td>
     </tr>
     <tr>
       <th>21</th>
       <td>Primary Flavor</td>
       <td>Cream Soda</td>
-      <td>9.51186</td>
-      <td>0.00204148</td>
+      <td>9.511861</td>
+      <td>0.002041</td>
       <td>0.216049</td>
       <td>0.150265</td>
       <td>0.163455</td>
       <td>24</td>
-      <td>2.17977e-06</td>
+      <td>0.000002</td>
       <td>[[4, 830], [20, 814]]</td>
     </tr>
     <tr>
       <th>22</th>
       <td>Secondary Flavor</td>
       <td>Peppermint</td>
-      <td>9.51186</td>
-      <td>0.00204148</td>
+      <td>9.511861</td>
+      <td>0.002041</td>
       <td>0.216049</td>
       <td>0.150265</td>
       <td>0.163455</td>
       <td>24</td>
-      <td>2.17977e-06</td>
+      <td>0.000002</td>
       <td>[[4, 830], [20, 814]]</td>
     </tr>
     <tr>
       <th>23</th>
       <td>Primary Flavor</td>
       <td>Grand Mariner</td>
-      <td>10.5818</td>
-      <td>0.00114208</td>
+      <td>10.581767</td>
+      <td>0.001142</td>
       <td>0.216049</td>
       <td>0.197463</td>
       <td>0.165529</td>
       <td>72</td>
-      <td>0.000828508</td>
+      <td>0.000829</td>
       <td>[[22, 812], [50, 784]]</td>
     </tr>
     <tr>
       <th>24</th>
       <td>Color Group</td>
       <td>Amethyst</td>
-      <td>20.4883</td>
-      <td>5.99977e-06</td>
+      <td>20.488275</td>
+      <td>0.000006</td>
       <td>0.216049</td>
       <td>0.195681</td>
       <td>0.167321</td>
       <td>300</td>
-      <td>4.0427e-07</td>
+      <td>0.0</td>
       <td>[[114, 720], [186, 648]]</td>
     </tr>
     <tr>
       <th>25</th>
       <td>Color Group</td>
       <td>Burgundy</td>
-      <td>10.9997</td>
-      <td>0.000911278</td>
+      <td>10.999677</td>
+      <td>0.000911</td>
       <td>0.216049</td>
       <td>0.193048</td>
       <td>0.171465</td>
       <td>120</td>
-      <td>0.000406312</td>
+      <td>0.000406</td>
       <td>[[42, 792], [78, 756]]</td>
     </tr>
     <tr>
       <th>26</th>
       <td>Color Group</td>
       <td>White</td>
-      <td>35.7653</td>
-      <td>2.22582e-09</td>
+      <td>35.76526</td>
+      <td>0.0</td>
       <td>0.216049</td>
       <td>0.19</td>
       <td>0.177264</td>
       <td>432</td>
-      <td>1.56475e-16</td>
+      <td>0.0</td>
       <td>[[162, 672], [270, 564]]</td>
     </tr>
     <tr>
       <th>27</th>
       <td>Color Group</td>
       <td>Opal</td>
-      <td>11.5872</td>
-      <td>0.000664086</td>
+      <td>11.587164</td>
+      <td>0.000664</td>
       <td>0.216049</td>
       <td>0.317878</td>
       <td>0.259304</td>
       <td>324</td>
-      <td>3.94098e-07</td>
+      <td>0.0</td>
       <td>[[190, 644], [134, 700]]</td>
     </tr>
     <tr>
       <th>28</th>
       <td>Secondary Flavor</td>
       <td>Apple</td>
-      <td>27.2833</td>
-      <td>1.75723e-07</td>
+      <td>27.283292</td>
+      <td>0.0</td>
       <td>0.216049</td>
       <td>0.326167</td>
       <td>0.293876</td>
       <td>36</td>
-      <td>0.00117635</td>
+      <td>0.001176</td>
       <td>[[34, 800], [2, 832]]</td>
     </tr>
     <tr>
       <th>29</th>
       <td>Secondary Flavor</td>
       <td>Tangerine</td>
-      <td>32.6264</td>
-      <td>1.11688e-08</td>
+      <td>32.626389</td>
+      <td>0.0</td>
       <td>0.216049</td>
       <td>0.342314</td>
       <td>0.319273</td>
       <td>48</td>
-      <td>0.000112572</td>
+      <td>0.000113</td>
       <td>[[44, 790], [4, 830]]</td>
     </tr>
     <tr>
       <th>30</th>
       <td>Secondary Flavor</td>
       <td>Black Currant</td>
-      <td>34.7784</td>
-      <td>3.69452e-09</td>
+      <td>34.778391</td>
+      <td>0.0</td>
       <td>0.216049</td>
       <td>0.357916</td>
       <td>0.332449</td>
       <td>36</td>
-      <td>9.48594e-08</td>
+      <td>0.0</td>
       <td>[[36, 798], [0, 834]]</td>
     </tr>
     <tr>
       <th>31</th>
       <td>Secondary Flavor</td>
       <td>Pear</td>
-      <td>16.6143</td>
-      <td>4.58043e-05</td>
+      <td>16.614303</td>
+      <td>0.000046</td>
       <td>0.216049</td>
       <td>0.373034</td>
       <td>0.33831</td>
       <td>60</td>
-      <td>3.05948e-05</td>
+      <td>0.000031</td>
       <td>[[46, 788], [14, 820]]</td>
     </tr>
     <tr>
       <th>32</th>
       <td>Primary Flavor</td>
       <td>Vanilla</td>
-      <td>34.7784</td>
-      <td>3.69452e-09</td>
+      <td>34.778391</td>
+      <td>0.0</td>
       <td>0.216049</td>
       <td>0.378053</td>
       <td>0.341626</td>
       <td>36</td>
-      <td>1.00231e-06</td>
+      <td>0.000001</td>
       <td>[[36, 798], [0, 834]]</td>
     </tr>
     <tr>
       <th>33</th>
       <td>Color Group</td>
       <td>Citrine</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
       <td>0.216049</td>
       <td>0.390728</td>
       <td>0.342512</td>
       <td>12</td>
-      <td>0.00192513</td>
+      <td>0.001925</td>
       <td>[[12, 822], [0, 834]]</td>
     </tr>
     <tr>
       <th>34</th>
       <td>Color Group</td>
       <td>Teal</td>
-      <td>13.5397</td>
-      <td>0.000233572</td>
+      <td>13.539679</td>
+      <td>0.000234</td>
       <td>0.216049</td>
       <td>0.323955</td>
       <td>0.3446</td>
       <td>96</td>
-      <td>0.00120954</td>
+      <td>0.00121</td>
       <td>[[66, 768], [30, 804]]</td>
     </tr>
     <tr>
       <th>35</th>
       <td>Base Cake</td>
       <td>Tiramisu</td>
-      <td>52.3606</td>
-      <td>4.61894e-13</td>
+      <td>52.360619</td>
+      <td>0.0</td>
       <td>0.216049</td>
       <td>0.388267</td>
       <td>0.362102</td>
       <td>144</td>
-      <td>7.98485e-12</td>
+      <td>0.0</td>
       <td>[[114, 720], [30, 804]]</td>
     </tr>
     <tr>
       <th>36</th>
       <td>Primary Flavor</td>
       <td>Doughnut</td>
-      <td>74.9353</td>
-      <td>4.86406e-18</td>
+      <td>74.935256</td>
+      <td>0.0</td>
       <td>0.216049</td>
       <td>0.439721</td>
       <td>0.379361</td>
       <td>108</td>
-      <td>2.47855e-15</td>
+      <td>0.0</td>
       <td>[[98, 736], [10, 824]]</td>
     </tr>
     <tr>
       <th>37</th>
       <td>Secondary Flavor</td>
       <td>Ginger Beer</td>
-      <td>22.3634</td>
-      <td>2.25628e-06</td>
+      <td>22.363443</td>
+      <td>0.000002</td>
       <td>0.216049</td>
       <td>0.444895</td>
       <td>0.382283</td>
       <td>24</td>
-      <td>0.000480693</td>
+      <td>0.000481</td>
       <td>[[24, 810], [0, 834]]</td>
     </tr>
     <tr>
       <th>38</th>
       <td>Color Group</td>
       <td>Rose</td>
-      <td>18.6432</td>
-      <td>1.57604e-05</td>
+      <td>18.643248</td>
+      <td>0.000016</td>
       <td>0.216049</td>
       <td>0.42301</td>
       <td>0.407061</td>
       <td>24</td>
-      <td>6.16356e-05</td>
+      <td>0.000062</td>
       <td>[[23, 811], [1, 833]]</td>
     </tr>
     <tr>
       <th>39</th>
       <td>Base Cake</td>
       <td>Cheese</td>
-      <td>66.8047</td>
-      <td>2.99776e-16</td>
+      <td>66.804744</td>
+      <td>0.0</td>
       <td>0.216049</td>
       <td>0.450934</td>
       <td>0.435638</td>
       <td>84</td>
-      <td>4.5139e-18</td>
+      <td>0.0</td>
       <td>[[79, 755], [5, 829]]</td>
     </tr>
     <tr>
       <th>40</th>
       <td>Primary Flavor</td>
       <td>Butter Toffee</td>
-      <td>60.1815</td>
-      <td>8.65028e-15</td>
+      <td>60.181468</td>
+      <td>0.0</td>
       <td>0.216049</td>
       <td>0.50366</td>
       <td>0.456343</td>
       <td>60</td>
-      <td>2.09848e-19</td>
+      <td>0.0</td>
       <td>[[60, 774], [0, 834]]</td>
     </tr>
     <tr>
       <th>41</th>
       <td>Color Group</td>
       <td>Slate</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
       <td>0.216049</td>
       <td>0.540214</td>
       <td>0.483138</td>
       <td>12</td>
-      <td>1.69239e-05</td>
+      <td>0.000017</td>
       <td>[[12, 822], [0, 834]]</td>
     </tr>
     <tr>
       <th>42</th>
       <td>Primary Flavor</td>
       <td>Gingersnap</td>
-      <td>22.3634</td>
-      <td>2.25628e-06</td>
+      <td>22.363443</td>
+      <td>0.000002</td>
       <td>0.216049</td>
       <td>0.643218</td>
       <td>0.623627</td>
       <td>24</td>
-      <td>9.02005e-16</td>
+      <td>0.0</td>
       <td>[[24, 810], [0, 834]]</td>
     </tr>
     <tr>
       <th>43</th>
       <td>Primary Flavor</td>
       <td>Dill Pickle</td>
-      <td>22.3634</td>
-      <td>2.25628e-06</td>
+      <td>22.363443</td>
+      <td>0.000002</td>
       <td>0.216049</td>
       <td>0.642239</td>
       <td>0.655779</td>
       <td>24</td>
-      <td>5.14558e-16</td>
+      <td>0.0</td>
       <td>[[24, 810], [0, 834]]</td>
     </tr>
     <tr>
       <th>44</th>
       <td>Color Group</td>
       <td>Olive</td>
-      <td>44.9675</td>
-      <td>2.00328e-11</td>
+      <td>44.967537</td>
+      <td>0.0</td>
       <td>0.216049</td>
       <td>0.637627</td>
       <td>0.670186</td>
       <td>60</td>
-      <td>3.71909e-20</td>
+      <td>0.0</td>
       <td>[[56, 778], [4, 830]]</td>
     </tr>
     <tr>
       <th>45</th>
       <td>Primary Flavor</td>
       <td>Butter Milk</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
       <td>0.216049</td>
       <td>0.699284</td>
       <td>0.688601</td>
       <td>12</td>
-      <td>2.76773e-07</td>
+      <td>0.0</td>
       <td>[[12, 822], [0, 834]]</td>
     </tr>
     <tr>
       <th>46</th>
       <td>Base Cake</td>
       <td>Sponge</td>
-      <td>127.156</td>
-      <td>1.71707e-29</td>
+      <td>127.156266</td>
+      <td>0.0</td>
       <td>0.216049</td>
       <td>0.698996</td>
       <td>0.699355</td>
       <td>120</td>
-      <td>2.5584e-80</td>
+      <td>0.0</td>
       <td>[[120, 714], [0, 834]]</td>
     </tr>
     <tr>
       <th>47</th>
       <td>Primary Flavor</td>
       <td>Chocolate Mint</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
       <td>0.216049</td>
       <td>0.685546</td>
       <td>0.699666</td>
       <td>12</td>
-      <td>1.48794e-07</td>
+      <td>0.0</td>
       <td>[[12, 822], [0, 834]]</td>
     </tr>
     <tr>
       <th>48</th>
       <td>Primary Flavor</td>
       <td>Coconut</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
       <td>0.216049</td>
       <td>0.732777</td>
       <td>0.717641</td>
       <td>12</td>
-      <td>3.06716e-14</td>
+      <td>0.0</td>
       <td>[[12, 822], [0, 834]]</td>
     </tr>
     <tr>
       <th>49</th>
       <td>Primary Flavor</td>
       <td>Blueberry</td>
-      <td>22.3634</td>
-      <td>2.25628e-06</td>
+      <td>22.363443</td>
+      <td>0.000002</td>
       <td>0.216049</td>
       <td>0.759643</td>
       <td>0.72536</td>
       <td>24</td>
-      <td>9.11605e-14</td>
+      <td>0.0</td>
       <td>[[24, 810], [0, 834]]</td>
     </tr>
     <tr>
       <th>50</th>
       <td>Primary Flavor</td>
       <td>Amaretto</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
       <td>0.216049</td>
       <td>0.782156</td>
       <td>0.764845</td>
       <td>12</td>
-      <td>8.53642e-10</td>
+      <td>0.0</td>
       <td>[[12, 822], [0, 834]]</td>
     </tr>
   </tbody>
 </table>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-1344c1dc-78a4-49b0-ae73-6882f12e5628')"
-              title="Convert this dataframe to an interactive table."
-              style="display:none;">
-
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
-       width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"/>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
-  </svg>
-      </button>
-
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-1344c1dc-78a4-49b0-ae73-6882f12e5628 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-1344c1dc-78a4-49b0-ae73-6882f12e5628');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-
 
 
 
@@ -2197,10 +2178,7 @@ shift_melt.head()
 
 
 
-
-  <div id="df-d48631b7-b109-4627-aa30-b85e20e0f05c">
-    <div class="colab-df-container">
-      <div>
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -2228,13 +2206,13 @@ shift_melt.head()
       <th>0</th>
       <td>0</td>
       <td>A</td>
-      <td>15</td>
+      <td>11</td>
     </tr>
     <tr>
       <th>1</th>
       <td>1</td>
       <td>A</td>
-      <td>15</td>
+      <td>14</td>
     </tr>
     <tr>
       <th>2</th>
@@ -2252,87 +2230,11 @@ shift_melt.head()
       <th>4</th>
       <td>4</td>
       <td>A</td>
-      <td>17</td>
+      <td>16</td>
     </tr>
   </tbody>
 </table>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-d48631b7-b109-4627-aa30-b85e20e0f05c')"
-              title="Convert this dataframe to an interactive table."
-              style="display:none;">
-
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
-       width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"/>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
-  </svg>
-      </button>
-
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-d48631b7-b109-4627-aa30-b85e20e0f05c button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-d48631b7-b109-4627-aa30-b85e20e0f05c');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-
 
 
 
@@ -2355,10 +2257,7 @@ anova_table
 
 
 
-
-  <div id="df-6482d5af-de98-431a-99f6-9afefa83eae3">
-    <div class="colab-df-container">
-      <div>
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -2400,82 +2299,6 @@ anova_table
   </tbody>
 </table>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-6482d5af-de98-431a-99f6-9afefa83eae3')"
-              title="Convert this dataframe to an interactive table."
-              style="display:none;">
-
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
-       width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"/>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
-  </svg>
-      </button>
-
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-6482d5af-de98-431a-99f6-9afefa83eae3 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-6482d5af-de98-431a-99f6-9afefa83eae3');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-
 
 
 
@@ -2501,7 +2324,7 @@ gb
 
 
 
-    <pandas.core.groupby.generic.SeriesGroupBy object at 0x7fafac7cfd10>
+    <pandas.core.groupby.generic.SeriesGroupBy object at 0x7fb6940a7370>
 
 
 
@@ -2537,10 +2360,7 @@ for col in df.columns[:5]:
 
 
 
-
-  <div id="df-7ab530db-b767-4222-a1eb-b8d9494d63c2">
-    <div class="colab-df-container">
-      <div>
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -2582,95 +2402,16 @@ for col in df.columns[:5]:
   </tbody>
 </table>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-7ab530db-b767-4222-a1eb-b8d9494d63c2')"
-              title="Convert this dataframe to an interactive table."
-              style="display:none;">
-
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
-       width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"/>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
-  </svg>
-      </button>
-
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-7ab530db-b767-4222-a1eb-b8d9494d63c2 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-7ab530db-b767-4222-a1eb-b8d9494d63c2');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-
 
 
     Shapiro:  0.9634131193161011 4.1681337029688696e-20
-    Bartlett:  69.83288886114195 1.1102218566053728e-13
+    Bartlett:  69.83288886114286 1.1102218566048873e-13
     
     Truffle_Type
 
 
 
-
-  <div id="df-925cf159-35c7-459a-b8ef-99d535050c04">
-    <div class="colab-df-container">
-      <div>
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -2712,82 +2453,6 @@ for col in df.columns[:5]:
   </tbody>
 </table>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-925cf159-35c7-459a-b8ef-99d535050c04')"
-              title="Convert this dataframe to an interactive table."
-              style="display:none;">
-
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
-       width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"/>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
-  </svg>
-      </button>
-
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-925cf159-35c7-459a-b8ef-99d535050c04 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-925cf159-35c7-459a-b8ef-99d535050c04');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-
 
 
     Shapiro:  0.9576056599617004 1.2598073820281984e-21
@@ -2797,10 +2462,7 @@ for col in df.columns[:5]:
 
 
 
-
-  <div id="df-940e5512-3a8a-463f-a5a8-a221bee351c5">
-    <div class="colab-df-container">
-      <div>
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -2842,95 +2504,16 @@ for col in df.columns[:5]:
   </tbody>
 </table>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-940e5512-3a8a-463f-a5a8-a221bee351c5')"
-              title="Convert this dataframe to an interactive table."
-              style="display:none;">
-
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
-       width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"/>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
-  </svg>
-      </button>
-
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-940e5512-3a8a-463f-a5a8-a221bee351c5 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-940e5512-3a8a-463f-a5a8-a221bee351c5');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-
 
 
     Shapiro:  0.948470413684845 9.90281706784179e-24
-    Bartlett:  210.15130419114894 1.5872504991231547e-21
+    Bartlett:  210.15130419114982 1.5872504991225816e-21
     
     Secondary_Flavor
 
 
 
-
-  <div id="df-c4875fd1-47ab-4223-92f4-82173a73e7e4">
-    <div class="colab-df-container">
-      <div>
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -2972,95 +2555,16 @@ for col in df.columns[:5]:
   </tbody>
 </table>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-c4875fd1-47ab-4223-92f4-82173a73e7e4')"
-              title="Convert this dataframe to an interactive table."
-              style="display:none;">
-
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
-       width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"/>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
-  </svg>
-      </button>
-
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-c4875fd1-47ab-4223-92f4-82173a73e7e4 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-c4875fd1-47ab-4223-92f4-82173a73e7e4');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-
 
 
     Shapiro:  0.9548103213310242 2.649492974953278e-22
-    Bartlett:  420.6274502894803 1.23730070350945e-71
+    Bartlett:  420.6274502894812 1.2373007035089195e-71
     
     Color_Group
 
 
 
-
-  <div id="df-b3ea2010-fdc1-49d7-b22e-6e115f99a217">
-    <div class="colab-df-container">
-      <div>
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -3102,82 +2606,6 @@ for col in df.columns[:5]:
   </tbody>
 </table>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-b3ea2010-fdc1-49d7-b22e-6e115f99a217')"
-              title="Convert this dataframe to an interactive table."
-              style="display:none;">
-
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
-       width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"/>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
-  </svg>
-      </button>
-
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-b3ea2010-fdc1-49d7-b22e-6e115f99a217 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-b3ea2010-fdc1-49d7-b22e-6e115f99a217');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-
 
 
     Shapiro:  0.969061017036438 1.8926407335144587e-18
@@ -3214,13 +2642,13 @@ plt.show()
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_103_0.png)
+![png](SOLN_S2_Inferential_Statistics_files/SOLN_S2_Inferential_Statistics_103_0.png)
     
 
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_103_1.png)
+![png](SOLN_S2_Inferential_Statistics_files/SOLN_S2_Inferential_Statistics_103_1.png)
     
 
 
