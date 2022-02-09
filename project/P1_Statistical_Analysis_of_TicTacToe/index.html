@@ -614,15 +614,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#q5" class="md-nav__link">
-    Q5
+  <a href="#q5-for-player-x" class="md-nav__link">
+    Q5: For player X
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#q6" class="md-nav__link">
-    Q6
+  <a href="#q6-for-player-o" class="md-nav__link">
+    Q6 For player O
   </a>
   
 </li>
@@ -635,8 +635,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#q7" class="md-nav__link">
-    Q7
+  <a href="#q7-for-player-o" class="md-nav__link">
+    Q7 For player O
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q8-for-player-x" class="md-nav__link">
+    Q8 For player X
   </a>
   
 </li>
@@ -648,22 +655,22 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#q9-for-player-o" class="md-nav__link">
+    Q9 For player O
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q10-for-player-x" class="md-nav__link">
+    Q10 For player X
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#q8" class="md-nav__link">
-    Q8
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#q9" class="md-nav__link">
-    Q9
-  </a>
   
 </li>
         
@@ -854,15 +861,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#q5" class="md-nav__link">
-    Q5
+  <a href="#q5-for-player-x" class="md-nav__link">
+    Q5: For player X
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#q6" class="md-nav__link">
-    Q6
+  <a href="#q6-for-player-o" class="md-nav__link">
+    Q6 For player O
   </a>
   
 </li>
@@ -875,8 +882,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#q7" class="md-nav__link">
-    Q7
+  <a href="#q7-for-player-o" class="md-nav__link">
+    Q7 For player O
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q8-for-player-x" class="md-nav__link">
+    Q8 For player X
   </a>
   
 </li>
@@ -888,22 +902,22 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#q9-for-player-o" class="md-nav__link">
+    Q9 For player O
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q10-for-player-x" class="md-nav__link">
+    Q10 For player X
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#q8" class="md-nav__link">
-    Q8
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#q9" class="md-nav__link">
-    Q9
-  </a>
   
 </li>
         
@@ -36599,14 +36613,18 @@ It&#39;s a stalemate!
 
 <h2 id="12-inferential-analysis">1.2 Inferential Analysis<a class="headerlink" href="#12-inferential-analysis" title="Permanent link">&para;</a></h2>
 <p>We're going to use Bayes Rule or Bayesian Inference to make a probability of winning based on positions of the board. The formula is:</p>
-<p>$ P(A|B) = \frac{P(B|A) * P(A)}{P(B)} = \frac{P(A \cap B)}{P(B)}$</p>
-<p>Where $\cap$ is the intersection of $A$ and $B$.</p>
+<p>
+<script type="math/tex; mode=display"> P(A|B) = \frac{P(B|A) * P(A)}{P(B)} = \frac{P(A \cap B)}{P(B)}</script>
+</p>
+<p>Where \(\cap\) is the intersection of \(A\) and \(B\).</p>
 <p>The example we will use is the following: <em>what is the probability of 'O' being the winner, given that they've played the center piece.</em></p>
-<p>$B$ = 'O' played the center piece</p>
-<p>$A$ = 'O' won the game</p>
+<p>\(B\) = 'O' played the center piece</p>
+<p>\(A\) = 'O' won the game</p>
 <p>So what is probability? We will define it in terms of frequencies. So if we are for instance asking what is the probability of player 'O' being in the center piece, it would be defined as:</p>
-<p>$ P(B) = \frac{|O_c|} {|O_c| + |X_c| + |empty|}$</p>
-<p>Where the pipes, <code>| |</code>, or cardinality represent the count of the indicated observation or set. In this case $O_c$ (O being in the center) and $X_c$ (X being in the center).</p>
+<p>
+<script type="math/tex; mode=display"> P(B) = \frac{|O_c|} {|O_c| + |X_c| + |empty|}</script>
+</p>
+<p>Where the pipes, <code>| |</code>, or cardinality represent the count of the indicated observation or set. In this case \(O_c\) (O being in the center) and \(X_c\) (X being in the center).</p>
 <div class="codehilite"><pre><span></span><code><span class="n">Oc_Xc_empty</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">Oc_Xc_empty</span>
 </code></pre></div>
@@ -36639,7 +36657,7 @@ True     0.429
 Name: Winner, dtype: float64
 </code></pre></div>
 
-<p>The $P(B|A) * P(A)$ is the intersection of $B$ and $A$. The intersection is defined as the two events occuring together.
+<p>The \(P(B|A) * P(A)\) is the intersection of \(B\) and \(A\). The intersection is defined as the two events occuring together.
 Continuing with the example, the probablity of 'O' playing the center piece AND 'O' being the winner is <em>the number of times these observations occured together divided by the whole observation space</em>:</p>
 <div class="codehilite"><pre><span></span><code><span class="c1"># in this view, the total times A and B occured together is 247</span>
 <span class="n">player</span> <span class="o">=</span> <span class="s1">&#39;O&#39;</span>
@@ -36657,7 +36675,9 @@ Continuing with the example, the probablity of 'O' playing the center piece AND 
 </code></pre></div>
 
 <p>And so we get:</p>
-<p>$P(B|A) * P(A) = \frac{247} {1000} = 0.247 $</p>
+<p>
+<script type="math/tex; mode=display">P(B|A) * P(A) = \frac{247} {1000} = 0.247 </script>
+</p>
 <p>In code:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Winner&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">player</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">==</span> <span class="n">player</span><span class="p">)]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </code></pre></div>
@@ -36676,7 +36696,7 @@ Continuing with the example, the probablity of 'O' playing the center piece AND 
 </code></pre></div>
 
 <h4 id="1211-what-is-the-probability-of-winning-after-playing-the-middle-piece">1.2.1.1 What is the probability of winning after playing the middle piece?<a class="headerlink" href="#1211-what-is-the-probability-of-winning-after-playing-the-middle-piece" title="Permanent link">&para;</a></h4>
-<h4 id="q5">Q5<a class="headerlink" href="#q5" title="Permanent link">&para;</a></h4>
+<h4 id="q5-for-player-x">Q5: For player X<a class="headerlink" href="#q5-for-player-x" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="c1"># A intersect B: X played middle and X won / tot games</span>
 <span class="c1"># B: X played middle / tot games</span>
 <span class="n">player</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
@@ -36694,7 +36714,7 @@ Continuing with the example, the probablity of 'O' playing the center piece AND 
 <div class="codehilite"><pre><span></span><code>0.5732758620689655
 </code></pre></div>
 
-<h4 id="q6">Q6<a class="headerlink" href="#q6" title="Permanent link">&para;</a></h4>
+<h4 id="q6-for-player-o">Q6 For player O<a class="headerlink" href="#q6-for-player-o" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="c1"># A intersect B: X played middle and X won / tot games</span>
 <span class="c1"># B: X played middle / tot games</span>
 <span class="n">player</span> <span class="o">=</span> <span class="s1">&#39;O&#39;</span>
@@ -36712,7 +36732,7 @@ Continuing with the example, the probablity of 'O' playing the center piece AND 
 </code></pre></div>
 
 <h4 id="1212-what-is-the-probability-of-winning-after-playing-a-side-piece">1.2.1.2 What is the probability of winning after playing a side piece?<a class="headerlink" href="#1212-what-is-the-probability-of-winning-after-playing-a-side-piece" title="Permanent link">&para;</a></h4>
-<h4 id="q7">Q7<a class="headerlink" href="#q7" title="Permanent link">&para;</a></h4>
+<h4 id="q7-for-player-o">Q7 For player O<a class="headerlink" href="#q7-for-player-o" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="c1"># A intersect B: O played side and O won / tot games</span>
 <span class="c1"># B: O played side / tot games</span>
 <span class="n">player</span> <span class="o">=</span> <span class="s1">&#39;O&#39;</span>
@@ -36728,6 +36748,7 @@ Continuing with the example, the probablity of 'O' playing the center piece AND 
 <div class="codehilite"><pre><span></span><code>0.4158609451385117
 </code></pre></div>
 
+<h4 id="q8-for-player-x">Q8 For player X<a class="headerlink" href="#q8-for-player-x" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="c1"># A intersect B: X played side and X won / tot games</span>
 <span class="c1"># B: X played side / tot games</span>
 
@@ -36745,7 +36766,7 @@ Continuing with the example, the probablity of 'O' playing the center piece AND 
 </code></pre></div>
 
 <h4 id="1213-what-is-the-probability-of-winning-after-playing-a-corner-piece">1.2.1.3 What is the probability of winning after playing a corner piece?<a class="headerlink" href="#1213-what-is-the-probability-of-winning-after-playing-a-corner-piece" title="Permanent link">&para;</a></h4>
-<h3 id="q8">Q8<a class="headerlink" href="#q8" title="Permanent link">&para;</a></h3>
+<h4 id="q9-for-player-o">Q9 For player O<a class="headerlink" href="#q9-for-player-o" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="c1"># A intersect B: O played corner and O won / tot games</span>
 <span class="c1"># B: O played corner / tot games</span>
 
@@ -36762,7 +36783,7 @@ Continuing with the example, the probablity of 'O' playing the center piece AND 
 <div class="codehilite"><pre><span></span><code>0.4779116465863454
 </code></pre></div>
 
-<h3 id="q9">Q9<a class="headerlink" href="#q9" title="Permanent link">&para;</a></h3>
+<h4 id="q10-for-player-x">Q10 For player X<a class="headerlink" href="#q10-for-player-x" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="c1"># A intersect B: X played corner and X won / tot games</span>
 <span class="c1"># B: X played corner / tot games</span>
 
