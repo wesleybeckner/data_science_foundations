@@ -871,331 +871,10 @@ Name: avg_vote, Length: 3047, dtype: float64
 </code></pre></div>
 
 <p>what happens when you only include directors who, on average (based on mean), have made most their movies after 1990 and have produced 10 or more movies?</p>
-<p>(Shyamalan rises to 3/41)</p>
-<div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;director&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Adam Rifkin&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-</code></pre></div>
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>year</th>
-      <th>duration</th>
-      <th>avg_vote</th>
-      <th>votes</th>
-      <th>metascore</th>
-      <th>reviews_from_users</th>
-      <th>reviews_from_critics</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>count</th>
-      <td>15.000000</td>
-      <td>15.000000</td>
-      <td>15.000000</td>
-      <td>15.000000</td>
-      <td>4.000000</td>
-      <td>15.000000</td>
-      <td>13.000000</td>
-    </tr>
-    <tr>
-      <th>mean</th>
-      <td>2000.466667</td>
-      <td>91.600000</td>
-      <td>5.053333</td>
-      <td>4417.400000</td>
-      <td>40.250000</td>
-      <td>41.266667</td>
-      <td>19.230769</td>
-    </tr>
-    <tr>
-      <th>std</th>
-      <td>9.927355</td>
-      <td>5.654328</td>
-      <td>1.711251</td>
-      <td>9414.430237</td>
-      <td>9.105859</td>
-      <td>53.603660</td>
-      <td>14.463482</td>
-    </tr>
-    <tr>
-      <th>min</th>
-      <td>1989.000000</td>
-      <td>80.000000</td>
-      <td>1.300000</td>
-      <td>124.000000</td>
-      <td>32.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th>25%</th>
-      <td>1992.000000</td>
-      <td>88.500000</td>
-      <td>4.200000</td>
-      <td>525.500000</td>
-      <td>32.750000</td>
-      <td>9.500000</td>
-      <td>9.000000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>1999.000000</td>
-      <td>90.000000</td>
-      <td>5.800000</td>
-      <td>1084.000000</td>
-      <td>39.500000</td>
-      <td>21.000000</td>
-      <td>17.000000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>2007.000000</td>
-      <td>94.500000</td>
-      <td>6.100000</td>
-      <td>1782.500000</td>
-      <td>47.000000</td>
-      <td>44.000000</td>
-      <td>27.000000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>2017.000000</td>
-      <td>102.000000</td>
-      <td>6.900000</td>
-      <td>34958.000000</td>
-      <td>50.000000</td>
-      <td>199.000000</td>
-      <td>44.000000</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-<div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;director&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">var_rank</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">)]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;director&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-</code></pre></div>
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead tr th {
-        text-align: left;
-    }
-
-    .dataframe thead tr:last-of-type th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr>
-      <th></th>
-      <th colspan="8" halign="left">year</th>
-      <th colspan="2" halign="left">duration</th>
-      <th>...</th>
-      <th colspan="2" halign="left">reviews_from_users</th>
-      <th colspan="8" halign="left">reviews_from_critics</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th>count</th>
-      <th>mean</th>
-      <th>std</th>
-      <th>min</th>
-      <th>25%</th>
-      <th>50%</th>
-      <th>75%</th>
-      <th>max</th>
-      <th>count</th>
-      <th>mean</th>
-      <th>...</th>
-      <th>75%</th>
-      <th>max</th>
-      <th>count</th>
-      <th>mean</th>
-      <th>std</th>
-      <th>min</th>
-      <th>25%</th>
-      <th>50%</th>
-      <th>75%</th>
-      <th>max</th>
-    </tr>
-    <tr>
-      <th>director</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Adam Rifkin</th>
-      <td>15.0</td>
-      <td>2000.466667</td>
-      <td>9.927355</td>
-      <td>1989.0</td>
-      <td>1992.00</td>
-      <td>1999.0</td>
-      <td>2007.00</td>
-      <td>2017.0</td>
-      <td>15.0</td>
-      <td>91.600000</td>
-      <td>...</td>
-      <td>44.00</td>
-      <td>199.0</td>
-      <td>13.0</td>
-      <td>19.230769</td>
-      <td>14.463482</td>
-      <td>1.0</td>
-      <td>9.00</td>
-      <td>17.0</td>
-      <td>27.0</td>
-      <td>44.0</td>
-    </tr>
-    <tr>
-      <th>M. Night Shyamalan</th>
-      <td>13.0</td>
-      <td>2006.307692</td>
-      <td>8.076557</td>
-      <td>1992.0</td>
-      <td>2000.00</td>
-      <td>2006.0</td>
-      <td>2013.00</td>
-      <td>2019.0</td>
-      <td>13.0</td>
-      <td>104.615385</td>
-      <td>...</td>
-      <td>1959.00</td>
-      <td>2417.0</td>
-      <td>13.0</td>
-      <td>296.538462</td>
-      <td>152.519734</td>
-      <td>2.0</td>
-      <td>265.00</td>
-      <td>291.0</td>
-      <td>369.0</td>
-      <td>572.0</td>
-    </tr>
-    <tr>
-      <th>Mark L. Lester</th>
-      <td>24.0</td>
-      <td>1993.833333</td>
-      <td>11.642003</td>
-      <td>1974.0</td>
-      <td>1984.75</td>
-      <td>1995.5</td>
-      <td>2003.00</td>
-      <td>2014.0</td>
-      <td>24.0</td>
-      <td>90.625000</td>
-      <td>...</td>
-      <td>45.50</td>
-      <td>498.0</td>
-      <td>24.0</td>
-      <td>30.541667</td>
-      <td>40.238397</td>
-      <td>2.0</td>
-      <td>6.50</td>
-      <td>13.0</td>
-      <td>29.5</td>
-      <td>150.0</td>
-    </tr>
-    <tr>
-      <th>Sam Firstenberg</th>
-      <td>18.0</td>
-      <td>1992.277778</td>
-      <td>6.488048</td>
-      <td>1983.0</td>
-      <td>1986.25</td>
-      <td>1992.5</td>
-      <td>1997.75</td>
-      <td>2002.0</td>
-      <td>18.0</td>
-      <td>94.444444</td>
-      <td>...</td>
-      <td>44.75</td>
-      <td>87.0</td>
-      <td>16.0</td>
-      <td>28.937500</td>
-      <td>27.323906</td>
-      <td>3.0</td>
-      <td>5.75</td>
-      <td>19.0</td>
-      <td>41.0</td>
-      <td>82.0</td>
-    </tr>
-    <tr>
-      <th>Sean McNamara</th>
-      <td>15.0</td>
-      <td>2008.133333</td>
-      <td>7.918032</td>
-      <td>1996.0</td>
-      <td>2000.00</td>
-      <td>2011.0</td>
-      <td>2015.00</td>
-      <td>2018.0</td>
-      <td>15.0</td>
-      <td>101.600000</td>
-      <td>...</td>
-      <td>61.00</td>
-      <td>210.0</td>
-      <td>14.0</td>
-      <td>23.571429</td>
-      <td>31.444002</td>
-      <td>3.0</td>
-      <td>4.75</td>
-      <td>8.5</td>
-      <td>29.5</td>
-      <td>114.0</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 56 columns</p>
-</div>
-
+<p>(Shyamalan rises to 3/83)</p>
 <div class="codehilite"><pre><span></span><code><span class="n">var_rank</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;USA&#39;</span><span class="p">]</span>\
     <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;director&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1990</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">9</span><span class="p">))</span>\
-    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;director&#39;</span><span class="p">)[[</span><span class="s1">&#39;avg_vote&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;avg_vote&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">),</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;director&#39;</span><span class="p">)[[</span><span class="s1">&#39;avg_vote&#39;</span><span class="p">,</span> <span class="s1">&#39;votes&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;avg_vote&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">),</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="n">display</span><span class="p">(</span><span class="n">var_rank</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">var_rank</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -1224,6 +903,7 @@ Name: avg_vote, Length: 3047, dtype: float64
     <tr>
       <th></th>
       <th colspan="8" halign="left">avg_vote</th>
+      <th colspan="8" halign="left">votes</th>
     </tr>
     <tr>
       <th></th>
@@ -1235,9 +915,25 @@ Name: avg_vote, Length: 3047, dtype: float64
       <th>50%</th>
       <th>75%</th>
       <th>max</th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
     </tr>
     <tr>
       <th>director</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -1259,6 +955,14 @@ Name: avg_vote, Length: 3047, dtype: float64
       <td>5.80</td>
       <td>6.100</td>
       <td>6.9</td>
+      <td>15.0</td>
+      <td>4417.400000</td>
+      <td>9414.430237</td>
+      <td>124.0</td>
+      <td>525.50</td>
+      <td>1084.0</td>
+      <td>1782.50</td>
+      <td>34958.0</td>
     </tr>
     <tr>
       <th>Mark L. Lester</th>
@@ -1270,6 +974,14 @@ Name: avg_vote, Length: 3047, dtype: float64
       <td>4.70</td>
       <td>5.800</td>
       <td>6.7</td>
+      <td>19.0</td>
+      <td>11479.052632</td>
+      <td>32768.240173</td>
+      <td>298.0</td>
+      <td>549.00</td>
+      <td>1219.0</td>
+      <td>4405.50</td>
+      <td>143443.0</td>
     </tr>
     <tr>
       <th>M. Night Shyamalan</th>
@@ -1281,6 +993,14 @@ Name: avg_vote, Length: 3047, dtype: float64
       <td>6.05</td>
       <td>6.650</td>
       <td>8.1</td>
+      <td>10.0</td>
+      <td>239264.500000</td>
+      <td>262079.154005</td>
+      <td>731.0</td>
+      <td>97982.50</td>
+      <td>169426.0</td>
+      <td>308493.25</td>
+      <td>894385.0</td>
     </tr>
     <tr>
       <th>Sean McNamara</th>
@@ -1292,6 +1012,14 @@ Name: avg_vote, Length: 3047, dtype: float64
       <td>5.60</td>
       <td>5.950</td>
       <td>7.0</td>
+      <td>12.0</td>
+      <td>9221.166667</td>
+      <td>13933.853515</td>
+      <td>365.0</td>
+      <td>1085.25</td>
+      <td>1416.0</td>
+      <td>12191.50</td>
+      <td>44808.0</td>
     </tr>
     <tr>
       <th>Sam Firstenberg</th>
@@ -1303,6 +1031,14 @@ Name: avg_vote, Length: 3047, dtype: float64
       <td>4.85</td>
       <td>5.325</td>
       <td>6.2</td>
+      <td>10.0</td>
+      <td>1890.400000</td>
+      <td>1552.704107</td>
+      <td>153.0</td>
+      <td>713.50</td>
+      <td>1282.0</td>
+      <td>3317.25</td>
+      <td>4330.0</td>
     </tr>
     <tr>
       <th>Gus Van Sant</th>
@@ -1314,6 +1050,14 @@ Name: avg_vote, Length: 3047, dtype: float64
       <td>6.95</td>
       <td>7.300</td>
       <td>8.3</td>
+      <td>12.0</td>
+      <td>112868.166667</td>
+      <td>232569.906962</td>
+      <td>3674.0</td>
+      <td>16191.75</td>
+      <td>38458.5</td>
+      <td>82270.25</td>
+      <td>837379.0</td>
     </tr>
     <tr>
       <th>John Lyde</th>
@@ -1325,6 +1069,14 @@ Name: avg_vote, Length: 3047, dtype: float64
       <td>4.80</td>
       <td>5.500</td>
       <td>7.0</td>
+      <td>16.0</td>
+      <td>1021.937500</td>
+      <td>911.075516</td>
+      <td>113.0</td>
+      <td>409.50</td>
+      <td>802.0</td>
+      <td>1360.00</td>
+      <td>3270.0</td>
     </tr>
     <tr>
       <th>Michael Polish</th>
@@ -1336,6 +1088,14 @@ Name: avg_vote, Length: 3047, dtype: float64
       <td>5.45</td>
       <td>6.300</td>
       <td>7.2</td>
+      <td>12.0</td>
+      <td>4396.833333</td>
+      <td>5662.740034</td>
+      <td>528.0</td>
+      <td>1698.75</td>
+      <td>3395.5</td>
+      <td>3624.00</td>
+      <td>21873.0</td>
     </tr>
     <tr>
       <th>Randal Kleiser</th>
@@ -1347,6 +1107,14 @@ Name: avg_vote, Length: 3047, dtype: float64
       <td>5.60</td>
       <td>6.750</td>
       <td>7.2</td>
+      <td>12.0</td>
+      <td>35908.916667</td>
+      <td>65204.420315</td>
+      <td>1030.0</td>
+      <td>2458.75</td>
+      <td>11245.5</td>
+      <td>41162.50</td>
+      <td>232940.0</td>
     </tr>
     <tr>
       <th>Brian Brough</th>
@@ -1358,12 +1126,290 @@ Name: avg_vote, Length: 3047, dtype: float64
       <td>5.80</td>
       <td>6.350</td>
       <td>7.0</td>
+      <td>12.0</td>
+      <td>675.500000</td>
+      <td>590.071721</td>
+      <td>104.0</td>
+      <td>134.00</td>
+      <td>606.5</td>
+      <td>1048.75</td>
+      <td>1842.0</td>
     </tr>
   </tbody>
 </table>
 </div>
 
 <div class="codehilite"><pre><span></span><code>83
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">var_rank</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;USA&#39;</span><span class="p">]</span>\
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;director&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;avg_vote&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;votes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">1e3</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">))</span>\
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;director&#39;</span><span class="p">)[[</span><span class="s1">&#39;avg_vote&#39;</span><span class="p">,</span> <span class="s1">&#39;votes&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;avg_vote&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">),</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">var_rank</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">var_rank</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="8" halign="left">avg_vote</th>
+      <th colspan="8" halign="left">votes</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>director</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Peter Bogdanovich</th>
+      <td>13.0</td>
+      <td>6.446154</td>
+      <td>1.564510</td>
+      <td>2.9</td>
+      <td>6.000</td>
+      <td>7.00</td>
+      <td>7.600</td>
+      <td>8.1</td>
+      <td>13.0</td>
+      <td>12023.307692</td>
+      <td>1.510756e+04</td>
+      <td>870.0</td>
+      <td>1262.00</td>
+      <td>2426.0</td>
+      <td>19253.00</td>
+      <td>41283.0</td>
+    </tr>
+    <tr>
+      <th>Francis Ford Coppola</th>
+      <td>18.0</td>
+      <td>6.777778</td>
+      <td>1.444077</td>
+      <td>3.1</td>
+      <td>6.225</td>
+      <td>6.65</td>
+      <td>7.550</td>
+      <td>9.2</td>
+      <td>18.0</td>
+      <td>226387.555556</td>
+      <td>4.392702e+05</td>
+      <td>199.0</td>
+      <td>5078.25</td>
+      <td>23681.5</td>
+      <td>164311.25</td>
+      <td>1572674.0</td>
+    </tr>
+    <tr>
+      <th>Richard Marquand</th>
+      <td>5.0</td>
+      <td>6.320000</td>
+      <td>1.375500</td>
+      <td>4.5</td>
+      <td>5.800</td>
+      <td>6.50</td>
+      <td>6.500</td>
+      <td>8.3</td>
+      <td>5.0</td>
+      <td>188499.800000</td>
+      <td>4.134480e+05</td>
+      <td>411.0</td>
+      <td>560.00</td>
+      <td>598.0</td>
+      <td>12894.00</td>
+      <td>928036.0</td>
+    </tr>
+    <tr>
+      <th>Curtis Hanson</th>
+      <td>6.0</td>
+      <td>6.150000</td>
+      <td>1.361984</td>
+      <td>4.3</td>
+      <td>5.350</td>
+      <td>6.40</td>
+      <td>6.550</td>
+      <td>8.2</td>
+      <td>6.0</td>
+      <td>100734.333333</td>
+      <td>2.069594e+05</td>
+      <td>209.0</td>
+      <td>1345.00</td>
+      <td>20931.0</td>
+      <td>39724.25</td>
+      <td>521530.0</td>
+    </tr>
+    <tr>
+      <th>Sean Penn</th>
+      <td>4.0</td>
+      <td>6.525000</td>
+      <td>1.322561</td>
+      <td>4.9</td>
+      <td>5.950</td>
+      <td>6.55</td>
+      <td>7.125</td>
+      <td>8.1</td>
+      <td>4.0</td>
+      <td>157547.000000</td>
+      <td>2.695851e+05</td>
+      <td>4409.0</td>
+      <td>10514.00</td>
+      <td>32543.5</td>
+      <td>179576.50</td>
+      <td>560692.0</td>
+    </tr>
+    <tr>
+      <th>Timothy A. Chey</th>
+      <td>6.0</td>
+      <td>6.250000</td>
+      <td>1.291124</td>
+      <td>4.4</td>
+      <td>5.775</td>
+      <td>6.05</td>
+      <td>6.850</td>
+      <td>8.2</td>
+      <td>6.0</td>
+      <td>1447.500000</td>
+      <td>5.878295e+02</td>
+      <td>788.0</td>
+      <td>923.50</td>
+      <td>1510.5</td>
+      <td>1812.50</td>
+      <td>2235.0</td>
+    </tr>
+    <tr>
+      <th>M. Night Shyamalan</th>
+      <td>10.0</td>
+      <td>5.970000</td>
+      <td>1.258791</td>
+      <td>4.0</td>
+      <td>4.975</td>
+      <td>6.05</td>
+      <td>6.650</td>
+      <td>8.1</td>
+      <td>10.0</td>
+      <td>239264.500000</td>
+      <td>2.620792e+05</td>
+      <td>731.0</td>
+      <td>97982.50</td>
+      <td>169426.0</td>
+      <td>308493.25</td>
+      <td>894385.0</td>
+    </tr>
+    <tr>
+      <th>Stanley Kubrick</th>
+      <td>5.0</td>
+      <td>7.280000</td>
+      <td>1.202913</td>
+      <td>5.5</td>
+      <td>6.600</td>
+      <td>7.90</td>
+      <td>8.000</td>
+      <td>8.4</td>
+      <td>5.0</td>
+      <td>80954.400000</td>
+      <td>6.855686e+04</td>
+      <td>9649.0</td>
+      <td>20806.00</td>
+      <td>79652.0</td>
+      <td>121994.00</td>
+      <td>172671.0</td>
+    </tr>
+    <tr>
+      <th>Gus Van Sant</th>
+      <td>12.0</td>
+      <td>6.583333</td>
+      <td>1.169952</td>
+      <td>4.4</td>
+      <td>6.025</td>
+      <td>6.95</td>
+      <td>7.300</td>
+      <td>8.3</td>
+      <td>12.0</td>
+      <td>112868.166667</td>
+      <td>2.325699e+05</td>
+      <td>3674.0</td>
+      <td>16191.75</td>
+      <td>38458.5</td>
+      <td>82270.25</td>
+      <td>837379.0</td>
+    </tr>
+    <tr>
+      <th>Frank Darabont</th>
+      <td>4.0</td>
+      <td>7.975000</td>
+      <td>1.164403</td>
+      <td>6.9</td>
+      <td>7.050</td>
+      <td>7.85</td>
+      <td>8.775</td>
+      <td>9.3</td>
+      <td>4.0</td>
+      <td>929718.000000</td>
+      <td>1.008586e+06</td>
+      <td>51763.0</td>
+      <td>219886.75</td>
+      <td>694132.0</td>
+      <td>1403963.25</td>
+      <td>2278845.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="codehilite"><pre><span></span><code>66
 </code></pre></div>
 
 <h1 id="q7-how-many-movies-were-made-each-year-in-us-from-2000-2020">Q7 How many movies were made each year in US from 2000-2020<a class="headerlink" href="#q7-how-many-movies-were-made-each-year-in-us-from-2000-2020" title="Permanent link">&para;</a></h1>
@@ -1403,7 +1449,7 @@ dtype: int64
 <div class="codehilite"><pre><span></span><code>&lt;AxesSubplot:xlabel=&#39;year&#39;&gt;
 </code></pre></div>
 
-<p><img alt="png" src="../SOLN_E1_Descriptive_Statistics_Data_Hunt_files/SOLN_E1_Descriptive_Statistics_Data_Hunt_24_1.png" /></p>
+<p><img alt="png" src="../SOLN_E1_Descriptive_Statistics_Data_Hunt_files/SOLN_E1_Descriptive_Statistics_Data_Hunt_23_1.png" /></p>
 <h1 id="q9-for-single-country-movies-how-many-movies-were-made-each-year-in-each-country-from-2000-2020-only-include-countries-that-made-more-than-1000-movies-in-that-timeframe">Q9 For single country movies, how many movies were made each year in each country from 2000-2020, only include countries that made more than 1000 movies in that timeframe<a class="headerlink" href="#q9-for-single-country-movies-how-many-movies-were-made-each-year-in-each-country-from-2000-2020-only-include-countries-that-made-more-than-1000-movies-in-that-timeframe" title="Permanent link">&para;</a></h1>
 <div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2000</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">2020</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">))]</span>\
   <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">)</span>\
@@ -1515,7 +1561,7 @@ dtype: int64
     <span class="n">country</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">country</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </code></pre></div>
 
-<p><img alt="png" src="../SOLN_E1_Descriptive_Statistics_Data_Hunt_files/SOLN_E1_Descriptive_Statistics_Data_Hunt_28_0.png" /></p>
+<p><img alt="png" src="../SOLN_E1_Descriptive_Statistics_Data_Hunt_files/SOLN_E1_Descriptive_Statistics_Data_Hunt_27_0.png" /></p>
 
               
             </article>
