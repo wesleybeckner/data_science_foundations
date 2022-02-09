@@ -361,14 +361,13 @@ print(var_rank.shape[0])
 
 what happens when you only include directors who, on average (based on mean), have made most their movies after 1990 and have produced 10 or more movies?
 
-(Shyamalan rises to 3/41)
+(Shyamalan rises to 3/83)
 
 
 ```python
 var_rank = df.loc[df['country'] == 'USA']\
-    .groupby('director').filter(lambda x: (x['year'].mean() > 1990) &
-                              (x.shape[0] > 9))\
-    .groupby('director')[['avg_vote']].describe().sort_values(by=('avg_vote', 'std'), ascending=False)
+    .groupby('director').filter(lambda x: (x['year'].mean() > 1990) & (x.shape[0] > 9))\
+    .groupby('director')[['avg_vote', 'votes']].describe().sort_values(by=('avg_vote', 'std'), ascending=False)
 
 display(var_rank.iloc[:10])
 print(var_rank.shape[0])
@@ -398,6 +397,7 @@ print(var_rank.shape[0])
     <tr>
       <th></th>
       <th colspan="8" halign="left">avg_vote</th>
+      <th colspan="8" halign="left">votes</th>
     </tr>
     <tr>
       <th></th>
@@ -409,9 +409,25 @@ print(var_rank.shape[0])
       <th>50%</th>
       <th>75%</th>
       <th>max</th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
     </tr>
     <tr>
       <th>director</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -433,6 +449,14 @@ print(var_rank.shape[0])
       <td>5.80</td>
       <td>6.100</td>
       <td>6.9</td>
+      <td>15.0</td>
+      <td>4417.400000</td>
+      <td>9414.430237</td>
+      <td>124.0</td>
+      <td>525.50</td>
+      <td>1084.0</td>
+      <td>1782.50</td>
+      <td>34958.0</td>
     </tr>
     <tr>
       <th>Mark L. Lester</th>
@@ -444,6 +468,14 @@ print(var_rank.shape[0])
       <td>4.70</td>
       <td>5.800</td>
       <td>6.7</td>
+      <td>19.0</td>
+      <td>11479.052632</td>
+      <td>32768.240173</td>
+      <td>298.0</td>
+      <td>549.00</td>
+      <td>1219.0</td>
+      <td>4405.50</td>
+      <td>143443.0</td>
     </tr>
     <tr>
       <th>M. Night Shyamalan</th>
@@ -455,6 +487,14 @@ print(var_rank.shape[0])
       <td>6.05</td>
       <td>6.650</td>
       <td>8.1</td>
+      <td>10.0</td>
+      <td>239264.500000</td>
+      <td>262079.154005</td>
+      <td>731.0</td>
+      <td>97982.50</td>
+      <td>169426.0</td>
+      <td>308493.25</td>
+      <td>894385.0</td>
     </tr>
     <tr>
       <th>Sean McNamara</th>
@@ -466,6 +506,14 @@ print(var_rank.shape[0])
       <td>5.60</td>
       <td>5.950</td>
       <td>7.0</td>
+      <td>12.0</td>
+      <td>9221.166667</td>
+      <td>13933.853515</td>
+      <td>365.0</td>
+      <td>1085.25</td>
+      <td>1416.0</td>
+      <td>12191.50</td>
+      <td>44808.0</td>
     </tr>
     <tr>
       <th>Sam Firstenberg</th>
@@ -477,6 +525,14 @@ print(var_rank.shape[0])
       <td>4.85</td>
       <td>5.325</td>
       <td>6.2</td>
+      <td>10.0</td>
+      <td>1890.400000</td>
+      <td>1552.704107</td>
+      <td>153.0</td>
+      <td>713.50</td>
+      <td>1282.0</td>
+      <td>3317.25</td>
+      <td>4330.0</td>
     </tr>
     <tr>
       <th>Gus Van Sant</th>
@@ -488,6 +544,14 @@ print(var_rank.shape[0])
       <td>6.95</td>
       <td>7.300</td>
       <td>8.3</td>
+      <td>12.0</td>
+      <td>112868.166667</td>
+      <td>232569.906962</td>
+      <td>3674.0</td>
+      <td>16191.75</td>
+      <td>38458.5</td>
+      <td>82270.25</td>
+      <td>837379.0</td>
     </tr>
     <tr>
       <th>John Lyde</th>
@@ -499,6 +563,14 @@ print(var_rank.shape[0])
       <td>4.80</td>
       <td>5.500</td>
       <td>7.0</td>
+      <td>16.0</td>
+      <td>1021.937500</td>
+      <td>911.075516</td>
+      <td>113.0</td>
+      <td>409.50</td>
+      <td>802.0</td>
+      <td>1360.00</td>
+      <td>3270.0</td>
     </tr>
     <tr>
       <th>Michael Polish</th>
@@ -510,6 +582,14 @@ print(var_rank.shape[0])
       <td>5.45</td>
       <td>6.300</td>
       <td>7.2</td>
+      <td>12.0</td>
+      <td>4396.833333</td>
+      <td>5662.740034</td>
+      <td>528.0</td>
+      <td>1698.75</td>
+      <td>3395.5</td>
+      <td>3624.00</td>
+      <td>21873.0</td>
     </tr>
     <tr>
       <th>Randal Kleiser</th>
@@ -521,6 +601,14 @@ print(var_rank.shape[0])
       <td>5.60</td>
       <td>6.750</td>
       <td>7.2</td>
+      <td>12.0</td>
+      <td>35908.916667</td>
+      <td>65204.420315</td>
+      <td>1030.0</td>
+      <td>2458.75</td>
+      <td>11245.5</td>
+      <td>41162.50</td>
+      <td>232940.0</td>
     </tr>
     <tr>
       <th>Brian Brough</th>
@@ -532,6 +620,14 @@ print(var_rank.shape[0])
       <td>5.80</td>
       <td>6.350</td>
       <td>7.0</td>
+      <td>12.0</td>
+      <td>675.500000</td>
+      <td>590.071721</td>
+      <td>104.0</td>
+      <td>134.00</td>
+      <td>606.5</td>
+      <td>1048.75</td>
+      <td>1842.0</td>
     </tr>
   </tbody>
 </table>
@@ -539,6 +635,280 @@ print(var_rank.shape[0])
 
 
     83
+
+
+
+```python
+var_rank = df.loc[df['country'] == 'USA']\
+    .groupby('director').filter(lambda x: (x['avg_vote'].max() > 8) & (x['votes'].mean() > 1e3) & (x.shape[0] > 2))\
+    .groupby('director')[['avg_vote', 'votes']].describe().sort_values(by=('avg_vote', 'std'), ascending=False)
+
+display(var_rank.iloc[:10])
+print(var_rank.shape[0])
+```
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="8" halign="left">avg_vote</th>
+      <th colspan="8" halign="left">votes</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>director</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Peter Bogdanovich</th>
+      <td>13.0</td>
+      <td>6.446154</td>
+      <td>1.564510</td>
+      <td>2.9</td>
+      <td>6.000</td>
+      <td>7.00</td>
+      <td>7.600</td>
+      <td>8.1</td>
+      <td>13.0</td>
+      <td>12023.307692</td>
+      <td>1.510756e+04</td>
+      <td>870.0</td>
+      <td>1262.00</td>
+      <td>2426.0</td>
+      <td>19253.00</td>
+      <td>41283.0</td>
+    </tr>
+    <tr>
+      <th>Francis Ford Coppola</th>
+      <td>18.0</td>
+      <td>6.777778</td>
+      <td>1.444077</td>
+      <td>3.1</td>
+      <td>6.225</td>
+      <td>6.65</td>
+      <td>7.550</td>
+      <td>9.2</td>
+      <td>18.0</td>
+      <td>226387.555556</td>
+      <td>4.392702e+05</td>
+      <td>199.0</td>
+      <td>5078.25</td>
+      <td>23681.5</td>
+      <td>164311.25</td>
+      <td>1572674.0</td>
+    </tr>
+    <tr>
+      <th>Richard Marquand</th>
+      <td>5.0</td>
+      <td>6.320000</td>
+      <td>1.375500</td>
+      <td>4.5</td>
+      <td>5.800</td>
+      <td>6.50</td>
+      <td>6.500</td>
+      <td>8.3</td>
+      <td>5.0</td>
+      <td>188499.800000</td>
+      <td>4.134480e+05</td>
+      <td>411.0</td>
+      <td>560.00</td>
+      <td>598.0</td>
+      <td>12894.00</td>
+      <td>928036.0</td>
+    </tr>
+    <tr>
+      <th>Curtis Hanson</th>
+      <td>6.0</td>
+      <td>6.150000</td>
+      <td>1.361984</td>
+      <td>4.3</td>
+      <td>5.350</td>
+      <td>6.40</td>
+      <td>6.550</td>
+      <td>8.2</td>
+      <td>6.0</td>
+      <td>100734.333333</td>
+      <td>2.069594e+05</td>
+      <td>209.0</td>
+      <td>1345.00</td>
+      <td>20931.0</td>
+      <td>39724.25</td>
+      <td>521530.0</td>
+    </tr>
+    <tr>
+      <th>Sean Penn</th>
+      <td>4.0</td>
+      <td>6.525000</td>
+      <td>1.322561</td>
+      <td>4.9</td>
+      <td>5.950</td>
+      <td>6.55</td>
+      <td>7.125</td>
+      <td>8.1</td>
+      <td>4.0</td>
+      <td>157547.000000</td>
+      <td>2.695851e+05</td>
+      <td>4409.0</td>
+      <td>10514.00</td>
+      <td>32543.5</td>
+      <td>179576.50</td>
+      <td>560692.0</td>
+    </tr>
+    <tr>
+      <th>Timothy A. Chey</th>
+      <td>6.0</td>
+      <td>6.250000</td>
+      <td>1.291124</td>
+      <td>4.4</td>
+      <td>5.775</td>
+      <td>6.05</td>
+      <td>6.850</td>
+      <td>8.2</td>
+      <td>6.0</td>
+      <td>1447.500000</td>
+      <td>5.878295e+02</td>
+      <td>788.0</td>
+      <td>923.50</td>
+      <td>1510.5</td>
+      <td>1812.50</td>
+      <td>2235.0</td>
+    </tr>
+    <tr>
+      <th>M. Night Shyamalan</th>
+      <td>10.0</td>
+      <td>5.970000</td>
+      <td>1.258791</td>
+      <td>4.0</td>
+      <td>4.975</td>
+      <td>6.05</td>
+      <td>6.650</td>
+      <td>8.1</td>
+      <td>10.0</td>
+      <td>239264.500000</td>
+      <td>2.620792e+05</td>
+      <td>731.0</td>
+      <td>97982.50</td>
+      <td>169426.0</td>
+      <td>308493.25</td>
+      <td>894385.0</td>
+    </tr>
+    <tr>
+      <th>Stanley Kubrick</th>
+      <td>5.0</td>
+      <td>7.280000</td>
+      <td>1.202913</td>
+      <td>5.5</td>
+      <td>6.600</td>
+      <td>7.90</td>
+      <td>8.000</td>
+      <td>8.4</td>
+      <td>5.0</td>
+      <td>80954.400000</td>
+      <td>6.855686e+04</td>
+      <td>9649.0</td>
+      <td>20806.00</td>
+      <td>79652.0</td>
+      <td>121994.00</td>
+      <td>172671.0</td>
+    </tr>
+    <tr>
+      <th>Gus Van Sant</th>
+      <td>12.0</td>
+      <td>6.583333</td>
+      <td>1.169952</td>
+      <td>4.4</td>
+      <td>6.025</td>
+      <td>6.95</td>
+      <td>7.300</td>
+      <td>8.3</td>
+      <td>12.0</td>
+      <td>112868.166667</td>
+      <td>2.325699e+05</td>
+      <td>3674.0</td>
+      <td>16191.75</td>
+      <td>38458.5</td>
+      <td>82270.25</td>
+      <td>837379.0</td>
+    </tr>
+    <tr>
+      <th>Frank Darabont</th>
+      <td>4.0</td>
+      <td>7.975000</td>
+      <td>1.164403</td>
+      <td>6.9</td>
+      <td>7.050</td>
+      <td>7.85</td>
+      <td>8.775</td>
+      <td>9.3</td>
+      <td>4.0</td>
+      <td>929718.000000</td>
+      <td>1.008586e+06</td>
+      <td>51763.0</td>
+      <td>219886.75</td>
+      <td>694132.0</td>
+      <td>1403963.25</td>
+      <td>2278845.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+    66
 
 
 # Q7 How many movies were made each year in US from 2000-2020
@@ -594,7 +964,7 @@ df.loc[(df['year'] >= 2000) & (df['year'] <= 2020)][['year']].value_counts(sort=
 
 
     
-![png](SOLN_E1_Descriptive_Statistics_Data_Hunt_files/SOLN_E1_Descriptive_Statistics_Data_Hunt_22_1.png)
+![png](SOLN_E1_Descriptive_Statistics_Data_Hunt_files/SOLN_E1_Descriptive_Statistics_Data_Hunt_23_1.png)
     
 
 
@@ -723,6 +1093,6 @@ for country in countries.groupby('country'):
 
 
     
-![png](SOLN_E1_Descriptive_Statistics_Data_Hunt_files/SOLN_E1_Descriptive_Statistics_Data_Hunt_26_0.png)
+![png](SOLN_E1_Descriptive_Statistics_Data_Hunt_files/SOLN_E1_Descriptive_Statistics_Data_Hunt_27_0.png)
     
 

@@ -218,17 +218,12 @@ We can imagine this scenario with housing prices. Envision a **_mixed_** dataset
 #### 🏋️ Exercise 1: rudimentary EDA
 What does the data look like? Recall how to visualize data in a pandas dataframe 
 
-<ul>
-<li> for every column calculate the
-
-  * skew: `df.skew()`
-  * kurtosis: `df.kurtosis()`
-  * pearsons correlation with the dependent variable: `df.corr()`
-  * number of missing entries `df.isnull()`
-
-and organize this into a new dataframe
-</li>
-</ul>
+* for every column calculate the:
+    * skew: `df.skew()`
+    * kurtosis: `df.kurtosis()`
+    * pearsons correlation with the dependent variable: `df.corr()`
+    * number of missing entries `df.isnull()`
+* and organize this into a new dataframe
 
 _note:_ pearsons is just one type of correlation, another correlation available to us is **_spearman_** which differs from pearsons in that it depends on ranked values rather than their direct quantities, you can read more [here](https://support.minitab.com/en-us/minitab-express/1/help-and-how-to/modeling-statistics/regression/supporting-topics/basics/a-comparison-of-the-pearson-and-spearman-correlation-methods/)
 

@@ -907,7 +907,7 @@ for desc in descriptors:
     
 
 
-### 🍒 2.1.3 **Enrichment**: What is a T-test?
+### 2.1.3 What is a T-test?
 
 There are 1-sample and 2-sample T-tests 
 
@@ -1013,7 +1013,7 @@ scipy.stats.ttest_ind(shift_two, shift_one, equal_var=True)
 
 
 
-### 🍒 2.1.4 **Enrichment**: What are F-statistics and the F-test?
+### 2.1.4 What are F-statistics and the F-test?
 
 The F-statistic is simply a ratio of two variances, or the ratio of _mean squares_
 
@@ -1239,7 +1239,7 @@ In summary, there are many statistical tests at our disposal when performing inf
 
 <small>source: [scribbr](https://www.scribbr.com/statistics/statistical-tests/)</small>
 
-## 2.2 Evaluate statistical significance of product margin: a snake in the garden
+## 🍒 2.2 Enrichment: Evaluate statistical significance of product margin: a snake in the garden
 
 ### 2.2.1 Mood's Median on product descriptors
 
@@ -2164,7 +2164,7 @@ moodsdf
 
 
 
-### 🍒 2.2.2 **Enrichment**: Broad Analysis of Categories: ANOVA
+### 🍒🍒 2.2.2 **Enrichment**: Broad Analysis of Categories: ANOVA
 
 
 
@@ -2613,7 +2613,7 @@ for col in df.columns[:5]:
     
 
 
-### 🍒 2.2.3 **Enrichment**: Visual Analysis of Residuals: QQ-Plots
+### 🍒🍒 2.2.3 **Enrichment**: Visual Analysis of Residuals: QQ-Plots
 
 This can be distressing and is often why we want visual methods to see what is going on with our data!
 

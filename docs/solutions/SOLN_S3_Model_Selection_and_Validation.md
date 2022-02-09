@@ -299,8 +299,7 @@ The way we account for unseen data, in practice, is to leave a portion of the da
 
 
 ```python
-train_size=0.6
-X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train_size, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.6, random_state=42)
 knn = KNeighborsRegressor(n_neighbors=1)
 knn.fit(X_train,y_train)
 print(knn.score(X_test, y_test))
@@ -431,7 +430,7 @@ plt.ylabel('Y')
 
 
     
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_28_1.png)
+![png](SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_28_1.png)
     
 
 
@@ -456,13 +455,13 @@ plt.plot(X_train,y_train, ls='', marker='.')
 
 
 
-    [<matplotlib.lines.Line2D at 0x7f03e3ce5730>]
+    [<matplotlib.lines.Line2D at 0x7fd6301bd3a0>]
 
 
 
 
     
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_31_1.png)
+![png](SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_31_1.png)
     
 
 
@@ -504,7 +503,7 @@ ax[1].set_title("High Variance Model")
 
 
     
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_33_1.png)
+![png](SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_33_1.png)
     
 
 
@@ -556,7 +555,7 @@ for samples in range(5):
 
 
     
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_35_0.png)
+![png](SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_35_0.png)
     
 
 
@@ -602,7 +601,7 @@ ax[1].set_title("High Variance Model")
 
 
     
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_37_1.png)
+![png](SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_37_1.png)
     
 
 
@@ -618,13 +617,13 @@ plt.plot(x,y, ls='', marker='.')
 
 
 
-    [<matplotlib.lines.Line2D at 0x7f03e399ab50>]
+    [<matplotlib.lines.Line2D at 0x7fd62be71190>]
 
 
 
 
     
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_39_1.png)
+![png](SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_39_1.png)
     
 
 
@@ -672,7 +671,7 @@ ax[1].set_title("High Variance Model")
 
 
     
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_40_1.png)
+![png](SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_40_1.png)
     
 
 
@@ -693,12 +692,12 @@ Do this for a 9th order polynomial and repeat for population data with low, med,
 
 | error | training fraction | MSE | R2 |
 |-------|-------------------|-----|----|
-|       |                   |     |    |
-|       |                   |     |    |
-|       |                   |     |    |
-|       |                   |     |    |
-|       |                   |     |    |
-|       |                   |     |    |
+|  0.1  |        .2         |  5.20e-03   | 0.97   |
+|  0.1  |        .8         |  3.24e-03   | 0.98   |
+|  0.4  |        .2         |  8.32e-02   | 0.65   |
+|  0.4  |        .8         |  5.18e-02   | 0.80   |
+|  0.8  |        .2         |  3.33e-01   | 0.08   |
+|  0.8  |        .8         |  2.07e-01   | 0.52   |
 
 
 ```python
@@ -714,17 +713,17 @@ x = np.arange(20,100)
 ################################################################################
 ########## CHANGE ERR TO CHANGE THE AMOUNT OF NOISE IN YOUR DATA ###############
 ################################################################################
-# err = <YOUR ERR> # change the error (.1 - 0.9)
+err = .8 # change the error (.1 - 0.9)
 y_actual = [func(t, err) for t in x]
 
 
 ################################################################################
-############# CHANGE TRAIN_SIZE TO SAMPLE THE DATA FOR TRAINING ################
+### SAMPLE THE DATA FOR TRAINING
 ################################################################################
-# train_size=<YOUR NUMBER>, # change the training size
+train_size = 0.8 # change the training size
 x_train, x_test, y_train, y_test = train_test_split(x, 
                                                     y_actual,
-                                                    train_size=train_size,
+                                                    train_size=train_size, 
                                                     random_state=42)
 
 # solving our training data with a 9-degree polynomial
@@ -734,18 +733,22 @@ coefs = np.polyfit(x_train, y_train, 9)
 y_pred = np.polyval(coefs, x_test)
 
 ################################################################################
-############################## CALCULATE MSE AND R2 ############################
+### CALCULATE MSE AND R2
 ################################################################################
 mse = mean_squared_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 
 # look at results
-print("mean square error: {:.2f}".format(mse))
+print("irreducible error: {}".format(err))
+print("training fraction: {}".format(train_size))
+print("mean square error: {:.2e}".format(mse))
 print("r2: {:.2f}".format(r2))
 ```
 
-    mean square error: 0.08
-    r2: 0.63
+    irreducible error: 0.8
+    training fraction: 0.8
+    mean square error: 2.07e-01
+    r2: 0.52
 
 
 <a name='1.1.4'></a>
@@ -790,13 +793,13 @@ plt.plot(x,y, ls='', marker='.')
 
 
 
-    [<matplotlib.lines.Line2D at 0x7f03e387c7f0>]
+    [<matplotlib.lines.Line2D at 0x7fd62bcc9640>]
 
 
 
 
     
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_47_1.png)
+![png](SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_47_1.png)
     
 
 
@@ -833,13 +836,13 @@ ax[1].legend()
 
 
 
-    <matplotlib.legend.Legend at 0x7f03e37859a0>
+    <matplotlib.legend.Legend at 0x7fd62bc52700>
 
 
 
 
     
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_49_1.png)
+![png](SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_49_1.png)
     
 
 
@@ -894,13 +897,13 @@ ax[0].legend()
 
 
 
-    <matplotlib.legend.Legend at 0x7f03e36458e0>
+    <matplotlib.legend.Legend at 0x7fd62bb0f970>
 
 
 
 
     
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_51_1.png)
+![png](SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_51_1.png)
     
 
 
@@ -961,7 +964,7 @@ ax.set_ylabel('$R^2$')
 
 
     
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_54_1.png)
+![png](SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_54_1.png)
     
 
 
@@ -981,7 +984,7 @@ Starting with the code below, make a side-by-side plot of a 3rd degree polynomia
 random.seed(42)
 
 # create the figure and axes
-fig, ax = plt.subplots(1,1,figsize=(10,5))
+fig, ax = plt.subplots(1,2,figsize=(10,5))
 
 for training_frac in np.linspace(0.13,.95,50):
 
@@ -992,21 +995,30 @@ for training_frac in np.linspace(0.13,.95,50):
                                                     random_state=42)
   
   # solving our training data with a n-degree polynomial
-  coefs = np.polyfit(x_train, y_train, 9)
+  coefs1 = np.polyfit(x_train, y_train, 9)
+  coefs2 = np.polyfit(x_train, y_train, 3)
 
   # recording the scores for the training and test sets
-  score1 = r2_score(np.polyval(coefs, x_train), y_train)
-  score2 = r2_score(np.polyval(coefs, x_test), y_test)
+  score1_train = r2_score(np.polyval(coefs1, x_train), y_train)
+  score1_test = r2_score(np.polyval(coefs1, x_test), y_test)
+  score2_train = r2_score(np.polyval(coefs2, x_train), y_train)
+  score2_test = r2_score(np.polyval(coefs2, x_test), y_test)
 
-  ax.plot(training_frac, score1, ls='', marker='.', color='blue',
+  ax[0].plot(training_frac, score1_train, ls='', marker='.', color='blue',
           label='{}-poly, {:.2f}-score'.format(training_frac, score1))
-  ax.plot(training_frac, score2, ls='', marker='o', color='red',
+  ax[0].plot(training_frac, score1_test, ls='', marker='o', color='red',
           label='{}-poly, {:.2f}-score'.format(training_frac, score2))
-  ax.set_title("9th-order Polynomial Score")
+  ax[1].plot(training_frac, score2_train, ls='', marker='.', color='blue',
+          label='{}-poly, {:.2f}-score'.format(training_frac, score1))
+  ax[1].plot(training_frac, score2_test, ls='', marker='o', color='red',
+          label='{}-poly, {:.2f}-score'.format(training_frac, score2))
+  ax[0].set_title("9th-order Polynomial Score")
+  ax[1].set_title("3rd-order Polynomial Score")
 
-ax.legend(['Train','Test'])
-ax.set_xlabel('Training Fraction')
-ax.set_ylabel('$R^2$')
+ax[0].legend(['Train','Test'])
+ax[0].set_xlabel('Training Fraction')
+ax[1].set_xlabel('Training Fraction')
+ax[0].set_ylabel('$R^2$')
 ```
 
 
@@ -1018,7 +1030,7 @@ ax.set_ylabel('$R^2$')
 
 
     
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_57_1.png)
+![png](SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_57_1.png)
     
 
 
@@ -1040,8 +1052,8 @@ Before we get started with grid search, we'll need to switch over from our numpy
 
 
 ```python
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures, StandardScaler
+from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.pipeline import make_pipeline
 
 def PolynomialRegression(degree=2, **kwargs):
@@ -1135,7 +1147,7 @@ ax.set_title("Best Grid Search CV Model")
 
 
     
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_67_1.png)
+![png](SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_67_1.png)
     
 
 
@@ -1334,7 +1346,7 @@ ax.set_title("Best Grid Search CV Model")
 
 
     
-![png](S3_Model_Selection_and_Validation_files/S3_Model_Selection_and_Validation_71_1.png)
+![png](SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_71_1.png)
     
 
 

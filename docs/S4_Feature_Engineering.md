@@ -173,9 +173,79 @@ margin.head()
   </tbody>
 </table>
 </div>
-      
+      <button class="colab-df-convert" onclick="convertToInteractive('df-cfe07248-0454-4b72-a14c-daeb37bf271f')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
 
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
 
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+      <script>
+        const buttonEl =
+          document.querySelector('#df-cfe07248-0454-4b72-a14c-daeb37bf271f button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-cfe07248-0454-4b72-a14c-daeb37bf271f');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
+
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
     </div>
   </div>
 
@@ -537,7 +607,9 @@ from sklearn.linear_model import LinearRegression
 
 
 
+    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_24_1.png)
+    
 
 
 #### 🙋 Question 1:
@@ -634,7 +706,9 @@ plt.plot(x, yhat);
 ```
 
 
+    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_35_0.png)
+    
 
 
 <a name='2.2.2'></a>
@@ -700,7 +774,9 @@ ax[1].set_title('Frequency Domain')
 
 
 
+    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_39_1.png)
+    
 
 
 We can construct a similar plot with 4 signals contributing to the square-wave:
@@ -742,7 +818,9 @@ ax[1].set_title('Frequency Domain')
 
 
 
+    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_41_1.png)
+    
 
 
 <a name='x.2.2.2'></a>
@@ -977,7 +1055,9 @@ plt.plot(x, skewnorm.pdf(x, a),
 
 
 
+    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_51_1.png)
+    
 
 
 We can now generate a random population based on this distribution
@@ -1000,7 +1080,9 @@ plt.hist(r)
 
 
 
+    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_53_1.png)
+    
 
 
 Unskewed data will return something close to 0 from calling `df.skew()`. When dealing with actual data, we can use `df.skew()` to determine whether we should transform our data. 
@@ -1062,7 +1144,9 @@ ax.legend()
 
 
 
+    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_57_3.png)
+    
 
 
 We see we didn't get much traction with the log transform, and the log transform will not be able to handle 0 values, and so we will sometimes have to code exceptions for those. 
@@ -1091,7 +1175,9 @@ plt.hist(r)
 
 
 
+    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_59_1.png)
+    
 
 
 
@@ -1120,7 +1206,9 @@ ax.legend()
 
 
 
+    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_60_1.png)
+    
 
 
 #### 🏋️ Exercise 3: Transform data from a gamma distribution
@@ -1141,11 +1229,15 @@ from scipy.stats import gamma
 
 
 
+    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_62_1.png)
+    
 
 
 
+    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_62_2.png)
+    
 
 
 <a name='2.3.2'></a>
@@ -1205,7 +1297,9 @@ ax.legend()
 
 
 
+    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_67_1.png)
+    
 
 
 To calculate the colinearities I'm going to aggregate these x's into a dataframe:
@@ -1399,7 +1493,9 @@ colin[['x0','x1','x2','x3']].plot(kind='kde')
 
 
 
+    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_78_1.png)
+    
 
 
 
@@ -1415,7 +1511,9 @@ pd.DataFrame(normed, columns = [['x0','x1','x2','x3']]).plot(kind='kde')
 
 
 
+    
 ![png](S4_Feature_Engineering_files/S4_Feature_Engineering_79_1.png)
+    
 
 
 #### 🏋️ Exercise 4: Normalization affect on VIF 
