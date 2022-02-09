@@ -1676,18 +1676,28 @@ the grand median: 15.5
 <p>Within 2-sample T-tests we have <strong><em>independent</em></strong> and <strong><em>dependent</em></strong> T-tests (uncorrelated or correlated samples)</p>
 <p>For independent, two-sample T-tests:</p>
 <ul>
-<li><strong><em>Equal variance</em></strong> (or pooled) T-test</li>
+<li><strong><em>Equal variance</em></strong> (or pooled) T-test<ul>
 <li><code>scipy.stats.ttest_ind(equal_var=True)</code></li>
-<li><strong><em>Unequal variance</em></strong> T-test</li>
+</ul>
+</li>
+<li><strong><em>Unequal variance</em></strong> T-test<ul>
 <li><code>scipy.stats.ttest_ind(equal_var=False)</code></li>
 <li>also called <strong><em>Welch's T-test</em></strong></li>
 </ul>
+</li>
+</ul>
 <p><br></p>
-<p>For dependent T-tests:
-* Paired (or correlated) T-test
-  * <code>scipy.stats.ttest_rel</code></p>
-<p>A full discussion on T-tests is outside the scope of this session, but we can refer to wikipedia for more information, including formulas on how each statistic is computed:
-* <a href="https://en.wikipedia.org/wiki/Student%27s_t-test#Dependent_t-test_for_paired_samples">student's T-test</a></p>
+<p>For dependent T-tests:</p>
+<ul>
+<li>Paired (or correlated) T-test<ul>
+<li><code>scipy.stats.ttest_rel</code></li>
+</ul>
+</li>
+</ul>
+<p>A full discussion on T-tests is outside the scope of this session, but we can refer to wikipedia for more information, including formulas on how each statistic is computed:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Student%27s_t-test#Dependent_t-test_for_paired_samples">student's T-test</a></li>
+</ul>
 <h4 id="2131-demonstration-of-t-tests">2.1.3.1 Demonstration of T-tests<a class="headerlink" href="#2131-demonstration-of-t-tests" title="Permanent link">&para;</a></h4>
 <p><a href="#top">back to top</a></p>
 <p>We'll assume our shifts are of <strong><em>equal variance</em></strong> and proceed with the appropriate <strong><em>independent two-sample</em></strong> T-test...</p>
@@ -1700,10 +1710,14 @@ the grand median: 15.5
 </code></pre></div>
 
 <p>To calculate the T-test, we follow a slightly different statistical formula:</p>
-<p>$T=\frac{\mu_1 - \mu_2}{s\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}$</p>
-<p>where $\mu$ are the means of the two groups, $n$ are the sample sizes and $s$ is the pooled standard deviation, also known as the cummulative variance (depending on if you square it or not):</p>
-<p>$s= \sqrt{\frac{(n_1-1)\sigma_1^2 + (n_2-1)\sigma_2^2}{n_1 + n_2 - 2}}$</p>
-<p>where $\sigma$ are the standard deviations. What you'll notice here is we are combining the two variances, we can only do this if we assume the variances are somewhat equal, this is known as the <em>equal variances</em> t-test.</p>
+<p>
+<script type="math/tex; mode=display">T=\frac{\mu_1 - \mu_2}{s\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}</script>
+</p>
+<p>where $\mu$ are the means of the two groups, \(n\) are the sample sizes and \(s\) is the pooled standard deviation, also known as the cummulative variance (depending on if you square it or not):</p>
+<p>
+<script type="math/tex; mode=display">s= \sqrt{\frac{(n_1-1)\sigma_1^2 + (n_2-1)\sigma_2^2}{n_1 + n_2 - 2}}</script>
+</p>
+<p>where \(\sigma\) are the standard deviations. What you'll notice here is we are combining the two variances, we can only do this if we assume the variances are somewhat equal, this is known as the <em>equal variances</em> t-test.</p>
 <div class="codehilite"><pre><span></span><code><span class="n">mean_shift_one</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">shift_one</span><span class="p">)</span>
 <span class="n">mean_shift_two</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">shift_two</span><span class="p">)</span>
 
@@ -1747,9 +1761,11 @@ the grand median: 15.5
 <h4 id="2141-what-is-analysis-of-variance">2.1.4.1 What is Analysis of Variance?<a class="headerlink" href="#2141-what-is-analysis-of-variance" title="Permanent link">&para;</a></h4>
 <p>ANOVA uses the F-test to determine whether the variability between group means is larger than the variability within the groups. If that statistic is large enough, you can conclude that the means of the groups are not equal.</p>
 <p><strong>The caveat is that ANOVA tells us whether there is a difference in means but it does not tell us where the difference is.</strong> To find where the difference is between the groups, we have to conduct post-hoc tests.</p>
-<p>There are two main types:
-* One-way (one factor) and
-* Two-way (two factor) where factor is an independent variable</p>
+<p>There are two main types:</p>
+<ul>
+<li>One-way (one factor) and</li>
+<li>Two-way (two factor) where factor is an independent variable</li>
+</ul>
 <p><br></p>
 <table>
 <thead>

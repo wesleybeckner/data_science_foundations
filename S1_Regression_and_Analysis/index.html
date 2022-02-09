@@ -1335,17 +1335,15 @@
 <h4 id="exercise-1-rudimentary-eda">🏋️ Exercise 1: rudimentary EDA<a class="headerlink" href="#exercise-1-rudimentary-eda" title="Permanent link">&para;</a></h4>
 <p>What does the data look like? Recall how to visualize data in a pandas dataframe </p>
 <ul>
-<li> for every column calculate the
-
-  * skew: `df.skew()`
-  * kurtosis: `df.kurtosis()`
-  * pearsons correlation with the dependent variable: `df.corr()`
-  * number of missing entries `df.isnull()`
-
-and organize this into a new dataframe
-</li>
+<li>for every column calculate the:<ul>
+<li>skew: <code>df.skew()</code></li>
+<li>kurtosis: <code>df.kurtosis()</code></li>
+<li>pearsons correlation with the dependent variable: <code>df.corr()</code></li>
+<li>number of missing entries <code>df.isnull()</code></li>
 </ul>
-
+</li>
+<li>and organize this into a new dataframe</li>
+</ul>
 <p><em>note:</em> pearsons is just one type of correlation, another correlation available to us is <strong><em>spearman</em></strong> which differs from pearsons in that it depends on ranked values rather than their direct quantities, you can read more <a href="https://support.minitab.com/en-us/minitab-express/1/help-and-how-to/modeling-statistics/regression/supporting-topics/basics/a-comparison-of-the-pearson-and-spearman-correlation-methods/">here</a></p>
 <div class="codehilite"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </code></pre></div>
