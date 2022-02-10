@@ -1081,7 +1081,7 @@ k=9, 0.923 accuracy with a standard deviation of 0.042
 <div class="codehilite"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>[&lt;matplotlib.lines.Line2D at 0x7fd6301bd3a0&gt;]
+<div class="codehilite"><pre><span></span><code>[&lt;matplotlib.lines.Line2D at 0x7f9c34de5820&gt;]
 </code></pre></div>
 
 <p><img alt="png" src="../SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_31_1.png" /></p>
@@ -1200,7 +1200,7 @@ k=9, 0.923 accuracy with a standard deviation of 0.042
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>[&lt;matplotlib.lines.Line2D at 0x7fd62be71190&gt;]
+<div class="codehilite"><pre><span></span><code>[&lt;matplotlib.lines.Line2D at 0x7f9c3424b970&gt;]
 </code></pre></div>
 
 <p><img alt="png" src="../SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_39_1.png" /></p>
@@ -1373,7 +1373,7 @@ r2: 0.52
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>[&lt;matplotlib.lines.Line2D at 0x7fd62bcc9640&gt;]
+<div class="codehilite"><pre><span></span><code>[&lt;matplotlib.lines.Line2D at 0x7f9c34c91d30&gt;]
 </code></pre></div>
 
 <p><img alt="png" src="../SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_47_1.png" /></p>
@@ -1404,7 +1404,7 @@ r2: 0.52
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>&lt;matplotlib.legend.Legend at 0x7fd62bc52700&gt;
+<div class="codehilite"><pre><span></span><code>&lt;matplotlib.legend.Legend at 0x7f9c34c57f40&gt;
 </code></pre></div>
 
 <p><img alt="png" src="../SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_49_1.png" /></p>
@@ -1452,7 +1452,7 @@ r2: 0.52
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>&lt;matplotlib.legend.Legend at 0x7fd62bb0f970&gt;
+<div class="codehilite"><pre><span></span><code>&lt;matplotlib.legend.Legend at 0x7f9c2c7c2580&gt;
 </code></pre></div>
 
 <p><img alt="png" src="../SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_51_1.png" /></p>
@@ -1633,6 +1633,12 @@ r2: 0.52
 <p>Include in your plot title the R2 for testing and R2 for training</p>
 </li>
 </ol>
+<div class="codehilite"><pre><span></span><code><span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">get_params</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>dict_keys([&#39;copy&#39;, &#39;with_mean&#39;, &#39;with_std&#39;])
+</code></pre></div>
+
 <div class="codehilite"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;density&#39;</span><span class="p">)</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">df</span>
@@ -1651,7 +1657,9 @@ r2: 0.52
 <span class="c1">######################################################################################################</span>
 <span class="c1">####################### YOUR EXTRA PARAMETERS GO IN THE DICTIONARY BELOW #############################</span>
 <span class="c1">######################################################################################################</span>
-<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;linearregression__fit_intercept&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]}</span>
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;linearregression__fit_intercept&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+              <span class="s1">&#39;standardscaler__with_mean&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+              <span class="s1">&#39;standardscaler__with_std&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]}</span>
 
 <span class="n">grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">NormalizedRegression</span><span class="p">(),</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </code></pre></div>
@@ -1784,7 +1792,7 @@ Name: density, dtype: float64
 <span class="nb">print</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>{&#39;linearregression__fit_intercept&#39;: True}
+<div class="codehilite"><pre><span></span><code>{&#39;linearregression__fit_intercept&#39;: True, &#39;standardscaler__with_mean&#39;: True, &#39;standardscaler__with_std&#39;: True}
 </code></pre></div>
 
 <div class="codehilite"><pre><span></span><code><span class="n">model</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">best_estimator_</span>
@@ -1793,17 +1801,17 @@ Name: density, dtype: float64
 <span class="c1">##################################### ADJUST THE PLOT LOGIC BELOW ####################################</span>
 <span class="c1">######################################################################################################</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ax_</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
-
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Best Grid Search CV Model&quot;</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Train, R2: </span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">))))</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Test, R2: </span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))))</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>Text(0.5, 1.0, &#39;Best Grid Search CV Model&#39;)
+<div class="codehilite"><pre><span></span><code>Text(0.5, 1.0, &#39;Test, R2: 0.962&#39;)
 </code></pre></div>
 
-<p><img alt="png" src="../SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_71_1.png" /></p>
+<p><img alt="png" src="../SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_72_1.png" /></p>
 <p><a name='reference'></a></p>
 <h1 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h1>
 <p><a href="#top">back to top</a></p>
