@@ -455,7 +455,7 @@ plt.plot(X_train,y_train, ls='', marker='.')
 
 
 
-    [<matplotlib.lines.Line2D at 0x7fd6301bd3a0>]
+    [<matplotlib.lines.Line2D at 0x7f9c34de5820>]
 
 
 
@@ -617,7 +617,7 @@ plt.plot(x,y, ls='', marker='.')
 
 
 
-    [<matplotlib.lines.Line2D at 0x7fd62be71190>]
+    [<matplotlib.lines.Line2D at 0x7f9c3424b970>]
 
 
 
@@ -793,7 +793,7 @@ plt.plot(x,y, ls='', marker='.')
 
 
 
-    [<matplotlib.lines.Line2D at 0x7fd62bcc9640>]
+    [<matplotlib.lines.Line2D at 0x7f9c34c91d30>]
 
 
 
@@ -836,7 +836,7 @@ ax[1].legend()
 
 
 
-    <matplotlib.legend.Legend at 0x7fd62bc52700>
+    <matplotlib.legend.Legend at 0x7f9c34c57f40>
 
 
 
@@ -897,7 +897,7 @@ ax[0].legend()
 
 
 
-    <matplotlib.legend.Legend at 0x7fd62bb0f970>
+    <matplotlib.legend.Legend at 0x7f9c2c7c2580>
 
 
 
@@ -1163,6 +1163,18 @@ There are two objectives for this exercise:
 
 
 ```python
+StandardScaler().get_params().keys()
+```
+
+
+
+
+    dict_keys(['copy', 'with_mean', 'with_std'])
+
+
+
+
+```python
 df = wine.copy()
 y = df.pop('density')
 X = df
@@ -1181,7 +1193,9 @@ def NormalizedRegression(**kwargs):
 ######################################################################################################
 ####################### YOUR EXTRA PARAMETERS GO IN THE DICTIONARY BELOW #############################
 ######################################################################################################
-param_grid = {'linearregression__fit_intercept': [True, False]}
+param_grid = {'linearregression__fit_intercept': [True, False],
+              'standardscaler__with_mean': [True, False],
+              'standardscaler__with_std': [True, False]}
 
 grid = GridSearchCV(NormalizedRegression(), param_grid, cv=5)
 ```
@@ -1319,7 +1333,7 @@ grid.fit(X_train, y_train)
 print(grid.best_params_)
 ```
 
-    {'linearregression__fit_intercept': True}
+    {'linearregression__fit_intercept': True, 'standardscaler__with_mean': True, 'standardscaler__with_std': True}
 
 
 
@@ -1330,23 +1344,23 @@ model = grid.best_estimator_
 ##################################### ADJUST THE PLOT LOGIC BELOW ####################################
 ######################################################################################################
 
-fig, ax = plt.subplots(1,1,figsize=(15,5))
+fig, (ax, ax_) = plt.subplots(1,2,figsize=(15,5))
 ax.plot(y_test, model.predict(X_test), ls='', marker='.')
-ax.plot(y_train, model.predict(X_train), ls='', marker='.')
-
-ax.set_title("Best Grid Search CV Model")
+ax_.plot(y_train, model.predict(X_train), ls='', marker='.')
+ax.set_title("Train, R2: {:.3f}".format(r2_score(y_train, model.predict(X_train))))
+ax_.set_title("Test, R2: {:.3f}".format(r2_score(y_test, model.predict(X_test))))
 ```
 
 
 
 
-    Text(0.5, 1.0, 'Best Grid Search CV Model')
+    Text(0.5, 1.0, 'Test, R2: 0.962')
 
 
 
 
     
-![png](SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_71_1.png)
+![png](SOLN_S3_Model_Selection_and_Validation_files/SOLN_S3_Model_Selection_and_Validation_72_1.png)
     
 
 

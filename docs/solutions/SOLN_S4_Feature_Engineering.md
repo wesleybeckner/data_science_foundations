@@ -512,7 +512,13 @@ Assess your model performance visually by plottying `y_test` vs `y_test_pred`
 # Cell for Exercise 1
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
+X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8)
+model = LinearRegression()
+model.fit(X_train, y_train)
+y_test_pred = model.predict(X_test)
 
+fig, ax = plt.subplots(figsize=(5, 5))
+ax.plot(y_test, y_test_pred, ls='', marker='.')
 ```
 
 
@@ -524,7 +530,7 @@ from sklearn.linear_model import LinearRegression
 
 
     
-![png](S4_Feature_Engineering_files/S4_Feature_Engineering_24_1.png)
+![png](SOLN_S4_Feature_Engineering_files/SOLN_S4_Feature_Engineering_24_1.png)
     
 
 
@@ -619,7 +625,7 @@ plt.plot(x, yhat);
 
 
     
-![png](S4_Feature_Engineering_files/S4_Feature_Engineering_34_0.png)
+![png](SOLN_S4_Feature_Engineering_files/SOLN_S4_Feature_Engineering_34_0.png)
     
 
 
@@ -702,7 +708,7 @@ ax[1].set_title('Frequency Domain')
 
 
     
-![png](S4_Feature_Engineering_files/S4_Feature_Engineering_38_1.png)
+![png](SOLN_S4_Feature_Engineering_files/SOLN_S4_Feature_Engineering_38_1.png)
     
 
 
@@ -840,7 +846,7 @@ for index, customer in enumerate(tidy_orders.Customer.unique()):
 
 
     
-![png](S4_Feature_Engineering_files/S4_Feature_Engineering_43_0.png)
+![png](SOLN_S4_Feature_Engineering_files/SOLN_S4_Feature_Engineering_43_0.png)
     
 
 
@@ -932,7 +938,14 @@ for window in range(1,12):
   ######################
   ### YOUR CODE HERE ###
   ######################
-  pass
+  X, y, labels = process_data(kg_month_data, time_cols=12, window=3)
+  features = PolynomialFeatures(degree=4)
+  X2 = features.fit_transform(X)
+  X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.6)
+  model = LinearRegression()
+  model.fit(X_train, y_train)
+  y_pred = model.predict(X_test)
+  print("{},\t {:.2f}".format(window, r2_score(y_test, y_pred)))
 ```
 
     window   R2
@@ -1045,7 +1058,7 @@ plt.plot(x, skewnorm.pdf(x, a),
 
 
     
-![png](S4_Feature_Engineering_files/S4_Feature_Engineering_53_1.png)
+![png](SOLN_S4_Feature_Engineering_files/SOLN_S4_Feature_Engineering_53_1.png)
     
 
 
@@ -1070,7 +1083,7 @@ plt.hist(r)
 
 
     
-![png](S4_Feature_Engineering_files/S4_Feature_Engineering_55_1.png)
+![png](SOLN_S4_Feature_Engineering_files/SOLN_S4_Feature_Engineering_55_1.png)
     
 
 
@@ -1134,7 +1147,7 @@ ax.legend()
 
 
     
-![png](S4_Feature_Engineering_files/S4_Feature_Engineering_59_3.png)
+![png](SOLN_S4_Feature_Engineering_files/SOLN_S4_Feature_Engineering_59_3.png)
     
 
 
@@ -1165,7 +1178,7 @@ plt.hist(r)
 
 
     
-![png](S4_Feature_Engineering_files/S4_Feature_Engineering_61_1.png)
+![png](SOLN_S4_Feature_Engineering_files/SOLN_S4_Feature_Engineering_61_1.png)
     
 
 
@@ -1196,7 +1209,7 @@ ax.legend()
 
 
     
-![png](S4_Feature_Engineering_files/S4_Feature_Engineering_62_1.png)
+![png](SOLN_S4_Feature_Engineering_files/SOLN_S4_Feature_Engineering_62_1.png)
     
 
 
@@ -1208,7 +1221,21 @@ Repeat section 2.3.1, this time synthesizing a gamma distribution and transformi
 ```python
 # code cell for exercise 3
 from scipy.stats import gamma
+a = 6
+r = gamma.rvs(a, size=1000)
+r = [i for i in r if i > 0]
 
+x = pd.DataFrame(r, columns=['Skewed Data'])
+fig, ax = plt.subplots(1, 1, figsize=(10,10))
+ax.hist(x['Skewed Data'], alpha=0.5, label='original: {:.2f}'.
+        format((x['Skewed Data']).skew()))
+ax.hist(np.sqrt(x['Skewed Data']), alpha=0.5, label='sqrt: {:.2f}'.
+        format(np.sqrt(x['Skewed Data']).skew()))
+ax.hist(np.log(x['Skewed Data']), alpha=0.5, label='log: {:.2f}'.
+        format(np.log(x['Skewed Data']).skew()))
+ax.hist(stats.boxcox(x['Skewed Data'])[0], alpha=0.5, label='box-cox: {:.2f}'.
+        format(pd.DataFrame(stats.boxcox(x['Skewed Data'])[0])[0].skew()))
+ax.legend()
 ```
 
 
@@ -1220,7 +1247,7 @@ from scipy.stats import gamma
 
 
     
-![png](S4_Feature_Engineering_files/S4_Feature_Engineering_64_1.png)
+![png](SOLN_S4_Feature_Engineering_files/SOLN_S4_Feature_Engineering_64_1.png)
     
 
 
@@ -1282,7 +1309,7 @@ ax.legend()
 
 
     
-![png](S4_Feature_Engineering_files/S4_Feature_Engineering_69_1.png)
+![png](SOLN_S4_Feature_Engineering_files/SOLN_S4_Feature_Engineering_69_1.png)
     
 
 
@@ -1480,7 +1507,7 @@ colin[['x0','x1','x2','x3']].plot(kind='kde')
 
 
     
-![png](S4_Feature_Engineering_files/S4_Feature_Engineering_81_1.png)
+![png](SOLN_S4_Feature_Engineering_files/SOLN_S4_Feature_Engineering_81_1.png)
     
 
 
@@ -1498,7 +1525,7 @@ pd.DataFrame(normed, columns = [['x0','x1','x2','x3']]).plot(kind='kde')
 
 
     
-![png](S4_Feature_Engineering_files/S4_Feature_Engineering_82_1.png)
+![png](SOLN_S4_Feature_Engineering_files/SOLN_S4_Feature_Engineering_82_1.png)
     
 
 
@@ -1511,7 +1538,11 @@ In the above, we saw how to scale and center variables. How does this affect VIF
 
 ```python
 # Code Cell for Exercise 4
-
+vif = pd.DataFrame()
+vif["VIF Factor"] = [variance_inflation_factor(normed, i) for i in 
+                     range(normed.shape[1])]
+vif["features"] = colin.columns
+display(vif)
 ```
 
 
@@ -1640,7 +1671,6 @@ Depending on the severity of missing data, you will sometimes opt to remove the 
 # References
 
 [back to top](#top)
-
 * [Box Cox](https://www.statisticshowto.com/box-cox-transformation/)
 * [Multicolinearity](https://www.analyticsvidhya.com/blog/2020/03/what-is-multicollinearity/)
 * [Missing Data](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3668100/)
