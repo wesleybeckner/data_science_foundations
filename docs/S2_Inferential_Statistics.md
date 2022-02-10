@@ -301,14 +301,22 @@ for col in df.columns[:-2]:
 
 [statshowto](https://www.statisticshowto.com/probability-and-statistics/statistics-definitions/inferential-statistics/)
 
-* **Moods Median Test**
-* [Kruskal-Wallis Test](https://sixsigmastudyguide.com/kruskal-wallis-non-parametric-hypothesis-test/) (Another comparison of Medians test)
-* T-Test
-* Analysis of Variance (ANOVA)
-  * One Way ANOVA
-  * Two Way ANOVA
-  * MANOVA
-  * Factorial ANOVA
+* Non-parametric tests
+    * [Moods Median](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.median_test.html) (Comparison of Medians)
+    * [Kruskal-Wallis](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kruskal.html#scipy.stats.kruskal)  (Comparison of Medians, compare to _ANOVA_)
+    * [Mann Whitney](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mannwhitneyu.html#scipy.stats.mannwhitneyu) (Rank order test, compare to _T-test_)
+* Comparison of means
+    * [T-test](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html#scipy.stats.ttest_ind)
+        * Independent
+            * Equal Variances (students T-test)
+            * Unequal Variances (Welch's T-test)
+        * Dependent
+* Comparison of variances
+    * Analysis of Variance (ANOVA)
+        * One Way ANOVA
+        * Two Way ANOVA
+        * MANOVA
+        * Factorial ANOVA
 
 When do I use each of these? We will talk about this as we proceed through the examples. [This page](https://support.minitab.com/en-us/minitab/20/help-and-how-to/statistics/nonparametrics/supporting-topics/which-test-should-i-use/) from minitab has good rules of thumb on the subject.
 
@@ -318,7 +326,7 @@ When do I use each of these? We will talk about this as we proceed through the e
 
 > You can use Chi-Square to test for a goodness of fit (whether a sample of data represents a distribution) or whether two variables are related (using a contingency table, which we will create below!)
 
-**A special case of Pearon's Chi-Squared Test:** We create a table that counts the observations above and below the global median for two different groups. We then perform a *chi-squared test of significance* on this *contingency table* 
+**A special case of Pearon's Chi-Squared Test:** We create a table that counts the observations above and below the global median for **two or more groups**. We then perform a *chi-squared test of significance* on this *contingency table* 
 
 Null hypothesis: the Medians are all equal
 
@@ -780,6 +788,7 @@ For independent, two-sample T-tests:
 
 * **_Equal variance_** (or pooled) T-test
     * `scipy.stats.ttest_ind(equal_var=True)`
+    * also called ***Student's T-test***
 * **_Unequal variance_** T-test
     * `scipy.stats.ttest_ind(equal_var=False)`
     * also called ***Welch's T-test***
@@ -790,6 +799,7 @@ For dependent T-tests:
 
 * Paired (or correlated) T-test
     * `scipy.stats.ttest_rel`
+    * _ex_: patient symptoms before and after treatment
 
 A full discussion on T-tests is outside the scope of this session, but we can refer to wikipedia for more information, including formulas on how each statistic is computed:
 
@@ -815,7 +825,7 @@ To calculate the T-test, we follow a slightly different statistical formula:
 
 $$T=\frac{\mu_1 - \mu_2}{s\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}$$
 
-where $\mu$ are the means of the two groups, \\(n\\) are the sample sizes and \\(s\\) is the pooled standard deviation, also known as the cummulative variance (depending on if you square it or not):
+where \\(\mu\\) are the means of the two groups, \\(n\\) are the sample sizes and \\(s\\) is the pooled standard deviation, also known as the cummulative variance (depending on if you square it or not):
 
 $$s= \sqrt{\frac{(n_1-1)\sigma_1^2 + (n_2-1)\sigma_2^2}{n_1 + n_2 - 2}}$$
 
@@ -1109,23 +1119,7 @@ In summary, there are many statistical tests at our disposal when performing inf
 
 The first issue we run into with moods is... what? 
 
-We can only perform moods on two groups at a time. How can we get around this?
-
-Let's take a look at the category with the fewest descriptors. If we remember, this was the Truffle Types.
-
-
-```python
-df.columns
-```
-
-
-
-
-    Index(['Base Cake', 'Truffle Type', 'Primary Flavor', 'Secondary Flavor',
-           'Color Group', 'Customer', 'Date', 'KG', 'EBITDA/KG'],
-          dtype='object')
-
-
+Since Mood's is nonparametric, we can easily become overconfident in our results. Let's take an example, continuing with the `Truffle Type` column. Recall that there are 3 unique Truffle Types:
 
 
 ```python
@@ -1139,24 +1133,45 @@ df['Truffle Type'].unique()
 
 
 
+We can loop through each group and compute the:
+
+* Moods test (comparison of medians)
+* Welch's T-test (unequal variances, comparison of means) 
+* Shapiro-Wilk test for normality
+
 
 ```python
 col = 'Truffle Type'
 moodsdf = pd.DataFrame()
+confidence_level = 0.01
+welch_rej = mood_rej = shapiro_rej = False
 for truff in df[col].unique():
   
   # for each 
   group = df.loc[df[col] == truff]['EBITDA/KG']
   pop = df.loc[~(df[col] == truff)]['EBITDA/KG']
   stat, p, m, table = scipy.stats.median_test(group, pop)
+  if p < confidence_level:
+        mood_rej = True
   median = np.median(group)
   mean = np.mean(group)
   size = len(group)
   print("{}: N={}".format(truff, size))
-  print("Welch's T-Test for Unequal Variances")
-  print(scipy.stats.ttest_ind(group, pop, equal_var=False))
+  print("Moods Median Test")
+  print("\tstatistic={:.2f}, pvalue={:.2e}".format(stat, p), end="\n")
+  print(f"\treject: {mood_rej}")
+  print("Welch's T-Test")
+  print("\tstatistic={:.2f}, pvalue={:.2e}".format(*scipy.stats.ttest_ind(group, pop, equal_var=False)))
   welchp = scipy.stats.ttest_ind(group, pop, equal_var=False).pvalue
-  print()
+  if welchp < confidence_level:
+        welch_rej = True
+  print(f"\treject: {welch_rej}")
+  print("Shapiro-Wilk")
+  print("\tstatistic={:.2f}, pvalue={:.2e}".format(*stats.shapiro(group)))
+  if stats.shapiro(group).pvalue < confidence_level:
+    shapiro_rej = True
+  print(f"\treject: {shapiro_rej}")
+  print(end="\n\n")
   moodsdf = pd.concat([moodsdf, 
                             pd.DataFrame([truff, 
                                           stat, p, m, mean, median, size,
@@ -1167,111 +1182,54 @@ moodsdf.columns = [col, 'pearsons_chi_square', 'p_value',
 ```
 
     Candy Outer: N=288
-    Welch's T-Test for Unequal Variances
-    Ttest_indResult(statistic=-2.7615297773427527, pvalue=0.005911048922657976)
+    Moods Median Test
+    	statistic=1.52, pvalue=2.18e-01
+    	reject: False
+    Welch's T-Test
+    	statistic=-2.76, pvalue=5.91e-03
+    	reject: True
+    Shapiro-Wilk
+    	statistic=0.96, pvalue=2.74e-07
+    	reject: True
+    
     
     Chocolate Outer: N=1356
-    Welch's T-Test for Unequal Variances
-    Ttest_indResult(statistic=4.409449025092911, pvalue=1.1932685612874952e-05)
+    Moods Median Test
+    	statistic=6.63, pvalue=1.00e-02
+    	reject: False
+    Welch's T-Test
+    	statistic=4.41, pvalue=1.19e-05
+    	reject: True
+    Shapiro-Wilk
+    	statistic=0.96, pvalue=6.30e-19
+    	reject: True
+    
     
     Jelly Filled: N=24
-    Welch's T-Test for Unequal Variances
-    Ttest_indResult(statistic=-8.4142523067935, pvalue=7.929912531660173e-09)
+    Moods Median Test
+    	statistic=18.64, pvalue=1.58e-05
+    	reject: True
+    Welch's T-Test
+    	statistic=-8.41, pvalue=7.93e-09
+    	reject: True
+    Shapiro-Wilk
+    	statistic=0.87, pvalue=6.56e-03
+    	reject: True
+    
     
 
 
 ### 🙋‍♀️ Question 1: Moods Results on Truffle Type
 
-> What do we notice about the resultant table?
+What can we say about these results? 
 
-* **_p-values_** Most are quite small (really low probability of achieving these table results under a single distribution)
-* group sizes: our Jelly Filled group is relatively small
+Recall that:
 
+* Shapiro-Wilk Null Hypothesis: the distribution is normal
+* Welch's T-test: requires that the distributions be normal
+* Moods test: does not require normality in distributions
 
-```python
-moodsdf.sort_values('p_value')
-```
-
-
-
-
-
-  <div id="df-454973ee-99a5-4f68-ba45-07a3ec3ec7d4">
-    <div class="colab-df-container">
-      <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Truffle Type</th>
-      <th>pearsons_chi_square</th>
-      <th>p_value</th>
-      <th>grand_median</th>
-      <th>group_mean</th>
-      <th>group_median</th>
-      <th>size</th>
-      <th>welch p</th>
-      <th>table</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Jelly Filled</td>
-      <td>18.6432</td>
-      <td>1.57604e-05</td>
-      <td>0.216049</td>
-      <td>0.0513823</td>
-      <td>0.0179334</td>
-      <td>24</td>
-      <td>7.92991e-09</td>
-      <td>[[1, 833], [23, 811]]</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>Chocolate Outer</td>
-      <td>6.6275</td>
-      <td>0.0100416</td>
-      <td>0.216049</td>
-      <td>0.262601</td>
-      <td>0.225562</td>
-      <td>1356</td>
-      <td>1.19327e-05</td>
-      <td>[[699, 135], [657, 177]]</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>Candy Outer</td>
-      <td>1.51507</td>
-      <td>0.218368</td>
-      <td>0.216049</td>
-      <td>0.230075</td>
-      <td>0.204264</td>
-      <td>288</td>
-      <td>0.00591105</td>
-      <td>[[134, 700], [154, 680]]</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-    </div>
-  </div>
-
-
-
+> main conclusions: all the groups are non-normal and therefore welch's test is invalid. We saw that the Welch's test had much lower p-values than the Moods median test. This is good news! It means that our Moods test, while allowing for non-normality, is much more conservative in its test-statistic, and therefore was unable to reject the null hypothesis in the cases of the chocolate outer and candy outer groups
 
 We can go ahead and repeat this analysis for all of our product categories:
 
@@ -1316,14 +1274,13 @@ print(moodsdf.shape)
 
 
 ```python
-moodsdf = moodsdf.loc[(moodsdf['welch p'] < 0.005) &
-            (moodsdf['p_value'] < 0.005)].sort_values('group_median')
+moodsdf = moodsdf.loc[(moodsdf['p_value'] < confidence_level)].sort_values('group_median')
 
 moodsdf = moodsdf.sort_values('group_median').reset_index(drop=True)
 print(moodsdf.shape)
 ```
 
-    (51, 10)
+    (57, 10)
 
 
 
@@ -1334,10 +1291,7 @@ moodsdf
 
 
 
-
-  <div id="df-1344c1dc-78a4-49b0-ae73-6882f12e5628">
-    <div class="colab-df-container">
-      <div>
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1371,672 +1325,747 @@ moodsdf
     <tr>
       <th>0</th>
       <td>Secondary Flavor</td>
-      <td>Papaya</td>
-      <td>18.6432</td>
-      <td>1.57604e-05</td>
+      <td>Wild Cherry Cream</td>
+      <td>6.798913</td>
+      <td>0.009121</td>
       <td>0.216049</td>
-      <td>0.0167466</td>
-      <td>0.00245839</td>
-      <td>24</td>
-      <td>1.04879e-10</td>
-      <td>[[1, 833], [23, 811]]</td>
+      <td>-0.122491</td>
+      <td>-0.15791</td>
+      <td>12</td>
+      <td>0.00001</td>
+      <td>[[1, 833], [11, 823]]</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Primary Flavor</td>
-      <td>Orange Pineapple\tP</td>
-      <td>18.6432</td>
-      <td>1.57604e-05</td>
+      <td>Lemon Bar</td>
+      <td>6.798913</td>
+      <td>0.009121</td>
       <td>0.216049</td>
-      <td>0.0167466</td>
-      <td>0.00245839</td>
-      <td>24</td>
-      <td>1.04879e-10</td>
-      <td>[[1, 833], [23, 811]]</td>
+      <td>-0.122491</td>
+      <td>-0.15791</td>
+      <td>12</td>
+      <td>0.00001</td>
+      <td>[[1, 833], [11, 823]]</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Primary Flavor</td>
-      <td>Cherry Cream Spice</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>Orange Pineapple\tP</td>
+      <td>18.643248</td>
+      <td>0.000016</td>
       <td>0.216049</td>
-      <td>0.0187023</td>
-      <td>0.00970093</td>
-      <td>12</td>
-      <td>7.15389e-07</td>
-      <td>[[0, 834], [12, 822]]</td>
+      <td>0.016747</td>
+      <td>0.002458</td>
+      <td>24</td>
+      <td>0.0</td>
+      <td>[[1, 833], [23, 811]]</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Secondary Flavor</td>
-      <td>Cucumber</td>
-      <td>18.6432</td>
-      <td>1.57604e-05</td>
+      <td>Papaya</td>
+      <td>18.643248</td>
+      <td>0.000016</td>
       <td>0.216049</td>
-      <td>0.0513823</td>
-      <td>0.0179334</td>
+      <td>0.016747</td>
+      <td>0.002458</td>
       <td>24</td>
-      <td>7.92991e-09</td>
+      <td>0.0</td>
       <td>[[1, 833], [23, 811]]</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>Truffle Type</td>
-      <td>Jelly Filled</td>
-      <td>18.6432</td>
-      <td>1.57604e-05</td>
+      <td>Primary Flavor</td>
+      <td>Cherry Cream Spice</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
       <td>0.216049</td>
-      <td>0.0513823</td>
-      <td>0.0179334</td>
-      <td>24</td>
-      <td>7.92991e-09</td>
-      <td>[[1, 833], [23, 811]]</td>
+      <td>0.018702</td>
+      <td>0.009701</td>
+      <td>12</td>
+      <td>0.000001</td>
+      <td>[[0, 834], [12, 822]]</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>Primary Flavor</td>
-      <td>Orange</td>
-      <td>18.6432</td>
-      <td>1.57604e-05</td>
+      <td>Secondary Flavor</td>
+      <td>Cucumber</td>
+      <td>18.643248</td>
+      <td>0.000016</td>
       <td>0.216049</td>
-      <td>0.0513823</td>
-      <td>0.0179334</td>
+      <td>0.051382</td>
+      <td>0.017933</td>
       <td>24</td>
-      <td>7.92991e-09</td>
+      <td>0.0</td>
       <td>[[1, 833], [23, 811]]</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>Primary Flavor</td>
-      <td>Toasted Coconut</td>
-      <td>15.2613</td>
-      <td>9.36173e-05</td>
+      <td>Truffle Type</td>
+      <td>Jelly Filled</td>
+      <td>18.643248</td>
+      <td>0.000016</td>
       <td>0.216049</td>
-      <td>0.0370021</td>
-      <td>0.0283916</td>
+      <td>0.051382</td>
+      <td>0.017933</td>
       <td>24</td>
-      <td>3.13722e-08</td>
-      <td>[[2, 832], [22, 812]]</td>
+      <td>0.0</td>
+      <td>[[1, 833], [23, 811]]</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>Secondary Flavor</td>
-      <td>Apricot</td>
-      <td>15.2613</td>
-      <td>9.36173e-05</td>
+      <td>Primary Flavor</td>
+      <td>Orange</td>
+      <td>18.643248</td>
+      <td>0.000016</td>
       <td>0.216049</td>
-      <td>0.0603122</td>
-      <td>0.0374225</td>
+      <td>0.051382</td>
+      <td>0.017933</td>
       <td>24</td>
-      <td>4.5952e-08</td>
-      <td>[[2, 832], [22, 812]]</td>
+      <td>0.0</td>
+      <td>[[1, 833], [23, 811]]</td>
     </tr>
     <tr>
       <th>8</th>
       <td>Primary Flavor</td>
-      <td>Kettle Corn</td>
-      <td>29.0621</td>
-      <td>7.00962e-08</td>
+      <td>Toasted Coconut</td>
+      <td>15.261253</td>
+      <td>0.000094</td>
       <td>0.216049</td>
-      <td>0.0554518</td>
-      <td>0.045891</td>
-      <td>60</td>
-      <td>6.3013e-18</td>
-      <td>[[9, 825], [51, 783]]</td>
+      <td>0.037002</td>
+      <td>0.028392</td>
+      <td>24</td>
+      <td>0.0</td>
+      <td>[[2, 832], [22, 812]]</td>
     </tr>
     <tr>
       <th>9</th>
       <td>Primary Flavor</td>
-      <td>Acai Berry</td>
-      <td>18.6432</td>
-      <td>1.57604e-05</td>
+      <td>Wild Cherry Cream</td>
+      <td>6.798913</td>
+      <td>0.009121</td>
       <td>0.216049</td>
-      <td>0.0365051</td>
-      <td>0.0494656</td>
-      <td>24</td>
-      <td>1.49539e-10</td>
-      <td>[[1, 833], [23, 811]]</td>
+      <td>0.047647</td>
+      <td>0.028695</td>
+      <td>12</td>
+      <td>0.00038</td>
+      <td>[[1, 833], [11, 823]]</td>
     </tr>
     <tr>
       <th>10</th>
-      <td>Primary Flavor</td>
-      <td>Pink Lemonade</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>Secondary Flavor</td>
+      <td>Apricot</td>
+      <td>15.261253</td>
+      <td>0.000094</td>
       <td>0.216049</td>
-      <td>0.0398622</td>
-      <td>0.0563492</td>
-      <td>12</td>
-      <td>1.06677e-05</td>
-      <td>[[0, 834], [12, 822]]</td>
+      <td>0.060312</td>
+      <td>0.037422</td>
+      <td>24</td>
+      <td>0.0</td>
+      <td>[[2, 832], [22, 812]]</td>
     </tr>
     <tr>
       <th>11</th>
-      <td>Secondary Flavor</td>
-      <td>Black Cherry</td>
-      <td>58.9004</td>
-      <td>1.65861e-14</td>
+      <td>Primary Flavor</td>
+      <td>Kettle Corn</td>
+      <td>29.062065</td>
+      <td>0.0</td>
       <td>0.216049</td>
-      <td>0.0559745</td>
-      <td>0.0628979</td>
-      <td>96</td>
-      <td>6.65441e-31</td>
-      <td>[[11, 823], [85, 749]]</td>
+      <td>0.055452</td>
+      <td>0.045891</td>
+      <td>60</td>
+      <td>0.0</td>
+      <td>[[9, 825], [51, 783]]</td>
     </tr>
     <tr>
       <th>12</th>
       <td>Primary Flavor</td>
-      <td>Watermelon</td>
-      <td>15.2613</td>
-      <td>9.36173e-05</td>
+      <td>Acai Berry</td>
+      <td>18.643248</td>
+      <td>0.000016</td>
       <td>0.216049</td>
-      <td>0.0440497</td>
-      <td>0.0678958</td>
+      <td>0.036505</td>
+      <td>0.049466</td>
       <td>24</td>
-      <td>5.20636e-08</td>
-      <td>[[2, 832], [22, 812]]</td>
+      <td>0.0</td>
+      <td>[[1, 833], [23, 811]]</td>
     </tr>
     <tr>
       <th>13</th>
       <td>Primary Flavor</td>
-      <td>Plum</td>
-      <td>34.8516</td>
-      <td>3.55816e-09</td>
+      <td>Pink Lemonade</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
       <td>0.216049</td>
-      <td>0.0849632</td>
-      <td>0.0799934</td>
-      <td>72</td>
-      <td>1.20739e-16</td>
-      <td>[[11, 823], [61, 773]]</td>
+      <td>0.039862</td>
+      <td>0.056349</td>
+      <td>12</td>
+      <td>0.000011</td>
+      <td>[[0, 834], [12, 822]]</td>
     </tr>
     <tr>
       <th>14</th>
       <td>Secondary Flavor</td>
-      <td>Dill Pickle</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>Black Cherry</td>
+      <td>58.900366</td>
+      <td>0.0</td>
       <td>0.216049</td>
-      <td>0.0370421</td>
-      <td>0.0824944</td>
-      <td>12</td>
-      <td>7.45639e-06</td>
-      <td>[[0, 834], [12, 822]]</td>
+      <td>0.055975</td>
+      <td>0.062898</td>
+      <td>96</td>
+      <td>0.0</td>
+      <td>[[11, 823], [85, 749]]</td>
     </tr>
     <tr>
       <th>15</th>
       <td>Primary Flavor</td>
-      <td>Horchata</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>Watermelon</td>
+      <td>15.261253</td>
+      <td>0.000094</td>
       <td>0.216049</td>
-      <td>0.0370421</td>
-      <td>0.0824944</td>
-      <td>12</td>
-      <td>7.45639e-06</td>
-      <td>[[0, 834], [12, 822]]</td>
+      <td>0.04405</td>
+      <td>0.067896</td>
+      <td>24</td>
+      <td>0.0</td>
+      <td>[[2, 832], [22, 812]]</td>
     </tr>
     <tr>
       <th>16</th>
       <td>Primary Flavor</td>
-      <td>Lemon Custard</td>
-      <td>12.2175</td>
-      <td>0.000473444</td>
+      <td>Sassafras</td>
+      <td>6.798913</td>
+      <td>0.009121</td>
       <td>0.216049</td>
-      <td>0.0793894</td>
-      <td>0.087969</td>
-      <td>24</td>
-      <td>6.19493e-06</td>
-      <td>[[3, 831], [21, 813]]</td>
+      <td>0.072978</td>
+      <td>0.074112</td>
+      <td>12</td>
+      <td>0.000059</td>
+      <td>[[1, 833], [11, 823]]</td>
     </tr>
     <tr>
       <th>17</th>
       <td>Primary Flavor</td>
-      <td>Fruit Punch</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>Plum</td>
+      <td>34.851608</td>
+      <td>0.0</td>
       <td>0.216049</td>
-      <td>0.0789353</td>
-      <td>0.0903256</td>
-      <td>12</td>
-      <td>7.61061e-05</td>
-      <td>[[0, 834], [12, 822]]</td>
+      <td>0.084963</td>
+      <td>0.079993</td>
+      <td>72</td>
+      <td>0.0</td>
+      <td>[[11, 823], [61, 773]]</td>
     </tr>
     <tr>
       <th>18</th>
-      <td>Base Cake</td>
-      <td>Chiffon</td>
-      <td>117.046</td>
-      <td>2.80454e-27</td>
+      <td>Secondary Flavor</td>
+      <td>Dill Pickle</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
       <td>0.216049</td>
-      <td>0.127851</td>
-      <td>0.125775</td>
-      <td>288</td>
-      <td>6.79655e-43</td>
-      <td>[[60, 774], [228, 606]]</td>
+      <td>0.037042</td>
+      <td>0.082494</td>
+      <td>12</td>
+      <td>0.000007</td>
+      <td>[[0, 834], [12, 822]]</td>
     </tr>
     <tr>
       <th>19</th>
-      <td>Base Cake</td>
-      <td>Butter</td>
-      <td>134.367</td>
-      <td>4.54085e-31</td>
+      <td>Primary Flavor</td>
+      <td>Horchata</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
       <td>0.216049</td>
-      <td>0.142082</td>
-      <td>0.139756</td>
-      <td>456</td>
-      <td>9.8457e-52</td>
-      <td>[[122, 712], [334, 500]]</td>
+      <td>0.037042</td>
+      <td>0.082494</td>
+      <td>12</td>
+      <td>0.000007</td>
+      <td>[[0, 834], [12, 822]]</td>
     </tr>
     <tr>
       <th>20</th>
-      <td>Secondary Flavor</td>
-      <td>Banana</td>
-      <td>10.8053</td>
-      <td>0.00101207</td>
+      <td>Primary Flavor</td>
+      <td>Lemon Custard</td>
+      <td>12.217457</td>
+      <td>0.000473</td>
       <td>0.216049</td>
-      <td>0.163442</td>
-      <td>0.15537</td>
-      <td>60</td>
-      <td>7.23966e-09</td>
-      <td>[[17, 817], [43, 791]]</td>
+      <td>0.079389</td>
+      <td>0.087969</td>
+      <td>24</td>
+      <td>0.000006</td>
+      <td>[[3, 831], [21, 813]]</td>
     </tr>
     <tr>
       <th>21</th>
       <td>Primary Flavor</td>
-      <td>Cream Soda</td>
-      <td>9.51186</td>
-      <td>0.00204148</td>
+      <td>Fruit Punch</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
       <td>0.216049</td>
-      <td>0.150265</td>
-      <td>0.163455</td>
-      <td>24</td>
-      <td>2.17977e-06</td>
-      <td>[[4, 830], [20, 814]]</td>
+      <td>0.078935</td>
+      <td>0.090326</td>
+      <td>12</td>
+      <td>0.000076</td>
+      <td>[[0, 834], [12, 822]]</td>
     </tr>
     <tr>
       <th>22</th>
+      <td>Base Cake</td>
+      <td>Chiffon</td>
+      <td>117.046226</td>
+      <td>0.0</td>
+      <td>0.216049</td>
+      <td>0.127851</td>
+      <td>0.125775</td>
+      <td>288</td>
+      <td>0.0</td>
+      <td>[[60, 774], [228, 606]]</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Base Cake</td>
+      <td>Butter</td>
+      <td>134.36727</td>
+      <td>0.0</td>
+      <td>0.216049</td>
+      <td>0.142082</td>
+      <td>0.139756</td>
+      <td>456</td>
+      <td>0.0</td>
+      <td>[[122, 712], [334, 500]]</td>
+    </tr>
+    <tr>
+      <th>24</th>
       <td>Secondary Flavor</td>
-      <td>Peppermint</td>
-      <td>9.51186</td>
-      <td>0.00204148</td>
+      <td>Banana</td>
+      <td>10.805348</td>
+      <td>0.001012</td>
+      <td>0.216049</td>
+      <td>0.163442</td>
+      <td>0.15537</td>
+      <td>60</td>
+      <td>0.0</td>
+      <td>[[17, 817], [43, 791]]</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Primary Flavor</td>
+      <td>Cream Soda</td>
+      <td>9.511861</td>
+      <td>0.002041</td>
       <td>0.216049</td>
       <td>0.150265</td>
       <td>0.163455</td>
       <td>24</td>
-      <td>2.17977e-06</td>
+      <td>0.000002</td>
       <td>[[4, 830], [20, 814]]</td>
     </tr>
     <tr>
-      <th>23</th>
+      <th>26</th>
+      <td>Secondary Flavor</td>
+      <td>Peppermint</td>
+      <td>9.511861</td>
+      <td>0.002041</td>
+      <td>0.216049</td>
+      <td>0.150265</td>
+      <td>0.163455</td>
+      <td>24</td>
+      <td>0.000002</td>
+      <td>[[4, 830], [20, 814]]</td>
+    </tr>
+    <tr>
+      <th>27</th>
       <td>Primary Flavor</td>
       <td>Grand Mariner</td>
-      <td>10.5818</td>
-      <td>0.00114208</td>
+      <td>10.581767</td>
+      <td>0.001142</td>
       <td>0.216049</td>
       <td>0.197463</td>
       <td>0.165529</td>
       <td>72</td>
-      <td>0.000828508</td>
+      <td>0.000829</td>
       <td>[[22, 812], [50, 784]]</td>
     </tr>
     <tr>
-      <th>24</th>
+      <th>28</th>
       <td>Color Group</td>
       <td>Amethyst</td>
-      <td>20.4883</td>
-      <td>5.99977e-06</td>
+      <td>20.488275</td>
+      <td>0.000006</td>
       <td>0.216049</td>
       <td>0.195681</td>
       <td>0.167321</td>
       <td>300</td>
-      <td>4.0427e-07</td>
+      <td>0.0</td>
       <td>[[114, 720], [186, 648]]</td>
     </tr>
     <tr>
-      <th>25</th>
+      <th>29</th>
       <td>Color Group</td>
       <td>Burgundy</td>
-      <td>10.9997</td>
-      <td>0.000911278</td>
+      <td>10.999677</td>
+      <td>0.000911</td>
       <td>0.216049</td>
       <td>0.193048</td>
       <td>0.171465</td>
       <td>120</td>
-      <td>0.000406312</td>
+      <td>0.000406</td>
       <td>[[42, 792], [78, 756]]</td>
     </tr>
     <tr>
-      <th>26</th>
+      <th>30</th>
       <td>Color Group</td>
       <td>White</td>
-      <td>35.7653</td>
-      <td>2.22582e-09</td>
+      <td>35.76526</td>
+      <td>0.0</td>
       <td>0.216049</td>
       <td>0.19</td>
       <td>0.177264</td>
       <td>432</td>
-      <td>1.56475e-16</td>
+      <td>0.0</td>
       <td>[[162, 672], [270, 564]]</td>
     </tr>
     <tr>
-      <th>27</th>
-      <td>Color Group</td>
-      <td>Opal</td>
-      <td>11.5872</td>
-      <td>0.000664086</td>
-      <td>0.216049</td>
-      <td>0.317878</td>
-      <td>0.259304</td>
-      <td>324</td>
-      <td>3.94098e-07</td>
-      <td>[[190, 644], [134, 700]]</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>Secondary Flavor</td>
-      <td>Apple</td>
-      <td>27.2833</td>
-      <td>1.75723e-07</td>
-      <td>0.216049</td>
-      <td>0.326167</td>
-      <td>0.293876</td>
-      <td>36</td>
-      <td>0.00117635</td>
-      <td>[[34, 800], [2, 832]]</td>
-    </tr>
-    <tr>
-      <th>29</th>
-      <td>Secondary Flavor</td>
-      <td>Tangerine</td>
-      <td>32.6264</td>
-      <td>1.11688e-08</td>
-      <td>0.216049</td>
-      <td>0.342314</td>
-      <td>0.319273</td>
-      <td>48</td>
-      <td>0.000112572</td>
-      <td>[[44, 790], [4, 830]]</td>
-    </tr>
-    <tr>
-      <th>30</th>
-      <td>Secondary Flavor</td>
-      <td>Black Currant</td>
-      <td>34.7784</td>
-      <td>3.69452e-09</td>
-      <td>0.216049</td>
-      <td>0.357916</td>
-      <td>0.332449</td>
-      <td>36</td>
-      <td>9.48594e-08</td>
-      <td>[[36, 798], [0, 834]]</td>
-    </tr>
-    <tr>
       <th>31</th>
-      <td>Secondary Flavor</td>
-      <td>Pear</td>
-      <td>16.6143</td>
-      <td>4.58043e-05</td>
+      <td>Primary Flavor</td>
+      <td>Ginger Lime</td>
+      <td>7.835047</td>
+      <td>0.005124</td>
       <td>0.216049</td>
-      <td>0.373034</td>
-      <td>0.33831</td>
-      <td>60</td>
-      <td>3.05948e-05</td>
-      <td>[[46, 788], [14, 820]]</td>
+      <td>0.21435</td>
+      <td>0.183543</td>
+      <td>84</td>
+      <td>0.001323</td>
+      <td>[[29, 805], [55, 779]]</td>
     </tr>
     <tr>
       <th>32</th>
       <td>Primary Flavor</td>
-      <td>Vanilla</td>
-      <td>34.7784</td>
-      <td>3.69452e-09</td>
+      <td>Mango</td>
+      <td>11.262488</td>
+      <td>0.000791</td>
       <td>0.216049</td>
-      <td>0.378053</td>
-      <td>0.341626</td>
-      <td>36</td>
-      <td>1.00231e-06</td>
-      <td>[[36, 798], [0, 834]]</td>
+      <td>0.28803</td>
+      <td>0.245049</td>
+      <td>132</td>
+      <td>0.009688</td>
+      <td>[[85, 749], [47, 787]]</td>
     </tr>
     <tr>
       <th>33</th>
       <td>Color Group</td>
-      <td>Citrine</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>Opal</td>
+      <td>11.587164</td>
+      <td>0.000664</td>
       <td>0.216049</td>
-      <td>0.390728</td>
-      <td>0.342512</td>
-      <td>12</td>
-      <td>0.00192513</td>
-      <td>[[12, 822], [0, 834]]</td>
+      <td>0.317878</td>
+      <td>0.259304</td>
+      <td>324</td>
+      <td>0.0</td>
+      <td>[[190, 644], [134, 700]]</td>
     </tr>
     <tr>
       <th>34</th>
-      <td>Color Group</td>
-      <td>Teal</td>
-      <td>13.5397</td>
-      <td>0.000233572</td>
+      <td>Secondary Flavor</td>
+      <td>Apple</td>
+      <td>27.283292</td>
+      <td>0.0</td>
       <td>0.216049</td>
-      <td>0.323955</td>
-      <td>0.3446</td>
-      <td>96</td>
-      <td>0.00120954</td>
-      <td>[[66, 768], [30, 804]]</td>
+      <td>0.326167</td>
+      <td>0.293876</td>
+      <td>36</td>
+      <td>0.001176</td>
+      <td>[[34, 800], [2, 832]]</td>
     </tr>
     <tr>
       <th>35</th>
-      <td>Base Cake</td>
-      <td>Tiramisu</td>
-      <td>52.3606</td>
-      <td>4.61894e-13</td>
+      <td>Secondary Flavor</td>
+      <td>Tangerine</td>
+      <td>32.626389</td>
+      <td>0.0</td>
       <td>0.216049</td>
-      <td>0.388267</td>
-      <td>0.362102</td>
-      <td>144</td>
-      <td>7.98485e-12</td>
-      <td>[[114, 720], [30, 804]]</td>
+      <td>0.342314</td>
+      <td>0.319273</td>
+      <td>48</td>
+      <td>0.000113</td>
+      <td>[[44, 790], [4, 830]]</td>
     </tr>
     <tr>
       <th>36</th>
-      <td>Primary Flavor</td>
-      <td>Doughnut</td>
-      <td>74.9353</td>
-      <td>4.86406e-18</td>
+      <td>Secondary Flavor</td>
+      <td>Black Currant</td>
+      <td>34.778391</td>
+      <td>0.0</td>
       <td>0.216049</td>
-      <td>0.439721</td>
-      <td>0.379361</td>
-      <td>108</td>
-      <td>2.47855e-15</td>
-      <td>[[98, 736], [10, 824]]</td>
+      <td>0.357916</td>
+      <td>0.332449</td>
+      <td>36</td>
+      <td>0.0</td>
+      <td>[[36, 798], [0, 834]]</td>
     </tr>
     <tr>
       <th>37</th>
       <td>Secondary Flavor</td>
-      <td>Ginger Beer</td>
-      <td>22.3634</td>
-      <td>2.25628e-06</td>
+      <td>Pear</td>
+      <td>16.614303</td>
+      <td>0.000046</td>
       <td>0.216049</td>
-      <td>0.444895</td>
-      <td>0.382283</td>
-      <td>24</td>
-      <td>0.000480693</td>
-      <td>[[24, 810], [0, 834]]</td>
+      <td>0.373034</td>
+      <td>0.33831</td>
+      <td>60</td>
+      <td>0.000031</td>
+      <td>[[46, 788], [14, 820]]</td>
     </tr>
     <tr>
       <th>38</th>
-      <td>Color Group</td>
-      <td>Rose</td>
-      <td>18.6432</td>
-      <td>1.57604e-05</td>
+      <td>Primary Flavor</td>
+      <td>Vanilla</td>
+      <td>34.778391</td>
+      <td>0.0</td>
       <td>0.216049</td>
-      <td>0.42301</td>
-      <td>0.407061</td>
-      <td>24</td>
-      <td>6.16356e-05</td>
-      <td>[[23, 811], [1, 833]]</td>
+      <td>0.378053</td>
+      <td>0.341626</td>
+      <td>36</td>
+      <td>0.000001</td>
+      <td>[[36, 798], [0, 834]]</td>
     </tr>
     <tr>
       <th>39</th>
-      <td>Base Cake</td>
-      <td>Cheese</td>
-      <td>66.8047</td>
-      <td>2.99776e-16</td>
+      <td>Color Group</td>
+      <td>Citrine</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
       <td>0.216049</td>
-      <td>0.450934</td>
-      <td>0.435638</td>
-      <td>84</td>
-      <td>4.5139e-18</td>
-      <td>[[79, 755], [5, 829]]</td>
+      <td>0.390728</td>
+      <td>0.342512</td>
+      <td>12</td>
+      <td>0.001925</td>
+      <td>[[12, 822], [0, 834]]</td>
     </tr>
     <tr>
       <th>40</th>
-      <td>Primary Flavor</td>
-      <td>Butter Toffee</td>
-      <td>60.1815</td>
-      <td>8.65028e-15</td>
+      <td>Color Group</td>
+      <td>Teal</td>
+      <td>13.539679</td>
+      <td>0.000234</td>
       <td>0.216049</td>
-      <td>0.50366</td>
-      <td>0.456343</td>
-      <td>60</td>
-      <td>2.09848e-19</td>
-      <td>[[60, 774], [0, 834]]</td>
+      <td>0.323955</td>
+      <td>0.3446</td>
+      <td>96</td>
+      <td>0.00121</td>
+      <td>[[66, 768], [30, 804]]</td>
     </tr>
     <tr>
       <th>41</th>
-      <td>Color Group</td>
-      <td>Slate</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>Base Cake</td>
+      <td>Tiramisu</td>
+      <td>52.360619</td>
+      <td>0.0</td>
       <td>0.216049</td>
-      <td>0.540214</td>
-      <td>0.483138</td>
-      <td>12</td>
-      <td>1.69239e-05</td>
-      <td>[[12, 822], [0, 834]]</td>
+      <td>0.388267</td>
+      <td>0.362102</td>
+      <td>144</td>
+      <td>0.0</td>
+      <td>[[114, 720], [30, 804]]</td>
     </tr>
     <tr>
       <th>42</th>
       <td>Primary Flavor</td>
-      <td>Gingersnap</td>
-      <td>22.3634</td>
-      <td>2.25628e-06</td>
+      <td>Doughnut</td>
+      <td>74.935256</td>
+      <td>0.0</td>
       <td>0.216049</td>
-      <td>0.643218</td>
-      <td>0.623627</td>
-      <td>24</td>
-      <td>9.02005e-16</td>
-      <td>[[24, 810], [0, 834]]</td>
+      <td>0.439721</td>
+      <td>0.379361</td>
+      <td>108</td>
+      <td>0.0</td>
+      <td>[[98, 736], [10, 824]]</td>
     </tr>
     <tr>
       <th>43</th>
-      <td>Primary Flavor</td>
-      <td>Dill Pickle</td>
-      <td>22.3634</td>
-      <td>2.25628e-06</td>
+      <td>Secondary Flavor</td>
+      <td>Ginger Beer</td>
+      <td>22.363443</td>
+      <td>0.000002</td>
       <td>0.216049</td>
-      <td>0.642239</td>
-      <td>0.655779</td>
+      <td>0.444895</td>
+      <td>0.382283</td>
       <td>24</td>
-      <td>5.14558e-16</td>
+      <td>0.000481</td>
       <td>[[24, 810], [0, 834]]</td>
     </tr>
     <tr>
       <th>44</th>
       <td>Color Group</td>
-      <td>Olive</td>
-      <td>44.9675</td>
-      <td>2.00328e-11</td>
+      <td>Rose</td>
+      <td>18.643248</td>
+      <td>0.000016</td>
       <td>0.216049</td>
-      <td>0.637627</td>
-      <td>0.670186</td>
-      <td>60</td>
-      <td>3.71909e-20</td>
-      <td>[[56, 778], [4, 830]]</td>
+      <td>0.42301</td>
+      <td>0.407061</td>
+      <td>24</td>
+      <td>0.000062</td>
+      <td>[[23, 811], [1, 833]]</td>
     </tr>
     <tr>
       <th>45</th>
-      <td>Primary Flavor</td>
-      <td>Butter Milk</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>Base Cake</td>
+      <td>Cheese</td>
+      <td>66.804744</td>
+      <td>0.0</td>
       <td>0.216049</td>
-      <td>0.699284</td>
-      <td>0.688601</td>
-      <td>12</td>
-      <td>2.76773e-07</td>
-      <td>[[12, 822], [0, 834]]</td>
+      <td>0.450934</td>
+      <td>0.435638</td>
+      <td>84</td>
+      <td>0.0</td>
+      <td>[[79, 755], [5, 829]]</td>
     </tr>
     <tr>
       <th>46</th>
-      <td>Base Cake</td>
-      <td>Sponge</td>
-      <td>127.156</td>
-      <td>1.71707e-29</td>
+      <td>Primary Flavor</td>
+      <td>Butter Toffee</td>
+      <td>60.181468</td>
+      <td>0.0</td>
       <td>0.216049</td>
-      <td>0.698996</td>
-      <td>0.699355</td>
-      <td>120</td>
-      <td>2.5584e-80</td>
-      <td>[[120, 714], [0, 834]]</td>
+      <td>0.50366</td>
+      <td>0.456343</td>
+      <td>60</td>
+      <td>0.0</td>
+      <td>[[60, 774], [0, 834]]</td>
     </tr>
     <tr>
       <th>47</th>
-      <td>Primary Flavor</td>
-      <td>Chocolate Mint</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>Color Group</td>
+      <td>Slate</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
       <td>0.216049</td>
-      <td>0.685546</td>
-      <td>0.699666</td>
+      <td>0.540214</td>
+      <td>0.483138</td>
       <td>12</td>
-      <td>1.48794e-07</td>
+      <td>0.000017</td>
       <td>[[12, 822], [0, 834]]</td>
     </tr>
     <tr>
       <th>48</th>
       <td>Primary Flavor</td>
-      <td>Coconut</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>Gingersnap</td>
+      <td>22.363443</td>
+      <td>0.000002</td>
       <td>0.216049</td>
-      <td>0.732777</td>
-      <td>0.717641</td>
-      <td>12</td>
-      <td>3.06716e-14</td>
-      <td>[[12, 822], [0, 834]]</td>
+      <td>0.643218</td>
+      <td>0.623627</td>
+      <td>24</td>
+      <td>0.0</td>
+      <td>[[24, 810], [0, 834]]</td>
     </tr>
     <tr>
       <th>49</th>
       <td>Primary Flavor</td>
-      <td>Blueberry</td>
-      <td>22.3634</td>
-      <td>2.25628e-06</td>
+      <td>Dill Pickle</td>
+      <td>22.363443</td>
+      <td>0.000002</td>
       <td>0.216049</td>
-      <td>0.759643</td>
-      <td>0.72536</td>
+      <td>0.642239</td>
+      <td>0.655779</td>
       <td>24</td>
-      <td>9.11605e-14</td>
+      <td>0.0</td>
       <td>[[24, 810], [0, 834]]</td>
     </tr>
     <tr>
       <th>50</th>
+      <td>Color Group</td>
+      <td>Olive</td>
+      <td>44.967537</td>
+      <td>0.0</td>
+      <td>0.216049</td>
+      <td>0.637627</td>
+      <td>0.670186</td>
+      <td>60</td>
+      <td>0.0</td>
+      <td>[[56, 778], [4, 830]]</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>Primary Flavor</td>
+      <td>Butter Milk</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
+      <td>0.216049</td>
+      <td>0.699284</td>
+      <td>0.688601</td>
+      <td>12</td>
+      <td>0.0</td>
+      <td>[[12, 822], [0, 834]]</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>Base Cake</td>
+      <td>Sponge</td>
+      <td>127.156266</td>
+      <td>0.0</td>
+      <td>0.216049</td>
+      <td>0.698996</td>
+      <td>0.699355</td>
+      <td>120</td>
+      <td>0.0</td>
+      <td>[[120, 714], [0, 834]]</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>Primary Flavor</td>
+      <td>Chocolate Mint</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
+      <td>0.216049</td>
+      <td>0.685546</td>
+      <td>0.699666</td>
+      <td>12</td>
+      <td>0.0</td>
+      <td>[[12, 822], [0, 834]]</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>Primary Flavor</td>
+      <td>Coconut</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
+      <td>0.216049</td>
+      <td>0.732777</td>
+      <td>0.717641</td>
+      <td>12</td>
+      <td>0.0</td>
+      <td>[[12, 822], [0, 834]]</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>Primary Flavor</td>
+      <td>Blueberry</td>
+      <td>22.363443</td>
+      <td>0.000002</td>
+      <td>0.216049</td>
+      <td>0.759643</td>
+      <td>0.72536</td>
+      <td>24</td>
+      <td>0.0</td>
+      <td>[[24, 810], [0, 834]]</td>
+    </tr>
+    <tr>
+      <th>56</th>
       <td>Primary Flavor</td>
       <td>Amaretto</td>
-      <td>10.1564</td>
-      <td>0.00143801</td>
+      <td>10.156401</td>
+      <td>0.001438</td>
       <td>0.216049</td>
       <td>0.782156</td>
       <td>0.764845</td>
       <td>12</td>
-      <td>8.53642e-10</td>
+      <td>0.0</td>
       <td>[[12, 822], [0, 834]]</td>
     </tr>
   </tbody>
 </table>
 </div>
-    </div>
-  </div>
-
 
 
 
@@ -2560,13 +2589,13 @@ plt.show()
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_103_0.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_102_0.png)
     
 
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_103_1.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_102_1.png)
     
 
 
