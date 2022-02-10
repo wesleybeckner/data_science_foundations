@@ -35715,23 +35715,23 @@ Make a new column of `df` called "Starter" and set it equal to the pandas Series
 
 We're going to use Bayes Rule or Bayesian Inference to make a probability of winning based on positions of the board. The formula is:
 
-$ P(A|B) = \frac{P(B|A) * P(A)}{P(B)} = \frac{P(A \cap B)}{P(B)}$
+$$ P(A|B) = \frac{P(B|A) * P(A)}{P(B)} = \frac{P(A \cap B)}{P(B)}$$
 
-Where $\cap$ is the intersection of $A$ and $B$.
+Where \\(\cap\\) is the intersection of \\(A\\) and \\(B\\).
 
 The example we will use is the following: _what is the probability of 'O' being the winner, given that they've played the center piece._
 
-$B$ = 'O' played the center piece
+\\(B\\) = 'O' played the center piece
 
-$A$ = 'O' won the game
+\\(A\\) = 'O' won the game
 
 
 
 So what is probability? We will define it in terms of frequencies. So if we are for instance asking what is the probability of player 'O' being in the center piece, it would be defined as:
 
-$ P(B) = \frac{|O_c|} {|O_c| + |X_c| + |empty|}$
+$$ P(B) = \frac{|O_c|} {|O_c| + |X_c| + |empty|}$$
 
-Where the pipes, `| |`, or cardinality represent the count of the indicated observation or set. In this case $O_c$ (O being in the center) and $X_c$ (X being in the center).
+Where the pipes, `| |`, or cardinality represent the count of the indicated observation or set. In this case \\(O_c\\) (O being in the center) and \\(X_c\\) (X being in the center).
 
 
 
@@ -35785,7 +35785,7 @@ Oc/Oc_Xc_empty
 
 
 
-The $P(B|A) * P(A)$ is the intersection of $B$ and $A$. The intersection is defined as the two events occuring together.
+The \\(P(B|A) * P(A)\\) is the intersection of \\(B\\) and \\(A\\). The intersection is defined as the two events occuring together.
 Continuing with the example, the probablity of 'O' playing the center piece AND 'O' being the winner is _the number of times these observations occured together divided by the whole observation space_:
 
 
@@ -35817,7 +35817,7 @@ df.shape[0]
 
 And so we get:
 
-$P(B|A) * P(A) = \frac{247} {1000} = 0.247 $
+$$P(B|A) * P(A) = \frac{247} {1000} = 0.247 $$
 
 In code:
 
@@ -35850,7 +35850,7 @@ define the 3 different board piece types and label them `middle`, `side`, and `c
 
 #### 1.2.1.1 What is the probability of winning after playing the middle piece?
 
-#### Q5
+#### Q5: For player X
 
 
 ```python
@@ -35875,7 +35875,7 @@ A_B / B
 
 
 
-#### Q6
+#### Q6 For player O
 
 
 ```python
@@ -35901,7 +35901,7 @@ A_B / B
 
 #### 1.2.1.2 What is the probability of winning after playing a side piece?
 
-#### Q7
+#### Q7 For player O
 
 
 ```python
@@ -35923,6 +35923,8 @@ A_B / B
     0.4158609451385117
 
 
+
+#### Q8 For player X
 
 
 ```python
@@ -35948,7 +35950,7 @@ A_B / B
 
 #### 1.2.1.3 What is the probability of winning after playing a corner piece?
 
-### Q8
+#### Q9 For player O
 
 
 ```python
@@ -35972,7 +35974,7 @@ A_B / B
 
 
 
-### Q9
+#### Q10 For player X
 
 
 ```python
