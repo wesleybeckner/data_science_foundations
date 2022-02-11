@@ -210,7 +210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../about/" class="md-nav__link">
+      <a href="../introduction/" class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -1181,17 +1181,15 @@
 <p>An even more rigorous method to leaving out a single test set, is to perform cross validation. Imagine a situation where we are trying to estimate the best value of K in our KNN algorithm. If we continually train our model with new values of K on our training set, and test with our testing set, "knowledge" of our test set values with leak into our model, as we choose the best value for K based on how it performs on our test set (even though we did not train on this test set). We call this phenomenon <em>data leakage</em>. CV or Cross Validation overcomes this by only evaluating our parameters with our training set.</p>
 <p align="center">
 <img src='https://scikit-learn.org/stable/_images/grid_search_workflow.png' width=500px></img>
-
-<small>[image src](https://scikit-learn.org/stable/modules/cross_validation.html)</small>
 </p>
 
+<p><small><a href="https://scikit-learn.org/stable/modules/cross_validation.html">img src</a></small></p>
 <p>In this scheme, we don't evaluate our model on the test set until the very end. Rather, we estimate our hyperparameter performances by slicing the training set into cross folds</p>
 <p align="center">
 <img src='https://scikit-learn.org/stable/_images/grid_search_cross_validation.png' width=500px></img>
-
-<small>[image src](https://scikit-learn.org/stable/modules/cross_validation.html)</small>
 </p>
 
+<p><small><a href="https://scikit-learn.org/stable/modules/cross_validation.html">img src</a></small></p>
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
 
 <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">knn</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>

@@ -210,7 +210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../about/" class="md-nav__link">
+      <a href="../../introduction/" class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -422,9 +422,54 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Practice with Feature Engineering
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Practice with Feature Engineering
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#l1-q1-feature-derivation" class="md-nav__link">
+    L1 Q1: Feature Derivation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l1-q2-feature-transformation" class="md-nav__link">
+    L1 Q2: Feature Transformation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l1-q3-modeling" class="md-nav__link">
+    L1 Q3: Modeling
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -575,6 +620,35 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#l1-q1-feature-derivation" class="md-nav__link">
+    L1 Q1: Feature Derivation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l1-q2-feature-transformation" class="md-nav__link">
+    L1 Q2: Feature Transformation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l1-q3-modeling" class="md-nav__link">
+    L1 Q3: Modeling
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -603,7 +677,7 @@
 
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span><span class="p">,</span> <span class="n">StandardScaler</span>
 <span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span><span class="p">,</span> <span class="n">LinearRegression</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="kn">from</span> <span class="nn">statsmodels.stats.outliers_influence</span> <span class="kn">import</span> <span class="n">variance_inflation_factor</span>
@@ -612,7 +686,7 @@
       <span class="s2">&quot;ds_for_engineers/main/data/wine_quality/winequalityN.csv&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="l1-q1-feature-derivation">L1 Q1: Feature Derivation<a class="headerlink" href="#l1-q1-feature-derivation" title="Permanent link">&para;</a></h1>
+<h2 id="l1-q1-feature-derivation">L1 Q1: Feature Derivation<a class="headerlink" href="#l1-q1-feature-derivation" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Fill in any missing data in your dataset using imputation and use this new data for Q2-Q3</li>
 <li>One-Hot encode categorical variables in the wine dataset</li>
@@ -749,7 +823,7 @@
 (6497, 13)
 </code></pre></div>
 
-<h1 id="l1-q2-feature-transformation">L1 Q2: Feature Transformation<a class="headerlink" href="#l1-q2-feature-transformation" title="Permanent link">&para;</a></h1>
+<h2 id="l1-q2-feature-transformation">L1 Q2: Feature Transformation<a class="headerlink" href="#l1-q2-feature-transformation" title="Permanent link">&para;</a></h2>
 <p>Use <code>StandardScaler</code> on the input data and evaluate how this affects VIF, kurtosis, and skew</p>
 <p>You should ignore the one-hot encoded column(s) for this section</p>
 <div class="codehilite"><pre><span></span><code><span class="c1"># Non-one hot encoded columns</span>
@@ -952,7 +1026,7 @@
 </table>
 </div>
 
-<h1 id="l1-q3-modeling">L1 Q3: Modeling<a class="headerlink" href="#l1-q3-modeling" title="Permanent link">&para;</a></h1>
+<h2 id="l1-q3-modeling">L1 Q3: Modeling<a class="headerlink" href="#l1-q3-modeling" title="Permanent link">&para;</a></h2>
 <p>Create a Pipeline using one of the scaling methods in sklearn and linear or logistic regression </p>
 <p>If you are using logistic regression:</p>
 <ul>

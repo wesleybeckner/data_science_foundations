@@ -210,7 +210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../about/" class="md-nav__link">
+      <a href="../introduction/" class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -1837,15 +1837,6 @@ Name: chlorides, dtype: float64
 </blockquote>
 <p>Luckily <a href="https://scikit-learn.org/stable/">scikit-learn</a> contains many functions related to regression including <a href="https://scikit-learn.org/stable/modules/linear_model.html">linear regression</a>. </p>
 <p>The function we will use is called <code> LinearRegression() </code>. </p>
-<div class="codehilite"><pre><span></span><code># Create linear regression object
-model = linear_model.LinearRegression()
-
-# Use model to fit to the data, the x values are densities and the y values are fixed acidity
-# Note that we need to reshape the vectors to be of the shape x - (n_samples, n_features) and y (n_samples, n_targets)
-x = red[&#39;density&#39;].values.reshape(-1, 1)
-y = red[&#39;fixed acidity&#39;].values.reshape(-1, 1)
-</code></pre></div>
-
 <div class="codehilite"><pre><span></span><code><span class="c1"># Create linear regression object</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">()</span>
 
@@ -1855,27 +1846,12 @@ y = red[&#39;fixed acidity&#39;].values.reshape(-1, 1)
 <span class="n">y</span> <span class="o">=</span> <span class="n">red</span><span class="p">[</span><span class="s1">&#39;fixed acidity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>print(red[&#39;density&#39;].values.shape, red[&#39;fixed acidity&#39;].values.shape)
-print(x.shape, y.shape)
-</code></pre></div>
-
 <div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">red</span><span class="p">[</span><span class="s1">&#39;density&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">red</span><span class="p">[</span><span class="s1">&#39;fixed acidity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </code></pre></div>
 
 <div class="codehilite"><pre><span></span><code>(1599,) (1599,)
 (1599, 1) (1599, 1)
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code># Fit to the data
-model.fit(x, y)
-
-# Extract the values of interest
-m = model.coef_[0][0]
-b = model.intercept_[0]
-
-# Print the slope m and intercept b
-print(&#39;Scikit learn - Slope: &#39;, m , &#39;Intercept: &#39;, b )
 </code></pre></div>
 
 <p>What happens when we try to fit the data as is?</p>
@@ -1958,7 +1934,7 @@ print(&#39;Scikit learn - Slope: &#39;, m , &#39;Intercept: &#39;, b )
 <div class="codehilite"><pre><span></span><code>[&lt;matplotlib.lines.Line2D at 0x7fdd881875e0&gt;]
 </code></pre></div>
 
-<p><img alt="png" src="../S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_46_1.png" /></p>
+<p><img alt="png" src="../S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_44_1.png" /></p>
 <h2 id="13-error-and-topics-of-model-fitting-assessing-model-accuracy">1.3 Error and topics of model fitting (assessing model accuracy)<a class="headerlink" href="#13-error-and-topics-of-model-fitting-assessing-model-accuracy" title="Permanent link">&para;</a></h2>
 <h3 id="131-measuring-the-quality-of-fit">1.3.1 Measuring the quality of fit<a class="headerlink" href="#131-measuring-the-quality-of-fit" title="Permanent link">&para;</a></h3>
 <h4 id="1311-mean-squared-error">1.3.1.1 Mean Squared Error<a class="headerlink" href="#1311-mean-squared-error" title="Permanent link">&para;</a></h4>
@@ -1966,10 +1942,6 @@ print(&#39;Scikit learn - Slope: &#39;, m , &#39;Intercept: &#39;, b )
 <p>
 <script type="math/tex; mode=display">{\sf MSE}=\epsilon_{\sf ave} = \frac{\sum_{i=1}^{N_{\sf times}}\left(y^{\sf exact}_i - m\cdot t_i - b \right)^2}{N_{\sf times}}\;\;\;\;\;\sf eq. 3</script>
 </p>
-<div class="codehilite"><pre><span></span><code># The mean squared error
-print(&#39;Mean squared error: %.2f&#39; % mean_squared_error(y, y_pred))
-</code></pre></div>
-
 <div class="codehilite"><pre><span></span><code><span class="c1"># The mean squared error</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean squared error: </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
 </code></pre></div>
@@ -1990,10 +1962,6 @@ print(&#39;Mean squared error: %.2f&#39; % mean_squared_error(y, y_pred))
 <blockquote>
 <p>Do we need a large value of \(SS_{\sf tot}\) to minimize \(R^2\) - is this something which we have the power to control?</p>
 </blockquote>
-<div class="codehilite"><pre><span></span><code># Print the coefficient of determination - 1 is perfect prediction
-print(&#39;Coefficient of determination: %.2f&#39; % r2_score(y, y_pred))
-</code></pre></div>
-
 <div class="codehilite"><pre><span></span><code><span class="c1"># Print the coefficient of determination - 1 is perfect prediction</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Coefficient of determination: </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
 </code></pre></div>
@@ -2219,12 +2187,6 @@ quality                 0
 dtype: int64
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code># Create linear regression object - note that we are using all the input features
-model = linear_model.LinearRegression()
-model.fit(X, y)
-y_calc = model.predict(X)
-</code></pre></div>
-
 <div class="codehilite"><pre><span></span><code><span class="c1"># Create linear regression object - note that we are using all the input features</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">()</span>
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -2232,9 +2194,6 @@ y_calc = model.predict(X)
 </code></pre></div>
 
 <p>Let's see what the coefficients look like ... </p>
-<div class="codehilite"><pre><span></span><code>print(&quot;Fit coefficients: \n&quot;, model.coef_, &quot;\nNumber of coefficients:&quot;, len(model.coef_))
-</code></pre></div>
-
 <div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fit coefficients: </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Number of coefficients:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">))</span>
 </code></pre></div>
 
@@ -2248,10 +2207,6 @@ Number of coefficients: 11
 <p>We have 11 !!! That's because we are regressing respect to all <strong>11 independent variables</strong>!!!</p>
 <p>So now, <script type="math/tex; mode=display">y_{\sf calc}= m_1x_1 +\, m_2x_2 \,+ \,m_3x_3 \,+\,... \,+ \,b =\sum_{i=1}^{13}m_i x_i + b\;\;\;\;\; \sf eq. 7</script>
 </p>
-<div class="codehilite"><pre><span></span><code>print(&quot;We have 13 slopes / weights:\n\n&quot;, model.coef_)
-print(&quot;\nAnd one intercept: &quot;, model.intercept_)
-</code></pre></div>
-
 <div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;We have 11 slopes / weights:</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">And one intercept: &quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span><span class="p">)</span>
 </code></pre></div>
@@ -2263,13 +2218,6 @@ print(&quot;\nAnd one intercept: &quot;, model.intercept_)
   2.24558885e-04 -9.80600257e-04 -1.75587885e-05]
 
 And one intercept:  0.9967517451349656
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code># This size should match the number of columns in X
-if len(X[0]) == len(model.coef_):
-    print(&quot;All good! The number of coefficients matches the number of input features.&quot;)
-else:
-    print(&quot;Hmm .. something strange is going on.&quot;)
 </code></pre></div>
 
 <div class="codehilite"><pre><span></span><code><span class="c1"># This size should match the number of columns in X</span>
@@ -2284,20 +2232,6 @@ else:
 
 <h3 id="exercise-4-evaluate-the-error">🏋️ Exercise 4: evaluate the error<a class="headerlink" href="#exercise-4-evaluate-the-error" title="Permanent link">&para;</a></h3>
 <p>Let's <strong>evaluate the error</strong> by computing the MSE and \(R^2\) metrics (see eq. 3 and 6).</p>
-<div class="codehilite"><pre><span></span><code># The mean squared error
-
-# part A 
-# calculate the MSE using mean_squared_error()
-# mse = 
-
-# part B
-# calculate the R square using r2_score()
-# r2 = 
-
-print(&#39;Mean squared error: {:.2f}&#39;.format(mse)
-print(&#39;Coefficient of determination: {:.2f}&#39;.format(r2)
-</code></pre></div>
-
 <div class="codehilite"><pre><span></span><code><span class="c1"># The mean squared error</span>
 
 <span class="c1"># part A </span>
@@ -2314,16 +2248,6 @@ print(&#39;Coefficient of determination: {:.2f}&#39;.format(r2)
 
 <h3 id="exercise-5-make-a-plot-of-y-actual-vs-y-predicted">🏋️ Exercise 5: make a plot of y actual vs y predicted<a class="headerlink" href="#exercise-5-make-a-plot-of-y-actual-vs-y-predicted" title="Permanent link">&para;</a></h3>
 <p>We can also look at how well the computed values match the true values graphically by generating a scatterplot.</p>
-<div class="codehilite"><pre><span></span><code># generate a plot of y predicted vs y actual using plt.plot()
-# remember you must set ls to an empty string and marker to some marker style
-
-# plt.plot()
-plt.title(&quot;Linear regression - computed values on entire data set&quot;, fontsize=16)
-plt.xlabel(&quot;y$^{\sf calc}$&quot;)
-plt.ylabel(&quot;y$^{\sf true}$&quot;)
-plt.show()
-</code></pre></div>
-
 <div class="codehilite"><pre><span></span><code><span class="c1"># generate a plot of y predicted vs y actual using plt.plot()</span>
 <span class="c1"># remember you must set ls to an empty string and marker to some marker style</span>
 
@@ -2334,7 +2258,7 @@ plt.show()
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_79_0.png" /></p>
+<p><img alt="png" src="../S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_74_0.png" /></p>
 <h3 id="142-enrichment-splitting-into-train-and-test-sets">🍒 1.4.2 <strong>Enrichment</strong>: Splitting into train and test sets<a class="headerlink" href="#142-enrichment-splitting-into-train-and-test-sets" title="Permanent link">&para;</a></h3>
 <blockquote>
 <p>note: more of this topic is covered in <a href="https://wesleybeckner.github.io/data_science_foundations/S3_Model_Selection_and_Validation/"><strong>Model Selection and Validation</strong></a></p>
@@ -2342,31 +2266,12 @@ plt.show()
 <p>To see whether we can predict, we will carry out our regression only on a part, 80%, of the full data set. This part is called the <strong>training</strong> data. We will then test the trained model to predict the rest of the data, 20% - the <strong>test</strong> data. The function which fits won't see the test data until it has to predict it. </p>
 <p><strong>We will motivate the use of train/test sets more explicitly in <a href="https://wesleybeckner.github.io/data_science_foundations/S3_Model_Selection_and_Validation/">Model Selection and Validation</a></strong></p>
 <p>We start by splitting out data using scikit-learn's <code>train_test_split()</code> function:</p>
-<div class="codehilite"><pre><span></span><code>X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=42)
-                                                    ```
-
-
-```python
-X_train, X_test, y_train, y_test = train_test_split(X, y, 
-                                                    test_size=0.20,
-                                                    random_state=42)
+<div class="codehilite"><pre><span></span><code><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> 
+                                                    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.20</span><span class="p">,</span>
+                                                    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 </code></pre></div>
 
 <p>Now we check the size of <code> y_train </code> and <code> y_test </code>, the sum should be the size of y! If this works then we move on and carry out regression but we only use the training data!</p>
-<div class="codehilite"><pre><span></span><code>if len(y_test)+len(y_train) == len(y):
-
-    print(&#39;All good, ready to to go and regress!\n&#39;)
-
-    # Carry out linear regression
-    print(&#39;Running linear regression algorithm on the training set\n&#39;)
-    model = linear_model.LinearRegression()
-    model.fit(X_train, y_train)
-    print(&#39;Fit coefficients and intercept:\n\n&#39;, model.coef_, &#39;\n\n&#39;, model.intercept_ )
-
-    # Predict on the test set
-    y_pred_test = model.predict(X_test)
-</code></pre></div>
-
 <div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;All good, ready to to go and regress!</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -2395,17 +2300,6 @@ Fit coefficients and intercept:
 </code></pre></div>
 
 <p>Now we can plot our predicted values to see how accurate we are in predicting. We will generate a scatterplot and computing the MSE and \(R^2\) metrics of error.</p>
-<div class="codehilite"><pre><span></span><code>sns.scatterplot(x=y_pred_test, y=y_test, color=&quot;mediumvioletred&quot;, s=50)
-
-plt.title(&quot;Linear regression - predict test set&quot;, fontsize=16)
-plt.xlabel(&quot;y$^{\sf calc}$&quot;)
-plt.ylabel(&quot;y$^{\sf true}$&quot;)
-plt.show()
-
-print(&#39;Mean squared error: %.2f&#39; % mean_squared_error(y_test, y_pred_test))
-print(&#39;Coefficient of determination: %.2f&#39; % r2_score(y_test, y_pred_test))
-</code></pre></div>
-
 <div class="codehilite"><pre><span></span><code><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">y_pred_test</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;mediumvioletred&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Linear regression - predict test set&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
@@ -2417,7 +2311,7 @@ print(&#39;Coefficient of determination: %.2f&#39; % r2_score(y_test, y_pred_tes
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Coefficient of determination: </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">))</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_86_0.png" /></p>
+<p><img alt="png" src="../S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_80_0.png" /></p>
 <div class="codehilite"><pre><span></span><code>Mean squared error: 5.45e-07
 Coefficient of determination: 0.87
 </code></pre></div>
@@ -2443,14 +2337,6 @@ Coefficient of determination: 0.87
 <script type="math/tex; mode=display">\sum_{i=1}^{N}(y_i - \sum_{j=1}^{P}x_{ij}\beta_{j})^2 + \lambda \sum_{j=1}^{P}|\beta_{j}|</script>
 </p>
 <p>The key difference here is that LASSO will allow coefficients to shrink to 0 while Ridge regression will not. <strong><em>Elastic Net</em></strong> is a combination of these two regularization methods.</p>
-<div class="codehilite"><pre><span></span><code>model = linear_model.Ridge()
-model.fit(X_train, y_train)
-print(&#39;Fit coefficients and intercept:\n\n&#39;, model.coef_, &#39;\n\n&#39;, model.intercept_ )
-
-# Predict on the test set
-y_calc_test = model.predict(X_test)
-</code></pre></div>
-
 <div class="codehilite"><pre><span></span><code><span class="n">model</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">Ridge</span><span class="p">()</span>
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Fit coefficients and intercept:</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span> <span class="p">)</span>
@@ -2468,16 +2354,6 @@ y_calc_test = model.predict(X_test)
  0.9967531358810221
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>sns.scatterplot(x=y_calc_test, y=y_test, color=&quot;lightseagreen&quot;, s=50)
-plt.title(&quot;Ridge regression - predict test set&quot;,fontsize=16)
-plt.xlabel(&quot;y$^{\sf calc}$&quot;)
-plt.ylabel(&quot;y$^{\sf true}$&quot;)
-plt.show()
-
-print(&#39;Mean squared error: %.2f&#39; % mean_squared_error(y_test, y_calc_test))
-print(&#39;Coefficient of determination: %.2f&#39; % r2_score(y_test, y_calc_test))
-</code></pre></div>
-
 <div class="codehilite"><pre><span></span><code><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">y_calc_test</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightseagreen&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Ridge regression - predict test set&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;y$^{\sf calc}$&quot;</span><span class="p">)</span>
@@ -2488,7 +2364,7 @@ print(&#39;Coefficient of determination: %.2f&#39; % r2_score(y_test, y_calc_tes
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Coefficient of determination: </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_calc_test</span><span class="p">))</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_93_0.png" /></p>
+<p><img alt="png" src="../S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_85_0.png" /></p>
 <div class="codehilite"><pre><span></span><code>Mean squared error: 0.00
 Coefficient of determination: 0.87
 </code></pre></div>
@@ -2536,7 +2412,7 @@ Coefficient of determination: 0.87
 <div class="codehilite"><pre><span></span><code>&lt;matplotlib.legend.Legend at 0x7fdd72270fd0&gt;
 </code></pre></div>
 
-<p><img alt="png" src="../S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_97_1.png" /></p>
+<p><img alt="png" src="../S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_89_1.png" /></p>
 <div class="codehilite"><pre><span></span><code><span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">coefs</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="n">features</span><span class="p">)</span>
 <span class="n">results</span><span class="p">[</span><span class="s1">&#39;lambda&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">lambdas</span><span class="p">]</span>
 <span class="n">results</span><span class="p">[</span><span class="s1">&#39;scores&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scores</span>
@@ -2551,7 +2427,7 @@ Coefficient of determination: 0.87
 <div class="codehilite"><pre><span></span><code>&lt;AxesSubplot:xlabel=&#39;lambda&#39;&gt;
 </code></pre></div>
 
-<p><img alt="png" src="../S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_99_1.png" /></p>
+<p><img alt="png" src="../S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_91_1.png" /></p>
 <h2 id="15-enrichment-additional-regression-exercises">🍒 1.5 <strong>Enrichment</strong>: Additional Regression Exercises<a class="headerlink" href="#15-enrichment-additional-regression-exercises" title="Permanent link">&para;</a></h2>
 <h3 id="problem-1-number-and-choice-of-input-features">Problem 1) Number and choice of input features<a class="headerlink" href="#problem-1-number-and-choice-of-input-features" title="Permanent link">&para;</a></h3>
 <ul>
@@ -2562,9 +2438,6 @@ Coefficient of determination: 0.87
 <p>Estimate the MSE</p>
 </li>
 </ul>
-<div class="codehilite"><pre><span></span><code>print(X_train.shape)
-</code></pre></div>
-
 <div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </code></pre></div>
 
@@ -2572,19 +2445,11 @@ Coefficient of determination: 0.87
 </code></pre></div>
 
 <p>If you want to use the first 5 features you could proceed as following:</p>
-<div class="codehilite"><pre><span></span><code>X_train_five = X_train[:,0:5]
-X_test_five = X_test[:,0:5]
-</code></pre></div>
-
 <div class="codehilite"><pre><span></span><code><span class="n">X_train_five</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
 <span class="n">X_test_five</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
 </code></pre></div>
 
 <p>Check that the new variables have the shape your expect</p>
-<div class="codehilite"><pre><span></span><code>print(X_train_five.shape)
-print(X_test_five.shape)
-</code></pre></div>
-
 <div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">X_train_five</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">X_test_five</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </code></pre></div>
@@ -2686,7 +2551,7 @@ and <a href="https://www.coursera.org/lecture/ml-regression/variance-and-the-bia
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../about/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Introduction" rel="prev">
+        <a href="../introduction/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Introduction" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
