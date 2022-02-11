@@ -23,9 +23,9 @@ The breakdown for this course is as follows:
     * E4: Supervised Learners
     * E5: Writing Unit Tests
 *	Project
-    * P1: Statistical Analysis of TicTacToe Games
-    * P2: Heuristical TicTacToe Agents
+    * P1: Statistical Analysis of Tic-Tac-Toe Games
+    * P2: Heuristical Tic-Tac-Toe Agents
     * P3: 1-Step Look Ahead Agents
     * P4: N-Step Look Ahead Agents
 *	Reading
-    * JVDP chapter 5
+    * [JVDP](https://jakevdp.github.io/PythonDataScienceHandbook/) chapter 5

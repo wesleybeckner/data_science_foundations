@@ -789,16 +789,6 @@ Luckily [scikit-learn](https://scikit-learn.org/stable/) contains many functions
 
 The function we will use is called <code> LinearRegression() </code>. 
 
-```
-# Create linear regression object
-model = linear_model.LinearRegression()
-
-# Use model to fit to the data, the x values are densities and the y values are fixed acidity
-# Note that we need to reshape the vectors to be of the shape x - (n_samples, n_features) and y (n_samples, n_targets)
-x = red['density'].values.reshape(-1, 1)
-y = red['fixed acidity'].values.reshape(-1, 1)
-```
-
 
 ```python
 # Create linear regression object
@@ -808,11 +798,6 @@ model = linear_model.LinearRegression()
 # Note that we need to reshape the vectors to be of the shape x - (n_samples, n_features) and y (n_samples, n_targets)
 x = red['density'].values.reshape(-1, 1)
 y = red['fixed acidity'].values.reshape(-1, 1)
-```
-
-```
-print(red['density'].values.shape, red['fixed acidity'].values.shape)
-print(x.shape, y.shape)
 ```
 
 
@@ -824,18 +809,6 @@ print(x.shape, y.shape)
     (1599,) (1599,)
     (1599, 1) (1599, 1)
 
-
-```
-# Fit to the data
-model.fit(x, y)
-
-# Extract the values of interest
-m = model.coef_[0][0]
-b = model.intercept_[0]
-
-# Print the slope m and intercept b
-print('Scikit learn - Slope: ', m , 'Intercept: ', b )
-```
 
 What happens when we try to fit the data as is?
 
@@ -943,7 +916,7 @@ ax.plot(x, y, ls='', marker='.')
 
 
     
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_46_1.png)
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_44_1.png)
     
 
 
@@ -956,11 +929,6 @@ ax.plot(x, y, ls='', marker='.')
 The plot in Section 1.2.3 looks good, but numerically what is our error? What is the mean value of $\epsilon$, i.e. the **Mean Squared Error (MSE)**?
 
 $${\sf MSE}=\epsilon_{\sf ave} = \frac{\sum_{i=1}^{N_{\sf times}}\left(y^{\sf exact}_i - m\cdot t_i - b \right)^2}{N_{\sf times}}\;\;\;\;\;\sf eq. 3$$
-
-```
-# The mean squared error
-print('Mean squared error: %.2f' % mean_squared_error(y, y_pred))
-```
 
 
 ```python
@@ -985,11 +953,6 @@ See all the different regression metrics [here](https://scikit-learn.org/stable/
 
 #### 🙋 Question 4: lets understand \\(R^2\\)
 > Do we need a large value of \\(SS_{\sf tot}\\) to minimize \\(R^2\\) - is this something which we have the power to control?
-
-```
-# Print the coefficient of determination - 1 is perfect prediction
-print('Coefficient of determination: %.2f' % r2_score(y, y_pred))
-```
 
 
 ```python
@@ -1255,17 +1218,6 @@ red.isnull().sum(axis=0) # we are getting rid of some nasty nulls!
 
 
 
-
-```
-# Create linear regression object - note that we are using all the input features
-model = linear_model.LinearRegression()
-model.fit(X, y)
-y_calc = model.predict(X)
-```
-
-
-
-
 ```python
 # Create linear regression object - note that we are using all the input features
 model = linear_model.LinearRegression()
@@ -1274,10 +1226,6 @@ y_calc = model.predict(X)
 ```
 
 Let's see what the coefficients look like ... 
-
-```
-print("Fit coefficients: \n", model.coef_, "\nNumber of coefficients:", len(model.coef_))
-```
 
 
 ```python
@@ -1295,11 +1243,6 @@ We have 11 !!! That's because we are regressing respect to all **11 independent 
 
 So now, $$y_{\sf calc}= m_1x_1 +\, m_2x_2 \,+ \,m_3x_3 \,+\,... \,+ \,b =\sum_{i=1}^{13}m_i x_i + b\;\;\;\;\; \sf eq. 7$$
 
-```
-print("We have 13 slopes / weights:\n\n", model.coef_)
-print("\nAnd one intercept: ", model.intercept_)
-```
-
 
 ```python
 print("We have 11 slopes / weights:\n\n", model.coef_)
@@ -1314,14 +1257,6 @@ print("\nAnd one intercept: ", model.intercept_)
     
     And one intercept:  0.9967517451349656
 
-
-```
-# This size should match the number of columns in X
-if len(X[0]) == len(model.coef_):
-    print("All good! The number of coefficients matches the number of input features.")
-else:
-    print("Hmm .. something strange is going on.")
-```
 
 
 ```python
@@ -1338,21 +1273,6 @@ else:
 ### 🏋️ Exercise 4: evaluate the error
 
 Let's **evaluate the error** by computing the MSE and \\(R^2\\) metrics (see eq. 3 and 6).
-
-```
-# The mean squared error
-
-# part A 
-# calculate the MSE using mean_squared_error()
-# mse = 
-
-# part B
-# calculate the R square using r2_score()
-# r2 = 
-
-print('Mean squared error: {:.2f}'.format(mse)
-print('Coefficient of determination: {:.2f}'.format(r2)
-```
 
 
 ```python
@@ -1374,17 +1294,6 @@ print('Coefficient of determination: {:.2f}'.format(r2)
 
 We can also look at how well the computed values match the true values graphically by generating a scatterplot.
 
-```
-# generate a plot of y predicted vs y actual using plt.plot()
-# remember you must set ls to an empty string and marker to some marker style
-
-# plt.plot()
-plt.title("Linear regression - computed values on entire data set", fontsize=16)
-plt.xlabel("y$^{\sf calc}$")
-plt.ylabel("y$^{\sf true}$")
-plt.show()
-```
-
 
 ```python
 # generate a plot of y predicted vs y actual using plt.plot()
@@ -1399,7 +1308,7 @@ plt.show()
 
 
     
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_79_0.png)
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_74_0.png)
     
 
 
@@ -1413,10 +1322,6 @@ To see whether we can predict, we will carry out our regression only on a part, 
 
 We start by splitting out data using scikit-learn's <code>train_test_split()</code> function:
 
-```
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=42)
-                                                    ```
-
 
 ```python
 X_train, X_test, y_train, y_test = train_test_split(X, y, 
@@ -1425,21 +1330,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, y,
 ```
 
 Now we check the size of <code> y_train </code> and <code> y_test </code>, the sum should be the size of y! If this works then we move on and carry out regression but we only use the training data!
-
-```
-if len(y_test)+len(y_train) == len(y):
-    
-    print('All good, ready to to go and regress!\n')
-    
-    # Carry out linear regression
-    print('Running linear regression algorithm on the training set\n')
-    model = linear_model.LinearRegression()
-    model.fit(X_train, y_train)
-    print('Fit coefficients and intercept:\n\n', model.coef_, '\n\n', model.intercept_ )
-
-    # Predict on the test set
-    y_pred_test = model.predict(X_test)
-```
 
 
 ```python
@@ -1472,18 +1362,6 @@ if len(y_test)+len(y_train) == len(y):
 
 Now we can plot our predicted values to see how accurate we are in predicting. We will generate a scatterplot and computing the MSE and \\(R^2\\) metrics of error.
 
-```
-sns.scatterplot(x=y_pred_test, y=y_test, color="mediumvioletred", s=50)
-
-plt.title("Linear regression - predict test set", fontsize=16)
-plt.xlabel("y$^{\sf calc}$")
-plt.ylabel("y$^{\sf true}$")
-plt.show()
-
-print('Mean squared error: %.2f' % mean_squared_error(y_test, y_pred_test))
-print('Coefficient of determination: %.2f' % r2_score(y_test, y_pred_test))
-```
-
 
 ```python
 sns.scatterplot(x=y_pred_test, y=y_test, color="mediumvioletred", s=50)
@@ -1499,7 +1377,7 @@ print('Coefficient of determination: %.2f' % r2_score(y_test, y_pred_test))
 
 
     
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_86_0.png)
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_80_0.png)
     
 
 
@@ -1531,16 +1409,6 @@ $$\sum_{i=1}^{N}(y_i - \sum_{j=1}^{P}x_{ij}\beta_{j})^2 + \lambda \sum_{j=1}^{P}
 The key difference here is that LASSO will allow coefficients to shrink to 0 while Ridge regression will not. **_Elastic Net_** is a combination of these two regularization methods.
 
 
-```
-model = linear_model.Ridge()
-model.fit(X_train, y_train)
-print('Fit coefficients and intercept:\n\n', model.coef_, '\n\n', model.intercept_ )
-
-# Predict on the test set
-y_calc_test = model.predict(X_test)
-```
-
-
 ```python
 model = linear_model.Ridge()
 model.fit(X_train, y_train)
@@ -1559,17 +1427,6 @@ y_calc_test = model.predict(X_test)
      0.9967531358810221
 
 
-```
-sns.scatterplot(x=y_calc_test, y=y_test, color="lightseagreen", s=50)
-plt.title("Ridge regression - predict test set",fontsize=16)
-plt.xlabel("y$^{\sf calc}$")
-plt.ylabel("y$^{\sf true}$")
-plt.show()
-
-print('Mean squared error: %.2f' % mean_squared_error(y_test, y_calc_test))
-print('Coefficient of determination: %.2f' % r2_score(y_test, y_calc_test))
-```
-
 
 ```python
 sns.scatterplot(x=y_calc_test, y=y_test, color="lightseagreen", s=50)
@@ -1584,7 +1441,7 @@ print('Coefficient of determination: %.2f' % r2_score(y_test, y_calc_test))
 
 
     
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_93_0.png)
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_85_0.png)
     
 
 
@@ -1650,7 +1507,7 @@ ax.legend()
 
 
     
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_97_1.png)
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_89_1.png)
     
 
 
@@ -1678,7 +1535,7 @@ results.plot('lambda', 'scores', ax=ax[1])
 
 
     
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_99_1.png)
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_91_1.png)
     
 
 
@@ -1690,9 +1547,6 @@ results.plot('lambda', 'scores', ax=ax[1])
 * Load the red wine dataset and evaluate how the linear regression predictions changes as you change the **number and choice of input features**. The total number of columns in X  is 11 and each column represents a specific input feature. 
 
 * Estimate the MSE
-```
-print(X_train.shape)
-```
 
 
 ```python
@@ -1704,11 +1558,6 @@ print(X_train.shape)
 
 If you want to use the first 5 features you could proceed as following:
 
-```
-X_train_five = X_train[:,0:5]
-X_test_five = X_test[:,0:5]
-```
-
 
 ```python
 X_train_five = X_train[:,0:5]
@@ -1716,11 +1565,6 @@ X_test_five = X_test[:,0:5]
 ```
 
 Check that the new variables have the shape your expect
-
-```
-print(X_train_five.shape)
-print(X_test_five.shape)
-```
 
 
 ```python

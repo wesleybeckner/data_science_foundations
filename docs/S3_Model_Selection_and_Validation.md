@@ -321,17 +321,19 @@ An even more rigorous method to leaving out a single test set, is to perform cro
 
 <p align="center">
 <img src='https://scikit-learn.org/stable/_images/grid_search_workflow.png' width=500px></img>
-
-<small>[image src](https://scikit-learn.org/stable/modules/cross_validation.html)</small>
 </p>
+
+<small>[img src](https://scikit-learn.org/stable/modules/cross_validation.html)</small>
+
 
 In this scheme, we don't evaluate our model on the test set until the very end. Rather, we estimate our hyperparameter performances by slicing the training set into cross folds
 
 <p align="center">
 <img src='https://scikit-learn.org/stable/_images/grid_search_cross_validation.png' width=500px></img>
-
-<small>[image src](https://scikit-learn.org/stable/modules/cross_validation.html)</small>
 </p>
+
+<small>[img src](https://scikit-learn.org/stable/modules/cross_validation.html)</small>
+
 
 
 

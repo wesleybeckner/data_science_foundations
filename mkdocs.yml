@@ -6,7 +6,7 @@ theme:
     accent: "indigo"
 nav:
   - About: index.md
-  - Introduction: about.md
+  - Introduction: introduction.md
   - Sessions:
       - Regression and Analysis: S1_Regression_and_Analysis.md
       - Inferential Statistics: S2_Inferential_Statistics.md
