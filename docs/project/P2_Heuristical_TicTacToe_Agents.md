@@ -1,15 +1,10 @@
 <a href="https://colab.research.google.com/github/wesleybeckner/technology_fundamentals/blob/main/C3%20Machine%20Learning%20I/LABS_PROJECT/Tech_Fun_C3_P4_Game_AI%2C_Heuristical_Agents.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-# Technology Fundamentals Course 3, Project Part 4: Heuristical Agents (Symbolic AI)
+# Data Science Foundations, Project Part 2: Heuristical Agents 
 
 **Instructor**: Wesley Beckner
 
 **Contact**: wesleybeckner@gmail.com
-
-**Teaching Assitants**: Varsha Bang, Harsha Vardhan
-
-**Contact**: vbang@uw.edu, harshav@uw.edu
-<br>
 
 ---
 
@@ -28,13 +23,13 @@ We makin' some wack AI today
 
 <a name='x.0'></a>
 
-## 4.0 Preparing Environment and Importing Data
+## 2.0 Preparing Environment and Importing Data
 
 [back to top](#top)
 
 <a name='x.0.1'></a>
 
-### 4.0.1 Import Packages
+### 2.0.1 Import Packages
 
 [back to top](#top)
 
@@ -198,11 +193,11 @@ class GameEngine(TicTacToe):
 
 <a name='x.0.1'></a>
 
-### 4.0.2 Load Dataset
+### 2.0.2 Load Dataset
 
 [back to top](#top)
 
-## 4.3 AI Heuristics
+## 2.1 AI Heuristics
 
 Develop a better AI based on your analyses of game play so far.
 
@@ -304,7 +299,7 @@ temp_board = tictactoe.board.copy()
 
 ```
 
-## 4.4 Wrapping our Agent
+## 2.2 Wrapping our Agent
 
 Now that we've created a conditional tree for our AI to make a decision, we need to integrate this within the gaming framework we've made so far. How should we do this? Let's define this thought pattern or tree as an agent.
 
@@ -373,7 +368,7 @@ def play_game(self):
         return self
 ```
 
-### 4.4.1 Redefining the Random Agent
+### 2.2.1 Redefining the Random Agent
 
 In particular, we want to change lines 30-37 to take our gaming agent in as a parameter to make decisions. Let's try this.
 

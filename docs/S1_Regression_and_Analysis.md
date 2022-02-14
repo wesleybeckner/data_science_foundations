@@ -1318,8 +1318,6 @@ plt.show()
 
 To see whether we can predict, we will carry out our regression only on a part, 80%, of the full data set. This part is called the **training** data. We will then test the trained model to predict the rest of the data, 20% - the **test** data. The function which fits won't see the test data until it has to predict it. 
 
-**We will motivate the use of train/test sets more explicitly in [Model Selection and Validation](https://wesleybeckner.github.io/data_science_foundations/S3_Model_Selection_and_Validation/)**
-
 We start by splitting out data using scikit-learn's <code>train_test_split()</code> function:
 
 

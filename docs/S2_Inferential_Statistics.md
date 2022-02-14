@@ -293,9 +293,10 @@ for col in df.columns[:-2]:
 
 <p align="center">
 <img src="https://luminousmen.com/media/descriptive-and-inferential-statistics.jpeg" width=400px></img>
-<br>
-<small> https://luminousmen.com/post/descriptive-and-inferential-statistics </small>
 </p>
+
+<small>[img src](https://luminousmen.com/post/descriptive-and-inferential-statistics)</small>
+
 
 > Descriptive statistics describes data (for example, a chart or graph) and inferential statistics allows you to make predictions (“inferences”) from that data. With inferential statistics, you take data from samples and make generalizations about a population 
 

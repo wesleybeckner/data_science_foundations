@@ -3,7 +3,7 @@ layout: default
 ---
 
 # Data Science Foundations
-Welcome to Data Science Foundations, my name is [Wesley](https://wesleybeckner.github.io/). 
+Welcome to Data Science Foundations, my name is [Wesley](https://wesleybeckner.github.io/)
 
 Visit the [github repo](https://github.com/wesleybeckner/data_science_foundations) to access all materials and code for this class 
 

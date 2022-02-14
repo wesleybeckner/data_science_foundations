@@ -147,7 +147,7 @@ wine.loc[wine['red'] == 1].plot(x='fixed acidity',
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_10_1.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_10_1.png)
     
 
 
@@ -485,7 +485,7 @@ ax.set_xlim(min(X_std[:,0]),max(X_std[:,0]))
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_29_1.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_29_1.png)
     
 
 
@@ -527,7 +527,7 @@ plt.scatter(Y[:,0],Y[:,1])
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_35_1.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_35_1.png)
     
 
 
@@ -559,7 +559,7 @@ with plt.style.context('seaborn-whitegrid'):
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_38_0.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_38_0.png)
     
 
 
@@ -669,7 +669,7 @@ ax[1].legend()
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_47_1.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_47_1.png)
     
 
 
@@ -703,7 +703,7 @@ plt.scatter(X_pca[:, 0], X_pca[:, 1], alpha=0.8)
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_49_1.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_49_1.png)
     
 
 
@@ -739,7 +739,7 @@ plt.ylabel('Second PC')
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_51_1.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_51_1.png)
     
 
 
@@ -763,7 +763,7 @@ Finally, PCA is actually a commonly used preprocessing technique for supervised 
 
 Using the wine data, select any number of the first principal components and attemp to predict density for the red wine data.
 
-Consider that the maximum number of principal components are:
+Consier that the maximum number of principal components are:
 
 
 ```python
@@ -780,30 +780,32 @@ print(f"Max principal components: {X.shape[1]}")
 ################################################################################
 ##### CREATE A SKLEARN-PCA OBJECT, FIT AND TRANSFORM TO THE WINE DATA ##########
 ################################################################################
-
+pca = PCA(n_components=12)
+pca.fit(X_wine)
+X_pca = pca.transform(X_wine)
 
 ################################################################################
-############################## UNCOMMENT THE BELOW #############################
+############################## DO NOT CHANGE BELOW ############################
 ################################################################################
-# plt.scatter(X_pca[:, 0], X_pca[:, 1], alpha=0.2, c=wine['white'].values,
-#             edgecolor='grey')
-# plt.xlabel('First PC')
-# plt.ylabel('Second PC')
-# plt.show()
+plt.scatter(X_pca[:, 0], X_pca[:, 1], alpha=0.2, c=wine['white'].values,
+            edgecolor='grey')
+plt.xlabel('First PC')
+plt.ylabel('Second PC')
+plt.show()
 
-# model = LinearRegression()
-# X_train, X_test, y_train, y_test = train_test_split(X_pca, y_wine, train_size=0.8, random_state=42)
+model = LinearRegression()
+X_train, X_test, y_train, y_test = train_test_split(X_pca, y_wine, train_size=0.8, random_state=42)
 
-# model.fit(X_train, y_train)
-# y_pred = model.predict(X_test)
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
 
-# print(r2_score(y_test, y_pred))
-# print(r2_score(y_train, model.predict(X_train)))
+print(r2_score(y_test, y_pred))
+print(r2_score(y_train, model.predict(X_train)))
 ```
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_56_0.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_56_0.png)
     
 
 
@@ -846,7 +848,7 @@ plt.ylabel('Second PC')
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_58_1.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_58_1.png)
     
 
 
@@ -868,7 +870,7 @@ plt.scatter(centers[:, 0], centers[:, 1], c='black', s=200, alpha=0.5);
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_60_0.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_60_0.png)
     
 
 
@@ -922,9 +924,9 @@ The elbow method is a popular technique for determining the value of `k`. It inv
    
 And there are many other [methods](https://scikit-learn.org/stable/modules/clustering.html#clustering-performance-evaluation) of evaluating cluster assignment performance
 
-### 🙋‍♀️ Question 1: Comparing Metrics
+### 🙋‍♀️ Question 1
 
-What is the primary difference between Distortion, Inertia vs Silhouette, Calinksi?
+What is the primary difference between Distortion, Intertia vs Silhouette, Calinksi?
 
 
 ```python
@@ -968,7 +970,7 @@ ax4.plot(range(2,10), variance)
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_68_1.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_68_1.png)
     
 
 
@@ -987,7 +989,7 @@ plt.scatter(centers[:, 0], centers[:, 1], c='black', s=200, alpha=0.5);
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_69_0.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_69_0.png)
     
 
 
@@ -1013,7 +1015,7 @@ plt.scatter(X_pca[:, 0], X_pca[:, 1],
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_71_0.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_71_0.png)
     
 
 
@@ -1065,7 +1067,7 @@ plt.scatter(X_pca[:, 0], X_pca[:, 1],
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_75_0.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_75_0.png)
     
 
 
@@ -1144,7 +1146,7 @@ plt.scatter(X[:, 0], X[:, 1]);
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_79_0.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_79_0.png)
     
 
 
@@ -1162,7 +1164,7 @@ plot_gmm(gmm2, X)
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_82_0.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_82_0.png)
     
 
 
@@ -1176,7 +1178,7 @@ plot_gmm(gmm16, X, label=False)
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_84_0.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_84_0.png)
     
 
 
@@ -1190,7 +1192,7 @@ plt.scatter(Xnew[:, 0], Xnew[:, 1]);
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_86_0.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_86_0.png)
     
 
 
@@ -1226,7 +1228,7 @@ plt.ylabel('est. prediction error')
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_88_1.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_88_1.png)
     
 
 
@@ -1240,7 +1242,7 @@ plot_gmm(gmmNew, X, label=True, data_alpha=0)
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_90_0.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_90_0.png)
     
 
 
@@ -1252,7 +1254,7 @@ plt.scatter(Xnew[:, 0], Xnew[:, 1]);
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_91_0.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_91_0.png)
     
 
 
@@ -1266,17 +1268,15 @@ Repeat the above, this time using `sklearn.datasets.make_moons`
 from sklearn.datasets import make_moons as gen
 X, y = gen(200, noise=0.02, random_state=42)
 
-################################################################################
-##### FIT GMM MODEL(S) TO 1-42 CLUSTER CENTERS AND RECORD THE AIC/BIC ##########
-################################################################################
+n_components = np.arange(1, 42)
+models = [GaussianMixture(n, covariance_type='full', random_state=42).fit(X)
+          for n in n_components]
 
-
-# uncomment these lines
-# plt.plot(n_components, [m.bic(X) for m in models], label='BIC')
-# plt.plot(n_components, [m.aic(X) for m in models], label='AIC')
-# plt.legend(loc='best')
-# plt.xlabel('n_components');
-# plt.ylabel('est. prediction error')
+plt.plot(n_components, [m.bic(X) for m in models], label='BIC')
+plt.plot(n_components, [m.aic(X) for m in models], label='AIC')
+plt.legend(loc='best')
+plt.xlabel('n_components');
+plt.ylabel('est. prediction error')
 ```
 
 
@@ -1288,7 +1288,7 @@ X, y = gen(200, noise=0.02, random_state=42)
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_93_1.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_93_1.png)
     
 
 
@@ -1304,7 +1304,7 @@ plot_gmm(gmm_moon, X)
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_95_0.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_95_0.png)
     
 
 
@@ -1316,7 +1316,7 @@ plt.scatter(Xnew[:, 0], Xnew[:, 1]);
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_96_0.png)
+![png](SOLN_S5_Unsupervised_Learning_files/SOLN_S5_Unsupervised_Learning_96_0.png)
     
 
 
