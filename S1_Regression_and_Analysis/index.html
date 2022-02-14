@@ -2264,7 +2264,6 @@ And one intercept:  0.9967517451349656
 <p>note: more of this topic is covered in <a href="https://wesleybeckner.github.io/data_science_foundations/S3_Model_Selection_and_Validation/"><strong>Model Selection and Validation</strong></a></p>
 </blockquote>
 <p>To see whether we can predict, we will carry out our regression only on a part, 80%, of the full data set. This part is called the <strong>training</strong> data. We will then test the trained model to predict the rest of the data, 20% - the <strong>test</strong> data. The function which fits won't see the test data until it has to predict it. </p>
-<p><strong>We will motivate the use of train/test sets more explicitly in <a href="https://wesleybeckner.github.io/data_science_foundations/S3_Model_Selection_and_Validation/">Model Selection and Validation</a></strong></p>
 <p>We start by splitting out data using scikit-learn's <code>train_test_split()</code> function:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> 
                                                     <span class="n">test_size</span><span class="o">=</span><span class="mf">0.20</span><span class="p">,</span>
