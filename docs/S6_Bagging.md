@@ -21,6 +21,8 @@ The weak learners that random forests are made of, are called decision trees.
 
 <br>
 
+---
+
 <a name='top'></a>
 
 <a name='x.0'></a>
@@ -44,14 +46,15 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 import random
 import scipy.stats
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.impute import SimpleImputer
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 from sklearn.ensemble import RandomForestClassifier
 import seaborn as sns; sns.set()
 import graphviz 
 from sklearn.metrics import accuracy_score
 from ipywidgets import interact, interactive, widgets
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
 ```
@@ -450,7 +453,7 @@ tree.plot_tree(clf)
 
 
 
-    [Text(0.5, 0.75, 'X[1] <= 0.5\ngini = 0.5\nsamples = 2\nvalue = [1, 1]'),
+    [Text(0.5, 0.75, 'X[0] <= 0.5\ngini = 0.5\nsamples = 2\nvalue = [1, 1]'),
      Text(0.25, 0.25, 'gini = 0.0\nsamples = 1\nvalue = [1, 0]'),
      Text(0.75, 0.25, 'gini = 0.0\nsamples = 1\nvalue = [0, 1]')]
 
@@ -568,13 +571,13 @@ np.mean(scr)
 
 
 
-    0.10994230769230771
+    0.1081346153846154
 
 
 
 Let's take a look at this with our truffle dataset
 
-> Vary the parameter `max_depth` what do you notice? Does the term _greedy_ mean anything to you?
+> Vary the parameter `max_depth` what do you notice? Does the term _greedy_ mean anything to you? Do nodes higher in the tree change based on decisions lower in the tree?
 
 
 
@@ -586,12 +589,7 @@ clf.fit(X_truf, y_truf_class)
 
 
 
-    DecisionTreeClassifier(ccp_alpha=0.0, class_weight=None, criterion='gini',
-                           max_depth=1, max_features=None, max_leaf_nodes=None,
-                           min_impurity_decrease=0.0, min_impurity_split=None,
-                           min_samples_leaf=1, min_samples_split=2,
-                           min_weight_fraction_leaf=0.0, presort='deprecated',
-                           random_state=None, splitter='best')
+    DecisionTreeClassifier(max_depth=1)
 
 
 
@@ -618,13 +616,13 @@ What is `X[4]`???
 
 ```python
 # It's those tasty sponge cake truffles!
-enc.get_feature_names()[4]
+enc.get_feature_names_out()[4]
 ```
 
 
 
 
-    'x0_Sponge'
+    'Base Cake_Sponge'
 
 
 
@@ -654,7 +652,7 @@ plt.scatter(X[:,0], X[:,1], c=y, cmap='viridis')
 
 
 
-    <matplotlib.collections.PathCollection at 0x7eff29e6ea90>
+    <matplotlib.collections.PathCollection at 0x7f5b78b6c130>
 
 
 
@@ -693,7 +691,7 @@ plt.scatter(X[:,0], X[:,1], c=y, cmap='viridis', edgecolor='grey', alpha=0.9)
 
 
 
-    <matplotlib.collections.PathCollection at 0x7eff2a0a4bd0>
+    <matplotlib.collections.PathCollection at 0x7f5b6ce160a0>
 
 
 
@@ -730,7 +728,7 @@ plt.scatter(X[:,0], X[:,1], c=y, cmap='viridis')
 
 
 
-    <matplotlib.collections.PathCollection at 0x7eff2a114150>
+    <matplotlib.collections.PathCollection at 0x7f5b78acebe0>
 
 
 
@@ -791,7 +789,7 @@ plot_tree(X, clf)
 
 
 
-    <module 'matplotlib.pyplot' from '/usr/local/lib/python3.7/dist-packages/matplotlib/pyplot.py'>
+    <module 'matplotlib.pyplot' from '/home/wbeckner/anaconda3/envs/py39/lib/python3.9/site-packages/matplotlib/pyplot.py'>
 
 
 
@@ -809,12 +807,42 @@ We combine the idea of bootstrapping, with decision trees, to come up with an ov
 
 #### 🏋️ Exercise 1: Minimize Overfitting
 
-Repeat 4.1.3 with different max_depth settings, also read the docstring and play with any other hyperparameters available to you. What settings do you feel minimize overfitting?
+Repeat 6.1.3 with different max_depth settings, also read the docstring and play with any other hyperparameters available to you. What settings do you feel minimize overfitting?
 
 
 ```python
 # Code Cell for 1
+
+################################################################################
+##### CHANGE THE HYPERPARAMETERS IN THE CALL TO DECISIONTREECLASSIFIER #########
+################################################################################
+
+clf = tree.DecisionTreeClassifier(random_state=42,
+                                    max_depth=None,
+                                    min_samples_split=2,
+                                    min_samples_leaf=1,
+                                    min_weight_fraction_leaf=0.0,
+                                    max_features=None,
+                                    max_leaf_nodes=None,
+                                    min_impurity_decrease=0.0,
+                                    class_weight=None,
+                                    ccp_alpha=0.0,)
+clf = clf.fit(X, y)
+plot_tree(X, clf)
 ```
+
+
+
+
+    <module 'matplotlib.pyplot' from '/home/wbeckner/anaconda3/envs/py39/lib/python3.9/site-packages/matplotlib/pyplot.py'>
+
+
+
+
+    
+![png](S6_Bagging_files/S6_Bagging_64_1.png)
+    
+
 
 <a name='x.2'></a>
 
@@ -860,7 +888,7 @@ plot_tree(X, bag)
 
 
 
-    <module 'matplotlib.pyplot' from '/usr/local/lib/python3.7/dist-packages/matplotlib/pyplot.py'>
+    <module 'matplotlib.pyplot' from '/home/wbeckner/anaconda3/envs/py39/lib/python3.9/site-packages/matplotlib/pyplot.py'>
 
 
 
@@ -870,7 +898,7 @@ plot_tree(X, bag)
     
 
 
-In the above, we have bootstrapped by providing each individual tree with 80% of the population data. In practice, Random Forests can achieve even better results by randomizing how the individual classifiers are constructed. In fact there are many unique methods of training individual trees and you can learn more about them [here](https://scikit-learn.org/stable/modules/ensemble.html#forest). For now, know that it is better in practice to implement the RandomForests method in sklearn rather than bag individual trees yourself.
+In the above, we have bootstrapped by providing each individual tree with 80% of the population data. In practice, Random Forests can achieve even better results by randomizing how the individual classifiers are constructed. In fact there are many unique methods of training individual trees and you can learn more about them [here](https://scikit-learn.org/stable/modules/ensemble.html#forest). This randomness is done automatically in sklearn's `RandomForestClassifier`
 
 
 ```python
@@ -887,7 +915,7 @@ plot_tree(X, clf)
 
 
 
-    <module 'matplotlib.pyplot' from '/usr/local/lib/python3.7/dist-packages/matplotlib/pyplot.py'>
+    <module 'matplotlib.pyplot' from '/home/wbeckner/anaconda3/envs/py39/lib/python3.9/site-packages/matplotlib/pyplot.py'>
 
 
 
@@ -908,7 +936,8 @@ Let's revisit our truffle dataset again, this time with random forests
 
 ```python
 # fit the model
-clf = RandomForestClassifier(n_estimators=10, min_samples_leaf=6)
+clf = RandomForestClassifier(n_estimators=10,
+                             min_samples_leaf=6)
 clf = clf.fit(X_truf, y_truf_class)
 ```
 
@@ -922,46 +951,32 @@ accuracy_score(clf.predict(X_truf), y_truf_class)
 
 
 
-    0.6007194244604317
+    0.6103117505995204
 
 
 
-We need to do some housekeeping to get back the names and categories the features were pulled from:
+We can grab the original feature names with `get_feature_names_out()`:
 
 
 ```python
-feat_dict = dict(zip([f'x{i}' for i in range(len(cat_cols))], 
-                     cat_cols.str.replace(' ', '_')))
-print(feat_dict)
-feats = []
-
-# enc.get_feature_names unpacks like so: `x4_White` where
-# x<N> is an artifact of the original dimensions fed to enc()
-# I am unpacking the feature names with the original dataframe header
-for row in enc.get_feature_names():
-  feats.append('{} {}'.format(feat_dict[row.split('_')[0]], row.split('_')[1]))
-
-# feats will be used to visualize the feature importances
-feats[:5]
+feats = enc.get_feature_names_out()
 ```
-
-    {'x0': 'Base_Cake', 'x1': 'Truffle_Type', 'x2': 'Primary_Flavor', 'x3': 'Secondary_Flavor', 'x4': 'Color_Group', 'x5': 'Customer', 'x6': 'Date'}
-
-
-
-
-
-    ['Base_Cake Butter',
-     'Base_Cake Cheese',
-     'Base_Cake Chiffon',
-     'Base_Cake Pound',
-     'Base_Cake Sponge']
-
-
 
 The feature importances are stored in `clf.feature_importances_`. These are calculated from the **_Mean Decrease in Impurity_** or MDI also called the **_Gini Importance_**. It is the sum of the number of nodes across all trees that include the feature, weighted by the number of samples passing through the node. 
 
 One downside of estimating feature importance in this way is that it doesn't play well with highly cardinal features _(features with many unique values such as mailing addresses, are highly cardinal features)_
+
+
+
+
+```python
+len(feats)
+```
+
+
+
+
+    118
 
 
 
@@ -974,44 +989,88 @@ imp = clf.feature_importances_
 std = np.std([tree.feature_importances_ for tree in clf.estimators_], axis=0)
 
 # create new dataframe
-feat = pd.DataFrame([feats + ["KG"], imp, std]).T
-feat.columns = ['name', 'importance', 'std']
+feat = pd.DataFrame([feats, imp, std]).T
+feat.columns = ['feature', 'importance', 'std']
 feat = feat.sort_values('importance', ascending=False)
 feat = feat.reset_index(drop=True)
-feat.columns = ['feature', 'importance', 'std']
+feat.dropna(inplace=True)
+feat.head()
 ```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>feature</th>
+      <th>importance</th>
+      <th>std</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Base Cake_Sponge</td>
+      <td>0.127523</td>
+      <td>0.083222</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Base Cake_Pound</td>
+      <td>0.064996</td>
+      <td>0.055614</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Secondary Flavor_Egg Nog</td>
+      <td>0.048034</td>
+      <td>0.063641</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Base Cake_Chiffon</td>
+      <td>0.044027</td>
+      <td>0.039515</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Base Cake_Butter</td>
+      <td>0.043494</td>
+      <td>0.048662</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
 
 I'm going to use `plotly` to create this chart:
 
-> How does feature importance change when we change the minimum leaf size from 2 to 6?
-
 
 ```python
-px.bar(feat, x='feature', y='importance', error_y='std')
+px.bar(feat[:20], x='feature', y='importance', error_y='std', title='Feature Importance')
 ```
 
 
-<html>
-<head><meta charset="utf-8" /></head>
-<body>
-    <div>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax) {MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>
-                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
-        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>    
-            <div id="318eb430-e0f4-4b77-aa05-3c077a236bea" class="plotly-graph-div" style="height:525px; width:100%;"></div>
-            <script type="text/javascript">
+<div>                            <div id="54ef7fb6-fb82-4262-a775-cf4a4641774e" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("54ef7fb6-fb82-4262-a775-cf4a4641774e")) {                    Plotly.newPlot(                        "54ef7fb6-fb82-4262-a775-cf4a4641774e",                        [{"alignmentgroup":"True","error_y":{"array":[0.08322199085857328,0.055614043039102445,0.0636411044651807,0.039515239648993575,0.04866207720676812,0.03993171678407133,0.03608317327142124,0.037966687873590595,0.009852430404225093,0.012447104404721555,0.011716359695947186,0.012701446580501348,0.015294138052623408,0.02134325036938805,0.01691856062220133,0.0214542591141548,0.02441885780288677,0.013372271197455937,0.008353307787533008,0.014826969066332808]},"hovertemplate":"feature=%{x}<br>importance=%{y}<extra></extra>","legendgroup":"","marker":{"color":"#636efa","pattern":{"shape":""}},"name":"","offsetgroup":"","orientation":"v","showlegend":false,"textposition":"auto","x":["Base Cake_Sponge","Base Cake_Pound","Secondary Flavor_Egg Nog","Base Cake_Chiffon","Base Cake_Butter","Primary Flavor_Doughnut","Primary Flavor_Butter Toffee","Truffle Type_Candy Outer","Customer_Zebrabar","Customer_Dandy's Candies","Customer_Perk-a-Cola","Truffle Type_Chocolate Outer","Color Group_Amethyst","Secondary Flavor_Apricot","Color Group_White","Base Cake_Tiramisu","Base Cake_Cheese","Secondary Flavor_Tangerine","Customer_Slugworth","Primary Flavor_Mango"],"xaxis":"x","y":[0.1275234852890446,0.06499629595982323,0.04803410227722994,0.04402720690617807,0.0434941889024629,0.039730682543006116,0.03826825914205436,0.024720456973430102,0.01927211200035412,0.01742258955355288,0.015371649532657874,0.015021600149560596,0.01496458749691676,0.014952790917867387,0.013977131012765223,0.01363751142375608,0.012835676139667329,0.012727928432985263,0.012671839210777283,0.012396832645715807],"yaxis":"y","type":"bar"}],                        {"template":{"data":{"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"heatmapgl":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmapgl"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"#E5ECF6","showlakes":true,"showland":true,"subunitcolor":"white"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"bgcolor":"#E5ECF6","radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"bgcolor":"#E5ECF6","caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","zerolinewidth":2}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"feature"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"importance"}},"legend":{"tracegroupgap":0},"title":{"text":"Feature Importance"},"barmode":"relative"},                        {"responsive": true}                    ).then(function(){
 
-                    window.PLOTLYENV=window.PLOTLYENV || {};
-
-                if (document.getElementById("318eb430-e0f4-4b77-aa05-3c077a236bea")) {
-                    Plotly.newPlot(
-                        '318eb430-e0f4-4b77-aa05-3c077a236bea',
-                        [{"alignmentgroup": "True", "error_y": {"array": [0.07555343650428877, 0.04063238643408586, 0.05961762914014548, 0.036511772297213245, 0.0290208966535553, 0.027395688661575626, 0.020452704347556663, 0.03393435310671577, 0.028642943310511235, 0.012532926656412787, 0.03556066576596446, 0.01583846311062793, 0.015769424865656922, 0.022456972121037738, 0.02357794745152038, 0.01442052676018209, 0.016310850227497925, 0.020135987095791785, 0.01966912273385237, 0.0172252292386212, 0.016188291852075806, 0.011232957255776955, 0.011752740590544949, 0.014215519364083693, 0.013231561004786502, 0.011128839190837566, 0.006571133069294302, 0.009489276856556898, 0.007960061906913968, 0.010480916770311037, 0.01077200787919219, 0.00994444700093636, 0.01698793108921301, 0.012224243018118919, 0.0074065694102534866, 0.01145262818011683, 0.014493721007728682, 0.008521135565720254, 0.012128874609229678, 0.00618660142472066, 0.008750592417062431, 0.01083766822715062, 0.006589032274060321, 0.005665682686641886, 0.007104402814719823, 0.009642691848896686, 0.005820366803373852, 0.004582819751796309, 0.006191175003169528, 0.010780497029991285, 0.009383117993507828, 0.01064557976533365, 0.007971400075341879, 0.007626220709434621, 0.004528508932574483, 0.007978753956889023, 0.00598655286524879, 0.004724575698947667, 0.006907133033972632, 0.012019731255860346, 0.0069698073631939425, 0.0042979530563582525, 0.00880028649397044, 0.006169496245711782, 0.011543630256147902, 0.011489894256293558, 0.004546766268214796, 0.0039653606347905285, 0.005142839080282742, 0.004941368568974321, 0.004792637324806003, 0.00421720688017499, 0.0035935515587245948, 0.008488082736005341, 0.006269385473890268, 0.006598567537142401, 0.003498034328041033, 0.003873584657620095, 0.0037805701429140014, 0.002515794877177775, 0.006673028932914227, 0.0023320341584585798, 0.00708673630649601, 0.004711100803629174, 0.003424765080306881, 0.0026921725725499285, 0.006302660607068695, 0.0032923995185687254, 0.0030791354423140693, 0.0030119835753018034, 0.0031442289102776937, 0.0020600908472405127, 0.002793480291008204, 0.00193979455345233, 0.0030857822778379788, 0.0035748079758318985, 0.0032705986017104887, 0.002272192880069807, 0.0022907382568384494, 0.0032671244214112233, 0.0019998154929131923, 0.0018820524312719476, 0.0019111629917143336, 0.0017978767817748138, 0.002340223707926282, 0.0016899808466311807, 0.0016614874356055674, 0.0015772015772983537, 0.0009475672660661238, 0.0011080745981432952, 0.0008970952531810846, 0.0005748636888217817, 0.0005470026863239088, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}, "hoverlabel": {"namelength": 0}, "hovertemplate": "feature=%{x}<br>importance=%{y}", "legendgroup": "", "marker": {"color": "#636efa"}, "name": "", "offsetgroup": "", "orientation": "v", "showlegend": false, "textposition": "auto", "type": "bar", "x": ["Base_Cake Sponge", "Base_Cake Chiffon", "Base_Cake Pound", "KG", "Primary_Flavor Butter Toffee", "Base_Cake Tiramisu", "Secondary_Flavor Egg Nog", "Base_Cake Butter", "Base_Cake Cheese", "Customer Slugworth", "Color_Group Olive", "Customer Perk-a-Cola", "Color_Group White", "Secondary_Flavor Black Cherry", "Primary_Flavor Doughnut", "Customer Zebrabar", "Truffle_Type Candy Outer", "Primary_Flavor Orange Pineapple\tP", "Primary_Flavor Kettle Corn", "Color_Group Amethyst", "Truffle_Type Chocolate Outer", "Secondary_Flavor Black Currant", "Color_Group Teal", "Secondary_Flavor Wild Cherry Cream", "Secondary_Flavor Cucumber", "Primary_Flavor Toasted Coconut", "Color_Group Opal", "Customer Fickelgruber", "Color_Group Black", "Primary_Flavor Lemon Custard", "Secondary_Flavor Tangerine", "Secondary_Flavor Lemon", "Primary_Flavor Dill Pickle", "Primary_Flavor Spice", "Customer Dandy's Candies", "Secondary_Flavor Whipped Cream", "Primary_Flavor Orange", "Primary_Flavor Ginger Lime", "Secondary_Flavor Papaya", "Primary_Flavor Irish Cream", "Secondary_Flavor Apple", "Primary_Flavor Plum", "Primary_Flavor Mango", "Secondary_Flavor Rock and Rye", "Color_Group Tiffany", "Secondary_Flavor Peppermint", "Primary_Flavor Grand Mariner", "Primary_Flavor Caramel Cream", "Primary_Flavor Cheesecake", "Truffle_Type Jelly Filled", "Primary_Flavor Sassafras", "Primary_Flavor Horchata", "Primary_Flavor Acai Berry", "Primary_Flavor Watermelon", "Date 12/2020", "Primary_Flavor Lemon", "Primary_Flavor Pecan", "Secondary_Flavor Kiwi", "Primary_Flavor Cream Soda", "Primary_Flavor Gingersnap", "Primary_Flavor Ginger Ale", "Secondary_Flavor Banana", "Primary_Flavor Pink Lemonade", "Secondary_Flavor Pear", "Primary_Flavor Amaretto", "Primary_Flavor Blueberry", "Primary_Flavor Bavarian Cream", "Primary_Flavor Black Licorice", "Primary_Flavor Cherry Cola", "Primary_Flavor Coffee", "Color_Group Burgundy", "Date 7/2020", "Date 11/2020", "Secondary_Flavor Rum", "Secondary_Flavor Apricot", "Primary_Flavor Vanilla", "Date 10/2020", "Date 8/2020", "Secondary_Flavor Vanilla", "Date 9/2020", "Color_Group Rose", "Date 4/2020", "Primary_Flavor Chocolate Mint", "Primary_Flavor Orange Brandy", "Primary_Flavor Sour", "Date 2/2020", "Color_Group Slate", "Date 3/2020", "Secondary_Flavor Mojito", "Date 5/2020", "Secondary_Flavor Mixed Berry", "Secondary_Flavor Fuzzy Navel", "Primary_Flavor Raspberry Ginger Ale", "Primary_Flavor Cherry Cream Spice", "Primary_Flavor Lemon Bar", "Primary_Flavor Wild Cherry Cream", "Secondary_Flavor Ginger Beer", "Primary_Flavor Apricot", "Secondary_Flavor Dill Pickle", "Secondary_Flavor Mango", "Primary_Flavor Creme de Menthe", "Date 1/2020", "Date 6/2020", "Secondary_Flavor Butter Rum", "Primary_Flavor Chocolate", "Primary_Flavor Butter Pecan", "Secondary_Flavor Passion Fruit", "Primary_Flavor Wintergreen", "Primary_Flavor Pear", "Primary_Flavor Fruit Punch", "Secondary_Flavor Toffee", "Primary_Flavor Margarita", "Color_Group Taupe", "Primary_Flavor Birch Beer", "Primary_Flavor Butter Milk", "Color_Group Citrine", "Primary_Flavor Coconut", "Secondary_Flavor Tutti Frutti", "Secondary_Flavor Hazelnut"], "xaxis": "x", "y": [0.11070519650695783, 0.0639051536976566, 0.0548603760743442, 0.04690552959956567, 0.030875729545272637, 0.02964743757949146, 0.02903731620006769, 0.027549820016608686, 0.024187978949675365, 0.023614207046533706, 0.023004895620422038, 0.020589909133373552, 0.019963584487051135, 0.014793374515086494, 0.014393892077033574, 0.013853128581716494, 0.013244615846047074, 0.012690554084720291, 0.01259021885646476, 0.012404368567974087, 0.0113187384045495, 0.011071708910919128, 0.010741822613075441, 0.010696258810503114, 0.01036397151172899, 0.010153740726406372, 0.009873025937418815, 0.009624755083125741, 0.00939787547337474, 0.009324827381141128, 0.009223258704344116, 0.00920180252864671, 0.009030231263778518, 0.008748134672159761, 0.008650390754265581, 0.00857621547469525, 0.008182984461145851, 0.007935677327919664, 0.007710024862021607, 0.007655626597286043, 0.006909301064429637, 0.0068089928959846535, 0.006280078656786092, 0.0062527552424586595, 0.005937366089078937, 0.005569142846762498, 0.005395143076710668, 0.005349940638283773, 0.0053246203141319795, 0.005162744809445722, 0.00513549758800123, 0.005131023056676936, 0.00485863529267419, 0.004618572850759596, 0.004385632341887418, 0.004138155071736413, 0.004092217766380393, 0.004063384055128564, 0.004010104372789467, 0.004006577085286783, 0.00400548765617934, 0.00388998413390825, 0.0038868227387336947, 0.003858150268472716, 0.0038478767520493035, 0.0038428634866371617, 0.00373893601154158, 0.003709740677574182, 0.003654009077597494, 0.00348183888390368, 0.0034621232538648568, 0.0034131418308362077, 0.003344958987577941, 0.0032455102404200156, 0.003051238798750663, 0.0028849097281198836, 0.0028289898361587365, 0.0026498763977929355, 0.0026473717061639046, 0.002544288234247985, 0.002536787060152542, 0.0023816342255907124, 0.0023622454354986703, 0.002355487721202827, 0.0023118590899479387, 0.002239091551568516, 0.002100886869022899, 0.002075493235042351, 0.001917413173718334, 0.0018839487672445655, 0.001580612376283172, 0.0013055871972177259, 0.0012863009671007484, 0.0012487062252696925, 0.0012279317440148873, 0.0011916026586106328, 0.0011551536899490362, 0.0011197945637304875, 0.0011095070716949365, 0.0010890414738037415, 0.0010807649217126744, 0.0009599570923495142, 0.0009534468564891095, 0.0008997626619987524, 0.0007904775752950208, 0.0005633269488770604, 0.000553829145201856, 0.0005257338590994512, 0.0004349081329954505, 0.00036935819938109846, 0.0002990317510603616, 0.00019162122960726061, 0.00018233422877463634, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "yaxis": "y"}],
-                        {"barmode": "relative", "legend": {"tracegroupgap": 0}, "margin": {"t": 60}, "template": {"data": {"bar": [{"error_x": {"color": "#2a3f5f"}, "error_y": {"color": "#2a3f5f"}, "marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "bar"}], "barpolar": [{"marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "barpolar"}], "carpet": [{"aaxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "baxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "type": "carpet"}], "choropleth": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "choropleth"}], "contour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "contour"}], "contourcarpet": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "contourcarpet"}], "heatmap": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmap"}], "heatmapgl": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmapgl"}], "histogram": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "histogram"}], "histogram2d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2d"}], "histogram2dcontour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2dcontour"}], "mesh3d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "mesh3d"}], "parcoords": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "parcoords"}], "pie": [{"automargin": true, "type": "pie"}], "scatter": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter"}], "scatter3d": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter3d"}], "scattercarpet": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattercarpet"}], "scattergeo": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergeo"}], "scattergl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergl"}], "scattermapbox": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattermapbox"}], "scatterpolar": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolar"}], "scatterpolargl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolargl"}], "scatterternary": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterternary"}], "surface": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "surface"}], "table": [{"cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}, "type": "table"}]}, "layout": {"annotationdefaults": {"arrowcolor": "#2a3f5f", "arrowhead": 0, "arrowwidth": 1}, "coloraxis": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "colorscale": {"diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]], "sequential": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "sequentialminus": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}, "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#FFA15A", "#19d3f3", "#FF6692", "#B6E880", "#FF97FF", "#FECB52"], "font": {"color": "#2a3f5f"}, "geo": {"bgcolor": "white", "lakecolor": "white", "landcolor": "#E5ECF6", "showlakes": true, "showland": true, "subunitcolor": "white"}, "hoverlabel": {"align": "left"}, "hovermode": "closest", "mapbox": {"style": "light"}, "paper_bgcolor": "white", "plot_bgcolor": "#E5ECF6", "polar": {"angularaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "radialaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "scene": {"xaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "yaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "zaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}}, "shapedefaults": {"line": {"color": "#2a3f5f"}}, "ternary": {"aaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "baxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "caxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "title": {"x": 0.05}, "xaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}, "yaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}}}, "xaxis": {"anchor": "y", "domain": [0.0, 1.0], "title": {"text": "feature"}}, "yaxis": {"anchor": "x", "domain": [0.0, 1.0], "title": {"text": "importance"}}},
-                        {"responsive": true}
-                    ).then(function(){
-
-var gd = document.getElementById('318eb430-e0f4-4b77-aa05-3c077a236bea');
+var gd = document.getElementById('54ef7fb6-fb82-4262-a775-cf4a4641774e');
 var x = new MutationObserver(function (mutations, observer) {{
         var display = window.getComputedStyle(gd).display;
         if (!display || display === 'none') {{
@@ -1033,48 +1092,60 @@ if (outputEl) {{
     x.observe(outputEl, {childList: true});
 }}
 
-                        })
-                };
-
-            </script>
-        </div>
-</body>
-</html>
+                        })                };                });            </script>        </div>
 
 
-We can then go and look at the different EBITDAs when selecting for each of these features:
+#### 🙋‍♀️ Question 1: Feature Importance and Cardinality
+
+How does feature importance change in the above plot when we change the minimum leaf size from 2 to 6?
+
+#### 🙋‍ Question 2: Compare to Moods Median
+
+We can then go and look at the different EBITDAs when selecting for each of these features. What do you notice as the primary difference between these results and those from [Session 2: Inferential Statistics Exercise 1, Part C](https://github.com/wesleybeckner/data_science_foundations/blob/fdf84755a7ed6ed54d3f036a7fc2d9dafa79afd9/notebooks/solutions/SOLN_S2_Inferential_Statistics.ipynb) when we ran Mood's Median test on this same data?
 
 
 ```python
-def ebitda_comp(feature=feat['feature']):
-  if len(feature.split(' ')) > 1:
-    group = feature.split(' ')[0].replace('_', ' ')
-    sel = " ".join(feature.split(' ')[1:])
+for feature in feat.iloc[:10,0]:
+    group = feature.split('_')[0]
+    sel = " ".join(feature.split('_')[1:])
     pos = margin.loc[(margin[group] == sel)]['EBITDA/KG'].median()
     neg = margin.loc[~(margin[group] == sel)]['EBITDA/KG'].median()
-    print("with:    {:.2e}".format(pos))
-    print("without: {:.2e}".format(neg))
-  else:
-    pass  
+    print(group + ": " + sel)
+    print("\twith:    {:.2f}".format(pos))
+    print("\twithout: {:.2f}".format(neg))
 ```
 
+    Base Cake: Sponge
+    	with:    0.70
+    	without: 0.20
+    Base Cake: Pound
+    	with:    0.24
+    	without: 0.20
+    Secondary Flavor: Egg Nog
+    	with:    0.23
+    	without: 0.21
+    Base Cake: Chiffon
+    	with:    0.13
+    	without: 0.24
+    Base Cake: Butter
+    	with:    0.14
+    	without: 0.26
+    Primary Flavor: Doughnut
+    	with:    0.38
+    	without: 0.20
+    Primary Flavor: Butter Toffee
+    	with:    0.46
+    	without: 0.21
+    Truffle Type: Candy Outer
+    	with:    0.20
+    	without: 0.22
+    Customer: Zebrabar
+    	with:    0.24
+    	without: 0.21
+    Customer: Dandy's Candies
+    	with:    0.20
+    	without: 0.22
 
-```python
-interact(ebitda_comp)
-```
-
-
-    interactive(children=(Dropdown(description='feature', options=('Base_Cake Sponge', 'Base_Cake Chiffon', 'Base_…
-
-
-
-
-
-    <function __main__.ebitda_comp>
-
-
-
-This is an example of how the interpretability of the random forest ensemble approach can be highly valuable.
 
 <a name='x.2.3'></a>
 
@@ -1101,7 +1172,7 @@ plot_tree(X, clf)
 
 
 
-    <module 'matplotlib.pyplot' from '/usr/local/lib/python3.7/dist-packages/matplotlib/pyplot.py'>
+    <module 'matplotlib.pyplot' from '/home/wbeckner/anaconda3/envs/py39/lib/python3.9/site-packages/matplotlib/pyplot.py'>
 
 
 
@@ -1164,13 +1235,7 @@ clf.fit(t.reshape(-1,1),s)
 
 
 
-    RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
-                          max_depth=None, max_features='auto', max_leaf_nodes=None,
-                          max_samples=None, min_impurity_decrease=0.0,
-                          min_impurity_split=None, min_samples_leaf=1,
-                          min_samples_split=2, min_weight_fraction_leaf=0.0,
-                          n_estimators=10, n_jobs=None, oob_score=False,
-                          random_state=None, verbose=0, warm_start=False)
+    RandomForestRegressor(n_estimators=10)
 
 
 
@@ -1185,7 +1250,7 @@ ax.plot(t,clf.predict(t.reshape(-1,1)))
 
 
 
-    [<matplotlib.lines.Line2D at 0x7eff29588690>]
+    [<matplotlib.lines.Line2D at 0x7f5b6d0d8790>]
 
 
 
@@ -1197,33 +1262,133 @@ ax.plot(t,clf.predict(t.reshape(-1,1)))
 
 Nice! without specifying any perdiodicity, the random forest does a good job of embedding this periodicity in the final output.
 
-### 🏋️ Extended Exercise: Practice with Random Forests
+### 🏋️ Exercise 2: Practice with Random Forests
 
 With the wine dataset:
 
-* predict: quality, quality group
-
-* use train_test_split
-
+* predict: density
 * create a learning curve of train/test score vs model complexity for your random forest model(s)
+
+I have provided the _cleaned_ dataset as well as starter code for trainin the model and making parity plots
+
+Do not change the following 3 cells:
 
 
 ```python
-# Code Cell for Exercise 4.2.4
 wine = pd.read_csv("https://raw.githubusercontent.com/wesleybeckner/"\
       "ds_for_engineers/main/data/wine_quality/winequalityN.csv")
+# infer str cols
+str_cols = list(wine.select_dtypes(include='object').columns)
 
-wine.dropna(inplace=True)
-wine['quality_label'] = wine['quality'].apply(lambda x: 'low' if x <=5 else
-                                              'med' if x <= 7 else 'high')
+#set target col
+target = 'density'
 
-wine['type_encoding'] = wine['type'].map({'red': 0, 'white': 1})
-wine['quality_encoding'] = wine['quality_label'].map({'low':0, 
-                                                      'med': 1, 'high': 2})
+enc = OneHotEncoder()
+imp = SimpleImputer()
 
-wine.columns = wine.columns.str.replace(' ', '_')
+enc.fit_transform(wine[str_cols])
+X_cat = enc.transform(wine[str_cols]).toarray()
+X = wine.copy()
+[X.pop(i) for i in str_cols]
+y = X.pop(target)
+X = imp.fit_transform(X)
+X = np.hstack([X_cat, X])
 
-features = list(wine.columns[1:-1].values)
-features.remove('quality_label')
-features.remove('quality')
+cols = [i.split("_")[1] for i in enc.get_feature_names_out()]
+cols += list(wine.columns)
+cols.remove(target)
+[cols.remove(i) for i in str_cols]
+
+scaler = StandardScaler()
+X[:,2:] = scaler.fit_transform(X[:,2:])
+
+wine = pd.DataFrame(X, columns=cols)
+wine['density'] = y
+```
+
+
+```python
+model = RandomForestRegressor(n_estimators=100,
+                            criterion='squared_error',
+                            max_depth=None,
+                            min_samples_split=2,
+                            min_samples_leaf=1,
+                            min_weight_fraction_leaf=0.0,
+                            max_features='auto',
+                            max_leaf_nodes=None,
+                            min_impurity_decrease=0.0,
+                            bootstrap=True,
+                            oob_score=False,
+                            n_jobs=None,
+                            random_state=None,
+                            verbose=0,
+                            warm_start=False,
+                            ccp_alpha=0.0,
+                            max_samples=None,)
+X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8, random_state=42)
+
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+```
+
+
+```python
+fig, (ax, ax_) = plt.subplots(1,2,figsize=(15,5))
+ax.plot(y_test, model.predict(X_test), ls='', marker='.')
+ax_.plot(y_train, model.predict(X_train), ls='', marker='.')
+ax.set_title("Train, R2: {:.3f}".format(r2_score(y_train, model.predict(X_train))))
+ax.set_ylabel('Predicted')
+ax.set_xlabel('Actual')
+ax_.set_xlabel('Actual')
+ax_.set_title("Test, R2: {:.3f}".format(r2_score(y_test, model.predict(X_test))))
+```
+
+
+
+
+    Text(0.5, 1.0, 'Test, R2: 0.973')
+
+
+
+
+    
+![png](S6_Bagging_files/S6_Bagging_99_1.png)
+    
+
+
+Compare these results with our [linear model](https://github.com/wesleybeckner/data_science_foundations/blob/fdf84755a7ed6ed54d3f036a7fc2d9dafa79afd9/notebooks/solutions/SOLN_E3_Feature_Engineering.ipynb) from Lab 3.
+
+Recall that we can quickly grab the names of the paramters in our sklearn model:
+
+
+```python
+RandomForestRegressor().get_params()
+```
+
+
+
+
+    {'bootstrap': True,
+     'ccp_alpha': 0.0,
+     'criterion': 'squared_error',
+     'max_depth': None,
+     'max_features': 'auto',
+     'max_leaf_nodes': None,
+     'max_samples': None,
+     'min_impurity_decrease': 0.0,
+     'min_samples_leaf': 1,
+     'min_samples_split': 2,
+     'min_weight_fraction_leaf': 0.0,
+     'n_estimators': 100,
+     'n_jobs': None,
+     'oob_score': False,
+     'random_state': None,
+     'verbose': 0,
+     'warm_start': False}
+
+
+
+
+```python
+# Cell for Exercise 2
 ```
