@@ -78,7 +78,7 @@ enc.fit_transform(wine[str_cols])
 X_cat = enc.transform(wine[str_cols]).toarray()
 X = wine.copy()
 [X.pop(i) for i in str_cols]
-y_wine = X.pop(target)
+y = X.pop(target)
 X = imp.fit_transform(X)
 X_wine = np.hstack([X_cat, X])
 
@@ -91,24 +91,7 @@ scaler = StandardScaler()
 X_wine[:,2:] = scaler.fit_transform(X_wine[:,2:])
 
 wine = pd.DataFrame(X_wine, columns=cols)
-wine[target] = y
-```
-
-
-```python
-wine.dropna(inplace=True)
-wine['quality_label'] = wine['quality'].apply(lambda x: 'low' if x <=5 else
-                                              'med' if x <= 7 else 'high')
-
-wine['type_encoding'] = wine['type'].map({'red': 0, 'white': 1})
-wine['quality_encoding'] = wine['quality_label'].map({'low':0, 
-                                                      'med': 1, 'high': 2})
-
-wine.columns = wine.columns.str.replace(' ', '_')
-
-features = list(wine.columns[1:-1].values)
-features.remove('quality_label')
-features.remove('quality')
+wine['density'] = y
 ```
 
 <a name='3.1'></a>
@@ -118,8 +101,6 @@ features.remove('quality')
 [back to top](#top)
 
 Principle Component Analysis or PCA is one of the most wide spread implementations of dimensionality reduction. In PCA, we find the principle components, or linear recombinations of the dimensions of the data, that best explain the variance of the data. 
-
-There are mathematical arguments abound for describing how we analytically solve for the principle components and how they relate to other concepts in mathematics (like pythagorean theorem). We'll sidestep that conversation for now, and proceed to our pragmatic demonstrations, as we have done in the past.
 
 <a name='x.1.1'></a>
 
@@ -147,7 +128,7 @@ wine.loc[wine['red'] == 1].plot(x='fixed acidity',
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_10_1.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_9_1.png)
     
 
 
@@ -203,6 +184,11 @@ As a side note, the covariance term is the numerator in the pearsons correlation
 
 $$\rho_{x,y} = \frac{cov(X,Y)}{\sigma_x\sigma_y} \;\;\;\;\;\sf eq. 2 $$
 
+Extrapolating \\(Eq. 1\\) across the entire matrix, \\(X\\) of datapoints:
+
+$$ C = \frac{1}{n-1}(X - \bar{X})^{T} \cdot (X - \bar{X}) \;\;\;\;\;\sf eq. 3 $$
+
+The covariance matrix of our wine data can be obtained from \\(Eq. 3\\):
 
 
 ```python
@@ -217,15 +203,21 @@ print('Covariance matrix \n%s' %cov_mat)
      [0.66847772 1.00062578]]
 
 
-As it is a square symmetric matrix, it can be diagonalized by choosing a new orthogonal coordinate system, given by its eigenvectors. For this particular set of wine data, we will see that the corresponding diagonalized matrix will look like:
+### 5.1.2 How Does the Covariance Matrix Relate to the New Coordinate System
+
+1. We desire a new coordinate system that has no covariance between its dimensions (thus each dimension can be sorted by explained variance to isolate key dimensions (i.e. principal components)) 
+2. Because the covariance matrix in \\(Eq. 3\\) is a square matrix, we can diagonalize it; the new dimensional space whose covariance matrix is expressed by this diagonolized matrix will have the desired properties explained in point 1 (because everything off the diagonal is zero)
+3. The difficult and unintuitive part of PCA is that the vector that produces this transformation to the new coordinate space is given by the eigenvectors of \\(C\\). For those who are interested in investigating further I suggest reading this [answer](https://stats.stackexchange.com/questions/217995/what-is-an-intuitive-explanation-for-how-pca-turns-from-a-geometric-problem-wit) by _amoeba_ and this [answer](https://stats.stackexchange.com/questions/10251/what-is-the-objective-function-of-pca/10256#10256) by _cardinal_. For a more geometric explanation of the principal components checkout the [grandparent, spouse, daughter parable](https://stats.stackexchange.com/questions/2691/making-sense-of-principal-component-analysis-eigenvectors-eigenvalues/140579#140579)
+
+> These arguments coincide with the _Spectral theorem_ explanation of PCA, and you can read more about it in the links provided above
+
+In 5.1.2 I provide a segue into deriving eigenvectors and eigenvalues, feel free to visit these foundational topics, although they are not necessary to reap the value of PCA. 
+
+For this particular set of wine data, we will see that the corresponding diagonalized matrix will look like:
  
 $$ \begin{bmatrix} 1.67 & 0 \\ 0 & 0.33 \end{bmatrix} $$
 
-Here's the [clincher](https://www.youtube.com/watch?v=OP3Yhs8q7oM), what the 0's in this square matrix mean is that in this new coordinate system, there is no _covariance_ between features, and the _proportion_ between variances in this new coordinate system can simply be determined by observing the ratio of their eigenvalues (the values located on the diagonal).
-
-Armed with this knowledge, we can now proceed to determine the eigenvalues and eigenvectors of the covariance matrix produced from \\(eq. 1\\). Projecting onto the eigenvectors will yield data in a coordinate system that has no covariance, and the explained variance along each coordinate is captured by the eigenvalues.
-
-### 🌭 5.1.2 Enrichment: Deriving the Eigenvectors and Eigenvalues
+#### 🌭 5.1.2.1 Enrichment: Deriving the Eigenvectors and Eigenvalues
 
 The principal components are found mathematically by determining the eigenvectors of the covariance matrix and sorting them by their egienvalues, i.e. their explained variance. 
 
@@ -260,7 +252,7 @@ and \\(\lambda v\\):
 $$ 6 \begin{bmatrix} 1 \\ 4 \end{bmatrix}  =
 \begin{bmatrix} 6 \\ 24\end{bmatrix} $$
 
-#### 5.1.2.1: Find the Eigenvalues
+#### 🌭  5.1.2.2: Find the Eigenvalues
 
 The trick that is employed to decompose these equality statements is to multiply the right hand side of eq. 3 by an identity matrix and then subtract this quantity from both sides of the equation. In the case of \\(v\\) being non-zero, this becomes the [determinant](https://www.mathsisfun.com/algebra/matrix-determinant.html):
 
@@ -311,7 +303,7 @@ print(root)
     [-7.  6.]
 
 
-#### 5.1.2.2: Find the Eigenvectors
+#### 🌭  5.1.2.3: Find the Eigenvectors
 
 We find the eigenvector for each corresponding eigenvalue one at a time
 
@@ -489,7 +481,7 @@ ax.set_xlim(min(X_std[:,0]),max(X_std[:,0]))
     
 
 
-We indeed see that these vectors are orthogonal. For further discussion on the topic of PCA and how it relates to concepts like RSS and Pythagorean Theorem I suggest reading the [grandparent, spouse, daughter parable](https://stats.stackexchange.com/questions/2691/making-sense-of-principal-component-analysis-eigenvectors-eigenvalues/140579#140579)
+We indeed see that these vectors are orthogonal. 
 
 Continuing on with our task of projecting the data onto our principal components, in order to project our data onto the PCs I'll need to reshape `eig_pairs`:
 
@@ -521,7 +513,7 @@ plt.scatter(Y[:,0],Y[:,1])
 
 
 
-    <matplotlib.collections.PathCollection at 0x7f99baa40190>
+    <matplotlib.collections.PathCollection at 0x7f999be6c9d0>
 
 
 
@@ -531,7 +523,22 @@ plt.scatter(Y[:,0],Y[:,1])
     
 
 
-We see that our data is dispersed nicely along these PCs.
+We see that our data is dispersed nicely along these PCs. Finally to tie this in with the point made at the end of 5.1.2, we see that the covariance matrix for the data in this new space is described by the diagonalized matrix of the former dimensional space:
+
+
+```python
+mean_vec = np.mean(Y, axis=0)
+cov_mat = (Y - mean_vec).T.dot((Y - mean_vec)) / (Y.shape[0]-1)
+cov_mat
+```
+
+
+
+
+    array([[1.66910350e+00, 1.76746394e-16],
+           [1.76746394e-16, 3.32148064e-01]])
+
+
 
 ### 5.1.4 Cumulative Explained Variance
 
@@ -559,7 +566,7 @@ with plt.style.context('seaborn-whitegrid'):
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_38_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_39_0.png)
     
 
 
@@ -669,7 +676,7 @@ ax[1].legend()
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_47_1.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_48_1.png)
     
 
 
@@ -703,7 +710,7 @@ plt.scatter(X_pca[:, 0], X_pca[:, 1], alpha=0.8)
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_49_1.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_50_1.png)
     
 
 
@@ -739,7 +746,7 @@ plt.ylabel('Second PC')
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_51_1.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_52_1.png)
     
 
 
@@ -803,7 +810,7 @@ print(f"Max principal components: {X.shape[1]}")
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_56_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_57_0.png)
     
 
 
@@ -846,7 +853,7 @@ plt.ylabel('Second PC')
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_58_1.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_59_1.png)
     
 
 
@@ -868,7 +875,7 @@ plt.scatter(centers[:, 0], centers[:, 1], c='black', s=200, alpha=0.5);
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_60_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_61_0.png)
     
 
 
@@ -968,7 +975,7 @@ ax4.plot(range(2,10), variance)
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_68_1.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_69_1.png)
     
 
 
@@ -987,7 +994,7 @@ plt.scatter(centers[:, 0], centers[:, 1], c='black', s=200, alpha=0.5);
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_69_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_70_0.png)
     
 
 
@@ -1013,7 +1020,7 @@ plt.scatter(X_pca[:, 0], X_pca[:, 1],
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_71_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_72_0.png)
     
 
 
@@ -1065,7 +1072,7 @@ plt.scatter(X_pca[:, 0], X_pca[:, 1],
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_75_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_76_0.png)
     
 
 
@@ -1144,7 +1151,7 @@ plt.scatter(X[:, 0], X[:, 1]);
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_79_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_80_0.png)
     
 
 
@@ -1162,7 +1169,7 @@ plot_gmm(gmm2, X)
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_82_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_83_0.png)
     
 
 
@@ -1176,7 +1183,7 @@ plot_gmm(gmm16, X, label=False)
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_84_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_85_0.png)
     
 
 
@@ -1190,7 +1197,7 @@ plt.scatter(Xnew[:, 0], Xnew[:, 1]);
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_86_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_87_0.png)
     
 
 
@@ -1226,7 +1233,7 @@ plt.ylabel('est. prediction error')
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_88_1.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_89_1.png)
     
 
 
@@ -1240,7 +1247,7 @@ plot_gmm(gmmNew, X, label=True, data_alpha=0)
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_90_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_91_0.png)
     
 
 
@@ -1252,7 +1259,7 @@ plt.scatter(Xnew[:, 0], Xnew[:, 1]);
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_91_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_92_0.png)
     
 
 
@@ -1288,7 +1295,7 @@ X, y = gen(200, noise=0.02, random_state=42)
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_93_1.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_94_1.png)
     
 
 
@@ -1304,7 +1311,7 @@ plot_gmm(gmm_moon, X)
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_95_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_96_0.png)
     
 
 
@@ -1316,7 +1323,7 @@ plt.scatter(Xnew[:, 0], Xnew[:, 1]);
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_96_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_97_0.png)
     
 
 
@@ -1333,3 +1340,8 @@ plt.scatter(Xnew[:, 0], Xnew[:, 1]);
 * [GMMs Explained](https://towardsdatascience.com/gaussian-mixture-models-explained-6986aaf5a95) 
 
 * [Derive GMM Exercise](https://www.deep-teaching.org/notebooks/graphical-models/directed/exercise-1d-gmm-em)
+
+
+```python
+
+```

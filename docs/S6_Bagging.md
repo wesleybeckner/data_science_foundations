@@ -170,7 +170,7 @@ display(margin.head())
 </div>
 
 
-We're going to recreate the same operations we employed in Session 2, Feature Engineering:
+We're going to recreate the same operations we employed in Session 4, Feature Engineering:
 
 
 ```python
@@ -214,7 +214,7 @@ pd.DataFrame(margin[margin.columns[-2]]).boxplot(showfliers=False)
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0x7eff2a001b90>
+    <AxesSubplot:>
 
 
 
@@ -240,7 +240,7 @@ margin['profitability'].hist()
 
 
 
-    <matplotlib.axes._subplots.AxesSubplot at 0x7eff29f68b90>
+    <AxesSubplot:>
 
 
 
@@ -450,9 +450,9 @@ tree.plot_tree(clf)
 
 
 
-    [Text(167.4, 163.07999999999998, 'X[1] <= 0.5\ngini = 0.5\nsamples = 2\nvalue = [1, 1]'),
-     Text(83.7, 54.360000000000014, 'gini = 0.0\nsamples = 1\nvalue = [1, 0]'),
-     Text(251.10000000000002, 54.360000000000014, 'gini = 0.0\nsamples = 1\nvalue = [0, 1]')]
+    [Text(0.5, 0.75, 'X[1] <= 0.5\ngini = 0.5\nsamples = 2\nvalue = [1, 1]'),
+     Text(0.25, 0.25, 'gini = 0.0\nsamples = 1\nvalue = [1, 0]'),
+     Text(0.75, 0.25, 'gini = 0.0\nsamples = 1\nvalue = [0, 1]')]
 
 
 
