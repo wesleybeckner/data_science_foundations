@@ -1060,7 +1060,7 @@
 </table>
 </div>
 
-<p>We're going to recreate the same operations we employed in Session 2, Feature Engineering:</p>
+<p>We're going to recreate the same operations we employed in Session 4, Feature Engineering:</p>
 <div class="codehilite"><pre><span></span><code><span class="c1"># identify categorical columns</span>
 <span class="n">cat_cols</span> <span class="o">=</span> <span class="n">margin</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="mi">7</span><span class="p">]</span>
 
@@ -1098,7 +1098,7 @@ med less than: 0.35
 
 
 
-&lt;matplotlib.axes._subplots.AxesSubplot at 0x7eff2a001b90&gt;
+&lt;AxesSubplot:&gt;
 </code></pre></div>
 
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_10_2.png" /></p>
@@ -1111,7 +1111,7 @@ med less than: 0.35
 <div class="codehilite"><pre><span></span><code><span class="n">margin</span><span class="p">[</span><span class="s1">&#39;profitability&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7eff29f68b90&gt;
+<div class="codehilite"><pre><span></span><code>&lt;AxesSubplot:&gt;
 </code></pre></div>
 
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_12_1.png" /></p>
@@ -1269,9 +1269,9 @@ med less than: 0.35
 <div class="codehilite"><pre><span></span><code><span class="n">tree</span><span class="o">.</span><span class="n">plot_tree</span><span class="p">(</span><span class="n">clf</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>[Text(167.4, 163.07999999999998, &#39;X[1] &lt;= 0.5\ngini = 0.5\nsamples = 2\nvalue = [1, 1]&#39;),
- Text(83.7, 54.360000000000014, &#39;gini = 0.0\nsamples = 1\nvalue = [1, 0]&#39;),
- Text(251.10000000000002, 54.360000000000014, &#39;gini = 0.0\nsamples = 1\nvalue = [0, 1]&#39;)]
+<div class="codehilite"><pre><span></span><code>[Text(0.5, 0.75, &#39;X[1] &lt;= 0.5\ngini = 0.5\nsamples = 2\nvalue = [1, 1]&#39;),
+ Text(0.25, 0.25, &#39;gini = 0.0\nsamples = 1\nvalue = [1, 0]&#39;),
+ Text(0.75, 0.25, &#39;gini = 0.0\nsamples = 1\nvalue = [0, 1]&#39;)]
 </code></pre></div>
 
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_24_1.png" /></p>
