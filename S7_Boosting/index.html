@@ -744,13 +744,32 @@
 <h3 id="711-import-packages">7.1.1 Import Packages<a class="headerlink" href="#711-import-packages" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">svm</span>
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span><span class="p">,</span> <span class="n">make_circles</span>
 <span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">AdaBoostClassifier</span><span class="p">,</span> <span class="n">GradientBoostingClassifier</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
 <span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">FloatSlider</span><span class="p">,</span> <span class="n">interactive</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_boundaries</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+  <span class="n">plot_step</span> <span class="o">=</span> <span class="mf">0.02</span>
+  <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">plot_step</span><span class="p">),</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">,</span> <span class="n">plot_step</span><span class="p">))</span>
+
+  <span class="n">Z</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">yy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
+  <span class="n">Z</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">ax</span><span class="p">:</span>
+    <span class="n">cs</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ax</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">cs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
 </code></pre></div>
 
 <p><a name='x.0.2'></a></p>
@@ -766,21 +785,23 @@
 <p><a name='x.2.1'></a></p>
 <h3 id="721-adaboost">7.2.1 AdaBoost<a class="headerlink" href="#721-adaboost" title="Permanent link">&para;</a></h3>
 <p><a href="#top">Back to Top</a></p>
-<p>AdaBoost is the first boosting learner. It's <em>weak learners</em> the things that are stitched together in serial, are typically <em>stumps</em> or really shallow decision trees</p>
+<p>AdaBoost was the first boosting learner of its kind. It's <em>weak learners</em> (the things that are stitched together in serial) are typically <em>stumps</em> or really shallow decision trees. Lets create some data and fit an <code>AdaBoostClassifier</code> to it:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_circles</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">.01</span><span class="p">)</span>
 <span class="n">clf</span> <span class="o">=</span> <span class="n">AdaBoostClassifier</span><span class="p">(</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
 <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 <span class="n">plot_boundaries</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S7_Boosting_files/S7_Boosting_8_0.png" /></p>
+<p><img alt="png" src="../S7_Boosting_files/S7_Boosting_9_0.png" /></p>
+<p>Trying with a different distribution of data:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
 <span class="n">clf</span> <span class="o">=</span> <span class="n">AdaBoostClassifier</span><span class="p">(</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
 <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 <span class="n">plot_boundaries</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S7_Boosting_files/S7_Boosting_9_0.png" /></p>
+<p><img alt="png" src="../S7_Boosting_files/S7_Boosting_11_0.png" /></p>
+<p>And now with <code>make_moons</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_moons</span>
 <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_moons</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">.05</span><span class="p">)</span>
 <span class="n">clf</span> <span class="o">=</span> <span class="n">AdaBoostClassifier</span><span class="p">()</span>
@@ -788,7 +809,7 @@
 <span class="n">plot_boundaries</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S7_Boosting_files/S7_Boosting_10_0.png" /></p>
+<p><img alt="png" src="../S7_Boosting_files/S7_Boosting_13_0.png" /></p>
 <p><a name='x.2.1'></a></p>
 <h3 id="721-gradient-boosting">7.2.1 Gradient Boosting<a class="headerlink" href="#721-gradient-boosting" title="Permanent link">&para;</a></h3>
 <p><a href="#top">Back to Top</a></p>
@@ -799,21 +820,21 @@
 <span class="n">plot_boundaries</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S7_Boosting_files/S7_Boosting_12_0.png" /></p>
+<p><img alt="png" src="../S7_Boosting_files/S7_Boosting_15_0.png" /></p>
 <div class="codehilite"><pre><span></span><code><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
 <span class="n">clf</span> <span class="o">=</span> <span class="n">GradientBoostingClassifier</span><span class="p">()</span>
 <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 <span class="n">plot_boundaries</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S7_Boosting_files/S7_Boosting_13_0.png" /></p>
+<p><img alt="png" src="../S7_Boosting_files/S7_Boosting_16_0.png" /></p>
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_moons</span>
 <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_moons</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">.05</span><span class="p">)</span>
 <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 <span class="n">plot_boundaries</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S7_Boosting_files/S7_Boosting_14_0.png" /></p>
+<p><img alt="png" src="../S7_Boosting_files/S7_Boosting_17_0.png" /></p>
 <h1 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h1>
 <p><a href="#top">back to top</a></p>
 <ul>
