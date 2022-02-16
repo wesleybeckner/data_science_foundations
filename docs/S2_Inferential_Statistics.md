@@ -1,6 +1,6 @@
 <a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/S2_Inferential_Statistics.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-# Data Science Foundations, Session 2: Inferential Statistics
+# Data Science Foundations <br> Session 2: Inferential Statistics
 
 **Instructor**: Wesley Beckner
 

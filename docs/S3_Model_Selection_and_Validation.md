@@ -1,6 +1,6 @@
 <a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/S3_Model_Selection_and_Validation.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-# Data Science Foundations, Session 3: Model Selection and Validation
+# Data Science Foundations <br> Session 3: Model Selection and Validation
 
 **Instructor**: Wesley Beckner
 

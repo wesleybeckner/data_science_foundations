@@ -1,6 +1,6 @@
 <a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/S7_Boosting.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-# Data Science Foundations, Session 7: Boosting
+# Data Science Foundations <br> Session 7: Boosting
 
 **Instructor**: Wesley Beckner
 
@@ -35,13 +35,35 @@ In this session, we're continuing on the topic of supervised learning an ensembl
 
 ```python
 from sklearn import svm
-from sklearn.datasets import make_blobs
+from sklearn.datasets import make_blobs, make_circles
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import AdaBoostClassifier, GradientBoostingClassifier
 import matplotlib.pyplot as plt
 import numpy as np
 import plotly.express as px
 from ipywidgets import interact, FloatSlider, interactive
+```
+
+
+```python
+def plot_boundaries(X, clf, ax=False):
+  plot_step = 0.02
+  x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+  y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+  xx, yy = np.meshgrid(np.arange(x_min, x_max, plot_step),
+                        np.arange(y_min, y_max, plot_step))
+  
+  Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
+  Z = Z.reshape(xx.shape)
+  
+  if ax:
+    cs = ax.contourf(xx, yy, Z, cmap='viridis', alpha=0.2)
+    ax.scatter(X[:,0], X[:,1], c=y, cmap='viridis', edgecolor='grey', alpha=0.9)
+    return ax
+  else:
+    cs = plt.contourf(xx, yy, Z, cmap='viridis', alpha=0.2)
+    plt.scatter(X[:,0], X[:,1], c=y, cmap='viridis', edgecolor='grey', alpha=0.9)
+  
 ```
 
 <a name='x.0.2'></a>
@@ -72,7 +94,7 @@ It's a little nuanced, but the idea is straight forward. The first model trains 
 
 [Back to Top](#top)
 
-AdaBoost is the first boosting learner. It's _weak learners_ the things that are stitched together in serial, are typically _stumps_ or really shallow decision trees
+AdaBoost was the first boosting learner of its kind. It's _weak learners_ (the things that are stitched together in serial) are typically _stumps_ or really shallow decision trees. Lets create some data and fit an `AdaBoostClassifier` to it:
 
 
 ```python
@@ -84,9 +106,11 @@ plot_boundaries(X, clf)
 
 
     
-![png](S7_Boosting_files/S7_Boosting_8_0.png)
+![png](S7_Boosting_files/S7_Boosting_9_0.png)
     
 
+
+Trying with a different distribution of data:
 
 
 ```python
@@ -98,9 +122,11 @@ plot_boundaries(X, clf)
 
 
     
-![png](S7_Boosting_files/S7_Boosting_9_0.png)
+![png](S7_Boosting_files/S7_Boosting_11_0.png)
     
 
+
+And now with `make_moons`:
 
 
 ```python
@@ -113,7 +139,7 @@ plot_boundaries(X, clf)
 
 
     
-![png](S7_Boosting_files/S7_Boosting_10_0.png)
+![png](S7_Boosting_files/S7_Boosting_13_0.png)
     
 
 
@@ -135,7 +161,7 @@ plot_boundaries(X, clf)
 
 
     
-![png](S7_Boosting_files/S7_Boosting_12_0.png)
+![png](S7_Boosting_files/S7_Boosting_15_0.png)
     
 
 
@@ -149,7 +175,7 @@ plot_boundaries(X, clf)
 
 
     
-![png](S7_Boosting_files/S7_Boosting_13_0.png)
+![png](S7_Boosting_files/S7_Boosting_16_0.png)
     
 
 
@@ -163,7 +189,7 @@ plot_boundaries(X, clf)
 
 
     
-![png](S7_Boosting_files/S7_Boosting_14_0.png)
+![png](S7_Boosting_files/S7_Boosting_17_0.png)
     
 
 

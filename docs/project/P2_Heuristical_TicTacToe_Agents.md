@@ -1,6 +1,6 @@
 <a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/project/P2_Heuristical_TicTacToe_Agents.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-# Data Science Foundations, Project Part 2: Heuristical Agents 
+# Data Science Foundations <br> Project Part 2: Heuristical Agents 
 
 **Instructor**: Wesley Beckner
 

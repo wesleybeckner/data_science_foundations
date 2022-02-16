@@ -1,6 +1,6 @@
 <a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/project/P3_1_Step_Look_Ahead_Agents.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-# Data Science Foundations, Project Part 3: 1-Step Look Ahead
+# Data Science Foundations <br> Project Part 3: 1-Step Look Ahead
 
 **Instructor**: Wesley Beckner
 
@@ -23,13 +23,13 @@ Today we're working on a more advanced AI structure: 1-step lookahead.
 
 <a name='x.0'></a>
 
-## 4.0 Preparing Environment and Importing Data
+## 3.0 Preparing Environment and Importing Data
 
 [back to top](#top)
 
 <a name='x.0.1'></a>
 
-### 4.0.1 Import Packages
+### 3.0.1 Import Packages
 
 [back to top](#top)
 
@@ -124,18 +124,18 @@ class GameEngine(TicTacToe):
         else:
           temp_board[move] = ' '
 
-    # check if middle avail
-    if move_found == False:
-      if middle in avail_moves:
-        move_found = True
-        move = middle
-
     # check corners
     if move_found == False:
       move_corner = [val for val in avail_moves if val in corner]
       if len(move_corner) > 0:
         move = random.choice(move_corner)
         move_found = True
+        
+    # check if middle avail
+    if move_found == False:
+      if middle in avail_moves:
+        move_found = True
+        move = middle
 
     # check side
     if move_found == False:
@@ -283,19 +283,19 @@ class GameEngine(TicTacToe):
 
 <a name='x.0.1'></a>
 
-### 4.0.2 Load Dataset
+### 3.0.2 Load Dataset
 
 [back to top](#top)
 
-## 4.1 Rethinking gameplay
+## 3.1 Rethinking gameplay
 
-To implement the broader strategies used in game theory and machine learning, we need to rebroadcast our approach to creating our AI agent. In the heurstical agent model, we thought in terms of checking for specific move types, defined by what kind of advantage they give us during game play, i.e. see if a winning move is available, a blocking move, if the center place is free, etc. Rather than thinking with this _look and check_ mindset that is centered around specific strategies and our own prior knowledge about the game (we _know_ that a center piece is statistically likely to give us a higher chance of winning) we will evaluate every available move to the AI, and rate them quantitatively. 
+To implement the broader strategies used in game theory and machine learning, we need to rebroadcast our approach to creating our AI agent. In the heurstical agent model, we thought in terms of checking for specific move types, defined by what kind of advantage they give us during game play, i.e. see if a winning move is available, a blocking move, if a corner place is free, etc. Rather than thinking with this _look and check_ mindset that is centered around specific strategies and our own prior knowledge about the game (we _know_ that a center piece is statistically likely to give us a higher chance of winning) we will evaluate every available move to the AI, and rate them quantitatively. 
 
 > **_switching from ordinal to interval_** Notice the datatype change when we move from giving simple preferences of moves to actual scores of moves. Catalog this in your mind for future reference when considering datatypes!
 
 
 
-### 4.1.1 One-Step Look Ahead
+### 3.1.1 One-Step Look Ahead
 
 For now, when we rate our boards, we will only look 1-step ahead in gameplay. Hence the name we give this AI strategy, 1-step lookahead
 
@@ -461,7 +461,7 @@ We're not done yet, recall that our other ai agents returned the actual selected
 
 Here's what the general procedure will look like:
 
-1. Grab the maximum score (after assigning scores to all of avail_moves
+1. Grab the maximum score (after assigning scores to all of avail_moves)
 2. Select all moves that have this maximum score
 3. Return a random selection of the moves with the max score
 
@@ -492,7 +492,7 @@ move
 
 
 
-## 4.2 Putting it all together
+## 3.2 Putting it all together
 
 
 
@@ -524,7 +524,7 @@ def one_step_ai(board, win_patterns, player_label):
   return move
 ```
 
-### 4.2.1 Allow `GameEngine` to take an ai agent as a passable parameter
+### 3.2.1 Allow `GameEngine` to take an ai agent as a passable parameter
 
 Let's rewrite our `GameEngine` to take an ai agent as a passable parameter under `user_ai`. The default value will be `None`
 
@@ -577,18 +577,18 @@ class GameEngine(TicTacToe):
         else:
           temp_board[move] = ' '
 
-    # check if middle avail
-    if move_found == False:
-      if middle in avail_moves:
-        move_found = True
-        move = middle
-
     # check corners
     if move_found == False:
       move_corner = [val for val in avail_moves if val in corner]
       if len(move_corner) > 0:
         move = random.choice(move_corner)
         move_found = True
+        
+    # check if middle avail
+    if move_found == False:
+      if middle in avail_moves:
+        move_found = True
+        move = middle
 
     # check side
     if move_found == False:
@@ -811,7 +811,7 @@ game.play_game()
 
 
 
-## 4.3 Write Unit Tests for the New Code
+## 3.3 Write Unit Tests for the New Code
 
 
 ```python
@@ -862,8 +862,3 @@ test_user_ai()
     |O| |X|
     
 
-
-
-```python
-
-```

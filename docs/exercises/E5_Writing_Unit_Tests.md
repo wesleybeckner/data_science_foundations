@@ -46,6 +46,7 @@ There are two main types of tests we want to distinguish:
 To this I will add:
 
 * **_Acid test_**: extremely rigorous tests that push beyond the intended use cases for your classes/functions. Written when you, like me, cannot afford QA employees to actually test your code. (word origin: [gold acid tests in the 1850s](https://en.wikipedia.org/wiki/Acid_test_(gold)), [acid tests in the 70's](https://en.wikipedia.org/wiki/Acid_Tests))
+* **_EDIT_**: you could also call this a corner, or an edge case
 
 In this lab we will focus on _unit tests_.
 
@@ -146,9 +147,9 @@ In the end, what you test is up to you, and depends on your intended use cases. 
 
 The only caveat to that, is that many continuous integration services (like [TravisCI](https://travis-ci.com/)) will benchmark you based on the percentage of lines of code you have that are covered by your unit tests (ex: [85% coverage](https://github.com/wesleybeckner/gains)).
 
-## ✍🏽 L5 Q1 Write a Unit Test
+## ✍🏽 Q1 Write a Unit Test
 
-Remember our Pokeball discussion in C2? We'll return to that here. This time writing unit tests for our classes.
+Remember our Pokeball discussion in [Python Foundations](https://wesleybeckner.github.io/python_foundations/S4_Object_Oriented_Programming/)? We'll return to that here. This time writing unit tests for our classes.
 
 Sometimes when writing unit tests, it can be more complicated than checking the return value of a function. Think back on our pokemon example:
 
@@ -230,7 +231,7 @@ def test_release():
   # turn the pseudo code below into an assert statement
   
   ### YOUR CODE HERE ###
-  # assert <object.attribute> == <something>
+  # assert <object.attribute> == <something>, "some erroneous message"
 ```
 
 
@@ -241,7 +242,7 @@ test_release()
     Pikachu has been released
 
 
-## ⛹️ L5 Q2 Write a Unit Test for the Catch Rate
+## ⛹️ Q2 Write a Unit Test for the Catch Rate
 
 First, we will check that the succcessful catch is operating correctly. Remember that we depend on `random.random` and condition our success on whether that random value is less than the `catch_rate` of the pokeball:
 
@@ -263,7 +264,7 @@ def test_successful_catch():
   ### YOUR CODE BELOW ###
   # random.seed(<your number here>)
   ball = Pokeball()
-  ball.catch('Psyduck') # Sabrina's fave pokemon
+  ball.catch('Psyduck') # Someone's fave pokemon (bless 'em)
 
   ### YOUR CODE BELOW ###
   # <object.attribute> == <something>, "ball did not catch as expected"
@@ -304,7 +305,7 @@ test_successful_catch()
     Psyduck captured!
 
 
-## ⚖️ L5 Q3 Write a Unit Test that Checks Whether the Overall Catch Rate is 50/50
+## ⚖️ Q3 Write a Unit Test that Checks Whether the Overall Catch Rate is 50/50
 
 For this one, we're going to take those same ideas around seeding the random number generator. However, here we'd like to run the catch function multiple times to check whether it is truly creating a 50/50 catch rate situation.
 
@@ -326,7 +327,9 @@ with suppress_stdout():
   print("HELLO OUT THERE!")
 ```
 
-> quick segway: what is the actual behavior of `random.seed()`? Does it produce the same number every time we call `random.random()` now? Check for yourself:
+---
+
+_quick segway_: what is the actual behavior of `random.seed()`? Does it produce the same number every time we call `random.random()` now? Check for yourself:
 
 
 ```python
@@ -390,6 +393,8 @@ random.seed(42)
 We see them here in the bottom half of the list again. So, random.seed() is _seeding_ the random number generator such that it will produce the same sequence of random numbers every time, from the given seed. This will reset whenever random.seed() is set again. This behavior is useful because it allows us to continue using random number generation in our code, (for testing, creating examples and demos, etc.) but it will be reproducable each time.
 
 _End Segway_
+
+---
 
 
 ```python
