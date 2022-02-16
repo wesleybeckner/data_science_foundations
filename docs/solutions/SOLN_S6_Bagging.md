@@ -223,7 +223,7 @@ pd.DataFrame(margin[margin.columns[-2]]).boxplot(showfliers=False)
 
 
     
-![png](S6_Bagging_files/S6_Bagging_10_2.png)
+![png](SOLN_S6_Bagging_files/SOLN_S6_Bagging_10_2.png)
     
 
 
@@ -249,7 +249,7 @@ margin['profitability'].hist()
 
 
     
-![png](S6_Bagging_files/S6_Bagging_12_1.png)
+![png](SOLN_S6_Bagging_files/SOLN_S6_Bagging_12_1.png)
     
 
 
@@ -461,7 +461,7 @@ tree.plot_tree(clf)
 
 
     
-![png](S6_Bagging_files/S6_Bagging_24_1.png)
+![png](SOLN_S6_Bagging_files/SOLN_S6_Bagging_24_1.png)
     
 
 
@@ -479,7 +479,7 @@ graph
 
 
     
-![svg](S6_Bagging_files/S6_Bagging_26_0.svg)
+![svg](SOLN_S6_Bagging_files/SOLN_S6_Bagging_26_0.svg)
     
 
 
@@ -535,7 +535,7 @@ graph
 
 
     
-![svg](S6_Bagging_files/S6_Bagging_35_0.svg)
+![svg](SOLN_S6_Bagging_files/SOLN_S6_Bagging_35_0.svg)
     
 
 
@@ -606,7 +606,7 @@ graph
 
 
     
-![svg](S6_Bagging_files/S6_Bagging_43_0.svg)
+![svg](SOLN_S6_Bagging_files/SOLN_S6_Bagging_43_0.svg)
     
 
 
@@ -658,7 +658,7 @@ plt.scatter(X[:,0], X[:,1], c=y, cmap='viridis')
 
 
     
-![png](S6_Bagging_files/S6_Bagging_49_1.png)
+![png](SOLN_S6_Bagging_files/SOLN_S6_Bagging_49_1.png)
     
 
 
@@ -697,7 +697,7 @@ plt.scatter(X[:,0], X[:,1], c=y, cmap='viridis', edgecolor='grey', alpha=0.9)
 
 
     
-![png](S6_Bagging_files/S6_Bagging_52_1.png)
+![png](SOLN_S6_Bagging_files/SOLN_S6_Bagging_52_1.png)
     
 
 
@@ -712,7 +712,7 @@ graph
 
 
     
-![svg](S6_Bagging_files/S6_Bagging_53_0.svg)
+![svg](SOLN_S6_Bagging_files/SOLN_S6_Bagging_53_0.svg)
     
 
 
@@ -734,7 +734,7 @@ plt.scatter(X[:,0], X[:,1], c=y, cmap='viridis')
 
 
     
-![png](S6_Bagging_files/S6_Bagging_55_1.png)
+![png](SOLN_S6_Bagging_files/SOLN_S6_Bagging_55_1.png)
     
 
 
@@ -767,7 +767,7 @@ fig = plot_tree(X, clf)
 
 
     
-![png](S6_Bagging_files/S6_Bagging_59_0.png)
+![png](SOLN_S6_Bagging_files/SOLN_S6_Bagging_59_0.png)
     
 
 
@@ -795,7 +795,7 @@ plot_tree(X, clf)
 
 
     
-![png](S6_Bagging_files/S6_Bagging_61_1.png)
+![png](SOLN_S6_Bagging_files/SOLN_S6_Bagging_61_1.png)
     
 
 
@@ -840,7 +840,7 @@ plot_tree(X, clf)
 
 
     
-![png](S6_Bagging_files/S6_Bagging_64_1.png)
+![png](SOLN_S6_Bagging_files/SOLN_S6_Bagging_64_1.png)
     
 
 
@@ -894,7 +894,7 @@ plot_tree(X, bag)
 
 
     
-![png](S6_Bagging_files/S6_Bagging_68_1.png)
+![png](SOLN_S6_Bagging_files/SOLN_S6_Bagging_68_1.png)
     
 
 
@@ -921,7 +921,7 @@ plot_tree(X, clf)
 
 
     
-![png](S6_Bagging_files/S6_Bagging_71_1.png)
+![png](SOLN_S6_Bagging_files/SOLN_S6_Bagging_71_1.png)
     
 
 
@@ -1247,7 +1247,7 @@ plot_tree(X, clf)
 
 
     
-![png](S6_Bagging_files/S6_Bagging_90_1.png)
+![png](SOLN_S6_Bagging_files/SOLN_S6_Bagging_90_1.png)
     
 
 
@@ -1289,7 +1289,7 @@ ax[1].set_title('Frequency Domain')
 
 
     
-![png](S6_Bagging_files/S6_Bagging_92_1.png)
+![png](SOLN_S6_Bagging_files/SOLN_S6_Bagging_92_1.png)
     
 
 
@@ -1330,7 +1330,7 @@ ax.plot(t2,clf.predict(t2.reshape(-1,1)))
 
 
     
-![png](S6_Bagging_files/S6_Bagging_96_1.png)
+![png](SOLN_S6_Bagging_files/SOLN_S6_Bagging_96_1.png)
     
 
 
@@ -1382,7 +1382,7 @@ wine['density'] = y
 
 
 ```python
-model = RandomForestRegressor(n_estimators=100,
+model = RandomForestRegressor(n_estimators=65,
                             criterion='squared_error',
                             max_depth=None,
                             min_samples_split=2,
@@ -1420,13 +1420,13 @@ ax_.set_title("Test, R2: {:.3f}".format(r2_score(y_test, model.predict(X_test)))
 
 
 
-    Text(0.5, 1.0, 'Test, R2: 0.973')
+    Text(0.5, 1.0, 'Test, R2: 0.972')
 
 
 
 
     
-![png](S6_Bagging_files/S6_Bagging_101_1.png)
+![png](SOLN_S6_Bagging_files/SOLN_S6_Bagging_101_1.png)
     
 
 
@@ -1465,11 +1465,28 @@ RandomForestRegressor().get_params()
 
 ```python
 # Cell for Exercise 2
+X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8, random_state=42)
+r2 = []
+for n_estimators in range(1,100):
+    model = RandomForestRegressor(n_estimators=n_estimators)
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    r2.append([r2_score(y_train, model.predict(X_train)),
+    r2_score(y_test, model.predict(X_test))])
 ```
 
 
 ```python
-
+score = np.array(r2)
+score1 = score[:,0]
+score2 = score[:,1]
+fig, ax = plt.subplots(figsize=(10,5))
+ax.plot(range(1,100), score1, ls='', marker='.', color='blue', label='Train')
+ax.plot(range(1,100), score2, ls='', marker='o', color='red', label='Test')
+ax.set_title("Scores with Increasing Model Complexity")
+ax.set_xlabel("Trees in the Forest")
+ax.set_ylabel("$R^2$")
+ax.legend()
 ```
 
 
@@ -1481,6 +1498,6 @@ RandomForestRegressor().get_params()
 
 
     
-![png](S6_Bagging_files/S6_Bagging_105_1.png)
+![png](SOLN_S6_Bagging_files/SOLN_S6_Bagging_105_1.png)
     
 

@@ -1,6 +1,6 @@
 <a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/S5_Unsupervised_Learning.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-# Data Science Foundations, Session 5: Unsupervised Learning: Clustering and Dimensionality Reduction
+# Data Science Foundations <br> Session 5: Unsupervised Learning: Clustering and Dimensionality Reduction
 
 **Instructor**: Wesley Beckner
 
@@ -12,7 +12,7 @@
 
 In the previous session we began our discussion on feature engineering and ended with a sneak peak into dimensionality reduction. This last topic deserves a whole session on its own because its use case is not limited to feature engineering! It can also be used as a tool for visualization, for noise filtering, and much more. In this session we discuss dimensionality reduction along with other unsupervised learning methods. 
 
-Up until now, the only learning estimators we've looked at were supervised ones: estimators that predict labels based on training data. Here, however, we are interested in uncovering aspects of the data without reference to any known labels. The usefulness for these learners will become immediately apparent when we revist our wine quality models from Course 1, Session 7!
+Up until now, the only learning estimators we've looked at were supervised ones: estimators that predict labels based on training data. Here, however, we are interested in uncovering aspects of the data without reference to any known labels. The usefulness for these learners will become immediately apparent when we revist our wine quality models!
 
 <br>
 
@@ -43,7 +43,7 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 import random
 import scipy.stats
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
@@ -211,11 +211,13 @@ print('Covariance matrix \n%s' %cov_mat)
 
 > These arguments coincide with the _Spectral theorem_ explanation of PCA, and you can read more about it in the links provided above
 
-In 5.1.2 I provide a segue into deriving eigenvectors and eigenvalues, feel free to visit these foundational topics, although they are not necessary to reap the value of PCA. 
+In 5.1.2.1-5.1.2.3 I provide a segue into deriving eigenvectors and eigenvalues, feel free to visit these foundational topics, although they are not necessary to reap the value of PCA. 
 
 For this particular set of wine data, we will see that the corresponding diagonalized matrix will look like:
  
 $$ \begin{bmatrix} 1.67 & 0 \\ 0 & 0.33 \end{bmatrix} $$
+
+At the end of 5.1.3 we will show that this is also the covariance matrix of our data projected into the new coordinate system!
 
 #### 🌭 5.1.2.1 Enrichment: Deriving the Eigenvectors and Eigenvalues
 
@@ -385,7 +387,7 @@ print('\nEigenvalues \n%s' %eig_vals)
 
 ### 5.1.3 Projecting onto the Principal Components
 
-To complete our principal component analysis, we need to project our data onto the eigenvectors of the covariance matrix. We can oobtain the eigenvectors and corresponding eigenvalues using `np` or `scipy`. Here I've completed the task with `np`:
+To complete our principal component analysis, we need to project our data onto the eigenvectors of the covariance matrix. We can obtain the eigenvectors and corresponding eigenvalues using `np` or `scipy`. Here I've completed the task with `np`:
 
 
 ```python
@@ -513,7 +515,7 @@ plt.scatter(Y[:,0],Y[:,1])
 
 
 
-    <matplotlib.collections.PathCollection at 0x7f999be6c9d0>
+    <matplotlib.collections.PathCollection at 0x7f681bdf3100>
 
 
 
@@ -670,7 +672,7 @@ ax[1].legend()
 
 
 
-    <matplotlib.legend.Legend at 0x7f99baaf0100>
+    <matplotlib.legend.Legend at 0x7f68189c5520>
 
 
 
@@ -704,7 +706,7 @@ plt.scatter(X_pca[:, 0], X_pca[:, 1], alpha=0.8)
 
 
 
-    <matplotlib.collections.PathCollection at 0x7f99bd36a9a0>
+    <matplotlib.collections.PathCollection at 0x7f681c292ee0>
 
 
 
@@ -777,9 +779,6 @@ Consider that the maximum number of principal components are:
 print(f"Max principal components: {X.shape[1]}")
 ```
 
-    Max principal components: 14
-
-
 
 ```python
 # Code Cell for Exercise 1
@@ -788,6 +787,7 @@ print(f"Max principal components: {X.shape[1]}")
 ##### CREATE A SKLEARN-PCA OBJECT, FIT AND TRANSFORM TO THE WINE DATA ##########
 ################################################################################
 
+# as you do this, be sure to remove 'density' from the input features
 
 ################################################################################
 ############################## UNCOMMENT THE BELOW #############################
@@ -969,7 +969,7 @@ ax4.plot(range(2,10), variance)
 
 
 
-    [<matplotlib.lines.Line2D at 0x7f99b02e5430>]
+    [<matplotlib.lines.Line2D at 0x7f67fc5d8bb0>]
 
 
 
@@ -1032,21 +1032,21 @@ probs = gmm.predict_proba(X_pca)
 print(probs[5:20].round(3))
 ```
 
-    [[1. 0.]
-     [1. 0.]
-     [1. 0.]
-     [1. 0.]
-     [1. 0.]
-     [1. 0.]
-     [1. 0.]
-     [1. 0.]
-     [1. 0.]
-     [1. 0.]
-     [1. 0.]
-     [1. 0.]
-     [1. 0.]
-     [1. 0.]
-     [1. 0.]]
+    [[0. 1.]
+     [0. 1.]
+     [0. 1.]
+     [0. 1.]
+     [0. 1.]
+     [0. 1.]
+     [0. 1.]
+     [0. 1.]
+     [0. 1.]
+     [0. 1.]
+     [0. 1.]
+     [0. 1.]
+     [0. 1.]
+     [0. 1.]
+     [0. 1.]]
 
 
 
@@ -1340,8 +1340,3 @@ plt.scatter(Xnew[:, 0], Xnew[:, 1]);
 * [GMMs Explained](https://towardsdatascience.com/gaussian-mixture-models-explained-6986aaf5a95) 
 
 * [Derive GMM Exercise](https://www.deep-teaching.org/notebooks/graphical-models/directed/exercise-1d-gmm-em)
-
-
-```python
-
-```

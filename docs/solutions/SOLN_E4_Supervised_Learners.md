@@ -124,7 +124,7 @@ sns.heatmap(confusion_matrix(y_test,y_pred), annot=True, ax=ax)
 
 
     
-![png](E4_Supervised_Learners_files/E4_Supervised_Learners_7_1.png)
+![png](SOLN_E4_Supervised_Learners_files/SOLN_E4_Supervised_Learners_7_1.png)
     
 
 
@@ -136,7 +136,51 @@ Evaluate the performance of a Random Forest on classifying wine quality
 
 ```python
 # Code Cell for L1 Q2
+model = RandomForestClassifier()
+X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8, random_state=42)
+
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
 ```
+
+
+```python
+print(classification_report(y_test, y_pred, zero_division=0))
+```
+
+                  precision    recall  f1-score   support
+    
+               3       0.00      0.00      0.00         2
+               4       1.00      0.15      0.26        46
+               5       0.72      0.77      0.75       420
+               6       0.67      0.78      0.72       579
+               7       0.71      0.51      0.59       221
+               8       1.00      0.22      0.36        32
+    
+        accuracy                           0.70      1300
+       macro avg       0.68      0.41      0.45      1300
+    weighted avg       0.71      0.70      0.68      1300
+    
+
+
+
+```python
+fig, ax = plt.subplots(1, 1, figsize = (8,7))
+sns.heatmap(confusion_matrix(y_test,y_pred), annot=True, ax=ax)
+```
+
+
+
+
+    <AxesSubplot:>
+
+
+
+
+    
+![png](SOLN_E4_Supervised_Learners_files/SOLN_E4_Supervised_Learners_11_1.png)
+    
+
 
 ## 🔬 Q2:
 
@@ -179,7 +223,67 @@ RandomForestClassifier().get_params()
 
 from sklearn.model_selection import GridSearchCV
 
-param_grid = {'bootstrap': [True, False]}
+param_grid = {'bootstrap': [True, False],
+              'criterion': ['gini', 'entropy'],
+              'min_samples_split': [2, 4, 6],
+              'min_samples_leaf': [1, 3, 5],
+              'max_features': ['auto', 'sqrt', 'log2'],
+              'class_weight': ['balanced', 'balanced_subsample', None]}
 
-grid = GridSearchCV(RandomForestClassifier(), param_grid, cv=7)
+grid = GridSearchCV(RandomForestClassifier(n_jobs=-1), param_grid, cv=7)
 ```
+
+
+```python
+grid.fit(X_train, y_train)
+print(grid.best_params_)
+```
+
+    /home/wbeckner/anaconda3/envs/py39/lib/python3.9/site-packages/sklearn/model_selection/_split.py:676: UserWarning: The least populated class in y has only 5 members, which is less than n_splits=7.
+      warnings.warn(
+
+
+    {'bootstrap': True, 'class_weight': None, 'criterion': 'entropy', 'max_features': 'log2', 'min_samples_leaf': 1, 'min_samples_split': 2}
+
+
+
+```python
+model = grid.best_estimator_
+```
+
+
+```python
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+print(classification_report(y_test, y_pred, zero_division=0))
+fig, ax = plt.subplots(1, 1, figsize = (8,7))
+sns.heatmap(confusion_matrix(y_test,y_pred), annot=True, ax=ax)
+```
+
+                  precision    recall  f1-score   support
+    
+               3       0.00      0.00      0.00         2
+               4       0.75      0.13      0.22        46
+               5       0.70      0.76      0.73       420
+               6       0.66      0.78      0.72       579
+               7       0.73      0.48      0.58       221
+               8       1.00      0.25      0.40        32
+    
+        accuracy                           0.69      1300
+       macro avg       0.64      0.40      0.44      1300
+    weighted avg       0.70      0.69      0.67      1300
+    
+
+
+
+
+
+    <AxesSubplot:>
+
+
+
+
+    
+![png](SOLN_E4_Supervised_Learners_files/SOLN_E4_Supervised_Learners_17_2.png)
+    
+
