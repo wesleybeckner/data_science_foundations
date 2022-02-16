@@ -1,0 +1,2 @@
+if mkdocs is not running properly, make sure plotly does not have some wildly
+large output in one of the cells
