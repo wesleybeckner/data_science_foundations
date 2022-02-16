@@ -13,7 +13,7 @@
     
     
       
-        <title>Practice with Supervised Learners - Data Science Foundations</title>
+        <title>SOLN E4 Supervised Learners - Data Science Foundations</title>
       
     
     
@@ -109,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Practice with Supervised Learners
+              SOLN E4 Supervised Learners
             
           </span>
         </div>
@@ -355,14 +355,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
       
       
@@ -385,7 +383,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../E1_Descriptive_Statistics_Data_Hunt/" class="md-nav__link">
+      <a href="../../exercises/E1_Descriptive_Statistics_Data_Hunt/" class="md-nav__link">
         Descriptive Statistics Data Hunt
       </a>
     </li>
@@ -399,7 +397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../E2_Inferential_Statistics_Data_Hunt/" class="md-nav__link">
+      <a href="../../exercises/E2_Inferential_Statistics_Data_Hunt/" class="md-nav__link">
         Inferential Statisitcs Data Hunt
       </a>
     </li>
@@ -413,7 +411,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../E3_Feature_Engineering/" class="md-nav__link">
+      <a href="../../exercises/E3_Feature_Engineering/" class="md-nav__link">
         Practice with Feature Engineering
       </a>
     </li>
@@ -425,59 +423,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Practice with Supervised Learners
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../exercises/E4_Supervised_Learners/" class="md-nav__link">
         Practice with Supervised Learners
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#q1" class="md-nav__link">
-    🏎️ Q1:
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#q2" class="md-nav__link">
-    🔬 Q2:
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -489,7 +439,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../E5_Writing_Unit_Tests/" class="md-nav__link">
+      <a href="../../exercises/E5_Writing_Unit_Tests/" class="md-nav__link">
         Practice with Writing Unit Tests
       </a>
     </li>
@@ -741,12 +691,42 @@ weighted avg       0.51      0.54      0.50      1300
 <div class="codehilite"><pre><span></span><code>&lt;AxesSubplot:&gt;
 </code></pre></div>
 
-<p><img alt="png" src="../E4_Supervised_Learners_files/E4_Supervised_Learners_7_1.png" /></p>
+<p><img alt="png" src="../SOLN_E4_Supervised_Learners_files/SOLN_E4_Supervised_Learners_7_1.png" /></p>
 <h2 id="q1">🏎️ Q1:<a class="headerlink" href="#q1" title="Permanent link">&para;</a></h2>
 <p>Evaluate the performance of a Random Forest on classifying wine quality</p>
 <div class="codehilite"><pre><span></span><code><span class="c1"># Code Cell for L1 Q2</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">()</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 </code></pre></div>
 
+<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>              precision    recall  f1-score   support
+
+           3       0.00      0.00      0.00         2
+           4       1.00      0.15      0.26        46
+           5       0.72      0.77      0.75       420
+           6       0.67      0.78      0.72       579
+           7       0.71      0.51      0.59       221
+           8       1.00      0.22      0.36        32
+
+    accuracy                           0.70      1300
+   macro avg       0.68      0.41      0.45      1300
+weighted avg       0.71      0.70      0.68      1300
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_pred</span><span class="p">),</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&lt;AxesSubplot:&gt;
+</code></pre></div>
+
+<p><img alt="png" src="../SOLN_E4_Supervised_Learners_files/SOLN_E4_Supervised_Learners_11_1.png" /></p>
 <h2 id="q2">🔬 Q2:<a class="headerlink" href="#q2" title="Permanent link">&para;</a></h2>
 <p>Do a grid search to optimize your Random Forest model, use whatever hyperparameters you would like</p>
 <div class="codehilite"><pre><span></span><code><span class="n">RandomForestClassifier</span><span class="p">()</span><span class="o">.</span><span class="n">get_params</span><span class="p">()</span>
@@ -776,10 +756,59 @@ weighted avg       0.51      0.54      0.50      1300
 
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
 
-<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;bootstrap&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]}</span>
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;bootstrap&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+              <span class="s1">&#39;criterion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;gini&#39;</span><span class="p">,</span> <span class="s1">&#39;entropy&#39;</span><span class="p">],</span>
+              <span class="s1">&#39;min_samples_split&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+              <span class="s1">&#39;min_samples_leaf&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+              <span class="s1">&#39;max_features&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="s1">&#39;sqrt&#39;</span><span class="p">,</span> <span class="s1">&#39;log2&#39;</span><span class="p">],</span>
+              <span class="s1">&#39;class_weight&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;balanced&#39;</span><span class="p">,</span> <span class="s1">&#39;balanced_subsample&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]}</span>
 
-<span class="n">grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">RandomForestClassifier</span><span class="p">(),</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
 </code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>/home/wbeckner/anaconda3/envs/py39/lib/python3.9/site-packages/sklearn/model_selection/_split.py:676: UserWarning: The least populated class in y has only 5 members, which is less than n_splits=7.
+  warnings.warn(
+
+
+{&#39;bootstrap&#39;: True, &#39;class_weight&#39;: None, &#39;criterion&#39;: &#39;entropy&#39;, &#39;max_features&#39;: &#39;log2&#39;, &#39;min_samples_leaf&#39;: 1, &#39;min_samples_split&#39;: 2}
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">model</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">best_estimator_</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_pred</span><span class="p">),</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>              precision    recall  f1-score   support
+
+           3       0.00      0.00      0.00         2
+           4       0.75      0.13      0.22        46
+           5       0.70      0.76      0.73       420
+           6       0.66      0.78      0.72       579
+           7       0.73      0.48      0.58       221
+           8       1.00      0.25      0.40        32
+
+    accuracy                           0.69      1300
+   macro avg       0.64      0.40      0.44      1300
+weighted avg       0.70      0.69      0.67      1300
+
+
+
+
+
+
+&lt;AxesSubplot:&gt;
+</code></pre></div>
+
+<p><img alt="png" src="../SOLN_E4_Supervised_Learners_files/SOLN_E4_Supervised_Learners_17_2.png" /></p>
 
               
             </article>
@@ -789,41 +818,6 @@ weighted avg       0.51      0.54      0.50      1300
       </main>
       
         <footer class="md-footer">
-  
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
-      
-        
-        <a href="../E3_Feature_Engineering/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Practice with Feature Engineering" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Practice with Feature Engineering
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../E5_Writing_Unit_Tests/" class="md-footer__link md-footer__link--next" aria-label="Next: Practice with Writing Unit Tests" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Practice with Writing Unit Tests
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
