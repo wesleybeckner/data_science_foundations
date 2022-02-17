@@ -17,7 +17,7 @@ nav:
       - Boosting: S7_Boosting.md
   - Labs:
       - Descriptive Statistics Data Hunt: labs/L1_Descriptive_Statistics_Data_Hunt.md
-      - Inferential Statisitcs Data Hunt: labs/L2_Inferential_Statistics_Data_Hunt.md
+      - Inferential Statistics Data Hunt: labs/L2_Inferential_Statistics_Data_Hunt.md
       - Practice with Feature Engineering: labs/L3_Feature_Engineering.md
       - Practice with Supervised Learners: labs/L4_Supervised_Learners.md
       - Practice with Writing Unit Tests: labs/L5_Writing_Unit_Tests.md

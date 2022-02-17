@@ -40,6 +40,7 @@ def suppress_stdout():
 ## Types of Tests
 
 There are two main types of tests we want to distinguish:
+
 * **_Unit test_**: an automatic test to test the internal workings of a class or function. It should be a stand-alone test which is not related to other resources.
 * **_Integration test_**: an automatic test that is done on an environment, it tests the coordination of different classes and functions as well as with the running environment. This usually precedes sending code to a QA team.
 
