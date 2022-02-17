@@ -16,12 +16,12 @@ The breakdown for this course is as follows:
     * S5: Unsupervised Learning: Clustering and Dimensionality Reduction
     * S6: Bagging: Decision Trees and Random Forests
     * S7: Boosting: AdaBoost and XGBoost
-*	Exercises
-    * E1: Descriptive Statistics Data Hunt
-    * E2: Inferential Statistics Data Hunt
-    * E3: Feature Engineering
-    * E4: Supervised Learners
-    * E5: Writing Unit Tests
+*	Labs
+    * L1: Descriptive Statistics Data Hunt
+    * L2: Inferential Statistics Data Hunt
+    * L3: Feature Engineering
+    * L4: Supervised Learners
+    * L5: Writing Unit Tests
 *	Project
     * P1: Statistical Analysis of Tic-Tac-Toe Games
     * P2: Heuristical Tic-Tac-Toe Agents

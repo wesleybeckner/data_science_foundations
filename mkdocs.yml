@@ -15,12 +15,12 @@ nav:
       - Unsupervised Learning: S5_Unsupervised_Learning.md
       - Bagging: S6_Bagging.md
       - Boosting: S7_Boosting.md
-  - Exercises:
-      - Descriptive Statistics Data Hunt: exercises/E1_Descriptive_Statistics_Data_Hunt.md
-      - Inferential Statisitcs Data Hunt: exercises/E2_Inferential_Statistics_Data_Hunt.md
-      - Practice with Feature Engineering: exercises/E3_Feature_Engineering.md
-      - Practice with Supervised Learners: exercises/E4_Supervised_Learners.md
-      - Practice with Writing Unit Tests: exercises/E5_Writing_Unit_Tests.md
+  - Labs:
+      - Descriptive Statistics Data Hunt: labs/L1_Descriptive_Statistics_Data_Hunt.md
+      - Inferential Statisitcs Data Hunt: labs/L2_Inferential_Statistics_Data_Hunt.md
+      - Practice with Feature Engineering: labs/L3_Feature_Engineering.md
+      - Practice with Supervised Learners: labs/L4_Supervised_Learners.md
+      - Practice with Writing Unit Tests: labs/L5_Writing_Unit_Tests.md
   - Project: 
       - Statistical Analysis of TicTacToe: project/P1_Statistical_Analysis_of_TicTacToe.md
       - Heuristical TicTacToe Agents: project/P2_Heuristical_TicTacToe_Agents.md

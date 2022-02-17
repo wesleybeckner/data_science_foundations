@@ -17,13 +17,13 @@ The recommended schedule for this material:
 
 | Day (2.5 hrs/day)| Modules                                                                                                  |
 |:---:|-----------------------------------------------------------------------------------------------------------------------|
-| 1   | Session 1: Regression and Analysis <br> Exercise 1: Descriptive Statistics Data Hunt                                  |
-| 2   | Session 2: Inferential Statistics <br> Exercise 2: Inferential Statistics Data Hunt                                   |
+| 1   | Session 1: Regression and Analysis <br> Lab 1: Descriptive Statistics Data Hunt                                  |
+| 2   | Session 2: Inferential Statistics <br> Lab 2: Inferential Statistics Data Hunt                                   |
 | 3   | Session 3: Model Selection and Validation <br> Project Part 1: Statistical Analysis of Tic-Tac-Toe                    |
-| 4   | Session 4: Feature Engineering <br> Exercise 3: Practice with Feature Engineering                                     |
+| 4   | Session 4: Feature Engineering <br> Lab 3: Practice with Feature Engineering                                     |
 | 5   | Session 5: Unsupervised Learning <br> Project Part 2: Heuristical Tic-Tac-Toe Agents                                  |
-| 6   | Session 6: Bagging <br> Exercise 4: Practice with Supervised Learners                                                 |
-| 7   | Session 7: Boosting <br> Exercise 5: Practice with Writing Unit Tests <br> Project Part 3: 1-Step Look Ahead Agents   |
+| 6   | Session 6: Bagging <br> Lab 4: Practice with Supervised Learners                                                 |
+| 7   | Session 7: Boosting <br> Lab 5: Practice with Writing Unit Tests <br> Project Part 3: 1-Step Look Ahead Agents   |
 | 8   | Project Part 4: N-Step Look Ahead Agents                                                                              |
 
 </center>
