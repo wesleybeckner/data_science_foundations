@@ -1299,7 +1299,7 @@ med less than: 0.35
 <div class="codehilite"><pre><span></span><code><span class="n">tree</span><span class="o">.</span><span class="n">plot_tree</span><span class="p">(</span><span class="n">clf</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>[Text(0.5, 0.75, &#39;X[0] &lt;= 0.5\ngini = 0.5\nsamples = 2\nvalue = [1, 1]&#39;),
+<div class="codehilite"><pre><span></span><code>[Text(0.5, 0.75, &#39;X[1] &lt;= 0.5\ngini = 0.5\nsamples = 2\nvalue = [1, 1]&#39;),
  Text(0.25, 0.25, &#39;gini = 0.0\nsamples = 1\nvalue = [1, 0]&#39;),
  Text(0.75, 0.25, &#39;gini = 0.0\nsamples = 1\nvalue = [0, 1]&#39;)]
 </code></pre></div>
@@ -1367,7 +1367,7 @@ array([0, 0, 1, 1, 0])
 <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scr</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>0.10817307692307693
+<div class="codehilite"><pre><span></span><code>0.1091346153846154
 </code></pre></div>
 
 <p>Let's take a look at this with our truffle dataset</p>
@@ -1409,7 +1409,7 @@ array([0, 0, 1, 1, 0])
 <div class="codehilite"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>&lt;matplotlib.collections.PathCollection at 0x7f1fefd8b130&gt;
+<div class="codehilite"><pre><span></span><code>&lt;matplotlib.collections.PathCollection at 0x7f850da667c0&gt;
 </code></pre></div>
 
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_49_1.png" /></p>
@@ -1434,7 +1434,7 @@ array([0, 0, 1, 1, 0])
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>&lt;matplotlib.collections.PathCollection at 0x7f1feef32280&gt;
+<div class="codehilite"><pre><span></span><code>&lt;matplotlib.collections.PathCollection at 0x7f850cc0f9d0&gt;
 </code></pre></div>
 
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_52_1.png" /></p>
@@ -1449,7 +1449,7 @@ array([0, 0, 1, 1, 0])
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>&lt;matplotlib.collections.PathCollection at 0x7f1feeea0e80&gt;
+<div class="codehilite"><pre><span></span><code>&lt;matplotlib.collections.PathCollection at 0x7f850cb877f0&gt;
 </code></pre></div>
 
 <p><img alt="png" src="../S6_Bagging_files/S6_Bagging_55_1.png" /></p>
@@ -1575,7 +1575,7 @@ array([0, 0, 1, 1, 0])
 <div class="codehilite"><pre><span></span><code><span class="n">accuracy_score</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_truf</span><span class="p">),</span> <span class="n">y_truf_class</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>0.6133093525179856
+<div class="codehilite"><pre><span></span><code>0.6127098321342925
 </code></pre></div>
 
 <p>We can grab the original feature names with <code>get_feature_names_out()</code>:</p>
@@ -1632,32 +1632,32 @@ array([0, 0, 1, 1, 0])
     <tr>
       <th>0</th>
       <td>Base Cake_Sponge</td>
-      <td>0.098864</td>
-      <td>0.090298</td>
+      <td>0.109284</td>
+      <td>0.095848</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Base Cake_Chiffon</td>
-      <td>0.058403</td>
-      <td>0.049159</td>
+      <td>0.049163</td>
+      <td>0.049299</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>Base Cake_Butter</td>
-      <td>0.049615</td>
-      <td>0.046537</td>
+      <td>Base Cake_Pound</td>
+      <td>0.041666</td>
+      <td>0.03948</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>Base Cake_Pound</td>
-      <td>0.047093</td>
-      <td>0.043291</td>
+      <td>Base Cake_Butter</td>
+      <td>0.038501</td>
+      <td>0.038294</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>Primary Flavor_Butter Toffee</td>
-      <td>0.03565</td>
-      <td>0.038741</td>
+      <td>Base Cake_Cheese</td>
+      <td>0.033326</td>
+      <td>0.037235</td>
     </tr>
   </tbody>
 </table>
@@ -1666,32 +1666,6 @@ array([0, 0, 1, 1, 0])
 <p>I'm going to use <code>plotly</code> to create this chart:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">feat</span><span class="p">[:</span><span class="mi">20</span><span class="p">],</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;feature&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;importance&#39;</span><span class="p">,</span> <span class="n">error_y</span><span class="o">=</span><span class="s1">&#39;std&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Feature Importance&#39;</span><span class="p">)</span>
 </code></pre></div>
-
-<div>                            <div id="2b50d292-b065-42c3-9980-738d478ac8b2" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("2b50d292-b065-42c3-9980-738d478ac8b2")) {                    Plotly.newPlot(                        "2b50d292-b065-42c3-9980-738d478ac8b2",                        [{"alignmentgroup":"True","error_y":{"array":[0.09029809907413336,0.0491594926001353,0.04653692392065348,0.04329103819043059,0.03874140277043045,0.0349780684180197,0.030094493632483902,0.03311853070594179,0.03369534638488077,0.023175605457143568,0.02003645368097637,0.02649675589259294,0.011595438604605596,0.02247515253748258,0.01375825943123077,0.019922394040156593,0.011655486749852109,0.01266580704339592,0.015074673768077048,0.015049527462185765]},"hovertemplate":"feature=%{x}<br>importance=%{y}<extra></extra>","legendgroup":"","marker":{"color":"#636efa","pattern":{"shape":""}},"name":"","offsetgroup":"","orientation":"v","showlegend":false,"textposition":"auto","x":["Base Cake_Sponge","Base Cake_Chiffon","Base Cake_Butter","Base Cake_Pound","Primary Flavor_Butter Toffee","Base Cake_Cheese","Primary Flavor_Doughnut","Secondary Flavor_Egg Nog","Color Group_Olive","Truffle Type_Candy Outer","Color Group_White","Secondary Flavor_Black Cherry","Customer_Zebrabar","Base Cake_Tiramisu","Customer_Slugworth","Truffle Type_Chocolate Outer","Customer_Perk-a-Cola","Customer_Dandy's Candies","Color Group_Opal","Secondary Flavor_Apricot"],"xaxis":"x","y":[0.0988642579163017,0.0584025133239696,0.049615450872702874,0.04709340666985859,0.03565014121102607,0.02844217305880782,0.027599939763576282,0.02585556386092948,0.02204011487187889,0.020269190892063724,0.019095262999859298,0.018956174795772437,0.016652674359145594,0.016599891454384605,0.0163798681859097,0.014287195738793366,0.013875453357030356,0.013555160346052895,0.013433004919153784,0.012081891079920398],"yaxis":"y","type":"bar"}],                        {"template":{"data":{"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"heatmapgl":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmapgl"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"#E5ECF6","showlakes":true,"showland":true,"subunitcolor":"white"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"bgcolor":"#E5ECF6","radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"bgcolor":"#E5ECF6","caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","zerolinewidth":2}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"feature"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"importance"}},"legend":{"tracegroupgap":0},"title":{"text":"Feature Importance"},"barmode":"relative"},                        {"responsive": true}                    ).then(function(){
-
-var gd = document.getElementById('2b50d292-b065-42c3-9980-738d478ac8b2');
-var x = new MutationObserver(function (mutations, observer) {{
-        var display = window.getComputedStyle(gd).display;
-        if (!display || display === 'none') {{
-            console.log([gd, 'removed!']);
-            Plotly.purge(gd);
-            observer.disconnect();
-        }}
-}});
-
-// Listen for the removal of the full notebook cells
-var notebookContainer = gd.closest('#notebook-container');
-if (notebookContainer) {{
-    x.observe(notebookContainer, {childList: true});
-}}
-
-// Listen for the clearing of the current output cell
-var outputEl = gd.closest('.output');
-if (outputEl) {{
-    x.observe(outputEl, {childList: true});
-}}
-
-                        })                };                });            </script>        </div>
 
 <h4 id="question-1-feature-importance-and-cardinality">🙋‍♀️ Question 1: Feature Importance and Cardinality<a class="headerlink" href="#question-1-feature-importance-and-cardinality" title="Permanent link">&para;</a></h4>
 <p>How does feature importance change in the above plot when we change the minimum leaf size from 6 to 1?</p>
@@ -1727,32 +1701,32 @@ if (outputEl) {{
     <tr>
       <th>0</th>
       <td>Base Cake_Sponge</td>
-      <td>0.098864</td>
-      <td>0.090298</td>
+      <td>0.109284</td>
+      <td>0.095848</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Base Cake_Chiffon</td>
-      <td>0.058403</td>
-      <td>0.049159</td>
+      <td>0.049163</td>
+      <td>0.049299</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>Base Cake_Butter</td>
-      <td>0.049615</td>
-      <td>0.046537</td>
+      <td>Base Cake_Pound</td>
+      <td>0.041666</td>
+      <td>0.03948</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>Base Cake_Pound</td>
-      <td>0.047093</td>
-      <td>0.043291</td>
+      <td>Base Cake_Butter</td>
+      <td>0.038501</td>
+      <td>0.038294</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>Primary Flavor_Butter Toffee</td>
-      <td>0.03565</td>
-      <td>0.038741</td>
+      <td>Base Cake_Cheese</td>
+      <td>0.033326</td>
+      <td>0.037235</td>
     </tr>
   </tbody>
 </table>
@@ -1774,26 +1748,26 @@ if (outputEl) {{
 Base Cake: Chiffon
     with:    0.13
     without: 0.24
-Base Cake: Butter
-    with:    0.14
-    without: 0.26
 Base Cake: Pound
     with:    0.24
     without: 0.20
-Primary Flavor: Butter Toffee
-    with:    0.46
-    without: 0.21
+Base Cake: Butter
+    with:    0.14
+    without: 0.26
 Base Cake: Cheese
     with:    0.44
     without: 0.21
 Primary Flavor: Doughnut
     with:    0.38
     without: 0.20
-Secondary Flavor: Egg Nog
-    with:    0.23
+Primary Flavor: Butter Toffee
+    with:    0.46
     without: 0.21
 Color Group: Olive
     with:    0.67
+    without: 0.21
+Secondary Flavor: Egg Nog
+    with:    0.23
     without: 0.21
 Truffle Type: Candy Outer
     with:    0.20
@@ -1855,19 +1829,16 @@ Truffle Type: Candy Outer
 <div class="codehilite"><pre><span></span><code>RandomForestRegressor(n_estimators=10)
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code><span class="n">t2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">400</span><span class="p">)</span>
-</code></pre></div>
-
 <div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t2</span><span class="p">,</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>[&lt;matplotlib.lines.Line2D at 0x7f1fe536df10&gt;]
+<div class="codehilite"><pre><span></span><code>[&lt;matplotlib.lines.Line2D at 0x7f850c12adc0&gt;]
 </code></pre></div>
 
-<p><img alt="png" src="../S6_Bagging_files/S6_Bagging_96_1.png" /></p>
+<p><img alt="png" src="../S6_Bagging_files/S6_Bagging_95_1.png" /></p>
 <p>Nice! without specifying any perdiodicity, the random forest does a good job of embedding this periodicity in the final output.</p>
 <h3 id="exercise-2-practice-with-random-forests">🏋️ Exercise 2: Practice with Random Forests<a class="headerlink" href="#exercise-2-practice-with-random-forests" title="Permanent link">&para;</a></h3>
 <p>With the wine dataset:</p>
@@ -1944,8 +1915,8 @@ Truffle Type: Candy Outer
 <div class="codehilite"><pre><span></span><code>Text(0.5, 1.0, &#39;Test, R2: 0.973&#39;)
 </code></pre></div>
 
-<p><img alt="png" src="../S6_Bagging_files/S6_Bagging_101_1.png" /></p>
-<p>Compare these results with our <a href="https://github.com/wesleybeckner/data_science_foundations/blob/fdf84755a7ed6ed54d3f036a7fc2d9dafa79afd9/notebooks/solutions/SOLN_E3_Feature_Engineering.ipynb">linear model</a> from Lab 3.</p>
+<p><img alt="png" src="../S6_Bagging_files/S6_Bagging_100_1.png" /></p>
+<p>Compare these results with our <a href="https://github.com/wesleybeckner/data_science_foundations/blob/fdf84755a7ed6ed54d3f036a7fc2d9dafa79afd9/notebooks/solutions/SOLN_L3_Feature_Engineering.ipynb">linear model</a> from Lab 3.</p>
 <p>Recall that we can quickly grab the names of the paramters in our sklearn model:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">RandomForestRegressor</span><span class="p">()</span><span class="o">.</span><span class="n">get_params</span><span class="p">()</span>
 </code></pre></div>
@@ -1978,7 +1949,7 @@ Truffle Type: Candy Outer
 <div class="codehilite"><pre><span></span><code>&lt;matplotlib.legend.Legend at 0x7f1fe5063f40&gt;
 </code></pre></div>
 
-<p><img alt="png" src="../S6_Bagging_files/S6_Bagging_105_1.png" /></p>
+<p><img alt="png" src="../S6_Bagging_files/S6_Bagging_104_1.png" /></p>
 
               
             </article>

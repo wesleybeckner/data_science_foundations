@@ -13,7 +13,7 @@
 <g id="node1" class="node">
 <title>0</title>
 <polygon fill="none" stroke="#000000" points="180,-157 66,-157 66,-89 180,-89 180,-157"/>
-<text text-anchor="middle" x="123" y="-141.8" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#000000">X[0] &lt;= 0.5</text>
+<text text-anchor="middle" x="123" y="-141.8" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#000000">X[1] &lt;= 0.5</text>
 <text text-anchor="middle" x="123" y="-126.8" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#000000">gini = 0.5</text>
 <text text-anchor="middle" x="123" y="-111.8" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#000000">samples = 2</text>
 <text text-anchor="middle" x="123" y="-96.8" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#000000">value = [1, 1]</text>

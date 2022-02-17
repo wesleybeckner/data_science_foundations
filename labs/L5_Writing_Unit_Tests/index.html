@@ -496,22 +496,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#q1-write-a-unit-test" class="md-nav__link">
-    ✍🏽 Q1 Write a Unit Test
+  <a href="#l5-q1-write-a-unit-test" class="md-nav__link">
+    ✍🏽 L5 Q1 Write a Unit Test
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#q2-write-a-unit-test-for-the-catch-rate" class="md-nav__link">
-    ⛹️ Q2 Write a Unit Test for the Catch Rate
+  <a href="#l5-q2-write-a-unit-test-for-the-catch-rate" class="md-nav__link">
+    ⛹️ L5 Q2 Write a Unit Test for the Catch Rate
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#q3-write-a-unit-test-that-checks-whether-the-overall-catch-rate-is-5050" class="md-nav__link">
-    ⚖️ Q3 Write a Unit Test that Checks Whether the Overall Catch Rate is 50/50
+  <a href="#l5-q3-write-a-unit-test-that-checks-whether-the-overall-catch-rate-is-5050" class="md-nav__link">
+    ⚖️ L5 Q3 Write a Unit Test that Checks Whether the Overall Catch Rate is 50/50
   </a>
   
 </li>
@@ -676,22 +676,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#q1-write-a-unit-test" class="md-nav__link">
-    ✍🏽 Q1 Write a Unit Test
+  <a href="#l5-q1-write-a-unit-test" class="md-nav__link">
+    ✍🏽 L5 Q1 Write a Unit Test
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#q2-write-a-unit-test-for-the-catch-rate" class="md-nav__link">
-    ⛹️ Q2 Write a Unit Test for the Catch Rate
+  <a href="#l5-q2-write-a-unit-test-for-the-catch-rate" class="md-nav__link">
+    ⛹️ L5 Q2 Write a Unit Test for the Catch Rate
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#q3-write-a-unit-test-that-checks-whether-the-overall-catch-rate-is-5050" class="md-nav__link">
-    ⚖️ Q3 Write a Unit Test that Checks Whether the Overall Catch Rate is 50/50
+  <a href="#l5-q3-write-a-unit-test-that-checks-whether-the-overall-catch-rate-is-5050" class="md-nav__link">
+    ⚖️ L5 Q3 Write a Unit Test that Checks Whether the Overall Catch Rate is 50/50
   </a>
   
 </li>
@@ -825,7 +825,7 @@ AssertionError: Should be 5
 </ul>
 <p>In the end, what you test is up to you, and depends on your intended use cases. As a general rule of thumb, your unit test should test what is relevant.</p>
 <p>The only caveat to that, is that many continuous integration services (like <a href="https://travis-ci.com/">TravisCI</a>) will benchmark you based on the percentage of lines of code you have that are covered by your unit tests (ex: <a href="https://github.com/wesleybeckner/gains">85% coverage</a>).</p>
-<h2 id="q1-write-a-unit-test">✍🏽 Q1 Write a Unit Test<a class="headerlink" href="#q1-write-a-unit-test" title="Permanent link">&para;</a></h2>
+<h2 id="l5-q1-write-a-unit-test">✍🏽 L5 Q1 Write a Unit Test<a class="headerlink" href="#l5-q1-write-a-unit-test" title="Permanent link">&para;</a></h2>
 <p>Remember our Pokeball discussion in <a href="https://wesleybeckner.github.io/python_foundations/S4_Object_Oriented_Programming/">Python Foundations</a>? We'll return to that here. This time writing unit tests for our classes.</p>
 <p>Sometimes when writing unit tests, it can be more complicated than checking the return value of a function. Think back on our pokemon example:</p>
 <p><br></p>
@@ -905,7 +905,7 @@ AssertionError: Should be 5
 <div class="codehilite"><pre><span></span><code>Pikachu has been released
 </code></pre></div>
 
-<h2 id="q2-write-a-unit-test-for-the-catch-rate">⛹️ Q2 Write a Unit Test for the Catch Rate<a class="headerlink" href="#q2-write-a-unit-test-for-the-catch-rate" title="Permanent link">&para;</a></h2>
+<h2 id="l5-q2-write-a-unit-test-for-the-catch-rate">⛹️ L5 Q2 Write a Unit Test for the Catch Rate<a class="headerlink" href="#l5-q2-write-a-unit-test-for-the-catch-rate" title="Permanent link">&para;</a></h2>
 <p>First, we will check that the succcessful catch is operating correctly. Remember that we depend on <code>random.random</code> and condition our success on whether that random value is less than the <code>catch_rate</code> of the pokeball:</p>
 <div class="codehilite"><pre><span></span><code>if self.contains == None:
       if random.random() &lt; self.catch_rate:
@@ -953,7 +953,7 @@ AssertionError: Should be 5
 <div class="codehilite"><pre><span></span><code>Psyduck captured!
 </code></pre></div>
 
-<h2 id="q3-write-a-unit-test-that-checks-whether-the-overall-catch-rate-is-5050">⚖️ Q3 Write a Unit Test that Checks Whether the Overall Catch Rate is 50/50<a class="headerlink" href="#q3-write-a-unit-test-that-checks-whether-the-overall-catch-rate-is-5050" title="Permanent link">&para;</a></h2>
+<h2 id="l5-q3-write-a-unit-test-that-checks-whether-the-overall-catch-rate-is-5050">⚖️ L5 Q3 Write a Unit Test that Checks Whether the Overall Catch Rate is 50/50<a class="headerlink" href="#l5-q3-write-a-unit-test-that-checks-whether-the-overall-catch-rate-is-5050" title="Permanent link">&para;</a></h2>
 <p>For this one, we're going to take those same ideas around seeding the random number generator. However, here we'd like to run the catch function multiple times to check whether it is truly creating a 50/50 catch rate situation.</p>
 <p>Here's a pseudo code outline:</p>
 <ol>
