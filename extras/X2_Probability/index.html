@@ -1,0 +1,1004 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
+    
+    
+      
+        <title>X2 Probability - Data Science Foundations</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bb3983ee.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#2094f3">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../extra.css">
+    
+      <link rel="stylesheet" href="../../styles.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-114664473-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#measuring-uncertainty" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Data Science Foundations" class="md-header__button md-logo" aria-label="Data Science Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Data Science Foundations
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              X2 Probability
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Data Science Foundations" class="md-nav__button md-logo" aria-label="Data Science Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Data Science Foundations
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Sessions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Sessions" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Sessions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S1_Regression_and_Analysis/" class="md-nav__link">
+        Regression and Analysis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S2_Inferential_Statistics/" class="md-nav__link">
+        Inferential Statistics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S3_Model_Selection_and_Validation/" class="md-nav__link">
+        Model Selection and Validation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S4_Feature_Engineering/" class="md-nav__link">
+        Feature Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S5_Unsupervised_Learning/" class="md-nav__link">
+        Unsupervised Learning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S6_Bagging/" class="md-nav__link">
+        Bagging
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S7_Boosting/" class="md-nav__link">
+        Boosting
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Labs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Labs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/L1_Descriptive_Statistics_Data_Hunt/" class="md-nav__link">
+        Descriptive Statistics Data Hunt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/L2_Inferential_Statistics_Data_Hunt/" class="md-nav__link">
+        Inferential Statisitcs Data Hunt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/L3_Feature_Engineering/" class="md-nav__link">
+        Practice with Feature Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/L4_Supervised_Learners/" class="md-nav__link">
+        Practice with Supervised Learners
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/L5_Writing_Unit_Tests/" class="md-nav__link">
+        Practice with Writing Unit Tests
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Project
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Project" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Project
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/P1_Statistical_Analysis_of_TicTacToe/" class="md-nav__link">
+        Statistical Analysis of TicTacToe
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/P2_Heuristical_TicTacToe_Agents/" class="md-nav__link">
+        Heuristical TicTacToe Agents
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/P3_1_Step_Look_Ahead_Agents/" class="md-nav__link">
+        1-Step Look Ahead Agents
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/P4_N_Step_Look_Ahead_Agents/" class="md-nav__link">
+        N-Step Look Ahead Agents
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#measuring-uncertainty" class="md-nav__link">
+    Measuring Uncertainty
+  </a>
+  
+    <nav class="md-nav" aria-label="Measuring Uncertainty">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1" class="md-nav__link">
+    Q1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2" class="md-nav__link">
+    Q2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3" class="md-nav__link">
+    Q3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conditional-probability" class="md-nav__link">
+    Conditional Probability
+  </a>
+  
+    <nav class="md-nav" aria-label="Conditional Probability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1_1" class="md-nav__link">
+    Q1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2_1" class="md-nav__link">
+    Q2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3_1" class="md-nav__link">
+    Q3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4" class="md-nav__link">
+    Q4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binomial-probabilities" class="md-nav__link">
+    Binomial Probabilities
+  </a>
+  
+    <nav class="md-nav" aria-label="Binomial Probabilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1_2" class="md-nav__link">
+    Q1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2_2" class="md-nav__link">
+    Q2
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-beta-distribution" class="md-nav__link">
+    The Beta Distribution
+  </a>
+  
+    <nav class="md-nav" aria-label="The Beta Distribution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1_3" class="md-nav__link">
+    Q1
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+  <h1>X2 Probability</h1>
+
+<h2 id="measuring-uncertainty">Measuring Uncertainty<a class="headerlink" href="#measuring-uncertainty" title="Permanent link">&para;</a></h2>
+<p>One strategy is to just count occurance of outcomes</p>
+<p>The probability of either of two mutually exclusive events occuring is the sum of their probabilities</p>
+<p>
+<script type="math/tex; mode=display"> P(A \space or \space B) = P(A \cup B) = P(A) + P(B) </script>
+</p>
+<p>The probability of two mutually exclusive events occuring together is the product of their probabilities</p>
+<p>
+<script type="math/tex; mode=display"> P(A \space and \space B) = P(A \cap B) = P(A) * P(B) </script>
+</p>
+<p>For non-mutually exclusive events:</p>
+<p>
+<script type="math/tex; mode=display"> P (A \cup B) = P(A) + P(B) - P(A \cap B) </script>
+</p>
+<h3 id="q1">Q1<a class="headerlink" href="#q1" title="Permanent link">&para;</a></h3>
+<p>In a single toss of 2 fair (evenly-weighted) six-sided dice, find the probability that their sum will be at most 9</p>
+<div class="codehilite"><pre><span></span><code><span class="n">tot_outcomes</span> <span class="o">=</span> <span class="mi">6</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">sum_less_than_9</span> <span class="o">=</span> <span class="mi">6</span> <span class="o">+</span> <span class="mi">6</span> <span class="o">+</span> <span class="mi">6</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">3</span>
+<span class="n">sum_less_than_9</span><span class="o">/</span><span class="n">tot_outcomes</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>0.8333333333333334
+</code></pre></div>
+
+<h3 id="q2">Q2<a class="headerlink" href="#q2" title="Permanent link">&para;</a></h3>
+<p>In a single toss of 2 fair (evenly-weighted) six-sided dice, find the probability that the values rolled by each die will be different and the two dice have a sum of 6.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># only 5 outcomes will sum to 6</span>
+<span class="c1"># one of those has equal numbers</span>
+<span class="c1"># so there are 4/36 chances or 1/9 probability</span>
+</code></pre></div>
+
+<h3 id="q3">Q3<a class="headerlink" href="#q3" title="Permanent link">&para;</a></h3>
+<p>There are 3 urns labeled X, Y, and Z.</p>
+<ul>
+<li>Urn X contains 4 red balls and 3 black balls.</li>
+<li>Urn Y contains 5 red balls and 4 black balls.</li>
+<li>Urn Z contains 4 red balls and 4 black balls.</li>
+</ul>
+<p>One ball is drawn from each of the 3 urns. What is the probability that, of the 3 balls drawn, 2 are red and 1 is black?</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># multiply and sum probabilities </span>
+<span class="c1"># RRB 4/7 * 5/9 * 4/8</span>
+<span class="c1"># RBR 4/7 * 4/9 * 4/8</span>
+<span class="c1"># BRR 3/7 * 5/9 * 4/8</span>
+<span class="p">(</span><span class="mi">4</span><span class="o">/</span><span class="mi">7</span> <span class="o">*</span> <span class="mi">5</span><span class="o">/</span><span class="mi">9</span> <span class="o">*</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span>\
+<span class="p">(</span><span class="mi">4</span><span class="o">/</span><span class="mi">7</span> <span class="o">*</span> <span class="mi">4</span><span class="o">/</span><span class="mi">9</span> <span class="o">*</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span>\
+<span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">7</span> <span class="o">*</span> <span class="mi">5</span><span class="o">/</span><span class="mi">9</span> <span class="o">*</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>0.40476190476190477
+</code></pre></div>
+
+<h2 id="conditional-probability">Conditional Probability<a class="headerlink" href="#conditional-probability" title="Permanent link">&para;</a></h2>
+<p>The flagship expression here is Bayes Rule or Bayesian Inference:</p>
+<p>
+<script type="math/tex; mode=display"> P(A|B) = \frac{P(B|A) * P(A)}{P(B)} = \frac{P(A \cap B)}{P(B)}</script>
+</p>
+<p>Where \(\cap\) is the intersection of \(A\) and \(B\).</p>
+<h3 id="q1_1">Q1<a class="headerlink" href="#q1_1" title="Permanent link">&para;</a></h3>
+<p>Suppose a family has 2 children, one of which is a boy. What is the probability that both children are boys?</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># child1 child2</span>
+<span class="c1"># a boy; a girl</span>
+<span class="c1"># a girl; a boy</span>
+<span class="c1"># a boy; a boy</span>
+</code></pre></div>
+
+<h3 id="q2_1">Q2<a class="headerlink" href="#q2_1" title="Permanent link">&para;</a></h3>
+<p>You draw 2 cards from a standard 52-card deck without replacing them. What is the probability that both cards are of the same suit?</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># suites</span>
+<span class="c1"># 13 13 13 13</span>
+<span class="c1"># hearts</span>
+<span class="p">(</span><span class="mi">13</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">51</span> <span class="c1">#12/51</span>
+<span class="c1"># spades 4/17</span>
+<span class="c1"># clubs 4/17</span>
+<span class="c1"># diamonds 4/17</span>
+<span class="c1"># (4*4)/(4*17)</span>
+<span class="c1"># multiplying out still yields</span>
+<span class="c1"># 12/51</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>0.9411764705882353
+</code></pre></div>
+
+<h3 id="q3_1">Q3<a class="headerlink" href="#q3_1" title="Permanent link">&para;</a></h3>
+<p>If the probability of student A passing an exam is 2/7 and the probability of student B failing the exam is 3/7, then find the probability that at least 1 of the 2 students will pass the exam</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># P(A) = 2/7</span>
+<span class="c1"># P(B) = 4/7</span>
+
+<span class="c1"># All outcomes - sum to 1</span>
+<span class="c1"># A pass B pass 2/7 * 4/7</span>
+<span class="c1"># A fail B fail 5/7 * 3/7</span>
+<span class="c1"># A pass B fail 2/7 * 3/7</span>
+<span class="c1"># A fail B pass 5/7 * 4/7</span>
+
+<span class="c1"># all outcomes</span>
+<span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">7</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">4</span><span class="o">/</span><span class="mi">7</span><span class="p">)</span><span class="o">+</span>\
+<span class="p">(</span><span class="mi">5</span><span class="o">/</span><span class="mi">7</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">7</span><span class="p">)</span><span class="o">+</span>\
+<span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">7</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">7</span><span class="p">)</span><span class="o">+</span>\
+<span class="p">(</span><span class="mi">5</span><span class="o">/</span><span class="mi">7</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">4</span><span class="o">/</span><span class="mi">7</span><span class="p">)</span>
+
+<span class="c1"># outcomes we care about</span>
+<span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">7</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">4</span><span class="o">/</span><span class="mi">7</span><span class="p">)</span><span class="o">+</span>\
+<span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">7</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">7</span><span class="p">)</span><span class="o">+</span>\
+<span class="p">(</span><span class="mi">5</span><span class="o">/</span><span class="mi">7</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">4</span><span class="o">/</span><span class="mi">7</span><span class="p">)</span>
+
+<span class="mi">34</span><span class="o">/</span><span class="mi">49</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>0.6938775510204082
+</code></pre></div>
+
+<h3 id="q4">Q4<a class="headerlink" href="#q4" title="Permanent link">&para;</a></h3>
+<p>Historical data shows that it has only rained 5 days per year in some desert region (assuming a 365 day year). A meteorologist predicts that it will rain today. When it actually rains, the meteorologist correctly predicts rain 90% of the time. When it doesn't rain, the meteorologist incorrectly predicts rain 10% of the time. Find the probability that it will rain today.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># P(A|B) = probability that it will rain today given that the meteorologist has predicted it will rain</span>
+<span class="c1"># P(B|A) = probability that the meteoroligist will say it will rain when it rains; 90%</span>
+<span class="c1"># P(A) = probability that it will rain; 5/365</span>
+<span class="c1"># P(B) = probability that meteoroligist will say it will rain</span>
+
+<span class="c1"># what is P(B) then?</span>
+
+<span class="c1"># P(B) = (5/365*.90) + ((365-5)/365*.1)</span>
+
+<span class="n">P_B</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="o">/</span><span class="mi">365</span><span class="o">*</span><span class="mf">.90</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="mi">365</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span><span class="o">/</span><span class="mi">365</span><span class="o">*</span><span class="mf">.1</span><span class="p">)</span>
+<span class="n">P_A</span> <span class="o">=</span> <span class="mi">5</span><span class="o">/</span><span class="mi">365</span>
+<span class="n">P_BA</span> <span class="o">=</span> <span class="mf">0.9</span>
+
+<span class="n">P_AB</span> <span class="o">=</span> <span class="n">P_BA</span> <span class="o">*</span> <span class="n">P_A</span> <span class="o">/</span> <span class="n">P_B</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P(B|A): </span><span class="si">{</span><span class="n">P_BA</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P(B): </span><span class="si">{</span><span class="n">P_B</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P(A): </span><span class="si">{</span><span class="n">P_A</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P(A|B): </span><span class="si">{</span><span class="n">P_AB</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>P(B|A): 0.9
+P(B): 0.11095890410958904
+P(A): 0.0136986301369863
+P(A|B): 0.1111111111111111
+</code></pre></div>
+
+<h2 id="binomial-probabilities">Binomial Probabilities<a class="headerlink" href="#binomial-probabilities" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Operates on PMF (Probability Mass Functions) for discrete values</p>
+</blockquote>
+<p><a href="https://nostarch.com/download/resources/Bayes_exercise_solutions_new.pdf">answer key</a></p>
+<p>
+<script type="math/tex; mode=display"> B(K;n,p) = \binom{n}{k} \times p^k \times (1 - p)^{n-k} </script>
+</p>
+<p>We can calculate the total number of outcomes we care about from a total number of trials  using the binomial coefficient (this field of study is called combinatorics): </p>
+<p>
+<script type="math/tex; mode=display"> \binom{n}{k} = \frac{n!}{k! \times (n - k)!}</script>
+</p>
+<p>This allows us to calculate the probability of an event:</p>
+<p>
+<script type="math/tex; mode=display"> B(K;n,p) = \binom{n}{k} \times P(desired \space outcome) </script>
+</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">fact</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  return the factorial of a number using recursion </span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">return</span> <span class="mi">1</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">fact</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span>
+
+<span class="k">def</span> <span class="nf">n_choose_k</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Returns the number of outcomes we care about of all possible outcomes</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">return</span> <span class="n">fact</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">fact</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="n">fact</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">k</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">binom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Returns the probability of an event occuring K times in a total number of n</span>
+<span class="sd">  trials having a probability of p</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">return</span> <span class="n">n_choose_k</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="n">p</span><span class="o">**</span><span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">k</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">k_or_more</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  we can solve the K or more problem recursively</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">binom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">k_or_more</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="o">+</span> <span class="n">binom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="q1_2">Q1<a class="headerlink" href="#q1_2" title="Permanent link">&para;</a></h3>
+<p>When you're searching for a new job, it's always helpful to have more than one offer on the table so you can use it in negotiations. If you have &#8533; probability of receiving a job offer when you interview, and you interview iwth seven companies in a month, what is the probability you'll have at least two competing offers by the end of that month?</p>
+<div class="codehilite"><pre><span></span><code><span class="n">p</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">5</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">offers1</span> <span class="o">=</span> <span class="n">k_or_more</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">offers1</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>0.4232832000000002
+</code></pre></div>
+
+<h3 id="q2_2">Q2<a class="headerlink" href="#q2_2" title="Permanent link">&para;</a></h3>
+<p>You get a bunch of recruiter emails and find out you have 25 interviews lined up in the next month. Unfortunately, you know this will leave you exhausted, and the probability of getting an offer will drop to 1/10 if you're tired. You really don't want to go on this many interviews unless you are at least twice as likely to get a least two competing offers. Are you more likely to get at least two offers if you go for 25 interviews, or stick to just 7?</p>
+<div class="codehilite"><pre><span></span><code><span class="n">p</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">10</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">offers2</span> <span class="o">=</span> <span class="n">k_or_more</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">offers2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">offers2</span><span class="o">/</span><span class="n">offers1</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>0.7287940935386341
+1.7217647512082543
+</code></pre></div>
+
+<p>The ratio of boys to girls for babies born in Russia is 1.09:1. If there is 1 child born per birth, what proportion of Russian families with exactly 6 children will have at least 3 boys?</p>
+<div class="codehilite"><pre><span></span><code><span class="n">br</span><span class="p">,</span> <span class="n">gr</span> <span class="o">=</span> <span class="mf">1.09</span><span class="p">,</span> <span class="mi">1</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">br</span> <span class="o">/</span> <span class="p">(</span><span class="n">br</span> <span class="o">+</span> <span class="n">gr</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">k_or_more</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>0.6957033161509107
+</code></pre></div>
+
+<h2 id="the-beta-distribution">The Beta Distribution<a class="headerlink" href="#the-beta-distribution" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Operates on PDF (Probability Density Function) for continuous values</p>
+</blockquote>
+<p>Think: Probability of probabilities</p>
+<p>
+<script type="math/tex; mode=display"> Beta(\rho; \alpha, \beta) = \frac{\rho^{\alpha - 1} \times (1-\rho)^{\beta - 1}}{beta(\alpha, \beta)} </script>
+</p>
+<p>where \(\rho\) is the probability of an event. This corresponds to the different hypotheses for the possible probabilities that could be generating our observed data; \(\alpha\) represents how many times we observe an event we care about such as winning a coin toss; \(\beta\) represents how many times the event we care about <em>didn't</em> happen, such as losing a coin toss. The total number of trials is \(\alpha + \beta\) (contrast this with \(n\) and \(k\) in the binomial distribution).</p>
+<p>The beta (lowercase) distribution:</p>
+<p>
+<script type="math/tex; mode=display"> \int_0^1{\rho^{\alpha - 1} \times (1-\rho)^{\beta - 1}} </script>
+</p>
+<p>Putting this all together. The probability that an event occurs in a specific range:</p>
+<p>
+<script type="math/tex; mode=display"> Beta(\rho; \alpha, \beta) = \int_{lower \space bound}^{upper \space bound}{\frac{\rho^{\alpha - 1} \times (1-\rho)^{\beta - 1}}{beta(\alpha, \beta)}} </script>
+</p>
+<h3 id="q1_3">Q1<a class="headerlink" href="#q1_3" title="Permanent link">&para;</a></h3>
+<p>You want to use the beta distribution to determine whether or not a coin you have is a fair coin - meaning that the coin gives you heads and tails equally. You flip the coin 10 times and get 4 heads and 6 tails. using the beta distribution, what is the probability that the coin will land on heads more than 60 percent of the time?</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">beta</span>
+
+<span class="n">_alpha</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">_beta</span> <span class="o">=</span> <span class="mi">6</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">beta</span><span class="p">(</span><span class="n">_alpha</span><span class="p">,</span> <span class="n">_beta</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="mf">0.6</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>1.1147673600000005
+</code></pre></div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.361d90f1.min.js"}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.289a2a4b.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+    
+  </body>
+</html>
