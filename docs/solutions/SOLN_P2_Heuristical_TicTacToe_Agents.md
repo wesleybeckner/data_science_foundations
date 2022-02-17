@@ -203,7 +203,7 @@ Develop a better AI based on your analyses of game play so far.
 
 ### Q1
 
-In our groups, let's discuss what rules we would like to hard code in. Harsha, Varsha and I will help you with the flow control to program these rules
+We need to decide what our heuristic strategy will be and orient around the tools/methods we have available to deliver that strategy.
 
 
 ```python
@@ -276,9 +276,11 @@ Our standard approach will be to always ***return a move by the agent***. Whethe
 
 Write down your algorithm steps in markdown. i.e.
 
-1. play a corner piece
-2. play to opposite corner from the opponent, etc.
-3. ....etc.
+1. play winning move
+2. block opponent's winning move
+3. play corner
+4. play center
+5. play edge
 
 ### Q3
 
@@ -296,6 +298,53 @@ avail_moves = [i for i in self.board.keys() if self.board[i] == ' ']
 # in case you need it
 temp_board = self.board.copy()
 
+# first check for a winning move
+move_found = False
+for move in avail_moves:
+  temp_board[move] = player_label
+  for pattern in self.win_patterns:
+      values = [temp_board[i] for i in pattern] 
+      if values == [player_label, player_label, player_label]:
+        move_found = True       
+        break
+  if move_found:   
+    break
+  else:
+    temp_board[move] = ' '
+
+# check if the opponent has a winning move
+if move_found == False:
+  for move in avail_moves:
+    temp_board[move] = opponent
+    for pattern in self.win_patterns:
+        values = [temp_board[i] for i in pattern] 
+        if values == [opponent, opponent, opponent]:
+          move_found = True       
+          break
+    if move_found:   
+      break
+    else:
+      temp_board[move] = ' '
+
+# check corners
+if move_found == False:
+  move_corner = [val for val in avail_moves if val in corner]
+  if len(move_corner) > 0:
+    move = random.choice(move_corner)
+    move_found = True
+
+# check if middle avail
+if move_found == False:
+  if middle in avail_moves:
+    move_found = True
+    move = middle
+
+# check side
+if move_found == False:
+  move_side = [val for val in avail_moves if val in side]
+  if len(move_side) > 0:
+    move = random.choice(move_side)
+    move_found = True
 ```
 
 ## 2.2 Wrapping our Agent
@@ -590,7 +639,7 @@ game.play_game()
 
 
 
-    <__main__.GameEngine at 0x7fadbea428d0>
+    <__main__.GameEngine at 0x7eff0f31b040>
 
 
 
@@ -604,19 +653,61 @@ game.setup_game()
 game.play_game()
 ```
 
-    How many Players? (type 0, 1, or 2)2
+    How many Players? (type 0, 1, or 2) 1
+    select AI level (1, 2) 1
+    who will go first? (X, (AI), or O (Player)) X
+
+
     | | | |
     | | | |
     | | | |
     
-    X, what's your move?q
-    quiting the game
+    | | | |
+    | | | |
+    | |X| |
+    
+
+
+    O, what's your move? 1
+
+
+    |O| | |
+    | | | |
+    | |X| |
+    
+    |O| | |
+    | |X| |
+    | |X| |
+    
+
+
+    O, what's your move? 3
+
+
+    |O| |O|
+    | |X| |
+    | |X| |
+    
+    |O| |O|
+    | |X| |
+    | |X|X|
+    
+
+
+    O, what's your move? 2
+
+
+    'O' Won!
+    |O|O|O|
+    | |X| |
+    | |X|X|
+    
 
 
 
 
 
-    <__main__.GameEngine at 0x7fadbea25e90>
+    <__main__.GameEngine at 0x7eff0f2e36a0>
 
 
 
@@ -645,12 +736,53 @@ class GameEngine(TicTacToe):
     temp_board = self.board.copy()
     
     ################## YOUR CODE GOES HERE, RETURN THAT MOVE! ##################
-    while True: # DELETE LINES 20 - 25, USED FOR TESTING PURPOSES ONLY
-      move = random.randint(1,9)
-      if self.board[move] != ' ':
-        continue
-      else:
+    # first check for a winning move
+    move_found = False
+    for move in avail_moves:
+      temp_board[move] = player_label
+      for pattern in self.win_patterns:
+          values = [temp_board[i] for i in pattern] 
+          if values == [player_label, player_label, player_label]:
+            move_found = True       
+            break
+      if move_found:   
         break
+      else:
+        temp_board[move] = ' '
+
+    # check if the opponent has a winning move
+    if move_found == False:
+      for move in avail_moves:
+        temp_board[move] = opponent
+        for pattern in self.win_patterns:
+            values = [temp_board[i] for i in pattern] 
+            if values == [opponent, opponent, opponent]:
+              move_found = True       
+              break
+        if move_found:   
+          break
+        else:
+          temp_board[move] = ' '
+
+    # check corners
+    if move_found == False:
+      move_corner = [val for val in avail_moves if val in corner]
+      if len(move_corner) > 0:
+        move = random.choice(move_corner)
+        move_found = True
+
+    # check if middle avail
+    if move_found == False:
+      if middle in avail_moves:
+        move_found = True
+        move = middle
+
+    # check side
+    if move_found == False:
+      move_side = [val for val in avail_moves if val in side]
+      if len(move_side) > 0:
+        move = random.choice(move_side)
+        move_found = True
     ############################################################################
     return move
 
@@ -794,43 +926,52 @@ game.setup_game()
 game.play_game()
 ```
 
-    How many Players? (type 0, 1, or 2)1
-    select AI level (1, 2)2
-    who will go first? (X, (AI), or O (Player))O
+    How many Players? (type 0, 1, or 2) 1
+    select AI level (1, 2) 2
+    who will go first? (X, (AI), or O (Player)) X
+
+
     | | | |
     | | | |
     | | | |
     
-    O, what's your move?5
     | | | |
-    | |O| |
     | | | |
+    | | |X|
     
+
+
+    O, what's your move? 3
+
+
+    | | |O|
     | | | |
-    | |O| |
-    | |X| |
+    | | |X|
     
-    O, what's your move?9
+    | | |O|
     | | | |
-    | |O| |
-    | |X|O|
+    |X| |X|
     
+
+
+    O, what's your move? 2
+
+
+    | |O|O|
     | | | |
-    | |O|X|
-    | |X|O|
+    |X| |X|
     
-    O, what's your move?1
-    'O' Won!
-    |O| | |
-    | |O|X|
-    | |X|O|
+    'X' Won!
+    | |O|O|
+    | | | |
+    |X|X|X|
     
 
 
 
 
 
-    <__main__.GameEngine at 0x7fadbe93f610>
+    <__main__.GameEngine at 0x7eff4d3304f0>
 
 
 
@@ -849,32 +990,48 @@ game.play_game()
     | | | |
     | | | |
     
+    | | |O|
     | | | |
     | | | |
-    |O| | |
     
-    | |X| |
+    | | |O|
     | | | |
-    |O| | |
+    |X| | |
     
-    |O|X| |
+    |O| |O|
     | | | |
-    |O| | |
+    |X| | |
     
-    |O|X| |
-    | | | |
-    |O| |X|
+    |O| |O|
+    | | |X|
+    |X| | |
+    
+    |O| |O|
+    | | |X|
+    |X|O| |
+    
+    |O| |O|
+    | |X|X|
+    |X|O| |
+    
+    |O| |O|
+    |O|X|X|
+    |X|O| |
+    
+    |O| |O|
+    |O|X|X|
+    |X|O|X|
     
     'O' Won!
-    |O|X| |
-    |O| | |
-    |O| |X|
+    |O|O|O|
+    |O|X|X|
+    |X|O|X|
     
 
 
 
 
 
-    <__main__.GameEngine at 0x7fadbe8cc050>
+    <__main__.GameEngine at 0x7eff0f2bbdc0>
 
 
