@@ -29,5 +29,7 @@ The breakdown for this course is as follows:
     * P2: Heuristical TicTacToe Agents
     * P3: 1-Step Look Ahead Agents
     * P4: N-Step Look Ahead Agents
+*   Extras
+    * X1: Thinking Data
 *	Reading
     * JVDP chapter 5

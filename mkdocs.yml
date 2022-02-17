@@ -26,6 +26,8 @@ nav:
       - Heuristical TicTacToe Agents: project/P2_Heuristical_TicTacToe_Agents.md
       - 1-Step Look Ahead Agents: project/P3_1_Step_Look_Ahead_Agents.md
       - N-Step Look Ahead Agents: project/P4_N_Step_Look_Ahead_Agents.md
+  - Extras:
+      - Thinking Data: extras/X1_Thinking_Data.md
 markdown_extensions:
   - admonition
   - codehilite:
