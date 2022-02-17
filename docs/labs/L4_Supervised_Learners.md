@@ -128,7 +128,7 @@ sns.heatmap(confusion_matrix(y_test,y_pred), annot=True, ax=ax)
     
 
 
-## 🏎️ Q1:
+## 🏎️ L4 Q1:
 
 Evaluate the performance of a Random Forest on classifying wine quality
 
@@ -138,7 +138,7 @@ Evaluate the performance of a Random Forest on classifying wine quality
 # Code Cell for L1 Q2
 ```
 
-## 🔬 Q2:
+## 🔬 L4 Q2:
 
 Do a grid search to optimize your Random Forest model, use whatever hyperparameters you would like
 

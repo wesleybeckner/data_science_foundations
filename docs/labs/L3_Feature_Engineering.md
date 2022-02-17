@@ -38,7 +38,7 @@ wine = pd.read_csv("https://raw.githubusercontent.com/wesleybeckner/"\
       "ds_for_engineers/main/data/wine_quality/winequalityN.csv")
 ```
 
-## L1 Q1: Feature Derivation
+## 🍇 L3 Q1: Feature Derivation
 
 1. Fill in any missing data in your dataset using imputation and use this new data for Q2-Q3
 2. One-Hot encode categorical variables in the wine dataset
@@ -180,7 +180,7 @@ imp = SimpleImputer()
     (6497, 13)
 
 
-## L1 Q2: Feature Transformation
+## 🍾 L3 Q2: Feature Transformation
 
 Use `StandardScaler` on the input data and evaluate how this affects VIF, kurtosis, and skew
 
@@ -402,7 +402,7 @@ cols.remove('type')
 
 
 
-## L1 Q3: Modeling
+## 🍷 L3 Q3: Modeling
 
 Create a Pipeline using one of the scaling methods in sklearn and linear or logistic regression 
 

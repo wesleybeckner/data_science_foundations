@@ -147,7 +147,7 @@ In the end, what you test is up to you, and depends on your intended use cases. 
 
 The only caveat to that, is that many continuous integration services (like [TravisCI](https://travis-ci.com/)) will benchmark you based on the percentage of lines of code you have that are covered by your unit tests (ex: [85% coverage](https://github.com/wesleybeckner/gains)).
 
-## ✍🏽 Q1 Write a Unit Test
+## ✍🏽 L5 Q1 Write a Unit Test
 
 Remember our Pokeball discussion in [Python Foundations](https://wesleybeckner.github.io/python_foundations/S4_Object_Oriented_Programming/)? We'll return to that here. This time writing unit tests for our classes.
 
@@ -242,7 +242,7 @@ test_release()
     Pikachu has been released
 
 
-## ⛹️ Q2 Write a Unit Test for the Catch Rate
+## ⛹️ L5 Q2 Write a Unit Test for the Catch Rate
 
 First, we will check that the succcessful catch is operating correctly. Remember that we depend on `random.random` and condition our success on whether that random value is less than the `catch_rate` of the pokeball:
 
@@ -305,7 +305,7 @@ test_successful_catch()
     Psyduck captured!
 
 
-## ⚖️ Q3 Write a Unit Test that Checks Whether the Overall Catch Rate is 50/50
+## ⚖️ L5 Q3 Write a Unit Test that Checks Whether the Overall Catch Rate is 50/50
 
 For this one, we're going to take those same ideas around seeding the random number generator. However, here we'd like to run the catch function multiple times to check whether it is truly creating a 50/50 catch rate situation.
 

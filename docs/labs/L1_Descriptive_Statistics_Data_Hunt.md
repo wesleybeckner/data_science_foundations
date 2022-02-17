@@ -177,7 +177,7 @@ df.head(3)
 
 
 
-## Q1 What american director has the highest mean  avg_vote?
+## 🎥 L1 Q1 What american director has the highest mean  avg_vote?
 
 
 ```python
@@ -203,7 +203,7 @@ df.head(3)
 
 
 
-## Q2 What american director with more than 5 movies, has the highest mean avg_vote?
+## 🎥 L1 Q2 What american director with more than 5 movies, has the highest mean avg_vote?
 
 
 ```python
@@ -229,7 +229,7 @@ df.head(3)
 
 
 
-## Q3 What director has the largest variance in avg_vote?
+## 🎥 L1 Q3 What director has the largest variance in avg_vote?
 
 
 ```python
@@ -255,7 +255,7 @@ df.head(3)
 
 
 
-## Q4 What director with more than 10 movies has the largest variance in avg_vote?
+## 🎥 L1 Q4 What director with more than 10 movies has the largest variance in avg_vote?
 
 
 ```python
@@ -281,7 +281,7 @@ df.head(3)
 
 
 
-## Q5 What american directors with more than 5 movies have the largest variance in avg_vote?
+## 🎥 L1 Q5 What american directors with more than 5 movies have the largest variance in avg_vote?
 
 
 ```python
@@ -307,7 +307,7 @@ df.head(3)
 
 
 
-## Q6 Where does M. Night Shyamalan fall on this rank scale?
+## 🎥 L1 Q6 Where does M. Night Shyamalan fall on this rank scale?
 
 (He's number 36/859)
 
@@ -325,7 +325,7 @@ what happens when you only include directors who, on average (based on mean), ha
 
 ```
 
-## Q7 How many movies were made each year in US from 2000-2020
+## 🎥 L1 Q7 How many movies were made each year in US from 2000-2020
 
 
 ```python
@@ -361,7 +361,7 @@ what happens when you only include directors who, on average (based on mean), ha
 
 
 
-## Q8 Visualize The Results of Q7!
+## 🎥 L1 Q8 Visualize The Results of Q7!
 
 
 ```python
@@ -381,7 +381,7 @@ what happens when you only include directors who, on average (based on mean), ha
     
 
 
-## Q9 For single country movies, how many movies were made each year in each country from 2000-2020, only include countries that made more than 1000 movies in that timeframe
+## 🎥 L1 Q9 For single country movies, how many movies were made each year in each country from 2000-2020, only include countries that made more than 1000 movies in that timeframe
 
 
 ```python
@@ -451,7 +451,7 @@ what happens when you only include directors who, on average (based on mean), ha
 
 
 
-## Q10 Visualize the results from Q9!
+## 🎥 L1 Q10 Visualize the results from Q9!
 
 
 ```python

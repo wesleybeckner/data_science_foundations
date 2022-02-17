@@ -181,7 +181,7 @@ df.shape
 
 ## Exploratory Data Analysis
 
-### Q1 Finding Influential Features
+### 🍫 L2 Q1 Finding Influential Features
 
 Which of the five features (base_cake, truffle_type, primary_flavor, secondary_flavor, color_group) of the truffles is most influential on production rate?
 
@@ -191,7 +191,7 @@ Back your answer with both a visualization of the distributions (boxplot, kernel
     * everything is labeled (can you improve your labels with additional descriptive statistical information e.g. indicate mean, std, etc.)
     * you meet the assumptions of your statistical test
 
-#### Q1.1 Visualization
+#### 🍫 L2 Q1.1 Visualization
 
 Use any number of visualizations. Here is an example to get you started:
 
@@ -258,7 +258,7 @@ sns.kdeplot(x=df['rate'], hue=df['base_cake'], fill=True, ax=ax[1])
     
 
 
-#### Q1.2 Statistical Analysis
+#### 🍫 L2 Q1.2 Statistical Analysis
 
 What statistical tests can you perform to evaluate your hypothesis from the visualizations (maybe you think one particular feature is significant). Here's an ANOVA on the `truffle_type` column to get you started:
 
@@ -612,11 +612,11 @@ display(anova_table)
     
 
 
-### Q2 Finding Best and Worst Groups
+### 🍫 L2 Q2 Finding Best and Worst Groups
 
 
 
-#### Q2.1 Compare Every Group to the Whole
+#### 🍫 L2 Q2.1 Compare Every Group to the Whole
 
 Of the primary flavors (feature), what 5 flavors (groups) would you recommend Truffletopia discontinue?
 
@@ -965,7 +965,7 @@ We would want to cut the following primary flavors. Check to see that you get a 
 
 
 
-#### Q2.2 Beyond Statistical Testing: Using Reasoning
+#### 🍫 L2 Q2.2 Beyond Statistical Testing: Using Reasoning
 
 Let's look at the total profile of the products associated with the five worst primary flavors. Given the number of different products made with any of these flavors, would you alter your answer at all?
 
@@ -1153,7 +1153,7 @@ df.loc[df['primary_flavor'].isin(bottom_five)].groupby(list(df.columns[:-1]))['r
 
 
 
-#### Q2.3 The Jelly Filled Conundrum
+#### 🍫 L2 Q2.3 The Jelly Filled Conundrum
 
 Your boss notices the Jelly filled truffles are being produced much faster than the candy outer truffles and suggests expanding into this product line. What is your response? Use the visualization tool below to help you think about this problem, then create any visualizations or analyses of your own.
 
