@@ -1,3 +1,5 @@
+<a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/extras/X1_Thinking_Data.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
 # Data Science Foundations <br> Extras 1: Thinking Data
 
 **Instructor**: Wesley Beckner
@@ -13,8 +15,6 @@ Today we are going to take our newfound knowledge and tackle some data problems.
 <br>
 
 ---
-
-<br>
 
 ## Prepare Environment and Import Data
 
@@ -79,7 +79,7 @@ plt.scatter(X[:,0], X[:,1], c=y, cmap='viridis')
 
 
     
-![png](X1_Thinking_Data_files/X1_Thinking_Data_5_1.png)
+![png](X1_Thinking_Data_files/X1_Thinking_Data_6_1.png)
     
 
 
@@ -127,7 +127,7 @@ sns.scatterplot(x=airbnb.longitude,y=airbnb.latitude,hue=airbnb.neighbourhood_gr
 
 
     
-![png](X1_Thinking_Data_files/X1_Thinking_Data_13_1.png)
+![png](X1_Thinking_Data_files/X1_Thinking_Data_14_1.png)
     
 
 
