@@ -331,3 +331,44 @@ model.pdf(0.6)
     1.1147673600000005
 
 
+
+## Poisson Random Variables
+
+What happens when we can't estimate \\(p\\) for a binomial probability? Enter the poisson experiemnt
+
+A Poisson experiment is a statistical experiment that has the following properties:
+
+* The outcome of each trial is either success or failure.
+* The average number of successes  that occurs in a specified region is known.
+* The probability that a success will occur is proportional to the size of the region.
+* The probability that a success will occur in an extremely small region is virtually zero.
+
+The Poisson distribution is:
+
+$$ P(k,\lambda) = \frac{\lambda^k \exp^{-\lambda}}{k!}  $$
+
+where \\(\lambda\\) is the average number of successes that occur in a specified region, \\(k\\) is the actual number of successes that occur in a specified region, \\(P(K,\lambda)\\) is the Poisson probability, which is the probability of getting exactly  successes when the average number of successes is \\(\lambda\\).
+
+
+```python
+from math import exp
+def poisson(k, lamb):
+    return (lamb ** k * exp(-lamb)) / (fact(k))
+```
+
+### Q1
+
+A random variable, \\(X\\), follows Poisson distribution with mean of 2.5. Find the probability with which the random variable \\(X\\) is equal to 5.
+
+
+```python
+# P(k=5,lambda=2.5)
+poisson(k=5, lamb=2.5)
+```
+
+
+
+
+    0.06680094289054264
+
+

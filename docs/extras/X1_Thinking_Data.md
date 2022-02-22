@@ -10,7 +10,7 @@
 
 <br>
 
-Today we are going to take our newfound knowledge and tackle some data problems. We will work with an [Airbnb dataset](https://www.kaggle.com/dgomonov/new-york-city-airbnb-open-data/code)
+Today we are going to take our newfound knowledge from the course, and practice how we can leverage data to build predictive models. We'll start with a feature engineering problem on some dummy data. This will get us thinking creatively about problem solving. We will then pivot over to an [Airbnb dataset](https://www.kaggle.com/dgomonov/new-york-city-airbnb-open-data/code). After performing some general, exploratory data analysis, we will solve the following business case: Airbnb is interested in using historical list prices from their airbnb hosts, to make pricing suggestions to new hosts. How can we use this existing datset to assist with this price listing suggestion?
 
 <br>
 

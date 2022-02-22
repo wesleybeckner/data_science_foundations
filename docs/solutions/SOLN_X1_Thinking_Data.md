@@ -1,3 +1,5 @@
+<a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/solutions/SOLN_X1_Thinking_Data.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
 # Data Science Foundations <br> Extras 1: Thinking Data
 
 **Instructor**: Wesley Beckner
@@ -8,7 +10,7 @@
 
 <br>
 
-Today we are going to take our newfound knowledge and tackle some data problems
+Today we are going to take our newfound knowledge from the course, and practice how we can leverage data to build predictive models. We'll start with a feature engineering problem on some dummy data. This will get us thinking creatively about problem solving. We will then pivot over to an [Airbnb dataset](https://www.kaggle.com/dgomonov/new-york-city-airbnb-open-data/code). After performing some general, exploratory data analysis, we will solve the following business case: Airbnb is interested in using historical list prices from their airbnb hosts, to make pricing suggestions to new hosts. How can we use this existing datset to assist with this price listing suggestion?
 
 <br>
 
@@ -55,9 +57,10 @@ from sklearn.neighbors import KNeighborsRegressor
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor, AdaBoostClassifier, GradientBoostingClassifier
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.mixture import GaussianMixture
+from sklearn.cluster import KMeans
 
 # sklearn evaluation
-from sklearn.metrics import mean_squared_error, r2_score, accuracy_score
+from sklearn.metrics import mean_squared_error, r2_score, accuracy_score, silhouette_score, calinski_harabasz_score, classification_report, confusion_matrix
 from sklearn.model_selection import GridSearchCV, cross_val_score
 ```
 
@@ -77,13 +80,13 @@ plt.scatter(X[:,0], X[:,1], c=y, cmap='viridis')
 
 
 
-    <matplotlib.collections.PathCollection at 0x7f20ec66d280>
+    <matplotlib.collections.PathCollection at 0x7f211fc48550>
 
 
 
 
     
-![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_5_1.png)
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_6_1.png)
     
 
 
@@ -99,34 +102,6 @@ We can separate:
 ```python
 px.scatter_3d(x=X_[:,0], y=X_[:,1], z=X_[:,2], color=y)
 ```
-
-
-<div>                            <div id="23c76349-0c4c-433e-bc34-57f6a8211455" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("23c76349-0c4c-433e-bc34-57f6a8211455")) {                    Plotly.newPlot(                        "23c76349-0c4c-433e-bc34-57f6a8211455",                        [{"hovertemplate":"x=%{x}<br>y=%{y}<br>z=%{z}<br>color=%{marker.color}<extra></extra>","legendgroup":"","marker":{"color":[1,1,1,0,0,0,0,1,0,0,0,0,1,0,1,0,1,1,0,0,1,1,0,0,1,0,0,1,0,1,0,0,1,0,1,0,1,1,0,0,0,0,0,1,0,0,1,0,1,0,0,0,0,0,0,1,0,1,0,1,1,1,1,0,1,1,0,1,1,1,1,0,1,0,1,1,1,0,1,1,1,1,0,0,0,1,0,0,0,1,1,1,1,1,0,1,1,0,1,1],"coloraxis":"coloraxis","symbol":"circle"},"mode":"markers","name":"","scene":"scene","showlegend":false,"x":[-0.42229838489974536,0.7485816145848708,-0.6450977253766977,0.8000536425436547,0.7436580402757358,0.19688136854079694,-0.9251976351182513,-0.6439451432602576,0.31369494190757896,0.9922029811934012,-0.6389293283312876,-0.8075121035938413,-0.7485312466967836,-0.5436472732419947,0.255940646479863,0.8925358850372773,-0.7907611685951266,-0.7809697490763782,0.04796627706072417,-0.7193422145214146,0.6394731661924931,0.05747324813870975,-0.9836154892738543,0.527123745433386,-0.5962744088092541,-0.3199796523277611,0.30235638817264293,0.7040585720445872,0.4191519084312905,-0.7522813588751582,0.19824858481611726,0.9253588256559914,-0.23484343477059344,-0.9263962592994999,0.5295895394382066,0.8013907247327959,-0.35384220275839257,-0.24858650553675077,-0.3094710209278159,-0.4206550542413567,0.9923956959479598,-0.4178825635175654,0.6264564667629178,0.656088711644121,-0.9757861410572192,-0.7304032497177185,-0.5706854949457302,-0.9883079235304738,0.052288916963517354,-0.0730676281701983,-1.0092199970997282,0.9397813419658724,-0.5418407674347141,0.07095204675812743,0.5329719019691332,-0.735281210845652,0.7346375681292824,-0.15133496101565513,-0.18587472415089182,0.13660431101343226,0.596606584060097,0.7840928147304432,0.7073877469977338,0.6242382881411088,0.8031589090715232,-0.4195563137982508,0.8569429179440176,-0.4962948573257487,0.146173859772076,0.7716605691754996,-0.7011611772329107,0.43184904866075885,0.4347227296141881,0.9719471487664937,0.7726919591338647,0.5038454580401076,-0.8231806824818784,-0.6264606918532787,0.5895260274461493,0.3275664577116472,-0.060487414320652286,-0.3361256928671704,-0.06945995327887833,-0.8697387067322236,0.9802820450999337,0.7732134327573692,-0.8756231675328253,0.9874786376898969,-0.9777172865018552,-0.05436003175535164,0.32070805538674396,-0.7991046154679821,-0.15038148878015015,-0.5138532099197699,-0.7923792964804648,0.2461416507483467,-0.6851155260924963,-0.19470823659876327,0.4273042621600151,0.7900072611607154],"y":[-0.6845295470874115,0.3075362548317282,0.47619864829576936,-0.588905130497542,-0.6957860892740887,-0.9650220860429349,0.3512816789010189,-0.4710393913755656,0.9584177398018461,-0.008438963603439258,0.7608576660568395,-0.5889194648059373,0.18870100084377522,-0.840088494804106,-0.73797295320655,0.48999100487146674,-0.09130028301433397,-0.20211356869998176,0.9957382532658814,-0.6866440302970587,0.4666304203810586,-0.8009790291122068,-0.13844647582181538,-0.8493943576983302,0.5770743189077636,0.9602053595144137,-0.9561943912102361,-0.39998810849123984,0.9033623243986034,0.2862747484599416,0.992337119535715,-0.3689662035364896,-0.7751100018833784,-0.34837884071514347,-0.6358097064066637,0.5894718461644061,0.7171791749814915,0.7748584286830591,-0.9488871490335301,0.9102619393784438,-0.13730410419768682,-0.9005121578333893,0.7636902271365865,-0.46417337052550134,-0.25138922485561194,0.6907171436858398,-0.5469811931618388,0.008733169690893945,0.7839865492256549,1.0054391347787237,0.12652301848326394,0.3696487613072706,0.835861781933367,-0.9933096555130018,0.8549808501904745,-0.27661370357448806,0.6829021015870697,0.7664840986279404,-0.9824444001272132,-0.7860826768386622,0.5402922082434758,-0.08921730466694154,0.4160138914251549,-0.763309370355407,0.0005928128405319588,0.6751650868247381,-0.49022724938284173,0.6281308832586755,0.7908657712243993,-0.29481151012941076,-0.38349695223022706,-0.9083160642937471,0.6560200444641161,-0.2481835890557028,-0.20370448321588835,0.6082753832510313,-0.0026801835184289816,-0.7738673530164978,-0.5584396934433554,0.716354023542139,0.7865909866292667,-0.7060723985339563,-1.0149449109907747,-0.4961126822954557,0.13028319010622122,0.19208015797855874,0.47765958579599965,0.24193183982264083,0.24413955542497917,-0.7924649462245741,-0.7196013833044757,0.10803481689569931,-0.7806428560057732,-0.6120303682464148,0.5803928879779222,0.7559830401785916,0.3810635232912717,0.9765044815890472,-0.6833973905783381,0.10183860540241418],"z":[0.6469166267246302,0.6549529817304178,0.6429162279249072,0.9868950836736969,1.037145562894078,0.9700298998291549,0.9793894819599234,0.636543455755937,1.0169690805452785,0.9845379719957731,0.9871350745993313,0.9989019334778623,0.5959070950008836,1.0013010368056845,0.610109694184927,1.0367114909342257,0.6336389674364277,0.6507636436250633,0.9937954327520547,0.9889332459351607,0.6266698795052553,0.6448705793291472,0.9866668574069244,0.9993302178894801,0.6885579401436848,1.0243813103439992,1.00572709925072,0.6556889598038631,0.9917518114844406,0.6478804745168574,1.0240354601900332,0.9924250155715657,0.6559469538745009,0.9795778459021335,0.6847190630432998,0.9897041511082291,0.6395502734800442,0.6622008352361525,0.9961591343950855,1.0055274729398045,1.003701634365565,0.9855479832977592,0.9756704677730097,0.6459093154518468,1.0153551354528447,1.010579079779729,0.6248703598142018,0.9768288199659667,0.6173690402039679,1.016246732031007,1.0345330767520917,1.0198291774431754,0.9922563357510634,0.9916982646745257,1.015051302481022,0.6171536000278429,1.0060476368589424,0.6104001438750962,0.99974641241949,0.6365867126132911,0.647855086432469,0.6227612695639431,0.6734649824612303,0.9723146352537099,0.6450645846480232,0.6318753949150324,0.9746739206518741,0.6408569919113091,0.6468354653750303,0.6823738605250397,0.6386969088285143,1.011531673483285,0.6193461503819113,1.0062763538718866,0.6385483801923821,0.6238591874568349,0.6776336193950235,0.9913236785020494,0.6593958282495468,0.6204628712627677,0.6223841075376015,0.6115187133769294,1.0349378574555754,1.0025732115226327,0.9779265975695622,0.6347537996855028,0.9948746114230242,1.0336450750138624,1.0155352148476573,0.63095570404716,0.6206798076436617,0.6502397081239187,0.6320178608005848,0.6386262930006932,0.9647208539062293,0.6320960692707871,0.6145926928761555,0.9914722999628939,0.6496209259093966,0.6344825742369634],"type":"scatter3d"}],                        {"template":{"data":{"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"heatmapgl":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmapgl"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"#E5ECF6","showlakes":true,"showland":true,"subunitcolor":"white"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"bgcolor":"#E5ECF6","radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"bgcolor":"#E5ECF6","caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","zerolinewidth":2}}},"scene":{"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"xaxis":{"title":{"text":"x"}},"yaxis":{"title":{"text":"y"}},"zaxis":{"title":{"text":"z"}}},"coloraxis":{"colorbar":{"title":{"text":"color"}},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"legend":{"tracegroupgap":0},"margin":{"t":60}},                        {"responsive": true}                    ).then(function(){
-
-var gd = document.getElementById('23c76349-0c4c-433e-bc34-57f6a8211455');
-var x = new MutationObserver(function (mutations, observer) {{
-        var display = window.getComputedStyle(gd).display;
-        if (!display || display === 'none') {{
-            console.log([gd, 'removed!']);
-            Plotly.purge(gd);
-            observer.disconnect();
-        }}
-}});
-
-// Listen for the removal of the full notebook cells
-var notebookContainer = gd.closest('#notebook-container');
-if (notebookContainer) {{
-    x.observe(notebookContainer, {childList: true});
-}}
-
-// Listen for the clearing of the current output cell
-var outputEl = gd.closest('.output');
-if (outputEl) {{
-    x.observe(outputEl, {childList: true});
-}}
-
-                        })                };                });            </script>        </div>
-
 
 and now predict
 
@@ -145,7 +120,9 @@ r2_score(y, y_pred)
 
 
 
-## Exploratory Data Analysis
+## Build a Baseline
+
+### Exploratory Data Analysis
 
 which columns are numerical, string; which contain nans/nulls; what is the VIF between features
 
@@ -406,13 +383,13 @@ plt.ioff()
 
 
 
-    <matplotlib.pyplot._IoffContext at 0x7f20937cf0d0>
+    <matplotlib.pyplot._IoffContext at 0x7f211d15bb20>
 
 
 
 
     
-![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_19_1.png)
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_21_1.png)
     
 
 
@@ -806,6 +783,77 @@ pd.DataFrame(vif, index=X_num.columns)
 ```
 
 
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>id</th>
+      <td>2.180074</td>
+    </tr>
+    <tr>
+      <th>host_id</th>
+      <td>2.836905</td>
+    </tr>
+    <tr>
+      <th>latitude</th>
+      <td>0.775769</td>
+    </tr>
+    <tr>
+      <th>longitude</th>
+      <td>425502.981678</td>
+    </tr>
+    <tr>
+      <th>price</th>
+      <td>1.012423</td>
+    </tr>
+    <tr>
+      <th>minimum_nights</th>
+      <td>1.039144</td>
+    </tr>
+    <tr>
+      <th>number_of_reviews</th>
+      <td>2.348200</td>
+    </tr>
+    <tr>
+      <th>reviews_per_month</th>
+      <td>2.314318</td>
+    </tr>
+    <tr>
+      <th>calculated_host_listings_count</th>
+      <td>1.067389</td>
+    </tr>
+    <tr>
+      <th>availability_365</th>
+      <td>1.139558</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
 ```python
 X_num.drop('longitude', axis=1, inplace=True)
 ```
@@ -1069,7 +1117,7 @@ pd.DataFrame(vif, index=X_num.columns)
 
 
 
-## Feature Engineering
+### Feature Engineering
 
 Say we want to predict pricing, using an ML model. How would you build your features?
 
@@ -1078,6 +1126,7 @@ Based on the number of null values, what would you do with the `last_review` and
 
 ```python
 X = airbnb.copy()
+y = X.pop('price')
 ```
 
 
@@ -1190,44 +1239,130 @@ X_cat.nunique()
 
 ```python
 X_cat = X_cat.drop(['name', 'host_name', 'last_review'], axis=1)
-```
-
-
-```python
 enc = OneHotEncoder()
 X_enc = enc.fit_transform(X_cat).toarray()
 ```
 
+And now we deal with the numerical columns
+
 
 ```python
 X_num = X.select_dtypes(exclude='object')
+X_num.head()
 ```
 
-both `id` and `host_id` will be highly cardinal without telling us much about the behavior of unseen data. We should remove them
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>host_id</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>minimum_nights</th>
+      <th>number_of_reviews</th>
+      <th>reviews_per_month</th>
+      <th>calculated_host_listings_count</th>
+      <th>availability_365</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2539</td>
+      <td>2787</td>
+      <td>40.64749</td>
+      <td>-73.97237</td>
+      <td>1</td>
+      <td>9</td>
+      <td>0.21</td>
+      <td>6</td>
+      <td>365</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2595</td>
+      <td>2845</td>
+      <td>40.75362</td>
+      <td>-73.98377</td>
+      <td>1</td>
+      <td>45</td>
+      <td>0.38</td>
+      <td>2</td>
+      <td>355</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3647</td>
+      <td>4632</td>
+      <td>40.80902</td>
+      <td>-73.94190</td>
+      <td>3</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>365</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3831</td>
+      <td>4869</td>
+      <td>40.68514</td>
+      <td>-73.95976</td>
+      <td>1</td>
+      <td>270</td>
+      <td>4.64</td>
+      <td>1</td>
+      <td>194</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5022</td>
+      <td>7192</td>
+      <td>40.79851</td>
+      <td>-73.94399</td>
+      <td>10</td>
+      <td>9</td>
+      <td>0.10</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+both `id` and `host_id` will be highly cardinal without telling us much about the behavior of unseen data. We should remove them. We'll also drop the columns with `nans` for now
 
 
 ```python
 X_num = X_num.drop(['id', 'host_id'], axis=1)
+X_num = X_num.dropna(axis=1)
 ```
 
 
 ```python
 X_enc_df = pd.DataFrame(X_enc, columns=enc.get_feature_names_out())
-```
-
-
-```python
 X_feat = pd.concat((X_enc_df, X_num), axis=1)
-```
-
-
-```python
-X_feat = X_feat.drop(['reviews_per_month'], axis=1)
-```
-
-
-```python
-X_feat
+X_feat.head()
 ```
 
 
@@ -1262,7 +1397,6 @@ X_feat
       <th>neighbourhood_Arverne</th>
       <th>neighbourhood_Astoria</th>
       <th>...</th>
-      <th>neighbourhood_Woodrow</th>
       <th>neighbourhood_Woodside</th>
       <th>room_type_Entire home/apt</th>
       <th>room_type_Private room</th>
@@ -1270,6 +1404,7 @@ X_feat
       <th>latitude</th>
       <th>longitude</th>
       <th>minimum_nights</th>
+      <th>number_of_reviews</th>
       <th>calculated_host_listings_count</th>
       <th>availability_365</th>
     </tr>
@@ -1290,12 +1425,12 @@ X_feat
       <td>...</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>0.0</td>
       <td>1.0</td>
       <td>0.0</td>
       <td>40.64749</td>
       <td>-73.97237</td>
       <td>1</td>
+      <td>9</td>
       <td>6</td>
       <td>365</td>
     </tr>
@@ -1313,13 +1448,13 @@ X_feat
       <td>0.0</td>
       <td>...</td>
       <td>0.0</td>
-      <td>0.0</td>
       <td>1.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>40.75362</td>
       <td>-73.98377</td>
       <td>1</td>
+      <td>45</td>
       <td>2</td>
       <td>355</td>
     </tr>
@@ -1338,12 +1473,12 @@ X_feat
       <td>...</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>0.0</td>
       <td>1.0</td>
       <td>0.0</td>
       <td>40.80902</td>
       <td>-73.94190</td>
       <td>3</td>
+      <td>0</td>
       <td>1</td>
       <td>365</td>
     </tr>
@@ -1361,13 +1496,13 @@ X_feat
       <td>0.0</td>
       <td>...</td>
       <td>0.0</td>
-      <td>0.0</td>
       <td>1.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>40.68514</td>
       <td>-73.95976</td>
       <td>1</td>
+      <td>270</td>
       <td>1</td>
       <td>194</td>
     </tr>
@@ -1385,168 +1520,24 @@ X_feat
       <td>0.0</td>
       <td>...</td>
       <td>0.0</td>
-      <td>0.0</td>
       <td>1.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>40.79851</td>
       <td>-73.94399</td>
       <td>10</td>
+      <td>9</td>
       <td>1</td>
       <td>0</td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>48890</th>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>40.67853</td>
-      <td>-73.94995</td>
-      <td>2</td>
-      <td>2</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <th>48891</th>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>40.70184</td>
-      <td>-73.93317</td>
-      <td>4</td>
-      <td>2</td>
-      <td>36</td>
-    </tr>
-    <tr>
-      <th>48892</th>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>40.81475</td>
-      <td>-73.94867</td>
-      <td>10</td>
-      <td>1</td>
-      <td>27</td>
-    </tr>
-    <tr>
-      <th>48893</th>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>40.75751</td>
-      <td>-73.99112</td>
-      <td>1</td>
-      <td>6</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>48894</th>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>40.76404</td>
-      <td>-73.98933</td>
-      <td>7</td>
-      <td>1</td>
-      <td>23</td>
-    </tr>
   </tbody>
 </table>
-<p>48895 rows × 234 columns</p>
+<p>5 rows × 235 columns</p>
 </div>
 
 
 
-## Feature Transformation
+### Feature Transformation
 
 What features do you think will cause the most problems if untransformed? 
 
@@ -1555,35 +1546,18 @@ Scale and Center all but the target variable, price
 
 ```python
 scaler = StandardScaler()
-y = X_feat.pop('price')
-X_std = scaler.fit_transform(X_feat)
+X_std_num = scaler.fit_transform(X_num)
+
+X_std = np.hstack((X_enc, X_std_num))
+print(X_std.shape)
+print(y.shape)
 ```
 
-
-```python
-X_std.shape
-```
-
-
-
-
-    (48895, 234)
-
-
-
-
-```python
-y.shape
-```
-
-
-
-
+    (48895, 235)
     (48895,)
 
 
-
-## Model Baseline
+### Model Baseline
 
 
 ```python
@@ -1605,7 +1579,7 @@ r2_score(y_train, model.predict(X_train))
 
 
 
-    0.10989217084945124
+    0.11264603204210533
 
 
 
@@ -1617,7 +1591,7 @@ r2_score(y_test, y_pred)
 
 
 
-    -3.0151033955403084e+24
+    -1.563294115330747e+17
 
 
 
@@ -1631,7 +1605,7 @@ r2_score(y_train, model.predict(X_train))
 
 
 
-    0.8671952200657349
+    0.8597830223730762
 
 
 
@@ -1643,7 +1617,7 @@ r2_score(y_test, model.predict(X_test))
 
 
 
-    0.12233872053971129
+    0.10233675407266163
 
 
 
@@ -1651,127 +1625,1595 @@ both of these results from the `LinearRegression` and `RandomForest` models indi
 
 ## Back to Feature Engineering
 
+* 🌟 - keep this feature
+* 💡 - interesting behavior discovered
+* 👎 - don't keep this feature
+* 🔮 - try for next time
+
+To try:
+
+* drop nan rows not columns
+* remove outliers (filter by group)
+* PCA of one hot encoded vectors (will help with linear model)
+* transform 'last review date' (str) into 'days since last review' (number)
+
+### 🌟 NaNs - Drop Row-wise
+
 
 ```python
-X_to_pca = X_feat.iloc[:,:-5] # grab one hot encoded features
+X = airbnb.copy()
+X = X.dropna(axis=0)
+y = X.pop('price')
 ```
 
 
 ```python
-pca = PCA(n_components=10)
-X_pca = pca.fit_transform(X_to_pca)
-```
-
-
-```python
-X_std = scaler.fit_transform(X_feat.iloc[:,-5:])
-X_std = np.hstack((X_pca, X_std))
-```
-
-
-```python
-pca.explained_variance_
-```
-
-
-
-
-    array([0.53964396, 0.41513943, 0.16438329, 0.07812296, 0.06035576,
-           0.05073931, 0.04038094, 0.04010025, 0.03907097, 0.03722079])
-
-
-
-
-```python
-X_std.shape
+X_num = X.select_dtypes(exclude='object')
+X_num = X_num.drop(['id', 'host_id'], axis=1)
+X_num.head()
 ```
 
 
 
 
-    (48895, 15)
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>minimum_nights</th>
+      <th>number_of_reviews</th>
+      <th>reviews_per_month</th>
+      <th>calculated_host_listings_count</th>
+      <th>availability_365</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>40.64749</td>
+      <td>-73.97237</td>
+      <td>1</td>
+      <td>9</td>
+      <td>0.21</td>
+      <td>6</td>
+      <td>365</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>40.75362</td>
+      <td>-73.98377</td>
+      <td>1</td>
+      <td>45</td>
+      <td>0.38</td>
+      <td>2</td>
+      <td>355</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>40.68514</td>
+      <td>-73.95976</td>
+      <td>1</td>
+      <td>270</td>
+      <td>4.64</td>
+      <td>1</td>
+      <td>194</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>40.79851</td>
+      <td>-73.94399</td>
+      <td>10</td>
+      <td>9</td>
+      <td>0.10</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>40.74767</td>
+      <td>-73.97500</td>
+      <td>3</td>
+      <td>74</td>
+      <td>0.59</td>
+      <td>1</td>
+      <td>129</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 
 
-## Model
+
+```python
+X_cat = X.select_dtypes(include='object')
+X_cat = X_cat.drop(['name', 'host_name', 'last_review'], axis=1)
+enc = OneHotEncoder()
+X_enc = enc.fit_transform(X_cat).toarray()
+```
+
+
+```python
+scaler = StandardScaler()
+X_std_num = scaler.fit_transform(X_num)
+
+X_std = np.hstack((X_enc, X_std_num))
+print(X_std.shape)
+print(y.shape)
+```
+
+    (38821, 233)
+    (38821,)
+
+
+#### Train/Eval
 
 
 ```python
 X_train, X_test, y_train, y_test = train_test_split(X_std, y, train_size=0.8, random_state=42)
-```
 
-
-```python
-model = LinearRegression()
+model = RandomForestRegressor(n_jobs=-1)
 model.fit(X_train, y_train)
+print(f"Train R2: {r2_score(y_train, model.predict(X_train)):.2f}")
+print(f"Test R2: {r2_score(y_test, model.predict(X_test)):.2f}")
 ```
 
+    Train R2: 0.88
+    Test R2: 0.23
 
 
-
-    LinearRegression()
-
-
+### 💡 Outliers - by Borough
 
 
 ```python
-r2_score(y_train, model.predict(X_train))
+X = airbnb.copy()
+X = X.dropna(axis=0)
 ```
-
-
-
-
-    0.08879713072296502
-
-
-
-linear model still is not performing well
 
 
 ```python
-model = RandomForestRegressor()
-model.fit(X_train, y_train)
-r2_score(y_train, model.predict(X_train))
+fig, ax = plt.subplots(figsize=(10,10))
+sns.boxplot(x=X['neighbourhood_group'], y=X['price'], ax=ax)
+# ax.set_ylim(0, 1500)
 ```
 
 
 
 
-    0.8748702090177007
-
-
-
-
-```python
-r2_score(y_test, model.predict(X_test))
-```
-
-
-
-
-    0.14440978317556497
-
-
-
-
-```python
-plt.plot(y_test, model.predict(X_test), ls='', marker='.')
-```
-
-
-
-
-    [<matplotlib.lines.Line2D at 0x7f20938e3eb0>]
+    <AxesSubplot:xlabel='neighbourhood_group', ylabel='price'>
 
 
 
 
     
-![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_69_1.png)
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_63_1.png)
     
 
 
 
 ```python
-
+fig, ax = plt.subplots(figsize=(15,10))
+sns.kdeplot(hue=X['neighbourhood_group'], x=X['price'], ax=ax)
 ```
+
+
+
+
+    <AxesSubplot:xlabel='price', ylabel='Density'>
+
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_64_1.png)
+    
+
+
+
+```python
+X = X.loc[X.groupby('neighbourhood_group').apply(lambda x: x['price'] < (x['price'].std()*3)).unstack(level=0).any(axis=1)]
+```
+
+
+```python
+fig, (ax, ax_) = plt.subplots(1, 2, figsize=(20,10))
+sns.boxplot(x=X['neighbourhood_group'], y=X['price'], ax=ax)
+sns.kdeplot(hue=X['neighbourhood_group'], x=X['price'], ax=ax_)
+```
+
+
+
+
+    <AxesSubplot:xlabel='price', ylabel='Density'>
+
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_66_1.png)
+    
+
+
+
+```python
+y = X.pop('price')
+
+X_num = X.select_dtypes(exclude='object')
+X_num = X_num.drop(['id', 'host_id'], axis=1)
+
+X_cat = X.select_dtypes(include='object')
+X_cat = X_cat.drop(['name', 'host_name', 'last_review'], axis=1)
+enc = OneHotEncoder()
+X_enc = enc.fit_transform(X_cat).toarray()
+
+scaler = StandardScaler()
+X_std_num = scaler.fit_transform(X_num)
+
+X_std = np.hstack((X_enc, X_std_num))
+print(X_std.shape)
+print(y.shape)
+```
+
+    (38309, 232)
+    (38309,)
+
+
+#### Train/Eval
+
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(X_std, y, train_size=0.8, random_state=42)
+
+model = RandomForestRegressor(n_jobs=-1)
+model.fit(X_train, y_train)
+print(f"Train R2: {r2_score(y_train, model.predict(X_train)):.2f}")
+print(f"Test R2: {r2_score(y_test, model.predict(X_test)):.2f}")
+```
+
+    Train R2: 0.93
+    Test R2: 0.52
+
+
+
+```python
+fig, (ax, ax_) = plt.subplots(1, 2, figsize=(10,5))
+ax.plot(y_train, model.predict(X_train), ls='', marker=',')
+ax_.plot(y_test, model.predict(X_test), ls='', marker=',')
+```
+
+
+
+
+    [<matplotlib.lines.Line2D at 0x7f211ce29c40>]
+
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_70_1.png)
+    
+
+
+### 🌟 Bin Prices, Classifier Model
+
+
+```python
+X = airbnb.copy()
+X = X.dropna(axis=0)
+y = X.pop('price').values
+Y = y.reshape(-1,1)
+```
+
+
+```python
+labels = y.copy()
+labels[labels <= np.quantile(y, .25)] = 1
+labels[(labels > np.quantile(y, .25)) & (labels <= np.quantile(y, .5))] = 2
+labels[(labels > np.quantile(y, .5)) & (labels <= np.quantile(y, .75))] = 3
+labels[(labels > np.quantile(y, .75))] = 4
+```
+
+
+```python
+y = labels
+
+X_num = X.select_dtypes(exclude='object')
+X_num = X_num.drop(['id', 'host_id'], axis=1)
+
+X_cat = X.select_dtypes(include='object')
+X_cat = X_cat.drop(['name', 'host_name', 'last_review'], axis=1)
+enc = OneHotEncoder()
+X_enc = enc.fit_transform(X_cat).toarray()
+
+scaler = StandardScaler()
+X_std_num = scaler.fit_transform(X_num)
+
+X_std = np.hstack((X_enc, X_std_num))
+print(X_std.shape)
+print(y.shape)
+```
+
+    (38821, 233)
+    (38821,)
+
+
+#### Train/Eval
+
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(X_std, y, train_size=0.8, random_state=42)
+
+model = RandomForestClassifier(n_jobs=-1)
+model.fit(X_train, y_train)
+print(f"Train Acc: {accuracy_score(y_train, model.predict(X_train)):.2f}")
+print(f"Test Acc: {accuracy_score(y_test, model.predict(X_test)):.2f}")
+```
+
+    Train Acc: 1.00
+    Test Acc: 0.60
+
+
+
+```python
+y_pred = model.predict(X_train)
+print(classification_report(y_train, y_pred, zero_division=0))
+fig, ax = plt.subplots(1, 1, figsize = (8,7))
+sns.heatmap(confusion_matrix(y_train,y_pred), annot=True, ax=ax)
+```
+
+                  precision    recall  f1-score   support
+    
+               1       1.00      1.00      1.00      7986
+               2       1.00      1.00      1.00      7594
+               3       1.00      1.00      1.00      7878
+               4       1.00      1.00      1.00      7598
+    
+        accuracy                           1.00     31056
+       macro avg       1.00      1.00      1.00     31056
+    weighted avg       1.00      1.00      1.00     31056
+    
+
+
+
+
+
+    <AxesSubplot:>
+
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_77_2.png)
+    
+
+
+
+```python
+y_pred = model.predict(X_test)
+print(classification_report(y_test, y_pred, zero_division=0))
+fig, ax = plt.subplots(1, 1, figsize = (8,7))
+sns.heatmap(confusion_matrix(y_test,y_pred), annot=True, ax=ax)
+```
+
+                  precision    recall  f1-score   support
+    
+               1       0.70      0.80      0.74      1998
+               2       0.49      0.44      0.46      1846
+               3       0.50      0.47      0.48      1986
+               4       0.66      0.67      0.66      1935
+    
+        accuracy                           0.60      7765
+       macro avg       0.59      0.59      0.59      7765
+    weighted avg       0.59      0.60      0.59      7765
+    
+
+
+
+
+
+    <AxesSubplot:>
+
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_78_2.png)
+    
+
+
+### 👎 Cluster Prices, Classifier Model
+
+
+```python
+X = airbnb.copy()
+X = X.dropna(axis=0)
+y = X.pop('price').values
+Y = y.reshape(-1,1)
+```
+
+
+```python
+distortions = []
+inertias = []
+silhouette = []
+variance = []
+krange = 20
+for k in range(1,krange):
+
+    kmeans = KMeans(n_clusters=k)
+    kmeans.fit(Y)
+    y_kmeans = kmeans.predict(Y)
+    labels = kmeans.labels_
+
+    distortions.append(sum(np.min(cdist(Y, kmeans.cluster_centers_,
+                                        'euclidean'), axis=1)) / Y.shape[0])
+    inertias.append(kmeans.inertia_)
+
+    if k > 1:
+        silhouette.append(silhouette_score(Y, labels, metric = 'euclidean'))
+        variance.append(calinski_harabasz_score(Y, labels))
+```
+
+
+```python
+fig, [[ax1, ax2], [ax3, ax4]] = plt.subplots(2, 2, figsize=(10,10))
+ax1.plot(range(1,krange), distortions)
+ax2.plot(range(1,krange), inertias)
+ax3.plot(range(2,krange), silhouette)
+ax4.plot(range(2,krange), variance)
+```
+
+
+
+
+    [<matplotlib.lines.Line2D at 0x7f211ca89100>]
+
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_82_1.png)
+    
+
+
+
+```python
+kmeans = KMeans(n_clusters=5)
+kmeans.fit(Y)
+y_kmeans = kmeans.predict(Y)
+labels = kmeans.labels_
+```
+
+
+```python
+ks = kmeans.cluster_centers_
+ks = ks.flatten()
+ks = np.sort(ks)
+ks
+```
+
+
+
+
+    array([  87.29374822,  230.74992332,  647.13125   , 2728.375     ,
+           8749.75      ])
+
+
+
+
+```python
+edges = (np.diff(ks)/2 + ks[:-1]).astype(int) 
+bins = []
+for idx, edge in enumerate(edges):
+    if idx == 0:
+        bins.append(f"0-{edge}")
+    elif idx < len(edges):
+        bins.append(f"{edges[idx-1]}-{edge}")
+bins.append(f"{edge}+")
+bins  
+```
+
+
+
+
+    ['0-159', '159-438', '438-1687', '1687-5739', '5739+']
+
+
+
+
+```python
+pd.DataFrame(labels).value_counts(sort=False)
+```
+
+
+
+
+    0     9651
+    1        8
+    2      961
+    3    28153
+    4       48
+    dtype: int64
+
+
+
+
+```python
+y = labels
+
+X_num = X.select_dtypes(exclude='object')
+X_num = X_num.drop(['id', 'host_id'], axis=1)
+
+X_cat = X.select_dtypes(include='object')
+X_cat = X_cat.drop(['name', 'host_name', 'last_review'], axis=1)
+enc = OneHotEncoder()
+X_enc = enc.fit_transform(X_cat).toarray()
+
+scaler = StandardScaler()
+X_std_num = scaler.fit_transform(X_num)
+
+X_std = np.hstack((X_enc, X_std_num))
+print(X_std.shape)
+print(y.shape)
+```
+
+    (38821, 233)
+    (38821,)
+
+
+#### Train/Eval
+
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(X_std, y, train_size=0.8, random_state=42)
+
+model = RandomForestClassifier(n_jobs=-1)
+model.fit(X_train, y_train)
+print(f"Train Acc: {accuracy_score(y_train, model.predict(X_train)):.2f}")
+print(f"Test Acc: {accuracy_score(y_test, model.predict(X_test)):.2f}")
+```
+
+    Train Acc: 1.00
+    Test Acc: 0.81
+
+
+
+```python
+y_pred = model.predict(X_train)
+print(classification_report(y_train, y_pred, zero_division=0))
+fig, ax = plt.subplots(1, 1, figsize = (8,7))
+sns.heatmap(confusion_matrix(y_train,y_pred), annot=True, ax=ax)
+```
+
+                  precision    recall  f1-score   support
+    
+               0       1.00      1.00      1.00      7687
+               1       1.00      1.00      1.00         7
+               2       1.00      1.00      1.00       762
+               3       1.00      1.00      1.00     22561
+               4       1.00      1.00      1.00        39
+    
+        accuracy                           1.00     31056
+       macro avg       1.00      1.00      1.00     31056
+    weighted avg       1.00      1.00      1.00     31056
+    
+
+
+
+
+
+    <AxesSubplot:>
+
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_90_2.png)
+    
+
+
+
+```python
+y_pred = model.predict(X_test)
+print(classification_report(y_test, y_pred, zero_division=0))
+fig, ax = plt.subplots(1, 1, figsize = (8,7))
+sns.heatmap(confusion_matrix(y_test,y_pred), annot=True, ax=ax)
+```
+
+                  precision    recall  f1-score   support
+    
+               0       0.64      0.60      0.62      1964
+               1       0.00      0.00      0.00         1
+               2       0.71      0.14      0.23       199
+               3       0.86      0.91      0.88      5592
+               4       0.67      0.22      0.33         9
+    
+        accuracy                           0.81      7765
+       macro avg       0.58      0.37      0.41      7765
+    weighted avg       0.80      0.81      0.80      7765
+    
+
+
+
+
+
+    <AxesSubplot:>
+
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_91_2.png)
+    
+
+
+### 🌟 PCA, Feature Reduction
+
+The results in Bin Price, Classifier Model indicate overfitting. Let's see if we can reduce the cardinality of our One Hot features
+
+
+```python
+X = airbnb.copy()
+X = X.dropna(axis=0)
+y = X.pop('price').values
+Y = y.reshape(-1,1)
+
+bins = 10
+quantiles = bins + 1
+labels = y.copy()
+for idx, quant in enumerate(np.linspace(0,1,quantiles)):
+    if idx == 0:
+        prev_quant = quant
+        continue
+    if idx == 1:
+        labels[labels <= np.quantile(y, quant)] = 1
+    elif quant < 1:
+        labels[(labels > np.quantile(y, prev_quant)) & (labels <= np.quantile(y, quant))] = idx
+    else:
+        labels[(labels > np.quantile(y, prev_quant))] = idx
+    prev_quant = quant
+print([np.quantile(y, quant) for quant in np.linspace(0,1,quantiles)])
+y = labels
+
+X_num = X.select_dtypes(exclude='object')
+X_num = X_num.drop(['id', 'host_id'], axis=1)
+
+X_cat = X.select_dtypes(include='object')
+X_cat = X_cat.drop(['name', 'host_name', 'last_review'], axis=1)
+enc = OneHotEncoder()
+X_enc = enc.fit_transform(X_cat).toarray()
+pca = PCA(n_components=3)
+X_pca = pca.fit_transform(X_enc)
+print(pca.explained_variance_)
+
+scaler = StandardScaler()
+X_std_num = scaler.fit_transform(X_num)
+
+X_std = np.hstack((X_pca, X_std_num))
+print(X_std.shape)
+print(y.shape)
+```
+
+    [0.0, 49.0, 60.0, 75.0, 90.0, 101.0, 125.0, 150.0, 190.0, 250.0, 10000.0]
+    [0.52595687 0.42901998 0.16673031]
+    (38821, 10)
+    (38821,)
+
+
+#### Train/Eval
+
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(X_std, y, train_size=0.8, random_state=42)
+
+model = RandomForestClassifier(n_jobs=-1)
+model.fit(X_train, y_train)
+print(f"Train Acc: {accuracy_score(y_train, model.predict(X_train)):.2f}")
+print(f"Test Acc: {accuracy_score(y_test, model.predict(X_test)):.2f}")
+
+y_pred = model.predict(X_train)
+print("Training Confusion Matrix")
+print(classification_report(y_train, y_pred, zero_division=0))
+fig, ax = plt.subplots(1, 1, figsize = (8,7))
+sns.heatmap(confusion_matrix(y_train,y_pred), annot=True, ax=ax)
+plt.show()
+
+y_pred = model.predict(X_test)
+print("Testing Confusion Matrix")
+print(classification_report(y_test, y_pred, zero_division=0))
+fig, ax = plt.subplots(1, 1, figsize = (8,7))
+sns.heatmap(confusion_matrix(y_test,y_pred), annot=True, ax=ax)
+```
+
+    Train Acc: 1.00
+    Test Acc: 0.32
+    Training Confusion Matrix
+                  precision    recall  f1-score   support
+    
+               1       1.00      1.00      1.00      3148
+               2       1.00      1.00      1.00      3241
+               3       1.00      1.00      1.00      3458
+               4       1.00      1.00      1.00      3075
+               5       1.00      1.00      1.00      2658
+               6       1.00      1.00      1.00      3198
+               7       1.00      1.00      1.00      3426
+               8       1.00      1.00      1.00      2759
+               9       1.00      1.00      1.00      3274
+              10       1.00      1.00      1.00      2819
+    
+        accuracy                           1.00     31056
+       macro avg       1.00      1.00      1.00     31056
+    weighted avg       1.00      1.00      1.00     31056
+    
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_95_1.png)
+    
+
+
+    Testing Confusion Matrix
+                  precision    recall  f1-score   support
+    
+               1       0.51      0.56      0.54       840
+               2       0.36      0.41      0.39       794
+               3       0.30      0.31      0.30       824
+               4       0.26      0.23      0.25       782
+               5       0.17      0.15      0.16       604
+               6       0.24      0.23      0.24       813
+               7       0.25      0.26      0.25       842
+               8       0.25      0.19      0.22       736
+               9       0.32      0.35      0.33       818
+              10       0.46      0.48      0.47       712
+    
+        accuracy                           0.32      7765
+       macro avg       0.31      0.32      0.31      7765
+    weighted avg       0.32      0.32      0.32      7765
+    
+
+
+
+
+
+    <AxesSubplot:>
+
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_95_4.png)
+    
+
+
+### 🔮 Last Review Date, PCA for Outlier Removal, Impute
+
+If I wanted to spend more time on this:
+
+1. remove outliers with PCA
+    * the issue with our outlier removal previously, is that we are conditioning on `y`. As we can't _know_ `y` in a production setting, this makes our model suspetible to underdetecting true, high-y value signal
+    * removing outliers based on the input, `X` is prefered, and we might try this with PCA
+2. turn `last_review_date` into a number (counts of days)
+    * this would change a string (to be one hot encoded) column to a number column (avoids curse of dimensionality)
+3. impute missing values
+    * we're currently omitting about 20% of our data points, it may give us a boost to impute or otherwise estimate these missing values
+
+## Hyperparameter Optimization
+
+### Round 1
+
+We'll start with a broad, shallow search (few trees)
+
+
+```python
+param_grid = {'bootstrap': [True, False],
+              'criterion': ['gini', 'entropy'],
+              'min_samples_split': [2, 4, 6],
+              'min_samples_leaf': [1, 3, 5],
+              'max_features': ['auto', 'sqrt', 'log2'],
+              'class_weight': ['balanced', 'balanced_subsample', None],
+              'n_estimators': [1, 5]}
+
+grid = GridSearchCV(RandomForestClassifier(), param_grid, cv=5, n_jobs=-1, verbose=3)
+```
+
+
+```python
+grid.fit(X_train, y_train)
+print(grid.best_params_)
+```
+
+
+```python
+print(grid.best_params_)
+```
+
+    {'bootstrap': False, 'class_weight': 'balanced', 'criterion': 'gini', 'max_features': 'sqrt', 'min_samples_leaf': 5, 'min_samples_split': 2, 'n_estimators': 5}
+
+
+
+```python
+model = grid.best_estimator_
+model.fit(X_train, y_train)
+print(f"Train Acc: {accuracy_score(y_train, model.predict(X_train)):.2f}")
+print(f"Test Acc: {accuracy_score(y_test, model.predict(X_test)):.2f}")
+
+y_pred = model.predict(X_train)
+print("Training Confusion Matrix")
+print(classification_report(y_train, y_pred, zero_division=0))
+fig, ax = plt.subplots(1, 1, figsize = (8,7))
+sns.heatmap(confusion_matrix(y_train,y_pred), annot=True, ax=ax)
+plt.show()
+
+y_pred = model.predict(X_test)
+print("Testing Confusion Matrix")
+print(classification_report(y_test, y_pred, zero_division=0))
+fig, ax = plt.subplots(1, 1, figsize = (8,7))
+sns.heatmap(confusion_matrix(y_test,y_pred), annot=True, ax=ax)
+```
+
+    Train Acc: 0.79
+    Test Acc: 0.30
+    Training Confusion Matrix
+                  precision    recall  f1-score   support
+    
+               1       0.80      0.89      0.84      3148
+               2       0.79      0.83      0.81      3241
+               3       0.82      0.74      0.78      3458
+               4       0.77      0.76      0.77      3075
+               5       0.74      0.79      0.77      2658
+               6       0.79      0.74      0.76      3198
+               7       0.81      0.71      0.76      3426
+               8       0.77      0.83      0.80      2759
+               9       0.81      0.77      0.79      3274
+              10       0.80      0.86      0.83      2819
+    
+        accuracy                           0.79     31056
+       macro avg       0.79      0.79      0.79     31056
+    weighted avg       0.79      0.79      0.79     31056
+    
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_102_1.png)
+    
+
+
+    Testing Confusion Matrix
+                  precision    recall  f1-score   support
+    
+               1       0.49      0.58      0.53       840
+               2       0.33      0.37      0.35       794
+               3       0.28      0.24      0.26       824
+               4       0.23      0.21      0.22       782
+               5       0.17      0.21      0.18       604
+               6       0.24      0.20      0.22       813
+               7       0.23      0.20      0.21       842
+               8       0.23      0.22      0.22       736
+               9       0.29      0.27      0.28       818
+              10       0.41      0.47      0.44       712
+    
+        accuracy                           0.30      7765
+       macro avg       0.29      0.30      0.29      7765
+    weighted avg       0.29      0.30      0.29      7765
+    
+
+
+
+
+
+    <AxesSubplot:>
+
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_102_4.png)
+    
+
+
+
+```python
+gs_results = pd.DataFrame(grid.cv_results_)
+params = list(gs_results.columns[gs_results.columns.str.contains('param')].values)
+params.pop(-1)
+display(gs_results.head())
+print(params)
+```
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mean_fit_time</th>
+      <th>std_fit_time</th>
+      <th>mean_score_time</th>
+      <th>std_score_time</th>
+      <th>param_bootstrap</th>
+      <th>param_class_weight</th>
+      <th>param_criterion</th>
+      <th>param_max_features</th>
+      <th>param_min_samples_leaf</th>
+      <th>param_min_samples_split</th>
+      <th>...</th>
+      <th>split0_test_score</th>
+      <th>split1_test_score</th>
+      <th>split2_test_score</th>
+      <th>split3_test_score</th>
+      <th>split4_test_score</th>
+      <th>split5_test_score</th>
+      <th>split6_test_score</th>
+      <th>mean_test_score</th>
+      <th>std_test_score</th>
+      <th>rank_test_score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.118039</td>
+      <td>0.002019</td>
+      <td>0.004001</td>
+      <td>0.000212</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>gini</td>
+      <td>auto</td>
+      <td>1</td>
+      <td>2</td>
+      <td>...</td>
+      <td>0.230787</td>
+      <td>0.235745</td>
+      <td>0.239351</td>
+      <td>0.232139</td>
+      <td>0.247520</td>
+      <td>0.238278</td>
+      <td>0.222272</td>
+      <td>0.235156</td>
+      <td>0.007317</td>
+      <td>610</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.518118</td>
+      <td>0.006517</td>
+      <td>0.012629</td>
+      <td>0.000356</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>gini</td>
+      <td>auto</td>
+      <td>1</td>
+      <td>2</td>
+      <td>...</td>
+      <td>0.262114</td>
+      <td>0.268425</td>
+      <td>0.253324</td>
+      <td>0.281271</td>
+      <td>0.273670</td>
+      <td>0.272543</td>
+      <td>0.259693</td>
+      <td>0.267291</td>
+      <td>0.008820</td>
+      <td>309</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.113497</td>
+      <td>0.004069</td>
+      <td>0.003702</td>
+      <td>0.000130</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>gini</td>
+      <td>auto</td>
+      <td>1</td>
+      <td>4</td>
+      <td>...</td>
+      <td>0.231463</td>
+      <td>0.231012</td>
+      <td>0.236196</td>
+      <td>0.249268</td>
+      <td>0.243012</td>
+      <td>0.240532</td>
+      <td>0.229937</td>
+      <td>0.237345</td>
+      <td>0.006712</td>
+      <td>567</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.482682</td>
+      <td>0.004648</td>
+      <td>0.012108</td>
+      <td>0.000515</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>gini</td>
+      <td>auto</td>
+      <td>1</td>
+      <td>4</td>
+      <td>...</td>
+      <td>0.268875</td>
+      <td>0.277890</td>
+      <td>0.272481</td>
+      <td>0.275186</td>
+      <td>0.275248</td>
+      <td>0.274121</td>
+      <td>0.272543</td>
+      <td>0.273764</td>
+      <td>0.002630</td>
+      <td>269</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.104504</td>
+      <td>0.004581</td>
+      <td>0.003597</td>
+      <td>0.000109</td>
+      <td>True</td>
+      <td>balanced</td>
+      <td>gini</td>
+      <td>auto</td>
+      <td>1</td>
+      <td>6</td>
+      <td>...</td>
+      <td>0.232590</td>
+      <td>0.227406</td>
+      <td>0.237773</td>
+      <td>0.246338</td>
+      <td>0.249549</td>
+      <td>0.232191</td>
+      <td>0.238954</td>
+      <td>0.237829</td>
+      <td>0.007357</td>
+      <td>559</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 22 columns</p>
+</div>
+
+
+    ['param_bootstrap', 'param_class_weight', 'param_criterion', 'param_max_features', 'param_min_samples_leaf', 'param_min_samples_split', 'param_n_estimators']
+
+
+
+```python
+target = 'mean_test_score'
+moodsdf = pd.DataFrame()
+
+for col in params:
+  for truff in gs_results[col].unique():
+    try:
+        group = gs_results.loc[gs_results[col] == truff][target]
+        pop = gs_results.loc[~(gs_results[col] == truff)][target]
+        stat, p, m, table = stats.median_test(group, pop)
+        median = np.median(group)
+        mean = np.mean(group)
+        size = len(group)
+
+        moodsdf = pd.concat([moodsdf, 
+                                  pd.DataFrame([col, truff, 
+                                                stat, p, m, mean, median, size,
+                                                 table]).T])
+    except:
+        print(col, truff)
+moodsdf.columns = ['descriptor', 'group', 'pearsons_chi_square', 'p_value', 
+                'grand_median', 'group_mean', 'group_median', 'size', 
+                'table']
+moodsdf['p_value'] = moodsdf['p_value'].astype(float)
+print(moodsdf.shape)
+
+confidence_level = 0.05
+moodsdf = moodsdf.loc[(moodsdf['p_value'] < confidence_level)].sort_values('group_median')
+
+moodsdf = moodsdf.sort_values('group_median').reset_index(drop=True)
+print("Clearing high p-value...")
+print(moodsdf.shape)
+```
+
+    param_class_weight None
+    (17, 9)
+    Clearing high p-value...
+    (2, 9)
+
+
+
+```python
+moodsdf
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>descriptor</th>
+      <th>group</th>
+      <th>pearsons_chi_square</th>
+      <th>p_value</th>
+      <th>grand_median</th>
+      <th>group_mean</th>
+      <th>group_median</th>
+      <th>size</th>
+      <th>table</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>param_n_estimators</td>
+      <td>1</td>
+      <td>644.006173</td>
+      <td>4.494276e-142</td>
+      <td>0.260964</td>
+      <td>0.243444</td>
+      <td>0.243093</td>
+      <td>324</td>
+      <td>[[0, 324], [324, 0]]</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>param_n_estimators</td>
+      <td>5</td>
+      <td>644.006173</td>
+      <td>4.494276e-142</td>
+      <td>0.260964</td>
+      <td>0.280889</td>
+      <td>0.281234</td>
+      <td>324</td>
+      <td>[[324, 0], [0, 324]]</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+for param in params:
+    sns.boxplot(x=gs_results[param], y=gs_results[target])
+    plt.show()
+```
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_106_0.png)
+    
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_106_1.png)
+    
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_106_2.png)
+    
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_106_3.png)
+    
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_106_4.png)
+    
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_106_5.png)
+    
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_106_6.png)
+    
+
+
+### Round 2
+
+Let's take those best parameters and dig a little deaper
+
+
+```python
+print(grid.best_params_)
+```
+
+    {'bootstrap': False, 'class_weight': 'balanced', 'criterion': 'gini', 'max_features': 'sqrt', 'min_samples_leaf': 5, 'min_samples_split': 2, 'n_estimators': 5}
+
+
+
+```python
+param_grid = {'bootstrap': [True, False],
+              'criterion': ['gini', 'entropy']}
+
+grid = GridSearchCV(RandomForestClassifier(min_samples_leaf=5,
+                                           min_samples_split=2,
+                                           max_features='sqrt',
+                                           class_weight='balanced',
+                                           n_estimators=100), param_grid, cv=5, n_jobs=-1, verbose=2)
+```
+
+
+```python
+grid.fit(X_train, y_train)
+print(grid.best_params_)
+```
+
+    Fitting 5 folds for each of 4 candidates, totalling 20 fits
+    {'bootstrap': False, 'criterion': 'entropy'}
+
+
+
+```python
+gs_results2 = pd.DataFrame(grid.cv_results_)
+params = list(gs_results2.columns[gs_results2.columns.str.contains('param')].values)
+params.pop(-1)
+display(gs_results2.head())
+print(params)
+```
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mean_fit_time</th>
+      <th>std_fit_time</th>
+      <th>mean_score_time</th>
+      <th>std_score_time</th>
+      <th>param_bootstrap</th>
+      <th>param_criterion</th>
+      <th>params</th>
+      <th>split0_test_score</th>
+      <th>split1_test_score</th>
+      <th>split2_test_score</th>
+      <th>split3_test_score</th>
+      <th>split4_test_score</th>
+      <th>mean_test_score</th>
+      <th>std_test_score</th>
+      <th>rank_test_score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>20.133523</td>
+      <td>0.372951</td>
+      <td>0.581618</td>
+      <td>0.020547</td>
+      <td>True</td>
+      <td>gini</td>
+      <td>{'bootstrap': True, 'criterion': 'gini'}</td>
+      <td>0.306825</td>
+      <td>0.305909</td>
+      <td>0.309612</td>
+      <td>0.314281</td>
+      <td>0.307036</td>
+      <td>0.308733</td>
+      <td>0.003035</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>52.458941</td>
+      <td>0.532249</td>
+      <td>0.603756</td>
+      <td>0.138301</td>
+      <td>True</td>
+      <td>entropy</td>
+      <td>{'bootstrap': True, 'criterion': 'entropy'}</td>
+      <td>0.311494</td>
+      <td>0.297859</td>
+      <td>0.314925</td>
+      <td>0.312188</td>
+      <td>0.304460</td>
+      <td>0.308185</td>
+      <td>0.006211</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>31.101482</td>
+      <td>0.656385</td>
+      <td>0.763153</td>
+      <td>0.090014</td>
+      <td>False</td>
+      <td>gini</td>
+      <td>{'bootstrap': False, 'criterion': 'gini'}</td>
+      <td>0.306665</td>
+      <td>0.303494</td>
+      <td>0.314603</td>
+      <td>0.313798</td>
+      <td>0.302689</td>
+      <td>0.308250</td>
+      <td>0.005044</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>53.006182</td>
+      <td>7.189164</td>
+      <td>0.337193</td>
+      <td>0.088254</td>
+      <td>False</td>
+      <td>entropy</td>
+      <td>{'bootstrap': False, 'criterion': 'entropy'}</td>
+      <td>0.307147</td>
+      <td>0.303333</td>
+      <td>0.317501</td>
+      <td>0.313476</td>
+      <td>0.307841</td>
+      <td>0.309860</td>
+      <td>0.005010</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+    ['param_bootstrap', 'param_criterion']
+
+
+
+```python
+for param in params:
+    sns.boxplot(x=gs_results[param], y=gs_results[target])
+    plt.show()
+```
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_112_0.png)
+    
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_112_1.png)
+    
+
+
+### Round 3
+
+And now tune model complexity
+
+
+```python
+# Cell for Exercise 2
+r2 = []
+for n_estimators in range(10,100,10):
+    model = RandomForestClassifier(n_estimators=n_estimators,
+                                  bootstrap=False,
+                                  criterion='entropy',
+                                  min_samples_leaf=5,
+                                   min_samples_split=2,
+                                   max_features='sqrt',
+                                   class_weight='balanced')
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    r2.append([r2_score(y_train, model.predict(X_train)),
+    r2_score(y_test, model.predict(X_test))])
+```
+
+
+```python
+score = np.array(r2)
+score1 = score[:,0]
+score2 = score[:,1]
+fig, ax = plt.subplots(figsize=(10,5))
+ax.plot(range(10,100,10), score1, ls='', marker='.', color='blue', label='Train')
+ax.plot(range(10,100,10), score2, ls='', marker='o', color='red', label='Test')
+ax.set_title("Scores with Increasing Model Complexity")
+ax.set_xlabel("Trees in the Forest")
+ax.set_ylabel("$R^2$")
+ax.legend()
+```
+
+
+
+
+    <matplotlib.legend.Legend at 0x7f20e6d99a00>
+
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_115_1.png)
+    
+
+
+
+```python
+model = grid.best_estimator_
+model.n_estimators = 80
+model.fit(X_train, y_train)
+print(f"Train Acc: {accuracy_score(y_train, model.predict(X_train)):.2f}")
+print(f"Test Acc: {accuracy_score(y_test, model.predict(X_test)):.2f}")
+
+y_pred = model.predict(X_train)
+print("Training Confusion Matrix")
+print(classification_report(y_train, y_pred, zero_division=0))
+fig, ax = plt.subplots(1, 1, figsize = (8,7))
+sns.heatmap(confusion_matrix(y_train,y_pred), annot=True, ax=ax)
+plt.show()
+
+y_pred = model.predict(X_test)
+print("Testing Confusion Matrix")
+print(classification_report(y_test, y_pred, zero_division=0))
+fig, ax = plt.subplots(1, 1, figsize = (8,7))
+sns.heatmap(confusion_matrix(y_test,y_pred), annot=True, ax=ax)
+```
+
+    Train Acc: 0.90
+    Test Acc: 0.32
+    Training Confusion Matrix
+                  precision    recall  f1-score   support
+    
+               1       0.86      0.95      0.90      3148
+               2       0.88      0.91      0.90      3241
+               3       0.92      0.86      0.89      3458
+               4       0.90      0.88      0.89      3075
+               5       0.87      0.91      0.89      2658
+               6       0.91      0.86      0.89      3198
+               7       0.93      0.85      0.89      3426
+               8       0.90      0.93      0.91      2759
+               9       0.91      0.89      0.90      3274
+              10       0.88      0.94      0.91      2819
+    
+        accuracy                           0.90     31056
+       macro avg       0.90      0.90      0.90     31056
+    weighted avg       0.90      0.90      0.90     31056
+    
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_116_1.png)
+    
+
+
+    Testing Confusion Matrix
+                  precision    recall  f1-score   support
+    
+               1       0.51      0.60      0.55       840
+               2       0.34      0.38      0.36       794
+               3       0.30      0.26      0.28       824
+               4       0.27      0.24      0.26       782
+               5       0.17      0.21      0.19       604
+               6       0.25      0.22      0.23       813
+               7       0.25      0.21      0.23       842
+               8       0.25      0.24      0.24       736
+               9       0.33      0.30      0.31       818
+              10       0.44      0.54      0.48       712
+    
+        accuracy                           0.32      7765
+       macro avg       0.31      0.32      0.31      7765
+    weighted avg       0.31      0.32      0.32      7765
+    
+
+
+
+
+
+    <AxesSubplot:>
+
+
+
+
+    
+![png](SOLN_X1_Thinking_Data_files/SOLN_X1_Thinking_Data_116_4.png)
+    
+
+
+After all that work we don't get much lift from the random forest with default hyperparameters
+
+## Conclusion
+
+### The Final Classification Model
+
+Final model had an F1 score ranging from 19-55% depending on class and a total accuracy of 32%
+
+This model could be used to suggest a price band for would-be airbnb hosts in NYC; or a price estimator to assess how changes in listing attributes wil affect price. A potential pitfall could be that new airbnb hosts will not have many total reviews or high variance in the reviews per month.
+
+We can currate price signal from the available feature inputs:
+
+* `neighbourhood_group`
+* `neighbourhood`
+* `longitude`/`latitude`
+* `room_type`
+* `price`
+* `minimum_nights`
+* `number_of_reviews`
+* `reviews_per_month`
+* `calculated_host_listings_count`
+* `availability_365`
+
+What worked:
+
+* dropping nans row-wise allowed us to keep the `reviews_per_month` column, which gave us an \\(R^2\\) boost of 10%
+* converting from a regression problem to a classification problem allowed us to deal with the long, high-price tail
+* converting one hot encoded vectors to the first principal components kept us from overfitting (although this was not important for the random forrest model)
+
+More to try:
+
+* change `last_review_date` from `datetime` or `str` to `int`
+* use PCA for outlier removal based on the input data `X`
+* imput missing values for `reviews_per_month` to capture an additional 10,000 datapoints
+
+### Additional Strategies
+
+Removing outliers based on the target variable, `price`, could also be a valid strategy. If we were to employ the model, we would have to be transparent that it should be used to predict prices in the sub $700 range, which is most of the Airbnb business in NYC anyway. At the end of the day, our decisions about model creation need to serve the business need. 
