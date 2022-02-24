@@ -7,7 +7,7 @@ Welcome to Data Science Foundations, my name is [Wesley](https://wesleybeckner.g
 
 Visit the [github repo](https://github.com/wesleybeckner/data_science_foundations) to access all materials and code for this class 
 
-This is part II of a multi-part lesson path. Checkout [Python Foundations](https://wesleybeckner.github.io/python_foundations) for part I
+This is part II of a multi-part lesson path. Checkout [Python Foundations](https://wesleybeckner.github.io/python_foundations) for part I and [General Applications of Neural Networks](https://wesleybeckner.github.io/general_applications_of_neural_networks) for part III
 
 Access the [solutions](https://github.com/wesleybeckner/data_science_foundations/tree/main/notebooks/solutions) if you get stuck 
 
