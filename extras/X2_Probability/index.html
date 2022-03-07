@@ -850,6 +850,14 @@
 <p>
 <script type="math/tex; mode=display"> P(A|B) = \frac{P(B|A) * P(A)}{P(B)} = \frac{P(A \cap B)}{P(B)}</script>
 </p>
+<p>Also formulated this way</p>
+<p>
+<script type="math/tex; mode=display"> P(belief|data) = \frac{P(data|belief) * P(belief)}{P(data)} </script>
+</p>
+<p><em>The posterior, the likelihood, and the prior</em></p>
+<p>
+<script type="math/tex; mode=display"> The \space posterior \space probability = \frac{Likelihood * prior \space probability}{observed data} </script>
+</p>
 <p>Where \(\cap\) is the intersection of \(A\) and \(B\).</p>
 <h3 id="q1_1">Q1<a class="headerlink" href="#q1_1" title="Permanent link">&para;</a></h3>
 <p>Suppose a family has 2 children, one of which is a boy. What is the probability that both children are boys?</p>
@@ -857,6 +865,8 @@
 <span class="c1"># a boy; a girl</span>
 <span class="c1"># a girl; a boy</span>
 <span class="c1"># a boy; a boy</span>
+<span class="c1"># a girl; a girl - not included</span>
+<span class="c1"># answer - 1/3</span>
 </code></pre></div>
 
 <h3 id="q2_1">Q2<a class="headerlink" href="#q2_1" title="Permanent link">&para;</a></h3>
@@ -871,9 +881,15 @@
 <span class="c1"># (4*4)/(4*17)</span>
 <span class="c1"># multiplying out still yields</span>
 <span class="c1"># 12/51</span>
+
+<span class="c1"># 1/4 * 12/51 + 1/4 * 12/51 + 1/4 * 12/51 + 1/4 * 12/51 = 12/51</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>0.9411764705882353
+<div class="codehilite"><pre><span></span><code>0.23529411764705882
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># prob(a|b) = (prob(b|a)*prob(a)) / prob(b) = intersect(a|b) / prob(b)</span>
+<span class="c1"># (1/4) * (12/51) / </span>
 </code></pre></div>
 
 <h3 id="q3_1">Q3<a class="headerlink" href="#q3_1" title="Permanent link">&para;</a></h3>

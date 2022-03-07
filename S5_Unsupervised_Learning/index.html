@@ -469,6 +469,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#question-1-differentiating-pca-from-linear-regression" class="md-nav__link">
+    🙋‍♀️ Question 1: Differentiating PCA from linear regression
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#517-pca-for-visualization" class="md-nav__link">
     5.1.7 PCA for visualization
   </a>
@@ -537,8 +544,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#question-1-comparing-metrics" class="md-nav__link">
-    🙋‍♀️ Question 1: Comparing Metrics
+  <a href="#question-2-comparing-metrics" class="md-nav__link">
+    🙋‍♀️ Question 2: Comparing Metrics
   </a>
   
 </li>
@@ -1011,6 +1018,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#question-1-differentiating-pca-from-linear-regression" class="md-nav__link">
+    🙋‍♀️ Question 1: Differentiating PCA from linear regression
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#517-pca-for-visualization" class="md-nav__link">
     5.1.7 PCA for visualization
   </a>
@@ -1079,8 +1093,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#question-1-comparing-metrics" class="md-nav__link">
-    🙋‍♀️ Question 1: Comparing Metrics
+  <a href="#question-2-comparing-metrics" class="md-nav__link">
+    🙋‍♀️ Question 2: Comparing Metrics
   </a>
   
 </li>
@@ -1686,6 +1700,11 @@ Eigenvalues
 </code></pre></div>
 
 <p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_50_1.png" /></p>
+<h3 id="question-1-differentiating-pca-from-linear-regression">🙋‍♀️ Question 1: Differentiating PCA from linear regression<a class="headerlink" href="#question-1-differentiating-pca-from-linear-regression" title="Permanent link">&para;</a></h3>
+<p>How is PCA different from linear regression?</p>
+<blockquote>
+<p>PCA tries to find a best fit line through the data points but it minimizes the orthogonal distance to the model line where as Linear Regression minimizes distance from the perspective of the axis you're regressing with respect to. Explore more <a href="https://shankarmsy.github.io/posts/pca-vs-lr.html">here</a></p>
+</blockquote>
 <p><a name='3.1.2'></a></p>
 <h3 id="517-pca-for-visualization">5.1.7 PCA for visualization<a class="headerlink" href="#517-pca-for-visualization" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
@@ -1705,7 +1724,7 @@ Eigenvalues
 <div class="codehilite"><pre><span></span><code>Text(0, 0.5, &#39;Second PC&#39;)
 </code></pre></div>
 
-<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_52_1.png" /></p>
+<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_53_1.png" /></p>
 <p><a name='3.1.3'></a></p>
 <h3 id="518-enrichment-pca-as-outlier-removal-and-noise-filtering">🌭 5.1.8 Enrichment: PCA as Outlier Removal and Noise Filtering<a class="headerlink" href="#518-enrichment-pca-as-outlier-removal-and-noise-filtering" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
@@ -1747,7 +1766,7 @@ Eigenvalues
 <span class="c1"># print(r2_score(y_train, model.predict(X_train)))</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_57_0.png" /></p>
+<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_58_0.png" /></p>
 <div class="codehilite"><pre><span></span><code>0.9634516142421967
 0.953295487875815
 </code></pre></div>
@@ -1773,7 +1792,7 @@ Eigenvalues
 <div class="codehilite"><pre><span></span><code>Text(0, 0.5, &#39;Second PC&#39;)
 </code></pre></div>
 
-<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_59_1.png" /></p>
+<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_60_1.png" /></p>
 <p>It is fairly obvious under these two dimensions that there are two clusters. The K-means algorithm automatically pics this out</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
 <span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
@@ -1787,7 +1806,7 @@ Eigenvalues
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">centers</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">centers</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_61_0.png" /></p>
+<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_62_0.png" /></p>
 <p>wa-la! Our simple unsupervised algorithm does a pretty good job of differentiating between the red and white wine clusters.</p>
 <p><a name='3.2.1'></a></p>
 <h3 id="521-the-algorithm-expectation-maximization">5.2.1 The Algorithm: Expectation-Maximization<a class="headerlink" href="#521-the-algorithm-expectation-maximization" title="Permanent link">&para;</a></h3>
@@ -1833,7 +1852,7 @@ Eigenvalues
 </li>
 </ol>
 <p>And there are many other <a href="https://scikit-learn.org/stable/modules/clustering.html#clustering-performance-evaluation">methods</a> of evaluating cluster assignment performance</p>
-<h3 id="question-1-comparing-metrics">🙋‍♀️ Question 1: Comparing Metrics<a class="headerlink" href="#question-1-comparing-metrics" title="Permanent link">&para;</a></h3>
+<h3 id="question-2-comparing-metrics">🙋‍♀️ Question 2: Comparing Metrics<a class="headerlink" href="#question-2-comparing-metrics" title="Permanent link">&para;</a></h3>
 <p>What is the primary difference between Distortion, Inertia vs Silhouette, Calinksi?</p>
 <div class="codehilite"><pre><span></span><code><span class="n">distortions</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">inertias</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1866,7 +1885,7 @@ Eigenvalues
 <div class="codehilite"><pre><span></span><code>[&lt;matplotlib.lines.Line2D at 0x7f67fc5d8bb0&gt;]
 </code></pre></div>
 
-<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_69_1.png" /></p>
+<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_70_1.png" /></p>
 <div class="codehilite"><pre><span></span><code><span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">kmeans</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_pca</span><span class="p">)</span>
 <span class="n">y_kmeans</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_pca</span><span class="p">)</span>
@@ -1878,7 +1897,7 @@ Eigenvalues
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">centers</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">centers</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_70_0.png" /></p>
+<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_71_0.png" /></p>
 <p><a name='3.3'></a></p>
 <h2 id="53-gaussian-mixture-models">5.3 Gaussian Mixture Models<a class="headerlink" href="#53-gaussian-mixture-models" title="Permanent link">&para;</a></h2>
 <p><a href="#top">back to top</a></p>
@@ -1891,7 +1910,7 @@ Eigenvalues
             <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">);</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_72_0.png" /></p>
+<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_73_0.png" /></p>
 <p>But because GMM is a probablistic model, we can visualize the certainty with which we assign these clusters.</p>
 <div class="codehilite"><pre><span></span><code><span class="n">probs</span> <span class="o">=</span> <span class="n">gmm</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_pca</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">probs</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
@@ -1927,7 +1946,7 @@ Eigenvalues
             <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">);</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_76_0.png" /></p>
+<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_77_0.png" /></p>
 <p><a name='3.3.1'></a></p>
 <h3 id="531-generalizing-e-m-for-gmms">5.3.1 Generalizing E-M for GMMs<a class="headerlink" href="#531-generalizing-e-m-for-gmms" title="Permanent link">&para;</a></h3>
 <p><a href="#top">back to top</a></p>
@@ -1986,7 +2005,7 @@ Eigenvalues
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]);</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_80_0.png" /></p>
+<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_81_0.png" /></p>
 <p>As a side note, as a clustering model, the GMM is not particularly useful:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">gmm2</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">covariance_type</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </code></pre></div>
@@ -1994,19 +2013,19 @@ Eigenvalues
 <div class="codehilite"><pre><span></span><code><span class="n">plot_gmm</span><span class="p">(</span><span class="n">gmm2</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_83_0.png" /></p>
+<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_84_0.png" /></p>
 <p>But if we use the GMM as a density estimator on the underlying data, rather than as a clustering algorithm, we find a completely different use case:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">gmm16</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">covariance_type</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">plot_gmm</span><span class="p">(</span><span class="n">gmm16</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_85_0.png" /></p>
+<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_86_0.png" /></p>
 <p>Now, with the distributions drawn, we can assemble entirely new data:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">Xnew</span> <span class="o">=</span> <span class="n">gmm16</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">400</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">Xnew</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">Xnew</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]);</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_87_0.png" /></p>
+<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_88_0.png" /></p>
 <p><a name='x.3.2.1'></a></p>
 <h4 id="5321-determining-the-number-of-components">5.3.2.1 Determining the number of components<a class="headerlink" href="#5321-determining-the-number-of-components" title="Permanent link">&para;</a></h4>
 <p><a href="#top">back to top</a></p>
@@ -2026,18 +2045,18 @@ Eigenvalues
 <div class="codehilite"><pre><span></span><code>Text(0, 0.5, &#39;est. prediction error&#39;)
 </code></pre></div>
 
-<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_89_1.png" /></p>
+<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_90_1.png" /></p>
 <p>Both AIC and BIC capture a local minimum on the order of 6 Gaussians. This is where the model captures the overall circular modality of the data. However it totally misses the circumscribed nature of the two circles. Increasing this number to 30-40 gaussians captures this feature of the data. The AIC score reflects this while the BIC score (although captures a local minima in the area) does not define this as a global optimum.</p>
 <div class="codehilite"><pre><span></span><code><span class="n">gmmNew</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">covariance_type</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">plot_gmm</span><span class="p">(</span><span class="n">gmmNew</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">data_alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_91_0.png" /></p>
+<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_92_0.png" /></p>
 <div class="codehilite"><pre><span></span><code><span class="n">Xnew</span> <span class="o">=</span> <span class="n">gmmNew</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">400</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">Xnew</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">Xnew</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]);</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_92_0.png" /></p>
+<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_93_0.png" /></p>
 <h4 id="exercise-2-determine-number-of-components-for-circular-moons">🏋️ Exercise 2: Determine Number of Components for Circular Moons<a class="headerlink" href="#exercise-2-determine-number-of-components-for-circular-moons" title="Permanent link">&para;</a></h4>
 <p>Repeat the above, this time using <code>sklearn.datasets.make_moons</code></p>
 <div class="codehilite"><pre><span></span><code><span class="c1"># Code Cell for Exercise 2</span>
@@ -2060,19 +2079,19 @@ Eigenvalues
 <div class="codehilite"><pre><span></span><code>Text(0, 0.5, &#39;est. prediction error&#39;)
 </code></pre></div>
 
-<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_94_1.png" /></p>
+<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_95_1.png" /></p>
 <div class="codehilite"><pre><span></span><code><span class="n">gmm_moon</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">covariance_type</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </code></pre></div>
 
 <div class="codehilite"><pre><span></span><code><span class="n">plot_gmm</span><span class="p">(</span><span class="n">gmm_moon</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_96_0.png" /></p>
+<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_97_0.png" /></p>
 <div class="codehilite"><pre><span></span><code><span class="n">Xnew</span> <span class="o">=</span> <span class="n">gmm_moon</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">400</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">Xnew</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">Xnew</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]);</span>
 </code></pre></div>
 
-<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_97_0.png" /></p>
+<p><img alt="png" src="../S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_98_0.png" /></p>
 <h1 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h1>
 <h2 id="pca">PCA<a class="headerlink" href="#pca" title="Permanent link">&para;</a></h2>
 <ul>
