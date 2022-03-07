@@ -46,6 +46,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 # for enrichment topics
 import seaborn as sns
 import numpy as np
+import scipy
 ```
 
 ### 1.0.2 Load Dataset
@@ -317,13 +318,13 @@ dffw = get_summary(wht)
 desc = pd.concat([dffr, dffw], keys=['red', 'white'])
 ```
 
-    /tmp/ipykernel_1419/2387423026.py:5: FutureWarning: Dropping of nuisance columns in DataFrame reductions (with 'numeric_only=None') is deprecated; in a future version this will raise TypeError.  Select only valid columns before calling the reduction.
+    /tmp/ipykernel_277/2387423026.py:5: FutureWarning: Dropping of nuisance columns in DataFrame reductions (with 'numeric_only=None') is deprecated; in a future version this will raise TypeError.  Select only valid columns before calling the reduction.
       skew = df.skew()
-    /tmp/ipykernel_1419/2387423026.py:6: FutureWarning: Dropping of nuisance columns in DataFrame reductions (with 'numeric_only=None') is deprecated; in a future version this will raise TypeError.  Select only valid columns before calling the reduction.
+    /tmp/ipykernel_277/2387423026.py:6: FutureWarning: Dropping of nuisance columns in DataFrame reductions (with 'numeric_only=None') is deprecated; in a future version this will raise TypeError.  Select only valid columns before calling the reduction.
       kurt = df.kurtosis()
-    /tmp/ipykernel_1419/2387423026.py:9: FutureWarning: Dropping of nuisance columns in DataFrame reductions (with 'numeric_only=None') is deprecated; in a future version this will raise TypeError.  Select only valid columns before calling the reduction.
+    /tmp/ipykernel_277/2387423026.py:9: FutureWarning: Dropping of nuisance columns in DataFrame reductions (with 'numeric_only=None') is deprecated; in a future version this will raise TypeError.  Select only valid columns before calling the reduction.
       med = df.median()
-    /tmp/ipykernel_1419/2387423026.py:10: FutureWarning: Dropping of nuisance columns in DataFrame reductions (with 'numeric_only=None') is deprecated; in a future version this will raise TypeError.  Select only valid columns before calling the reduction.
+    /tmp/ipykernel_277/2387423026.py:10: FutureWarning: Dropping of nuisance columns in DataFrame reductions (with 'numeric_only=None') is deprecated; in a future version this will raise TypeError.  Select only valid columns before calling the reduction.
       men = df.mean()
 
 
@@ -772,13 +773,21 @@ with \\( y=\sf density \\), \\(x=\sf fixed \space acidity\\), and \\(m\\) the sl
 
 To solve the problem, we need to find the values of \\(b\\) and \\(m\\) in equation 1 to best fit the data. This is called **linear regression**.
 
-In linear regression our goal is to minimize the error between computed values of positions \\(y^{\sf calc}(x_i)\equiv y^{\sf calc}_i\\) and known values \\(y^{\sf exact}(x_i)\equiv y^{\sf exact}_i\\), i.e. find \\(b\\) and \\(m\\) which lead to lowest value of
+In linear regression our goal is to minimize the error between computed values of positions \\(y^{\sf calc}(x_i)\equiv y^{\sf calc}_i\\) and known values \\(y^{\sf exact}(x_i)\equiv y^{\sf exact}_i\\).
+
+In **_Ordinary Least Squares_** the error term we try to minimize is called the **_residual sum of squares_**. We find \\(b\\) and \\(m\\) which lead to lowest value of
 
 $$\epsilon (m,b) =SS_{\sf res}=\sum_{i=1}^{N}\left(y^{\sf exact}_i - y^{\sf calc}_i\right)^2 = \sum_{i=1}^{N}\left(y^{\sf exact}_i - m\cdot x_i - b \right)^2\;\;\;\;\;\;\;\;\;\;\;\sf{eq. 2}$$
 
-Otherwise known as the **residual sum of squares**
-
 To find out more see e.g. https://en.wikipedia.org/wiki/Simple_linear_regression
+
+Using some calculus, we can solve for \\(b\\) and \\(m\\) analytically:
+
+$$ m = \frac{\sum_{i=1}^n{(x_i - \bar{x})(y_i - \bar{y})}}{\sum_{i=1}^n{(x_i - \bar{x})^2}} $$
+
+$$ b = \bar{y} - m\bar{x} $$
+
+> Note that for multivariate regression, the coefficients can be solved analytically as well 😎
 
 
 #### 🙋 Question 2: linear regression loss function
@@ -905,12 +914,14 @@ y_pred = model.predict(x)
 fig, ax = plt.subplots(1,1, figsize=(10,10))
 ax.plot(x, y_pred, ls='', marker='*')
 ax.plot(x, y, ls='', marker='.')
+ax.set_ylabel('acidity')
+ax.set_xlabel('density')
 ```
 
 
 
 
-    [<matplotlib.lines.Line2D at 0x7fdd881875e0>]
+    Text(0.5, 0, 'density')
 
 
 
@@ -963,7 +974,190 @@ print('Coefficient of determination: %.2f' % r2_score(y, y_pred))
     Coefficient of determination: 0.45
 
 
-### 1.3.2 Corollaries with classification models
+#### 🍒 1.3.1.3 **Enrichment**: Residual Standard Error
+
+the residual standard error (RSE) is an estimate of the standard deviation of the irreducible error (described more in _Model Selection and Validation_)
+
+$$ RSE = \sqrt{\frac{1}{n-2}RSS} $$
+
+In effect, the RSE tells us that even if we were to find the _true_ values of \\(b\\) and \\(m\\) in our linear model, this is by how much our estimates of \\(y\\) based on \\(x\\) would be off.
+
+### 🍒 1.3.2 **Enrichment**: Assessing the accuracy of the coefficient estimates
+
+#### 1.3.2.1 Standard errors
+
+The difference between our sample and the population data is often a question in statistical learning (covered more in session _Model Selection and Validation_). As an estimate on how deviant our sample mean may be from the true population mean, we can calculate he standard error of the sample mean:
+
+$$ SE(\hat{\mu})^2 = \frac{\sigma^2}{N} $$
+
+where \\(\sigma\\) is the standard deviation of each of the realizations of \\(y_i\\) with \\(Y\\).
+
+We can similarly calculate standard errors for our estimation coefficients:
+
+$$ SE(\hat{b})^2 = \sigma^2 [\frac{1}{n} + \frac{\bar{x}^2}{\sum_{i=1}^n{(x_i - \bar{x})^2}}] $$
+
+$$ SE(\hat{m})^2 = \frac{\sigma^2}{\sum_{i=1}^n{(x_i - \bar{x})^2}}$$ 
+
+In practice, \\(\sigma\\) is estimated as the _residual standard error_:
+
+$$ RSE = \sqrt{RSS/(n-2)} $$
+
+We might observe:
+
+* \\(SE(\hat{b})^2\\) would equal \\(SE(\hat{\mu})^2\\) if \\(\bar{x}\\) were 0 (and \\(\hat{b}\\) would equal \\(\bar{y}\\))
+* and the error associated with \\(m\\) and \\(b\\) would be smaller with the more spread we have in \\(x_i\\) (intuitively a spread in \\(x_i\\) gives us more leverage)
+
+#### 1.3.2.2 Confidence intervals
+
+These standard errors can be used to compute _confidence intervals_. A 95% confidence interval is defined as a range a values that with a 95% probability contain the true value of the predicted parameter. 
+
+$$ \hat{b} \space ± \space 2  SE(\hat{b})$$
+
+and
+
+$$ \hat{m} \space ± \space 2  SE(\hat{m})$$
+
+
+```python
+# b_hat
+print(f"b: {b:.2e}")
+print(f"m: {m:.2e}", end="\n\n")
+n = y.shape[0]
+print(f"n: {n}")
+x_bar = np.mean(x)
+print(f"x_bar: {x_bar:.2e}")
+RSE = np.sqrt(r2_score(y, y_pred)/(n-2))
+print(f"RSE: {RSE:.2e}", end="\n\n")
+
+SE_b = np.sqrt(RSE**2 * ((1/n) + x_bar**2/np.sum((x-x_bar)**2)))
+print(f"SE_b: {SE_b:.2e}")
+
+SE_m = np.sqrt(RSE**2/np.sum((x-x_bar)**2))
+print(f"SE_m: {SE_m:.2e}")
+
+```
+
+    b: -6.06e+02
+    m: 6.16e+02
+    
+    n: 1597
+    x_bar: 9.97e-01
+    RSE: 1.67e-02
+    
+    SE_b: 2.21e-01
+    SE_m: 2.22e-01
+
+
+The confidence interval around the regression line takes on a similar form
+
+$$ SE(\hat{y})^2 = (\frac{\sum_{i=1}^n{(y_i - \hat{y})^2}}
+{n-2})
+(\frac{1}{n} +
+\frac{(x-\bar{x})^2}
+{\sum_{i=1}^n{(x_i - \bar{x})^2}}) $$
+
+and then \\(\hat{y}\\) can be described as
+
+$$ \hat{y}_h ± t_{\alpha/2,n-2} SE(\hat{y})$$
+
+where \\(t\\) is the calculated critical t-value at the corresponding confidence interval and degrees of freedom (we can obtain this from scipy)
+
+
+```python
+def calc_SE_y(x, y, m, b):
+    y_hat = m*x+b
+    x_bar = np.mean(x)
+    n = x.shape[0]
+
+    return np.sqrt((np.sum((y-y_hat)**2))/(n-2)) \
+            * np.sqrt((1/n) + ((x-x_bar)**2 / (np.sum((x-x_bar)**2))))
+```
+
+
+```python
+x_line = np.linspace(min(x), max(x), 100)
+y_line = m*x_line+b
+fig, ax = plt.subplots(1,1, figsize=(10,10))
+ax.plot(x_line, y_line, ls='--')
+ax.plot(x, y, ls='', marker='.')
+
+SE_y = calc_SE_y(x, y, m, b)
+y_line = m*x+b
+ct = scipy.stats.t.ppf(q=(0.975), df=(n-2))
+
+### upper CI
+y_up = y_line + ct * SE_y
+ax.plot(x, y_up, ls='-.', marker='', color='tab:green', lw=.1)
+
+### lower CI
+y_down = y_line - ct * SE_y
+ax.plot(x, y_down, ls='-.', marker='', color='tab:green', lw=.1)
+
+ax.set_ylabel('acidity')
+ax.set_xlabel('density')
+```
+
+
+
+
+    Text(0.5, 0, 'density')
+
+
+
+
+    
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_60_1.png)
+    
+
+
+#### 1.3.2.3 Hypothesis testing
+
+standard errors can also be used to perform _hypothesis tests_ on the coefficients. The most common hypothesis test involves testing the _null hypothesis_ of
+
+\\(H_0:\\) There is no relationship between X and Y
+
+versus the _alternative hypothesis_
+
+\\(H_\alpha:\\) There is some relationship between X and Y
+
+This is equivalent to
+
+$$ H_0: m = 0 $$
+
+and
+
+$$ H_\alpha: m ≠ 0 $$
+
+since if \\(m = 0\\) there is no relationship between X and Y. We need to assess if our \\(m\\) is sufficiently far from 0. Intuitively, this would also require us to consider the error \\(SE(\hat{m})\\). In practice we compute a _t-statistic_
+
+$$ t = \frac{\hat{m}-0}{SE(\hat{m})} $$
+
+which measures the number of standard deviations \\(m\\) is from 0. Associated with this statistic, we determine a _p-value_ (a "probability"-value) that tells us the probability of observing any value equal to \\(|t|\\) or larger, assuming the null hypothesis of \\(m=0\\). Hence, if we determine a small p-value, we can conclude that it is unlikely that there is no relationship between X and Y.
+
+
+```python
+t = m/SE_m
+print(t)
+```
+
+    2777.3933859895524
+
+
+
+```python
+scipy.stats.t.sf(x=t, df=n-2)
+```
+
+
+
+
+    0.0
+
+
+
+We see that with this data it is very unlikely that there is no relationship between X and Y!
+
+### 1.3.3 Corollaries with classification models
 
 For classification tasks, we typically assess accuracy vs MSE or R-square, since we are dealing with categorical rather than numerical predictions.
 
@@ -1020,7 +1214,9 @@ print(metrics.accuracy_score(y_train, y_pred_class))
     0.7538864091118977
 
 
-### 1.3.3 Beyond a single input feature
+#### 🙋 Question 5: What is variance vs total sum of squares vs standard deviation?
+
+### 1.3.4 Beyond a single input feature
 
 (_also: quick appreciative beat for folding in domain area expertise into our models and features_)
 
@@ -1222,7 +1418,7 @@ red.isnull().sum(axis=0) # we are getting rid of some nasty nulls!
 # Create linear regression object - note that we are using all the input features
 model = linear_model.LinearRegression()
 model.fit(X, y)
-y_calc = model.predict(X)
+y_hat = model.predict(X)
 ```
 
 Let's see what the coefficients look like ... 
@@ -1308,7 +1504,7 @@ plt.show()
 
 
     
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_74_0.png)
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_88_0.png)
     
 
 
@@ -1375,7 +1571,7 @@ print('Coefficient of determination: %.2f' % r2_score(y_test, y_pred_test))
 
 
     
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_80_0.png)
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_94_0.png)
     
 
 
@@ -1383,14 +1579,131 @@ print('Coefficient of determination: %.2f' % r2_score(y_test, y_pred_test))
     Coefficient of determination: 0.87
 
 
-#### 1.4.2.1 Other data considerations
+### 🍒 1.4.3 **Enrichment**: Some important questions
 
-* Do we need all the independent variables? 
-  * Topics of interential statistics covered in a couple sessions
-* Can we output integer quality scores? 
-  * Topics of non-binary classification tasks covered in week 4
+1. is at least one of the predictors useful in estimating y?
+    * We'll see related topics in _Inferential Statistics_
+2. Do we need all the predictors or only some of them? 
+    * We'll see related topics in _Feature Engineering_ 
+3. How do we assess goodness of fit?
+4. How accurate is any given prediction?
 
-### 🍒 1.4.3 **Enrichment**: Other regression algorithms
+
+#### 1.4.3.1 Is there a relationship between X and y?
+
+This question is similar to the hypothesis test we had as an enrichment topic in simple linear regression. To be formulaic:
+
+$$ H_0 : \beta_1 = \beta_2 = ... = \beta_p = 0 $$
+
+$$ H_\alpha : at \space least \space one \space \beta_j \space is \space non-zero $$
+
+To answer this question we perform an _F-statistic_
+
+$$ F = \frac{(TSS - RSS)/p}{RSS/(n-p-1)} $$
+
+where \\(p\\) is the number of predictors. With this F-statistic, we are expecting that if there is no relationship between the predictors and target variable the ratio would converge to 1, since both numerator and denominator would evaluate to simply the variance of the data. On the other hand, if there is a relationship the numerator (the variance captured by the model over the number of predictors) should evaluate to something greater than the variance of the data.
+
+Now you might ask, why can't single out every predictor and perform the hypothesis testing we saw before?! Well, by sheer chance, we may incorrectly throw out the null hypothesis. Take an extreme example, if we have 100 predictors, with a confidence level of 0.05 we would by chance alone accept 5 of those 100 predictors, even if they have no relationship to Y. This is where the F-statistic comes in handy (it is worth noting however, that even the F-statistic can't handle \\(p\\) > \\(n\\) for which there is no solution!)
+
+
+```python
+y_bar = np.mean(y)
+y_hat = model.predict(X)
+RSS = np.sum((y-y_hat)**2)
+TSS = np.sum((y-y_bar)**2)
+p = X.shape[1]
+n = X.shape[0]
+F = (TSS-RSS)/p / (RSS/(n-p-1))
+print(f"{F:.2f}")
+```
+
+    767.86
+
+
+
+```python
+# http://pytolearn.csd.auth.gr/d1-hyptest/11/f-distro.html
+# dfn = degrees of freedom in the numerator
+# dfd = degrees of freedom in the denominator
+scipy.stats.f.sf(x=t, dfn=p, dfd=(n-p-1))
+```
+
+
+
+
+    0.0
+
+
+
+with this result we can be fairly certain 1 or more of the prdictors is related to the target variable!
+
+#### 1.4.2.2 What are the important variables?
+
+the process of determining which of the variables are associated with y is known as _variable selection_. One approach, is to iteratively select every combination of variables, perform the regression, and use some metric of goodness of fit to determine which subset of p is the best. However this is \\(2^p\\) combinations to try, which quickly blows up. Instead we typically perform one of three approaches
+
+1. _Forward selection_
+    * start with an intercept model. Add a single variable, keep the one that results in the lowest RSS. Repeat. Can always be used no matter how large p is. This is also a greedy approach.
+
+2. _Backward selection_
+    * start with all predictors in the model. Remove the predictor with the largest p-value. Stop when all p-values are below some threshold. Can't be used if p > n.
+
+3. _Mixed selection_
+    * a combination of 1 and 2. start with an intercept model. continue as in 1 accept now, if any predictor p-value rises above some threshold, remove that predictor. This approach counteracts some of the greediness of approach 1.
+
+#### 1.4.2.3 How do we assess goodness of fit?
+
+Two of the most common measures of goodness of fit are \\(RSE\\) and \\(R^2\\). As it turns out, however, \\(R^2\\) will _always increase with more predictors_. The \\(RSE\\) defined for multivariate models accounts for the additional p:
+
+$$ RSE = \sqrt{\frac{1}{n-p-1} RSS} $$
+
+and thus can be used in tandem with \\(R^2\\) to assess whether the additional parameter is worth it or not.
+
+Lastly, it is worth noting that visual approaches can lend a hand where simple test values can not (think Anscombe's quartet). 
+
+#### 1.4.2.4 How accurate is any given prediction?
+
+We used _confidence intervals_ to quantify the uncertainty in the estimate for \\(f(X)\\). To assess the uncertainty around a particular prediction we use _prediction intervals_. A prediction interval will always be wider than a confidence interval because it incorporates both the uncertainty in the regression estimate (_reducible error_ or sampling error) and uncertainty in how much an individual point will deviate from the solution surface (the _irreducible error_).
+
+Put another way, with the confidence interval we expect the _average_ response of y to fall within the calculated interval 95% of the time, however we sample the population data. Whereas we expect an _individual_ response, y, to fall within the calculated prediction interval 95% of the time, however we sample the population data.
+
+## 1.5 Major assumptions of linear regression
+
+There are two major assumptions of linear regression: that the predictors are additive, and that the relationships between X and y are linear. 
+
+We can combat these assumptions, however, through feature engineering, a topic we discuss later on but briefly we will mention here. In the additive case, predictors that are suspected to have some interaction affect can be combined to produce a new feature, i.e. \\(X_{new} = X_2*X_2\\). On the linearity case, we can again engineer a new feature, i.e. \\(X_{new} = X_1^2\\).
+
+## 🍒 1.6 **Enrichment**: Potential problems with linear regression
+
+1. Non-linearity of the response-predictor relationships.
+    * plot the residuals (observe there is no pattern)
+2. Correlation of error terms.
+    * standard errors are predicated on no correlation of error terms. Extreme example: we double our data, n is now twice as large, and our confidence intervals narrower by a factor of \\(\sqrt(2)\\)!
+    * a frequent problem in time series data
+        * plot residuals as a function of time (observe there is no pattern)
+3. Non-constant variance of error terms (heteroscedasticity).
+    * standard errors, hypothesis tests, and confidence intervals rely on this assumption
+    * a funnel shape in the residuals indicates heteroscedasticity
+    * can transform, \\(\log{y}\\)
+4. Outliers.
+    * unusual values in response variable
+    * check residual plot
+    * potentially remove datapoint
+5. High-leverage points.
+    * unusual values in predictor variable
+    * will bias the least squares line
+    * problem can be hard to observe in multilinear regression (when a combination of predictors accounts for the leverage)
+6. Collinearity.
+    * refers to when two or more variables are closely related to one another
+    * reduces the accuracy of esimates for coefficients
+    * increases standard error of estimates for coefficients. it then reduces the t-statistic and may result in type-2 error, false negative. This means it reduces the _power_ of the hypothesis test, the probability of correctly detecting a non-zero coefficient.
+    * look at the correlation matrix of variables
+    * for multicolinearity compute the _variance inflation factor_ (VIF)
+        * \\(1/(1-R^2)\\) where the regression is performed against the indicated predictor across all other predictors
+    * remove features with a VIF above 5-10
+
+We will discuss many of these in the session on _Feature Engineering_
+
+## 🍒 1.7 **Enrichment**: Other regression algorithms
 
 There are many other regression algorithms the two we want to highlight here are Ridge, LASSO, and Elastic Net. They differ by an added term to the loss function. Let's review. Eq. 2 expanded to multivariate form yields:
 
@@ -1413,7 +1726,7 @@ model.fit(X_train, y_train)
 print('Fit coefficients and intercept:\n\n', model.coef_, '\n\n', model.intercept_ )
 
 # Predict on the test set
-y_calc_test = model.predict(X_test)
+y_hat_test = model.predict(X_test)
 ```
 
     Fit coefficients and intercept:
@@ -1427,19 +1740,19 @@ y_calc_test = model.predict(X_test)
 
 
 ```python
-sns.scatterplot(x=y_calc_test, y=y_test, color="lightseagreen", s=50)
+sns.scatterplot(x=y_hat_test, y=y_test, color="lightseagreen", s=50)
 plt.title("Ridge regression - predict test set",fontsize=16)
 plt.xlabel("y$^{\sf calc}$")
 plt.ylabel("y$^{\sf true}$")
 plt.show()
 
-print('Mean squared error: %.2f' % mean_squared_error(y_test, y_calc_test))
-print('Coefficient of determination: %.2f' % r2_score(y_test, y_calc_test))
+print('Mean squared error: %.2f' % mean_squared_error(y_test, y_hat_test))
+print('Coefficient of determination: %.2f' % r2_score(y_test, y_hat_test))
 ```
 
 
     
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_85_0.png)
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_107_0.png)
     
 
 
@@ -1505,7 +1818,7 @@ ax.legend()
 
 
     
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_89_1.png)
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_111_1.png)
     
 
 
@@ -1533,11 +1846,11 @@ results.plot('lambda', 'scores', ax=ax[1])
 
 
     
-![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_91_1.png)
+![png](S1_Regression_and_Analysis_files/S1_Regression_and_Analysis_113_1.png)
     
 
 
-## 🍒 1.5 **Enrichment**: Additional Regression Exercises
+## 🍒 1.8 **Enrichment**: Additional Regression Exercises
 
 
 ### Problem 1) Number and choice of input features

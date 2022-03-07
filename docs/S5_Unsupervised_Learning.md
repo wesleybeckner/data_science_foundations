@@ -716,6 +716,12 @@ plt.scatter(X_pca[:, 0], X_pca[:, 1], alpha=0.8)
     
 
 
+### 🙋‍♀️ Question 1: Differentiating PCA from linear regression
+
+How is PCA different from linear regression?
+
+> PCA tries to find a best fit line through the data points but it minimizes the orthogonal distance to the model line where as Linear Regression minimizes distance from the perspective of the axis you're regressing with respect to. Explore more [here](https://shankarmsy.github.io/posts/pca-vs-lr.html)
+
 <a name='3.1.2'></a>
 
 ### 5.1.7 PCA for visualization
@@ -748,7 +754,7 @@ plt.ylabel('Second PC')
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_52_1.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_53_1.png)
     
 
 
@@ -810,7 +816,7 @@ print(f"Max principal components: {X.shape[1]}")
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_57_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_58_0.png)
     
 
 
@@ -853,7 +859,7 @@ plt.ylabel('Second PC')
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_59_1.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_60_1.png)
     
 
 
@@ -875,7 +881,7 @@ plt.scatter(centers[:, 0], centers[:, 1], c='black', s=200, alpha=0.5);
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_61_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_62_0.png)
     
 
 
@@ -929,7 +935,7 @@ The elbow method is a popular technique for determining the value of `k`. It inv
    
 And there are many other [methods](https://scikit-learn.org/stable/modules/clustering.html#clustering-performance-evaluation) of evaluating cluster assignment performance
 
-### 🙋‍♀️ Question 1: Comparing Metrics
+### 🙋‍♀️ Question 2: Comparing Metrics
 
 What is the primary difference between Distortion, Inertia vs Silhouette, Calinksi?
 
@@ -975,7 +981,7 @@ ax4.plot(range(2,10), variance)
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_69_1.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_70_1.png)
     
 
 
@@ -994,7 +1000,7 @@ plt.scatter(centers[:, 0], centers[:, 1], c='black', s=200, alpha=0.5);
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_70_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_71_0.png)
     
 
 
@@ -1020,7 +1026,7 @@ plt.scatter(X_pca[:, 0], X_pca[:, 1],
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_72_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_73_0.png)
     
 
 
@@ -1072,7 +1078,7 @@ plt.scatter(X_pca[:, 0], X_pca[:, 1],
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_76_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_77_0.png)
     
 
 
@@ -1151,7 +1157,7 @@ plt.scatter(X[:, 0], X[:, 1]);
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_80_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_81_0.png)
     
 
 
@@ -1169,7 +1175,7 @@ plot_gmm(gmm2, X)
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_83_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_84_0.png)
     
 
 
@@ -1183,7 +1189,7 @@ plot_gmm(gmm16, X, label=False)
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_85_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_86_0.png)
     
 
 
@@ -1197,7 +1203,7 @@ plt.scatter(Xnew[:, 0], Xnew[:, 1]);
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_87_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_88_0.png)
     
 
 
@@ -1233,7 +1239,7 @@ plt.ylabel('est. prediction error')
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_89_1.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_90_1.png)
     
 
 
@@ -1247,7 +1253,7 @@ plot_gmm(gmmNew, X, label=True, data_alpha=0)
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_91_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_92_0.png)
     
 
 
@@ -1259,7 +1265,7 @@ plt.scatter(Xnew[:, 0], Xnew[:, 1]);
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_92_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_93_0.png)
     
 
 
@@ -1295,7 +1301,7 @@ X, y = gen(200, noise=0.02, random_state=42)
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_94_1.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_95_1.png)
     
 
 
@@ -1311,7 +1317,7 @@ plot_gmm(gmm_moon, X)
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_96_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_97_0.png)
     
 
 
@@ -1323,7 +1329,7 @@ plt.scatter(Xnew[:, 0], Xnew[:, 1]);
 
 
     
-![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_97_0.png)
+![png](S5_Unsupervised_Learning_files/S5_Unsupervised_Learning_98_0.png)
     
 
 

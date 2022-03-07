@@ -1,4 +1,4 @@
-<a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/S6_Bagging.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/solutions/SOLN_S6_Bagging.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 # Data Science Foundations <br> Session 6: Bagging <br> _Decision Trees and Random Forests_
 

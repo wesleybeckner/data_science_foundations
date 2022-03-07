@@ -78,6 +78,14 @@ The flagship expression here is Bayes Rule or Bayesian Inference:
 
 $$ P(A|B) = \frac{P(B|A) * P(A)}{P(B)} = \frac{P(A \cap B)}{P(B)}$$
 
+Also formulated this way
+
+$$ P(belief|data) = \frac{P(data|belief) * P(belief)}{P(data)} $$
+
+_The posterior, the likelihood, and the prior_
+
+$$ The \space posterior \space probability = \frac{Likelihood * prior \space probability}{observed data} $$
+
 Where \\(\cap\\) is the intersection of \\(A\\) and \\(B\\).
 
 ### Q1
@@ -90,6 +98,8 @@ Suppose a family has 2 children, one of which is a boy. What is the probability 
 # a boy; a girl
 # a girl; a boy
 # a boy; a boy
+# a girl; a girl - not included
+# answer - 1/3
 ```
 
 ### Q2
@@ -108,14 +118,22 @@ You draw 2 cards from a standard 52-card deck without replacing them. What is th
 # (4*4)/(4*17)
 # multiplying out still yields
 # 12/51
+
+# 1/4 * 12/51 + 1/4 * 12/51 + 1/4 * 12/51 + 1/4 * 12/51 = 12/51
 ```
 
 
 
 
-    0.9411764705882353
+    0.23529411764705882
 
 
+
+
+```python
+# prob(a|b) = (prob(b|a)*prob(a)) / prob(b) = intersect(a|b) / prob(b)
+# (1/4) * (12/51) / 
+```
 
 ### Q3
 

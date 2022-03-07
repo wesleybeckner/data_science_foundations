@@ -1,4 +1,4 @@
-<a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/project/P1_Statistical_Analysis_of_TicTacToe.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/solutions/SOLN_P1_Statistical_Analysis_of_TicTacToe.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 # Data Science Foundations, Project Part 1: Statistical Analysis 
 

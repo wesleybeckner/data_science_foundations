@@ -1,4 +1,4 @@
-<a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/S5_Unsupervised_Learning.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/solutions/SOLN_S5_Unsupervised_Learning.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 # Data Science Foundations, Session 5: Unsupervised Learning: Clustering and Dimensionality Reduction
 
