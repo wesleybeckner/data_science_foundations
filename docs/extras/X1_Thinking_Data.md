@@ -1,6 +1,6 @@
 <a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/extras/X1_Thinking_Data.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-# Data Science Foundations <br> Extras 1: Thinking Data
+# Data Science Foundations <br> X1: Thinking Data
 
 **Instructor**: Wesley Beckner
 

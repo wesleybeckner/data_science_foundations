@@ -1,3 +1,21 @@
+<a href="https://colab.research.google.com/github/wesleybeckner/data_science_foundations/blob/main/notebooks/extras/X2_Probability.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
+# Data Science Foundations <br> X2: Common Probability Topics in Data Science
+
+**Instructor**: Wesley Beckner
+
+**Contact**: wesleybeckner@gmail.com
+
+---
+
+<br>
+
+This notebook is meant to summarize and provide some basic examples and problems of probability
+
+<br>
+
+---
+
 ## Measuring Uncertainty
 
 One strategy is to just count occurance of outcomes
@@ -84,7 +102,7 @@ $$ P(belief|data) = \frac{P(data|belief) * P(belief)}{P(data)} $$
 
 _The posterior, the likelihood, and the prior_
 
-$$ The \space posterior \space probability = \frac{Likelihood * prior \space probability}{observed data} $$
+$$ The \space posterior \space probability = \frac{Likelihood * prior \space probability}{observed \space data} $$
 
 Where \\(\cap\\) is the intersection of \\(A\\) and \\(B\\).
 
@@ -206,7 +224,7 @@ print(f"P(A|B): {P_AB}")
 
 ## Binomial Probabilities
 
-> Operates on PMF (Probability Mass Functions) for discrete values
+Operates on PMF (Probability Mass Functions) for discrete values
 
 [answer key](https://nostarch.com/download/resources/Bayes_exercise_solutions_new.pdf)
 
@@ -377,16 +395,3 @@ def poisson(k, lamb):
 ### Q1
 
 A random variable, \\(X\\), follows Poisson distribution with mean of 2.5. Find the probability with which the random variable \\(X\\) is equal to 5.
-
-
-```python
-# P(k=5,lambda=2.5)
-poisson(k=5, lamb=2.5)
-```
-
-
-
-
-    0.06680094289054264
-
-
