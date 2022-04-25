@@ -1,0 +1,1233 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
+    
+    
+      
+        <title>AB Tests - Data Science Foundations</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bb3983ee.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../extra.css">
+    
+      <link rel="stylesheet" href="../../styles.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-114664473-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#data-science-foundations-x3-the-nitty-gritty-of-ab-tests" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Data Science Foundations" class="md-header__button md-logo" aria-label="Data Science Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Data Science Foundations
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              AB Tests
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Data Science Foundations" class="md-nav__button md-logo" aria-label="Data Science Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Data Science Foundations
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Sessions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Sessions" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Sessions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S1_Regression_and_Analysis/" class="md-nav__link">
+        Regression and Analysis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S2_Inferential_Statistics/" class="md-nav__link">
+        Inferential Statistics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S3_Model_Selection_and_Validation/" class="md-nav__link">
+        Model Selection and Validation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S4_Feature_Engineering/" class="md-nav__link">
+        Feature Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S5_Unsupervised_Learning/" class="md-nav__link">
+        Unsupervised Learning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S6_Bagging/" class="md-nav__link">
+        Bagging
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S7_Boosting/" class="md-nav__link">
+        Boosting
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Labs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Labs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/L1_Descriptive_Statistics_Data_Hunt/" class="md-nav__link">
+        Descriptive Statistics Data Hunt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/L2_Inferential_Statistics_Data_Hunt/" class="md-nav__link">
+        Inferential Statistics Data Hunt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/L3_Feature_Engineering/" class="md-nav__link">
+        Practice with Feature Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/L4_Supervised_Learners/" class="md-nav__link">
+        Practice with Supervised Learners
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/L5_Writing_Unit_Tests/" class="md-nav__link">
+        Practice with Writing Unit Tests
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Project
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Project" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Project
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/P1_Statistical_Analysis_of_TicTacToe/" class="md-nav__link">
+        Statistical Analysis of TicTacToe
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/P2_Heuristical_TicTacToe_Agents/" class="md-nav__link">
+        Heuristical TicTacToe Agents
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/P3_1_Step_Look_Ahead_Agents/" class="md-nav__link">
+        1-Step Look Ahead Agents
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/P4_N_Step_Look_Ahead_Agents/" class="md-nav__link">
+        N-Step Look Ahead Agents
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Extras
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Extras" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Extras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../X1_Bayesian_Probability/" class="md-nav__link">
+        Probability
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../X2_Airbnb/" class="md-nav__link">
+        Airbnb
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          AB Tests
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        AB Tests
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bean-no-enders-game" class="md-nav__link">
+    BEAN (No Ender's Game)
+  </a>
+  
+    <nav class="md-nav" aria-label="BEAN (No Ender's Game)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#n-vs-a-and-e" class="md-nav__link">
+    N vs A and E
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#n-vs-b" class="md-nav__link">
+    N vs B
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualizing-the-hypotheses" class="md-nav__link">
+    Visualizing the Hypotheses
+  </a>
+  
+    <nav class="md-nav" aria-label="Visualizing the Hypotheses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-tradeoff-between-alpha-and-power-level" class="md-nav__link">
+    The Tradeoff between alpha and power level
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#greater-lift-fewer-tests-for-the-same-power" class="md-nav__link">
+    Greater lift, fewer tests, for the same power
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#closing-notes" class="md-nav__link">
+    Closing Notes
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bean-no-enders-game" class="md-nav__link">
+    BEAN (No Ender's Game)
+  </a>
+  
+    <nav class="md-nav" aria-label="BEAN (No Ender's Game)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#n-vs-a-and-e" class="md-nav__link">
+    N vs A and E
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#n-vs-b" class="md-nav__link">
+    N vs B
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualizing-the-hypotheses" class="md-nav__link">
+    Visualizing the Hypotheses
+  </a>
+  
+    <nav class="md-nav" aria-label="Visualizing the Hypotheses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-tradeoff-between-alpha-and-power-level" class="md-nav__link">
+    The Tradeoff between alpha and power level
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#greater-lift-fewer-tests-for-the-same-power" class="md-nav__link">
+    Greater lift, fewer tests, for the same power
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#closing-notes" class="md-nav__link">
+    Closing Notes
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+<h1 id="data-science-foundations-x3-the-nitty-gritty-of-ab-tests">Data Science Foundations <br> X3: The Nitty Gritty of AB Tests<a class="headerlink" href="#data-science-foundations-x3-the-nitty-gritty-of-ab-tests" title="Permanent link">&para;</a></h1>
+<p><strong>Instructor</strong>: Wesley Beckner</p>
+<p><strong>Contact</strong>: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#119;&#101;&#115;&#108;&#101;&#121;&#98;&#101;&#99;&#107;&#110;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#119;&#101;&#115;&#108;&#101;&#121;&#98;&#101;&#99;&#107;&#110;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
+<hr />
+<p><br></p>
+<p>This notebook is meant to summarize and provide some basic examples of AB testing</p>
+<p><br></p>
+<hr />
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">def</span> <span class="nf">compute_z</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="s2">&quot;two&quot;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">tail</span> <span class="o">==</span> <span class="s2">&quot;two&quot;</span><span class="p">:</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="c1"># the critical value</span>
+    <span class="k">return</span> <span class="n">z</span>
+
+<span class="k">def</span> <span class="nf">compute_power</span><span class="p">(</span><span class="n">h_0</span><span class="p">,</span> <span class="n">h_1</span><span class="p">,</span> <span class="n">se</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="n">verbiose</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+
+    <span class="n">z</span> <span class="o">=</span> <span class="n">compute_z</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">tail</span><span class="p">)</span>
+    <span class="c1"># upper and lower limits of the region of acceptance</span>
+    <span class="c1"># M (parameter value in the null hypothesis) + SE (standard error) * CV (critical value)</span>
+    <span class="n">lower</span> <span class="o">=</span> <span class="n">h_0</span> <span class="o">-</span> <span class="n">z</span> <span class="o">*</span> <span class="n">se</span>
+    <span class="n">upper</span> <span class="o">=</span> <span class="n">h_0</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="n">se</span>
+
+    <span class="c1"># the areas show the probability associated with these regions</span>
+    <span class="n">lower_a</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">h_1</span><span class="p">,</span> <span class="n">se</span><span class="p">)</span>
+    <span class="n">upper_a</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">upper</span><span class="p">,</span> <span class="n">h_1</span><span class="p">,</span> <span class="n">se</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">tail</span> <span class="o">==</span> <span class="s2">&quot;two&quot;</span><span class="p">:</span>
+        <span class="n">acceptance_region</span> <span class="o">=</span> <span class="p">[</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">]</span>
+        <span class="n">power</span> <span class="o">=</span> <span class="n">lower_a</span> <span class="o">+</span> <span class="n">upper_a</span>
+        <span class="k">if</span> <span class="n">verbiose</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;acceptance region </span><span class="si">{</span><span class="n">lower</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">upper</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">power</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">tail</span> <span class="o">==</span> <span class="s2">&quot;left&quot;</span><span class="p">:</span>
+        <span class="n">acceptance_region</span> <span class="o">=</span> <span class="n">lower</span>
+        <span class="n">power</span> <span class="o">=</span> <span class="n">lower_a</span>
+        <span class="k">if</span> <span class="n">verbiose</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;acceptance region &gt; </span><span class="si">{</span><span class="n">lower</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">tail</span> <span class="o">==</span> <span class="s2">&quot;right&quot;</span><span class="p">:</span>
+        <span class="n">acceptance_region</span> <span class="o">=</span> <span class="n">upper</span>
+        <span class="n">power</span> <span class="o">=</span> <span class="n">upper_a</span>
+        <span class="k">if</span> <span class="n">verbiose</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;acceptance region &lt; </span><span class="si">{</span><span class="n">upper</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">power</span>
+    <span class="k">return</span> <span class="n">power</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">acceptance_region</span>
+</code></pre></div>
+
+<h2 id="bean-no-enders-game">BEAN (No Ender's Game)<a class="headerlink" href="#bean-no-enders-game" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="https://i.pinimg.com/originals/56/12/52/561252d7d4230d498fb0d5d372ef8f43.jpg" /></p>
+<p>BEAN is a useful acronym to remember the four variables that affect the statistical significance of an AB test. </p>
+<ul>
+<li>B - beta</li>
+<li>E - effect size </li>
+<li>A - alpha</li>
+<li>N - sample size</li>
+</ul>
+<p>Beta, or 1- power, indicates the false negative rate, i.e. the probability that the null hypothesis is accepted when the alternative hypothesis is true. The effect size is the difference between the two hypotheses, i.e. if the control conversion rate is 50% and the expected, new, conversion rate is 52%, then the effect size is 2%. Alpha indicates the false positive rate, i.e. the probability that the null hypothesis is rejected when in fact it is true. Finally, N, is the total number of samples used to conduct the test. We can look at how BEA effect N:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>relationship with N</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td>inverse - as the spread between the hypotheses increases, we will require less data to capture the same significance</td>
+</tr>
+<tr>
+<td>A</td>
+<td>inverse - as the tollerance for false positives decreases, we will require more data to reject the null hypothesis</td>
+</tr>
+<tr>
+<td>B</td>
+<td>inverse - as the tollerance for false negatives decreases, we will require more data to accept the null hypothesis</td>
+</tr>
+</tbody>
+</table>
+<p>Note: although "effect size" is used in the BEAN acronym, in actuality the localization of the effect size is important as well. For example it is easier to detect a lift from 2% to 4% than it is to detect a lift from 50% to 52%.</p>
+<h3 id="n-vs-a-and-e">N vs A and E<a class="headerlink" href="#n-vs-a-and-e" title="Permanent link">&para;</a></h3>
+<p>we can explore the relationship between alpha, N, and effect size using the formula for N, below</p>
+<p>For example, say we are checking whether a variant of a newsletter email lifts our click through rate from 50% to 52%. We set our alpha (significance level) to 0.05 and our tail set to "right" because we are sure that the the variant will create a positive lift (for reasons).</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># https://medium.com/swlh/the-ultimate-guide-to-a-b-testing-part-1-experiment-design-8315a2470c63</span>
+<span class="n">tail</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="c1"># significance level</span>
+<span class="n">h_0</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">h_1</span> <span class="o">=</span> <span class="mf">0.52</span>
+
+<span class="k">def</span> <span class="nf">compute_n</span><span class="p">(</span><span class="n">h_0</span><span class="p">,</span> <span class="n">h_1</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">tail</span><span class="p">):</span>
+
+    <span class="n">z</span> <span class="o">=</span> <span class="n">compute_z</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">tail</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tail</span> <span class="o">==</span> <span class="s2">&quot;two&quot;</span><span class="p">:</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="p">(</span> <span class="p">(</span><span class="n">h_1</span> <span class="o">-</span> <span class="n">h_0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span><span class="mi">2</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="p">(</span><span class="n">h_1</span> <span class="o">-</span> <span class="n">h_0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="c1"># squared effect size</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">h_0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">h_0</span><span class="p">))</span> <span class="o">/</span> <span class="n">w</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="n">compute_n</span><span class="p">(</span><span class="n">h_0</span><span class="p">,</span> <span class="n">h_1</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span><span class="n">tail</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;required samples: </span><span class="si">{</span><span class="n">n</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>required samples: 1691
+</code></pre></div>
+
+<p>holding our null hypothesis at 50%, our alternative hypothesis at 52%, and ignoring our beta or our power level for now, we can track the relationship between alpha and n.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">alphas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">ns</span> <span class="o">=</span> <span class="p">[</span><span class="n">compute_n</span><span class="p">(</span><span class="n">h_0</span><span class="p">,</span> <span class="n">h_1</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">tail</span><span class="p">)</span> <span class="k">for</span> <span class="n">alpha</span> <span class="ow">in</span> <span class="n">alphas</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">alphas</span><span class="p">,</span> <span class="n">ns</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;sample size&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;required sample size for AB test&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Text(0.5, 1.0, &#39;required sample size for AB test&#39;)
+</code></pre></div>
+
+<p><img alt="png" src="../X3_AB_Testing_files/X3_AB_Testing_6_1.png" /></p>
+<p>holding alpha and our null hypothesis constant, we can track the required sample size with respect to the desired conversion rate we'd like to detect. The larger effect we wish to see, the fewer samples we require. At first this may seem counterintuitive. Remember, however, that holding standard deviation constant, it is easier to discern two piles the further apart they are. </p>
+<div class="codehilite"><pre><span></span><code><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">h_0</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">h_1s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.51</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">ns</span> <span class="o">=</span> <span class="p">[</span><span class="n">compute_n</span><span class="p">(</span><span class="n">h_0</span><span class="p">,</span> <span class="n">h_1</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">tail</span><span class="p">)</span> <span class="k">for</span> <span class="n">h_1</span> <span class="ow">in</span> <span class="n">h_1s</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">h_1s</span><span class="p">,</span> <span class="n">ns</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;h_1&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;sample size&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;required sample size for AB test&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Text(0.5, 1.0, &#39;required sample size for AB test&#39;)
+</code></pre></div>
+
+<p><img alt="png" src="../X3_AB_Testing_files/X3_AB_Testing_8_1.png" /></p>
+<h3 id="n-vs-b">N vs B<a class="headerlink" href="#n-vs-b" title="Permanent link">&para;</a></h3>
+<p>in AB testing we often would like to consider the power level of our test. That is, the ability with which we can reduce the likelihood of accepting the null hypothesis when it is false. A common power level is 80%. This means that 80% of the time the null hypothesis is false we will safely reject it. </p>
+<div class="codehilite"><pre><span></span><code><span class="n">tail</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="c1"># significance level</span>
+<span class="n">h_0</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">h_1</span> <span class="o">=</span> <span class="mf">0.52</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">3200</span>
+
+<span class="n">ns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+<span class="n">powers</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ns</span><span class="p">:</span>
+    <span class="c1"># note, this se taken from https://towardsdatascience.com/the-power-of-a-b-testing-3387c04a14e3</span>
+    <span class="n">se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">h_0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">h_0</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span> <span class="p">)</span> <span class="c1"># standard error</span>
+    <span class="n">power</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">ar</span> <span class="o">=</span> <span class="n">compute_power</span><span class="p">(</span><span class="n">h_0</span><span class="p">,</span> <span class="n">h_1</span><span class="p">,</span> <span class="n">se</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="n">verbiose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">powers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">power</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">powers</span><span class="p">,</span> <span class="n">ns</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;power level&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;sample size&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;required sample size for AB test&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Text(0.5, 1.0, &#39;required sample size for AB test&#39;)
+</code></pre></div>
+
+<p><img alt="png" src="../X3_AB_Testing_files/X3_AB_Testing_11_1.png" /></p>
+<h2 id="visualizing-the-hypotheses">Visualizing the Hypotheses<a class="headerlink" href="#visualizing-the-hypotheses" title="Permanent link">&para;</a></h2>
+<p>It can be helpful to visualize the distributions of the two hypotheses we are testing.</p>
+<h3 id="the-tradeoff-between-alpha-and-power-level">The Tradeoff between alpha and power level<a class="headerlink" href="#the-tradeoff-between-alpha-and-power-level" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Type I error: False positive, is the area under the null hypothesis to the right of the acceptance boundary (for right tailed tests)</li>
+<li>Type II error: False negative, is the area under the alternative hypothesis to the left of the acceptance boundary (for right tailed tests)</li>
+</ul>
+<p>As we shall see, there is a tradeoff between alpha and power level.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">tail</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="c1"># significance level</span>
+<span class="n">h_0</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">h_1</span> <span class="o">=</span> <span class="mf">0.52</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">3200</span>
+<span class="n">se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">h_0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">h_0</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span> <span class="p">)</span> <span class="c1"># standard error</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;est. std error: </span><span class="si">{</span><span class="n">se</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">power</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">acceptance_region</span> <span class="o">=</span> <span class="n">compute_power</span><span class="p">(</span><span class="n">h_0</span><span class="p">,</span> <span class="n">h_1</span><span class="p">,</span> <span class="n">se</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">tail</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;power: </span><span class="si">{</span><span class="n">power</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, beta: </span><span class="si">{</span><span class="n">beta</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ax_</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mf">7.5</span><span class="p">))</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span>
+               <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">),</span> <span class="mi">5000</span><span class="p">)</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">h_0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">se</span><span class="p">)</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">h_1</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">se</span><span class="p">)</span>
+<span class="n">y3</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">h_0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">se</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+       <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$H_0$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;tab:orange&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+       <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$H_1$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">acceptance_region</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Acceptance boundary&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">acceptance_region</span><span class="p">,</span> 
+                <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;tab:orange&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+               <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Type II error&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">acceptance_region</span><span class="p">,</span> 
+                <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+               <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Type I error&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">y1</span><span class="o">&gt;</span><span class="mf">0.001</span><span class="p">))[</span><span class="mi">0</span><span class="p">]],</span><span class="n">x</span><span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">y2</span><span class="o">&gt;</span><span class="mf">0.001</span><span class="p">))[</span><span class="mi">0</span><span class="p">]])</span>
+
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="c1"># significance level</span>
+<span class="n">h_0</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">h_1</span> <span class="o">=</span> <span class="mf">0.52</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">3200</span>
+<span class="n">se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">h_0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">h_0</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span> <span class="p">)</span> <span class="c1"># standard error</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;est. std error: </span><span class="si">{</span><span class="n">se</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">power</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">acceptance_region</span> <span class="o">=</span> <span class="n">compute_power</span><span class="p">(</span><span class="n">h_0</span><span class="p">,</span> <span class="n">h_1</span><span class="p">,</span> <span class="n">se</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">tail</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;power: </span><span class="si">{</span><span class="n">power</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, beta: </span><span class="si">{</span><span class="n">beta</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span>
+               <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">),</span> <span class="mi">5000</span><span class="p">)</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">h_0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">se</span><span class="p">)</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">h_1</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">se</span><span class="p">)</span>
+<span class="n">y3</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">h_0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">se</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+       <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$H_0$&#39;</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;tab:orange&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+       <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$H_1$&#39;</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">acceptance_region</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Acceptance boundary&#39;</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">acceptance_region</span><span class="p">,</span> 
+                <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;tab:orange&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+               <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Type II error&quot;</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">acceptance_region</span><span class="p">,</span> 
+                <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+               <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Type I error&quot;</span><span class="p">)</span>
+
+<span class="n">ax_</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">y1</span><span class="o">&gt;</span><span class="mf">0.001</span><span class="p">))[</span><span class="mi">0</span><span class="p">]],</span><span class="n">x</span><span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">y2</span><span class="o">&gt;</span><span class="mf">0.001</span><span class="p">))[</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>est. std error: 0.009
+acceptance region &lt; 0.515
+power: 0.73, beta: 0.27
+est. std error: 0.009
+acceptance region &lt; 0.521
+power: 0.47, beta: 0.53
+
+
+
+
+
+&lt;matplotlib.legend.Legend at 0x7fcc782e5f40&gt;
+</code></pre></div>
+
+<p><img alt="png" src="../X3_AB_Testing_files/X3_AB_Testing_14_2.png" /></p>
+<h3 id="greater-lift-fewer-tests-for-the-same-power">Greater lift, fewer tests, for the same power<a class="headerlink" href="#greater-lift-fewer-tests-for-the-same-power" title="Permanent link">&para;</a></h3>
+<p>The greater the amount of lift we are trying to detect, the fewer sample sizes we will need</p>
+<div class="codehilite"><pre><span></span><code><span class="n">tail</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="c1"># significance level</span>
+<span class="n">h_0</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">h_1</span> <span class="o">=</span> <span class="mf">0.52</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">3200</span>
+<span class="n">se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">h_0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">h_0</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span> <span class="p">)</span> <span class="c1"># standard error</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;est. std error: </span><span class="si">{</span><span class="n">se</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">power</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">acceptance_region</span> <span class="o">=</span> <span class="n">compute_power</span><span class="p">(</span><span class="n">h_0</span><span class="p">,</span> <span class="n">h_1</span><span class="p">,</span> <span class="n">se</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">tail</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;power: </span><span class="si">{</span><span class="n">power</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, beta: </span><span class="si">{</span><span class="n">beta</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ax_</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mf">7.5</span><span class="p">))</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span>
+               <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">),</span> <span class="mi">5000</span><span class="p">)</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">h_0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">se</span><span class="p">)</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">h_1</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">se</span><span class="p">)</span>
+<span class="n">y3</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">h_0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">se</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+       <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$H_0$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;tab:orange&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+       <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$H_1$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">acceptance_region</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Acceptance boundary&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">acceptance_region</span><span class="p">,</span> 
+                <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;tab:orange&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+               <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Type II error&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">acceptance_region</span><span class="p">,</span> 
+                <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+               <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Type I error&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">y1</span><span class="o">&gt;</span><span class="mf">0.001</span><span class="p">))[</span><span class="mi">0</span><span class="p">]],</span><span class="n">x</span><span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">y2</span><span class="o">&gt;</span><span class="mf">0.001</span><span class="p">))[</span><span class="mi">0</span><span class="p">]])</span>
+
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="c1"># significance level</span>
+<span class="n">h_0</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">h_1</span> <span class="o">=</span> <span class="mf">0.54</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">900</span>
+<span class="n">se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">h_0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">h_0</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span> <span class="p">)</span> <span class="c1"># standard error</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;est. std error: </span><span class="si">{</span><span class="n">se</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">power</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">acceptance_region</span> <span class="o">=</span> <span class="n">compute_power</span><span class="p">(</span><span class="n">h_0</span><span class="p">,</span> <span class="n">h_1</span><span class="p">,</span> <span class="n">se</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">tail</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;power: </span><span class="si">{</span><span class="n">power</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, beta: </span><span class="si">{</span><span class="n">beta</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span>
+               <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">),</span> <span class="mi">5000</span><span class="p">)</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">h_0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">se</span><span class="p">)</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">h_1</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">se</span><span class="p">)</span>
+<span class="n">y3</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">h_0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">se</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+       <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$H_0$&#39;</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;tab:orange&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+       <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$H_1$&#39;</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">acceptance_region</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Acceptance boundary&#39;</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">acceptance_region</span><span class="p">,</span> 
+                <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;tab:orange&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+               <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Type II error&quot;</span><span class="p">)</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">acceptance_region</span><span class="p">,</span> 
+                <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+               <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Type I error&quot;</span><span class="p">)</span>
+
+<span class="n">ax_</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">y1</span><span class="o">&gt;</span><span class="mf">0.001</span><span class="p">))[</span><span class="mi">0</span><span class="p">]],</span><span class="n">x</span><span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">y2</span><span class="o">&gt;</span><span class="mf">0.001</span><span class="p">))[</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">ax_</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>est. std error: 0.009
+acceptance region &lt; 0.515
+power: 0.73, beta: 0.27
+est. std error: 0.017
+acceptance region &lt; 0.527
+power: 0.77, beta: 0.23
+
+
+
+
+
+&lt;matplotlib.legend.Legend at 0x7fcc77f1d730&gt;
+</code></pre></div>
+
+<p><img alt="png" src="../X3_AB_Testing_files/X3_AB_Testing_16_2.png" /></p>
+<h2 id="closing-notes">Closing Notes<a class="headerlink" href="#closing-notes" title="Permanent link">&para;</a></h2>
+<p>In the power law examples, we were estimating the standard error of the tests. In real AB test cases, we can use historical data to more accurately estiamte the standard error around the performance metric. In addition, we can update the estimations of N as the test is running, to more accurately determine when our test should conclude!</p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../X2_Airbnb/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Airbnb" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Airbnb
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 Wesley Beckner
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.361d90f1.min.js"}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.289a2a4b.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+    
+  </body>
+</html>
