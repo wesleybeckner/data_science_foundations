@@ -1,0 +1,12 @@
+new r2max, intercept, 2.197e-12
+new r2max, n_albums, 0.02614
+new r2max, genre_1_Latin, 0.03093
+new r2max, genre_1_Indie Rock, 0.03274
+new r2max, genre_1_Rap, 0.03431
+new r2max, genre_1_Dance & House, 0.03568
+new r2max, genre_1_Rock, 0.03674
+new r2max, mood_1_Energizing, 0.03772
+new r2max, genre_1_Children's, 0.03863
+new r2max, mood_1_Tender, 0.03931
+new r2max, mood_1_Other, 0.03995
+new r2max, n_tracks, 0.04052

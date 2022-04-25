@@ -1,0 +1,16 @@
+new r2max, intercept, 5.924e-11
+new r2max, genre_1_Latin, 0.01456
+new r2max, n_artists, 0.01853
+new r2max, genre_3_-, 0.02149
+new r2max, genre_1_Soundtrack, 0.02258
+new r2max, genre_1_Children's, 0.02361
+new r2max, genre_1_Traditional, 0.02447
+new r2max, mood_3_Romantic, 0.02502
+new r2max, genre_1_Spoken & Audio, 0.02535
+new r2max, genre_1_Easy Listening, 0.02569
+new r2max, genre_3_Traditional, 0.02601
+new r2max, genre_1_Jazz, 0.02632
+new r2max, mood_2_Sophisticated, 0.0266
+new r2max, mood_2_Romantic, 0.02687
+new r2max, n_albums, 0.02713
+new r2max, mood_1_Romantic, 0.02737

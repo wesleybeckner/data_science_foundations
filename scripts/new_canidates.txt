@@ -1,0 +1,150 @@
+n_artists
+n_tracks
+n_local_tracks
+mood_1_-
+mood_1_Aggressive
+mood_1_Brooding
+mood_1_Cool
+mood_1_Easygoing
+mood_1_Empowering
+mood_1_Energizing
+mood_1_Fiery
+mood_1_Gritty
+mood_1_Lively
+mood_1_Melancholy
+mood_1_Other
+mood_1_Peaceful
+mood_1_Rowdy
+mood_1_Sensual
+mood_1_Sentimental
+mood_1_Serious
+mood_1_Somber
+mood_1_Sophisticated
+mood_1_Stirring
+mood_1_Tender
+mood_1_Urgent
+mood_2_-
+mood_2_Aggressive
+mood_2_Brooding
+mood_2_Cool
+mood_2_Defiant
+mood_2_Easygoing
+mood_2_Empowering
+mood_2_Energizing
+mood_2_Excited
+mood_2_Fiery
+mood_2_Gritty
+mood_2_Lively
+mood_2_Melancholy
+mood_2_Other
+mood_2_Peaceful
+mood_2_Rowdy
+mood_2_Sensual
+mood_2_Sentimental
+mood_2_Serious
+mood_2_Somber
+mood_2_Sophisticated
+mood_2_Stirring
+mood_2_Tender
+mood_2_Upbeat
+mood_2_Urgent
+mood_2_Yearning
+mood_3_-
+mood_3_Aggressive
+mood_3_Brooding
+mood_3_Cool
+mood_3_Defiant
+mood_3_Easygoing
+mood_3_Empowering
+mood_3_Energizing
+mood_3_Excited
+mood_3_Fiery
+mood_3_Gritty
+mood_3_Lively
+mood_3_Melancholy
+mood_3_Other
+mood_3_Peaceful
+mood_3_Romantic
+mood_3_Rowdy
+mood_3_Sensual
+mood_3_Sentimental
+mood_3_Serious
+mood_3_Somber
+mood_3_Sophisticated
+mood_3_Stirring
+mood_3_Tender
+mood_3_Upbeat
+mood_3_Urgent
+mood_3_Yearning
+genre_1_-
+genre_1_Alternative
+genre_1_Blues
+genre_1_Children's
+genre_1_Classical
+genre_1_Country & Folk
+genre_1_Easy Listening
+genre_1_Electronica
+genre_1_Holiday
+genre_1_Jazz
+genre_1_Latin
+genre_1_Metal
+genre_1_New Age
+genre_1_Other
+genre_1_Pop
+genre_1_Punk
+genre_1_R&B
+genre_1_Reggae
+genre_1_Rock
+genre_1_Soundtrack
+genre_1_Spoken & Audio
+genre_1_Traditional
+genre_2_-
+genre_2_Alternative
+genre_2_Blues
+genre_2_Children's
+genre_2_Classical
+genre_2_Country & Folk
+genre_2_Dance & House
+genre_2_Easy Listening
+genre_2_Electronica
+genre_2_Holiday
+genre_2_Jazz
+genre_2_Latin
+genre_2_Metal
+genre_2_New Age
+genre_2_Other
+genre_2_Pop
+genre_2_Punk
+genre_2_R&B
+genre_2_Rap
+genre_2_Reggae
+genre_2_Religious
+genre_2_Rock
+genre_2_Soundtrack
+genre_2_Spoken & Audio
+genre_2_Traditional
+genre_3_Alternative
+genre_3_Blues
+genre_3_Children's
+genre_3_Classical
+genre_3_Country & Folk
+genre_3_Dance & House
+genre_3_Easy Listening
+genre_3_Electronica
+genre_3_Holiday
+genre_3_Indie Rock
+genre_3_Jazz
+genre_3_Latin
+genre_3_Metal
+genre_3_New Age
+genre_3_Other
+genre_3_Pop
+genre_3_Punk
+genre_3_R&B
+genre_3_Rap
+genre_3_Reggae
+genre_3_Religious
+genre_3_Rock
+genre_3_Soundtrack
+genre_3_Spoken & Audio
+genre_3_Traditional

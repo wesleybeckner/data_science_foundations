@@ -1,0 +1,14 @@
+new r2max, intercept, 3.079e-13
+new r2max, genre_3_-, 0.006398
+new r2max, n_albums, 0.007979
+new r2max, genre_1_Indie Rock, 0.008795
+new r2max, mood_1_Defiant, 0.009692
+new r2max, genre_1_Dance & House, 0.01074
+new r2max, mood_1_Excited, 0.01114
+new r2max, mood_1_Upbeat, 0.0116
+new r2max, genre_2_Indie Rock, 0.01196
+new r2max, genre_1_Rap, 0.0123
+new r2max, genre_1_Religious, 0.01259
+new r2max, mood_2_Romantic, 0.01283
+new r2max, mood_1_Yearning, 0.01303
+new r2max, mood_1_Romantic, 0.0132

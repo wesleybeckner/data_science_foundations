@@ -35,8 +35,10 @@ nav:
       - 1-Step Look Ahead Agents: project/P3_1_Step_Look_Ahead_Agents.md
       - N-Step Look Ahead Agents: project/P4_N_Step_Look_Ahead_Agents.md
   - Extras:
-      - Thinking Data: extras/X1_Thinking_Data.md
-      - Probability: extras/X2_Probability.md
+      - Probability: extras/X1_Bayesian_Probability.md
+      - Airbnb: extras/X2_Airbnb.md
+      - AB Tests: extras/X3_AB_Testing.md
+      
 markdown_extensions:
   - admonition
   - codehilite:

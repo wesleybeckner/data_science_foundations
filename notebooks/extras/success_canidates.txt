@@ -1,0 +1,37 @@
+n_tracks
+n_local_tracks
+mood_1_Lively
+genre_2_Jazz
+genre_2_-
+mood_2_Lively
+genre_3_Jazz
+genre_2_Traditional
+mood_2_Fiery
+mood_1_Sophisticated
+mood_3_Lively
+mood_3_Fiery
+mood_1_Tender
+genre_2_Children's
+mood_2_Easygoing
+genre_2_Latin
+genre_2_Soundtrack
+mood_1_Other
+mood_3_Peaceful
+genre_2_Classical
+genre_2_Easy Listening
+genre_2_New Age
+mood_2_Peaceful
+mood_1_-
+genre_2_Other
+mood_2_-
+genre_3_New Age
+genre_1_-
+mood_3_-
+genre_3_Other
+mood_1_Peaceful
+mood_1_Fiery
+mood_3_Somber
+genre_2_Spoken & Audio
+genre_1_New Age
+mood_2_Tender
+genre_3_Children's

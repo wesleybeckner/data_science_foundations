@@ -1,0 +1,57 @@
+new r2max, intercept, 2.197e-12
+new r2max, n_albums, 0.02614
+new r2max, genre_1_Latin, 0.03093
+new r2max, genre_1_Indie Rock, 0.03274
+new r2max, genre_1_Rap, 0.03431
+new r2max, genre_1_Dance & House, 0.03568
+new r2max, genre_1_Rock, 0.03674
+new r2max, mood_1_Energizing, 0.03772
+new r2max, genre_1_Children's, 0.03863
+new r2max, mood_1_Tender, 0.03931
+new r2max, mood_1_Other, 0.03995
+new r2max, n_tracks, 0.04052
+new r2max, mood_1_Peaceful, 0.04106
+new r2max, mood_1_Romantic, 0.04161
+new r2max, genre_1_Electronica, 0.04208
+new r2max, genre_2_Indie Rock, 0.04248
+new r2max, mood_2_Energizing, 0.04287
+new r2max, genre_1_R&B, 0.04319
+new r2max, genre_3_Indie Rock, 0.04353
+new r2max, genre_1_Classical, 0.04379
+new r2max, genre_2_Alternative, 0.04403
+new r2max, genre_2_Metal, 0.04427
+new r2max, mood_2_Peaceful, 0.04449
+new r2max, mood_2_Romantic, 0.04472
+new r2max, mood_3_Romantic, 0.04498
+new r2max, genre_3_Alternative, 0.04522
+new r2max, n_artists, 0.04541
+new r2max, genre_1_Metal, 0.04556
+new r2max, mood_1_Aggressive, 0.04574
+new r2max, mood_3_Peaceful, 0.04586
+new r2max, mood_1_Empowering, 0.04597
+new r2max, genre_1_Religious, 0.0461
+new r2max, genre_3_Metal, 0.04622
+new r2max, genre_3_R&B, 0.04633
+new r2max, mood_3_Yearning, 0.04643
+new r2max, mood_2_-, 0.04653
+new r2max, genre_3_Electronica, 0.04663
+new r2max, genre_2_Latin, 0.04673
+new r2max, mood_3_Empowering, 0.04682
+new r2max, genre_3_-, 0.04691
+new r2max, genre_1_Spoken & Audio, 0.04701
+new r2max, genre_2_New Age, 0.04708
+new r2max, genre_3_New Age, 0.04717
+new r2max, genre_3_Rap, 0.04724
+new r2max, mood_1_Rowdy, 0.0473
+new r2max, mood_2_Rowdy, 0.04737
+new r2max, mood_2_Aggressive, 0.04743
+new r2max, genre_2_Spoken & Audio, 0.04749
+new r2max, genre_1_New Age, 0.04755
+new r2max, genre_2_Jazz, 0.04761
+new r2max, genre_2_Pop, 0.04767
+new r2max, genre_3_Rock, 0.04773
+new r2max, mood_1_Cool, 0.04778
+new r2max, mood_1_Gritty, 0.04783
+new r2max, mood_1_Easygoing, 0.04786
+new r2max, genre_3_Dance & House, 0.04791
+new r2max, mood_1_Excited, 0.04795
