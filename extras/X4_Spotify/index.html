@@ -1,0 +1,2128 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
+    
+    
+      
+        <title>Data Science Foundations X4: Spotify - Data Science Foundations</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bb3983ee.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../extra.css">
+    
+      <link rel="stylesheet" href="../../styles.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-114664473-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#data-science-foundations-x4-spotify" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Data Science Foundations" class="md-header__button md-logo" aria-label="Data Science Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Data Science Foundations
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data Science Foundations <br> X4: Spotify
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Data Science Foundations" class="md-nav__button md-logo" aria-label="Data Science Foundations" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Data Science Foundations
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Sessions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Sessions" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Sessions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S1_Regression_and_Analysis/" class="md-nav__link">
+        Regression and Analysis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S2_Inferential_Statistics/" class="md-nav__link">
+        Inferential Statistics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S3_Model_Selection_and_Validation/" class="md-nav__link">
+        Model Selection and Validation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S4_Feature_Engineering/" class="md-nav__link">
+        Feature Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S5_Unsupervised_Learning/" class="md-nav__link">
+        Unsupervised Learning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S6_Bagging/" class="md-nav__link">
+        Bagging
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../S7_Boosting/" class="md-nav__link">
+        Boosting
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Labs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Labs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Labs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/L1_Descriptive_Statistics_Data_Hunt/" class="md-nav__link">
+        Descriptive Statistics Data Hunt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/L2_Inferential_Statistics_Data_Hunt/" class="md-nav__link">
+        Inferential Statistics Data Hunt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/L3_Feature_Engineering/" class="md-nav__link">
+        Practice with Feature Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/L4_Supervised_Learners/" class="md-nav__link">
+        Practice with Supervised Learners
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labs/L5_Writing_Unit_Tests/" class="md-nav__link">
+        Practice with Writing Unit Tests
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Project
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Project" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Project
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/P1_Statistical_Analysis_of_TicTacToe/" class="md-nav__link">
+        Statistical Analysis of TicTacToe
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/P2_Heuristical_TicTacToe_Agents/" class="md-nav__link">
+        Heuristical TicTacToe Agents
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/P3_1_Step_Look_Ahead_Agents/" class="md-nav__link">
+        1-Step Look Ahead Agents
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/P4_N_Step_Look_Ahead_Agents/" class="md-nav__link">
+        N-Step Look Ahead Agents
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Extras
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Extras" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Extras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../X1_Bayesian_Probability/" class="md-nav__link">
+        Probability
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../X2_Airbnb/" class="md-nav__link">
+        Airbnb
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../X3_AB_Testing/" class="md-nav__link">
+        AB Tests
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../X4_Spotify_Appendix/" class="md-nav__link">
+        Spotify
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data-description" class="md-nav__link">
+    Data Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imports" class="md-nav__link">
+    Imports
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependency" class="md-nav__link">
+    Dependency
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependency">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#discrete" class="md-nav__link">
+    Discrete
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#continuous" class="md-nav__link">
+    Continuous
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#models" class="md-nav__link">
+    Models
+  </a>
+  
+    <nav class="md-nav" aria-label="Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logistic-regression" class="md-nav__link">
+    Logistic Regression
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+<h1 id="data-science-foundations-x4-spotify">Data Science Foundations <br> X4: Spotify<a class="headerlink" href="#data-science-foundations-x4-spotify" title="Permanent link">&para;</a></h1>
+<p><strong>Instructor</strong>: Wesley Beckner</p>
+<p><strong>Contact</strong>: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#119;&#101;&#115;&#108;&#101;&#121;&#98;&#101;&#99;&#107;&#110;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#119;&#101;&#115;&#108;&#101;&#121;&#98;&#101;&#99;&#107;&#110;&#101;&#114;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
+<hr />
+<p><br></p>
+<p>Prompt: What makes a playlist successful? </p>
+<p><br></p>
+<hr />
+<h2 id="data-description">Data Description<a class="headerlink" href="#data-description" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Column Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>playlist_uri</td>
+<td>The key, Spotify uri of the playlist</td>
+</tr>
+<tr>
+<td>owner</td>
+<td>Playlist owner, Spotify username</td>
+</tr>
+<tr>
+<td>streams</td>
+<td>Number of streams from the playlist today</td>
+</tr>
+<tr>
+<td>stream30s</td>
+<td>Number of streams over 30 seconds from playlist today</td>
+</tr>
+<tr>
+<td>dau</td>
+<td>Number of Daily Active Users, i.e. users with a stream over 30 seconds from playlist today</td>
+</tr>
+<tr>
+<td>wau</td>
+<td>Number of Weekly Active Users, i.e. users with a stream over 30 seconds from playlist in past week</td>
+</tr>
+<tr>
+<td>mau</td>
+<td>Number of Monthly Active Users, i.e. users with a stream over 30 seconds from playlist in the past month</td>
+</tr>
+<tr>
+<td>mau_previous_months</td>
+<td>Number of Monthly Active users in the month prior to this one</td>
+</tr>
+<tr>
+<td>mau_both_months</td>
+<td>Number of users that were active on the playlist both this and the previous month</td>
+</tr>
+<tr>
+<td>users</td>
+<td>Number of users streaming (all streams) from this playlist this month</td>
+</tr>
+<tr>
+<td>skippers</td>
+<td>Number of users who skipped more than 90 percent of their streams today</td>
+</tr>
+<tr>
+<td>owner_country</td>
+<td>Country of the playlist owner</td>
+</tr>
+<tr>
+<td>n_tracks</td>
+<td>Number of tracks in playlist</td>
+</tr>
+<tr>
+<td>n_local_tracks</td>
+<td>Change in number of tracks on playlist since yesterday</td>
+</tr>
+<tr>
+<td>n_artists</td>
+<td>Number of unique artists in playlist</td>
+</tr>
+<tr>
+<td>n_albums</td>
+<td>Number of unique albums in playlist</td>
+</tr>
+<tr>
+<td>monthly_stream30s</td>
+<td>Number of streams over 30 seconds this month</td>
+</tr>
+<tr>
+<td>monthly_owner_stream30s</td>
+<td>Number of streams over 30 seconds by playlist owner this month</td>
+</tr>
+<tr>
+<td>tokens</td>
+<td>List of playlist title tokens, stopwords and punctuation removed</td>
+</tr>
+<tr>
+<td>genre_1</td>
+<td>No. 1 Genre by weight of playlist tracks, from Gracenote metadata</td>
+</tr>
+<tr>
+<td>genre_2</td>
+<td>No. 2 Genre by weight of playlist tracks, from Gracenote metadata</td>
+</tr>
+<tr>
+<td>genre_3</td>
+<td>No. 3 Genre by weight of playlist tracks, from Gracenote metadata</td>
+</tr>
+<tr>
+<td>mood_1</td>
+<td>No. 1 Mood by weight of playlist tracks, from Gracenote metadata</td>
+</tr>
+<tr>
+<td>mood_2</td>
+<td>No. 2 Mood by weight of playlist tracks, from Gracenote metadata</td>
+</tr>
+<tr>
+<td>mood_3</td>
+<td>No. 3 Mood by weight of playlist tracks, from Gracenote metadata</td>
+</tr>
+</tbody>
+</table>
+<h2 id="imports">Imports<a class="headerlink" href="#imports" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># basic packages</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+
+<span class="c1"># visualization packages</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span><span class="p">;</span> <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+<span class="kn">import</span> <span class="nn">graphviz</span> 
+
+<span class="c1"># stats packages</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
+<span class="kn">from</span> <span class="nn">scipy.spatial.distance</span> <span class="kn">import</span> <span class="n">cdist</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">ols</span>
+<span class="kn">from</span> <span class="nn">statsmodels.discrete.discrete_model</span> <span class="kn">import</span> <span class="n">Logit</span>
+<span class="kn">from</span> <span class="nn">statsmodels.stats.outliers_influence</span> <span class="kn">import</span> <span class="n">variance_inflation_factor</span>
+
+<span class="c1"># sklearn preprocessing</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">PolynomialFeatures</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils.class_weight</span> <span class="kn">import</span> <span class="n">compute_class_weight</span>
+
+<span class="c1"># sklearn modeling</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">RandomForestRegressor</span><span class="p">,</span> <span class="n">AdaBoostClassifier</span><span class="p">,</span> <span class="n">GradientBoostingClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span><span class="p">,</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.mixture</span> <span class="kn">import</span> <span class="n">GaussianMixture</span>
+
+<span class="c1"># sklearn evaluation</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span><span class="p">,</span> <span class="n">cross_val_score</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../../data/playlist_summary_external-4.txt&quot;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="dependency">Dependency<a class="headerlink" href="#dependency" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="n">sub_targets</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mau_previous_month&#39;</span><span class="p">,</span> <span class="s1">&#39;mau_both_months&#39;</span><span class="p">,</span> <span class="s1">&#39;monthly_stream30s&#39;</span><span class="p">,</span> <span class="s1">&#39;stream30s&#39;</span><span class="p">]</span>
+<span class="c1"># sub_targets = [&#39;mau&#39;, &#39;dau&#39;, &#39;monthly_stream30s&#39;, &#39;stream30s&#39;]</span>
+
+<span class="n">des_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mood_1&#39;</span><span class="p">,</span> <span class="s1">&#39;mood_2&#39;</span><span class="p">,</span> <span class="s1">&#39;mood_3&#39;</span><span class="p">,</span> <span class="s1">&#39;genre_1&#39;</span><span class="p">,</span> <span class="s1">&#39;genre_2&#39;</span><span class="p">,</span> <span class="s1">&#39;genre_3&#39;</span><span class="p">]</span>
+<span class="n">con_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;n_albums&#39;</span><span class="p">,</span> <span class="s1">&#39;n_artists&#39;</span><span class="p">,</span> <span class="s1">&#39;n_tracks&#39;</span><span class="p">,</span> <span class="s1">&#39;n_local_tracks&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;success&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">sub_targets</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;listen_conversions&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;stream30s&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;streams&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;listen_conversions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;user_retention&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;mau_both_months&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;mau_previous_month&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;user_retention&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;user_conversions&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;mau&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;users&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;user_conversions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;mau_growing&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;mau&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;mau_previous_month&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;mau_growth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;mau&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;mau_previous_month&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;mau_growth&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;mau_growth&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">new_metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;listen_conversions&#39;</span><span class="p">,</span> <span class="s1">&#39;user_conversions&#39;</span><span class="p">,</span> <span class="s1">&#39;user_retention&#39;</span><span class="p">,</span> <span class="s1">&#39;mau_growth&#39;</span><span class="p">]</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;new_success&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">new_metrics</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="discrete">Discrete<a class="headerlink" href="#discrete" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="n">dff</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">des_features</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">des_features</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()))</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">des_features</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()))</span>
+<span class="n">dff</span> <span class="o">=</span> <span class="n">dff</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+<span class="n">dff</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mood&#39;</span><span class="p">,</span> <span class="s1">&#39;order&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">]</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dff</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;order&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;mood&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">dff</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">des_features</span><span class="p">[</span><span class="mi">3</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">des_features</span><span class="p">[</span><span class="mi">4</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()))</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">des_features</span><span class="p">[</span><span class="mi">5</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()))</span>
+<span class="n">dff</span> <span class="o">=</span> <span class="n">dff</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+<span class="n">dff</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;genre&#39;</span><span class="p">,</span> <span class="s1">&#39;order&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">]</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dff</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;order&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;genre&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;discrete_rank_bar_plot.svg&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="png" src="../X4_Spotify_files/X4_Spotify_8_0.png" /></p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">make_chisum</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s1">&#39;success&#39;</span><span class="p">):</span>
+
+    <span class="n">chidf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">chidf</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">target</span><span class="p">]</span>
+    <span class="n">chisum</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">cutoff</span> <span class="o">=</span> <span class="mf">0.01</span>
+    <span class="n">pop</span> <span class="o">=</span> <span class="n">chidf</span><span class="p">[</span><span class="n">target</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">des_features</span><span class="p">:</span>
+        <span class="n">chidf</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">grp_label</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">cTable</span> <span class="o">=</span> <span class="n">chidf</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">chidf</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">==</span> <span class="n">grp_label</span><span class="p">)[</span><span class="n">target</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+                <span class="n">chi2</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">dof</span><span class="p">,</span> <span class="n">ex</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">chi2_contingency</span><span class="p">(</span><span class="n">cTable</span><span class="p">,</span> <span class="n">correction</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">lambda_</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+                <span class="n">ratio</span> <span class="o">=</span> <span class="n">cTable</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">cTable</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">pos</span> <span class="o">=</span> <span class="n">ratio</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">ratio</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">chisum</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">chisum</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="n">ind</span><span class="p">,</span> <span class="n">grp_label</span><span class="p">,</span> <span class="n">chi2</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">cTable</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">p</span><span class="o">&lt;</span><span class="n">cutoff</span><span class="p">]])])</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+    <span class="n">chisum</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;chi&#39;</span><span class="p">,</span> <span class="s1">&#39;p-value&#39;</span><span class="p">,</span> <span class="s1">&#39;cTable&#39;</span><span class="p">,</span> <span class="s1">&#39;multiplier&#39;</span><span class="p">,</span> <span class="s1">&#39;reject null&#39;</span><span class="p">]</span>
+    <span class="n">chisum</span> <span class="o">=</span> <span class="n">chisum</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;p-value&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">chisum</span>
+
+<span class="k">def</span> <span class="nf">make_cat_plots</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s1">&#39;success&#39;</span><span class="p">,</span> <span class="n">ind_feature</span><span class="o">=</span><span class="s1">&#39;genre_1&#39;</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="s1">&#39;col&#39;</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="s1">&#39;row&#39;</span><span class="p">)</span>
+
+
+    <span class="n">genre_list</span> <span class="o">=</span> <span class="n">chisum</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">chisum</span><span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ind_feature</span><span class="p">)</span>
+                           <span class="o">&amp;</span> <span class="p">(</span><span class="n">chisum</span><span class="p">[</span><span class="s1">&#39;reject null&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">)]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;multiplier&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="n">dff</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">ind_feature</span><span class="p">])[</span><span class="n">target</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="n">dff</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;percent&#39;</span><span class="p">]</span>
+    <span class="n">dff</span> <span class="o">=</span> <span class="n">dff</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">dff</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dff</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;percent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dff</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dff</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;percent&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">dff</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dff</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;percent&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> 
+    <span class="n">dff</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dff</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;percent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dff</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dff</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;percent&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">dff</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dff</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;percent&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> 
+    <span class="n">dff</span> <span class="o">=</span> <span class="n">dff</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">ind_feature</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">genre_list</span><span class="p">,:]</span>
+    <span class="n">dff</span> <span class="o">=</span> <span class="n">dff</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+    <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dff</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">10</span><span class="p">,:],</span> <span class="n">hue</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">ind_feature</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;percent&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Best  and Worst Genres, Percent&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dff</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:,:],</span> <span class="n">hue</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">ind_feature</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;percent&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+    <span class="n">dff</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">ind_feature</span><span class="p">])[</span><span class="n">target</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="n">dff</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span>
+    <span class="n">dff</span> <span class="o">=</span> <span class="n">dff</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">dff</span> <span class="o">=</span> <span class="n">dff</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">ind_feature</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">genre_list</span><span class="p">,:]</span>
+    <span class="n">dff</span> <span class="o">=</span> <span class="n">dff</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+    <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dff</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">10</span><span class="p">,:],</span> <span class="n">hue</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">ind_feature</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Best and Worst Genres, Count&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dff</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:,:],</span> <span class="n">hue</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">ind_feature</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">framealpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Success&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fig</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">ind_feature</span> <span class="o">=</span> <span class="s1">&#39;genre_1&#39;</span>
+<span class="n">target</span> <span class="o">=</span> <span class="s1">&#39;success&#39;</span>
+
+<span class="n">chisum</span> <span class="o">=</span> <span class="n">make_chisum</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">make_cat_plots</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">ind_feature</span><span class="p">)</span>
+
+<span class="n">chisum</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">chisum</span><span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ind_feature</span><span class="p">)</span>
+        <span class="o">&amp;</span> <span class="p">(</span><span class="n">chisum</span><span class="p">[</span><span class="s1">&#39;reject null&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">)]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;multiplier&#39;</span><span class="p">,</span> 
+           <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">ind_feature</span><span class="si">}</span><span class="s1">_categorical.xlsx&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">ind_feature</span><span class="si">}</span><span class="s2">_categorical.svg&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="png" src="../X4_Spotify_files/X4_Spotify_10_0.png" /></p>
+<div class="codehilite"><pre><span></span><code><span class="n">ind_feature</span> <span class="o">=</span> <span class="s1">&#39;mood_1&#39;</span>
+<span class="n">target</span> <span class="o">=</span> <span class="s1">&#39;success&#39;</span>
+
+<span class="n">chisum</span> <span class="o">=</span> <span class="n">make_chisum</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">make_cat_plots</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">ind_feature</span><span class="p">)</span>
+
+<span class="n">chisum</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">chisum</span><span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ind_feature</span><span class="p">)</span>
+        <span class="o">&amp;</span> <span class="p">(</span><span class="n">chisum</span><span class="p">[</span><span class="s1">&#39;reject null&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">)]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;multiplier&#39;</span><span class="p">,</span> 
+           <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">ind_feature</span><span class="si">}</span><span class="s1">_categorical.xlsx&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">ind_feature</span><span class="si">}</span><span class="s2">_categorical.svg&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="png" src="../X4_Spotify_files/X4_Spotify_11_0.png" /></p>
+<h3 id="continuous">Continuous<a class="headerlink" href="#continuous" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">make_con_plots</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">con_features</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="p">((</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">),(</span><span class="n">ax3</span><span class="p">,</span> <span class="n">ax4</span><span class="p">))</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+    <span class="n">chidf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">chidf</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">target</span><span class="p">]</span>
+    <span class="n">welchsum</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">cutoff</span> <span class="o">=</span> <span class="mf">0.01</span>
+    <span class="n">pop</span> <span class="o">=</span> <span class="n">chidf</span><span class="p">[</span><span class="n">target</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">con_features</span><span class="p">,</span> <span class="p">[</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">,</span> <span class="n">ax4</span><span class="p">]):</span>
+        <span class="n">chidf</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+            <span class="n">boot1</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span>
+                        <span class="nb">list</span><span class="p">(</span>
+                            <span class="n">chidf</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+                                <span class="p">(</span><span class="n">chidf</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">)</span>
+                            <span class="p">][</span><span class="n">ind</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">),</span>
+                        <span class="n">k</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+            <span class="n">boot2</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span>
+                        <span class="nb">list</span><span class="p">(</span>
+                            <span class="n">chidf</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+                                <span class="p">(</span><span class="n">chidf</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span>
+                            <span class="p">][</span><span class="n">ind</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">),</span>
+                        <span class="n">k</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+            <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">boot1</span><span class="p">))</span>
+            <span class="n">b</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">boot2</span><span class="p">))</span>
+        <span class="n">testt</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">a_avg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">b_avg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="n">welchsum</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">welchsum</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="n">ind</span><span class="p">,</span> <span class="n">testt</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">a_avg</span><span class="p">,</span> <span class="n">b_avg</span><span class="p">,</span> <span class="n">p</span><span class="o">&lt;</span><span class="n">cutoff</span><span class="p">]])])</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2"> == True&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2"> == False&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span>
+
+    <span class="n">welchsum</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">,</span> <span class="s1">&#39;test stat&#39;</span><span class="p">,</span> <span class="s1">&#39;p-value&#39;</span><span class="p">,</span> <span class="s1">&#39;upper q avg&#39;</span><span class="p">,</span> <span class="s1">&#39;lower q avg&#39;</span><span class="p">,</span> <span class="s1">&#39;reject null&#39;</span><span class="p">]</span>
+    <span class="n">welchsum</span> <span class="o">=</span> <span class="n">welchsum</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;p-value&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">welchsum</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">target</span> <span class="o">=</span> <span class="s1">&#39;new_success&#39;</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">welchsum</span> <span class="o">=</span> <span class="n">make_con_plots</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">con_features</span><span class="p">)</span>
+
+<span class="n">welchsum</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">_continuous.xlsx&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">_ttest.svg&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="png" src="../X4_Spotify_files/X4_Spotify_14_0.png" /></p>
+<h2 id="models">Models<a class="headerlink" href="#models" title="Permanent link">&para;</a></h2>
+<h3 id="logistic-regression">Logistic Regression<a class="headerlink" href="#logistic-regression" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1">### y</span>
+<span class="n">target</span> <span class="o">=</span> <span class="s2">&quot;success&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">target</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1">#### X</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">des_features</span> <span class="o">+</span> <span class="n">con_features</span><span class="p">]</span>
+<span class="n">enc</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">()</span>
+<span class="n">std</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_cat</span> <span class="o">=</span> <span class="n">enc</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">des_features</span><span class="p">])</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="n">X_con</span> <span class="o">=</span> <span class="n">std</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">con_features</span><span class="p">])</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">X_con</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">X_con</span><span class="p">,</span> <span class="n">X_cat</span><span class="p">))</span>
+<span class="n">feature_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;intercept&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">con_features</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">enc</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">())</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">feature_names</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>success
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">add_feature</span><span class="p">(</span><span class="n">feature_names</span><span class="p">,</span> <span class="n">basemodel</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">r2max</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="n">feature_max</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">bestsum</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">newmodel</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">feature_names</span><span class="p">:</span>
+        <span class="n">basemodel</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span>
+        <span class="n">X2</span> <span class="o">=</span> <span class="n">basemodel</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">est</span> <span class="o">=</span> <span class="n">Logit</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X2</span><span class="p">)</span>
+        <span class="n">est2</span> <span class="o">=</span> <span class="n">est</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">disp</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">summ</span> <span class="o">=</span> <span class="n">est2</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">summ</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">score</span> <span class="o">&gt;</span> <span class="n">r2max</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">est2</span><span class="o">.</span><span class="n">pvalues</span> <span class="o">&gt;</span> <span class="n">cutoff</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="n">r2max</span> <span class="o">=</span> <span class="n">score</span>
+            <span class="n">feature_max</span> <span class="o">=</span> <span class="n">feature</span>
+            <span class="n">bestsum</span> <span class="o">=</span> <span class="n">est2</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+            <span class="n">newmodel</span> <span class="o">=</span> <span class="n">basemodel</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">disp</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;new r2max, </span><span class="si">{</span><span class="n">feature_max</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">r2max</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">basemodel</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">labels</span> <span class="o">=</span> <span class="n">feature</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">r2max</span><span class="p">,</span> <span class="n">feature_max</span><span class="p">,</span> <span class="n">bestsum</span><span class="p">,</span> <span class="n">newmodel</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">candidates</span> <span class="o">=</span> <span class="n">feature_names</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">basemodel</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">r2max</span> <span class="o">=</span> <span class="mi">0</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">newr2max</span><span class="p">,</span> <span class="n">feature_max</span><span class="p">,</span> <span class="n">bestsum</span><span class="p">,</span> <span class="n">newmodel</span> <span class="o">=</span> <span class="n">add_feature</span><span class="p">(</span>
+        <span class="n">feature_names</span><span class="o">=</span><span class="n">candidates</span><span class="p">,</span> 
+        <span class="n">basemodel</span><span class="o">=</span><span class="n">basemodel</span><span class="p">,</span> 
+        <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> 
+        <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+        <span class="n">r2max</span><span class="o">=</span><span class="n">r2max</span><span class="p">)</span>    
+    <span class="k">if</span> <span class="n">newr2max</span> <span class="o">&gt;</span> <span class="n">r2max</span><span class="p">:</span>
+        <span class="n">r2max</span> <span class="o">=</span> <span class="n">newr2max</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;new r2max, </span><span class="si">{</span><span class="n">feature_max</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">r2max</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;success_fwd_selection_results.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;a+&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">file_data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;new r2max, </span><span class="si">{</span><span class="n">feature_max</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">r2max</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">candidates</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">feature_max</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;success_canidates.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w+&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">file_data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">basemodel</span> <span class="o">=</span> <span class="n">newmodel</span>
+        <span class="n">basemodel</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;success_basemodel.csv&quot;</span><span class="p">)</span>
+        <span class="k">continue</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">break</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">basemodel</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;success_basemodel.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">X2</span> <span class="o">=</span> <span class="n">basemodel</span><span class="o">.</span><span class="n">values</span>
+<span class="n">est</span> <span class="o">=</span> <span class="n">Logit</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X2</span><span class="p">)</span>
+<span class="n">est2</span> <span class="o">=</span> <span class="n">est</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">disp</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">summ</span> <span class="o">=</span> <span class="n">est2</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+
+<span class="n">res_table</span> <span class="o">=</span> <span class="n">summ</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">res_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">res_table</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="n">res_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">]</span>
+<span class="n">res_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">res_df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">res_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">cols</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+<span class="n">res_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">basemodel</span><span class="o">.</span><span class="n">columns</span>
+<span class="n">display</span><span class="p">(</span><span class="n">res_df</span><span class="p">)</span>
+<span class="n">res_df</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="s2">&quot;success_log.xlsx&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1">### y</span>
+<span class="n">target</span> <span class="o">=</span> <span class="s2">&quot;monthly_stream30s&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">target</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">weights</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="s1">&#39;float&#39;</span>
+<span class="n">lim</span> <span class="o">=</span> <span class="mi">11</span>
+<span class="n">dom_class_weight</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">lim</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">quant</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">lim</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">lim</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">lim</span> <span class="o">-</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="n">quant</span>
+        <span class="k">continue</span>
+    <span class="k">elif</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">lim</span> <span class="o">-</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">weights</span><span class="p">[</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">quant</span><span class="p">)]</span> <span class="o">=</span> <span class="n">dom_class_weight</span>
+        <span class="n">labels</span><span class="p">[</span><span class="n">labels</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">quant</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">names</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;less than </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">quant</span><span class="p">)</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> listens&quot;</span><span class="p">]</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">labels</span><span class="p">[(</span><span class="n">labels</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">prev</span><span class="p">))</span>
+              <span class="o">&amp;</span> <span class="p">(</span><span class="n">labels</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">quant</span><span class="p">))]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">weights</span><span class="p">[(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">prev</span><span class="p">))</span>
+              <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">quant</span><span class="p">))]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">names</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">prev</span><span class="p">)</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> &lt; listens &lt;= </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">quant</span><span class="p">)</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
+    <span class="n">prev</span> <span class="o">=</span> <span class="n">quant</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">labels</span>
+
+<span class="n">basemodel</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../../scripts/basemodel.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">X2</span> <span class="o">=</span> <span class="n">basemodel</span><span class="o">.</span><span class="n">values</span>
+<span class="n">est</span> <span class="o">=</span> <span class="n">Logit</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X2</span><span class="p">)</span>
+<span class="n">est2</span> <span class="o">=</span> <span class="n">est</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">disp</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">summ</span> <span class="o">=</span> <span class="n">est2</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+
+<span class="n">res_table</span> <span class="o">=</span> <span class="n">summ</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">res_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">res_table</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="n">res_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">]</span>
+<span class="n">res_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">res_df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">res_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">cols</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+<span class="n">res_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">basemodel</span><span class="o">.</span><span class="n">columns</span>
+<span class="n">display</span><span class="p">(</span><span class="n">res_df</span><span class="p">)</span>
+<span class="n">res_df</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="s2">&quot;log_model_monthly_stream30s.xlsx&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>monthly_stream30s
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>coef</th>
+      <th>std err</th>
+      <th>z</th>
+      <th>P&gt;|z|</th>
+      <th>[0.025</th>
+      <th>0.975]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>intercept</th>
+      <td>-2.0737</td>
+      <td>0.016</td>
+      <td>-133.150</td>
+      <td>0.000</td>
+      <td>-2.104</td>
+      <td>-2.043</td>
+    </tr>
+    <tr>
+      <th>n_albums</th>
+      <td>0.2656</td>
+      <td>0.012</td>
+      <td>21.287</td>
+      <td>0.000</td>
+      <td>0.241</td>
+      <td>0.290</td>
+    </tr>
+    <tr>
+      <th>genre_1_Latin</th>
+      <td>0.5408</td>
+      <td>0.027</td>
+      <td>19.906</td>
+      <td>0.000</td>
+      <td>0.488</td>
+      <td>0.594</td>
+    </tr>
+    <tr>
+      <th>genre_1_Indie Rock</th>
+      <td>-0.5832</td>
+      <td>0.020</td>
+      <td>-28.964</td>
+      <td>0.000</td>
+      <td>-0.623</td>
+      <td>-0.544</td>
+    </tr>
+    <tr>
+      <th>genre_1_Rap</th>
+      <td>-0.3259</td>
+      <td>0.020</td>
+      <td>-16.697</td>
+      <td>0.000</td>
+      <td>-0.364</td>
+      <td>-0.288</td>
+    </tr>
+    <tr>
+      <th>genre_1_Dance &amp; House</th>
+      <td>-0.3034</td>
+      <td>0.027</td>
+      <td>-11.069</td>
+      <td>0.000</td>
+      <td>-0.357</td>
+      <td>-0.250</td>
+    </tr>
+    <tr>
+      <th>genre_1_Rock</th>
+      <td>-0.4226</td>
+      <td>0.025</td>
+      <td>-16.996</td>
+      <td>0.000</td>
+      <td>-0.471</td>
+      <td>-0.374</td>
+    </tr>
+    <tr>
+      <th>mood_1_Energizing</th>
+      <td>-0.2844</td>
+      <td>0.027</td>
+      <td>-10.670</td>
+      <td>0.000</td>
+      <td>-0.337</td>
+      <td>-0.232</td>
+    </tr>
+    <tr>
+      <th>genre_1_Children's</th>
+      <td>0.7845</td>
+      <td>0.062</td>
+      <td>12.608</td>
+      <td>0.000</td>
+      <td>0.663</td>
+      <td>0.906</td>
+    </tr>
+    <tr>
+      <th>mood_1_Tender</th>
+      <td>0.4943</td>
+      <td>0.055</td>
+      <td>9.032</td>
+      <td>0.000</td>
+      <td>0.387</td>
+      <td>0.602</td>
+    </tr>
+    <tr>
+      <th>mood_1_Other</th>
+      <td>0.6206</td>
+      <td>0.074</td>
+      <td>8.413</td>
+      <td>0.000</td>
+      <td>0.476</td>
+      <td>0.765</td>
+    </tr>
+    <tr>
+      <th>n_tracks</th>
+      <td>0.0462</td>
+      <td>0.006</td>
+      <td>7.613</td>
+      <td>0.000</td>
+      <td>0.034</td>
+      <td>0.058</td>
+    </tr>
+    <tr>
+      <th>mood_1_Peaceful</th>
+      <td>0.6294</td>
+      <td>0.060</td>
+      <td>10.426</td>
+      <td>0.000</td>
+      <td>0.511</td>
+      <td>0.748</td>
+    </tr>
+    <tr>
+      <th>mood_1_Romantic</th>
+      <td>0.2981</td>
+      <td>0.033</td>
+      <td>9.038</td>
+      <td>0.000</td>
+      <td>0.233</td>
+      <td>0.363</td>
+    </tr>
+    <tr>
+      <th>genre_1_Electronica</th>
+      <td>-0.2326</td>
+      <td>0.034</td>
+      <td>-6.792</td>
+      <td>0.000</td>
+      <td>-0.300</td>
+      <td>-0.165</td>
+    </tr>
+    <tr>
+      <th>genre_2_Indie Rock</th>
+      <td>-0.2050</td>
+      <td>0.023</td>
+      <td>-8.998</td>
+      <td>0.000</td>
+      <td>-0.250</td>
+      <td>-0.160</td>
+    </tr>
+    <tr>
+      <th>mood_2_Energizing</th>
+      <td>-0.1384</td>
+      <td>0.019</td>
+      <td>-7.421</td>
+      <td>0.000</td>
+      <td>-0.175</td>
+      <td>-0.102</td>
+    </tr>
+    <tr>
+      <th>genre_1_R&amp;B</th>
+      <td>-0.2335</td>
+      <td>0.030</td>
+      <td>-7.696</td>
+      <td>0.000</td>
+      <td>-0.293</td>
+      <td>-0.174</td>
+    </tr>
+    <tr>
+      <th>genre_3_Indie Rock</th>
+      <td>-0.2540</td>
+      <td>0.024</td>
+      <td>-10.792</td>
+      <td>0.000</td>
+      <td>-0.300</td>
+      <td>-0.208</td>
+    </tr>
+    <tr>
+      <th>genre_1_Classical</th>
+      <td>-0.5126</td>
+      <td>0.060</td>
+      <td>-8.609</td>
+      <td>0.000</td>
+      <td>-0.629</td>
+      <td>-0.396</td>
+    </tr>
+    <tr>
+      <th>genre_2_Alternative</th>
+      <td>0.1769</td>
+      <td>0.019</td>
+      <td>9.542</td>
+      <td>0.000</td>
+      <td>0.141</td>
+      <td>0.213</td>
+    </tr>
+    <tr>
+      <th>genre_2_Metal</th>
+      <td>0.4257</td>
+      <td>0.040</td>
+      <td>10.738</td>
+      <td>0.000</td>
+      <td>0.348</td>
+      <td>0.503</td>
+    </tr>
+    <tr>
+      <th>mood_2_Peaceful</th>
+      <td>0.3761</td>
+      <td>0.055</td>
+      <td>6.856</td>
+      <td>0.000</td>
+      <td>0.269</td>
+      <td>0.484</td>
+    </tr>
+    <tr>
+      <th>mood_2_Romantic</th>
+      <td>0.2300</td>
+      <td>0.031</td>
+      <td>7.414</td>
+      <td>0.000</td>
+      <td>0.169</td>
+      <td>0.291</td>
+    </tr>
+    <tr>
+      <th>mood_3_Romantic</th>
+      <td>0.2597</td>
+      <td>0.031</td>
+      <td>8.252</td>
+      <td>0.000</td>
+      <td>0.198</td>
+      <td>0.321</td>
+    </tr>
+    <tr>
+      <th>genre_3_Alternative</th>
+      <td>0.0482</td>
+      <td>0.019</td>
+      <td>2.529</td>
+      <td>0.011</td>
+      <td>0.011</td>
+      <td>0.086</td>
+    </tr>
+    <tr>
+      <th>n_artists</th>
+      <td>0.0954</td>
+      <td>0.013</td>
+      <td>7.464</td>
+      <td>0.000</td>
+      <td>0.070</td>
+      <td>0.120</td>
+    </tr>
+    <tr>
+      <th>genre_1_Metal</th>
+      <td>0.4049</td>
+      <td>0.042</td>
+      <td>9.680</td>
+      <td>0.000</td>
+      <td>0.323</td>
+      <td>0.487</td>
+    </tr>
+    <tr>
+      <th>mood_1_Aggressive</th>
+      <td>-0.2660</td>
+      <td>0.042</td>
+      <td>-6.275</td>
+      <td>0.000</td>
+      <td>-0.349</td>
+      <td>-0.183</td>
+    </tr>
+    <tr>
+      <th>mood_3_Peaceful</th>
+      <td>0.2912</td>
+      <td>0.058</td>
+      <td>4.983</td>
+      <td>0.000</td>
+      <td>0.177</td>
+      <td>0.406</td>
+    </tr>
+    <tr>
+      <th>mood_1_Empowering</th>
+      <td>0.1197</td>
+      <td>0.021</td>
+      <td>5.789</td>
+      <td>0.000</td>
+      <td>0.079</td>
+      <td>0.160</td>
+    </tr>
+    <tr>
+      <th>genre_1_Religious</th>
+      <td>-0.2328</td>
+      <td>0.033</td>
+      <td>-7.154</td>
+      <td>0.000</td>
+      <td>-0.297</td>
+      <td>-0.169</td>
+    </tr>
+    <tr>
+      <th>genre_3_Metal</th>
+      <td>0.1978</td>
+      <td>0.044</td>
+      <td>4.527</td>
+      <td>0.000</td>
+      <td>0.112</td>
+      <td>0.283</td>
+    </tr>
+    <tr>
+      <th>genre_3_R&amp;B</th>
+      <td>-0.1897</td>
+      <td>0.024</td>
+      <td>-8.057</td>
+      <td>0.000</td>
+      <td>-0.236</td>
+      <td>-0.144</td>
+    </tr>
+    <tr>
+      <th>mood_3_Yearning</th>
+      <td>0.1176</td>
+      <td>0.019</td>
+      <td>6.096</td>
+      <td>0.000</td>
+      <td>0.080</td>
+      <td>0.155</td>
+    </tr>
+    <tr>
+      <th>mood_2_-</th>
+      <td>0.4272</td>
+      <td>0.074</td>
+      <td>5.772</td>
+      <td>0.000</td>
+      <td>0.282</td>
+      <td>0.572</td>
+    </tr>
+    <tr>
+      <th>genre_3_Electronica</th>
+      <td>-0.1893</td>
+      <td>0.026</td>
+      <td>-7.408</td>
+      <td>0.000</td>
+      <td>-0.239</td>
+      <td>-0.139</td>
+    </tr>
+    <tr>
+      <th>genre_2_Latin</th>
+      <td>0.3700</td>
+      <td>0.062</td>
+      <td>5.959</td>
+      <td>0.000</td>
+      <td>0.248</td>
+      <td>0.492</td>
+    </tr>
+    <tr>
+      <th>mood_3_Empowering</th>
+      <td>0.0909</td>
+      <td>0.021</td>
+      <td>4.386</td>
+      <td>0.000</td>
+      <td>0.050</td>
+      <td>0.132</td>
+    </tr>
+    <tr>
+      <th>genre_3_-</th>
+      <td>-0.1084</td>
+      <td>0.021</td>
+      <td>-5.104</td>
+      <td>0.000</td>
+      <td>-0.150</td>
+      <td>-0.067</td>
+    </tr>
+    <tr>
+      <th>genre_1_Spoken &amp; Audio</th>
+      <td>0.4897</td>
+      <td>0.089</td>
+      <td>5.489</td>
+      <td>0.000</td>
+      <td>0.315</td>
+      <td>0.665</td>
+    </tr>
+    <tr>
+      <th>genre_2_New Age</th>
+      <td>0.3718</td>
+      <td>0.067</td>
+      <td>5.546</td>
+      <td>0.000</td>
+      <td>0.240</td>
+      <td>0.503</td>
+    </tr>
+    <tr>
+      <th>genre_3_New Age</th>
+      <td>0.3384</td>
+      <td>0.067</td>
+      <td>5.053</td>
+      <td>0.000</td>
+      <td>0.207</td>
+      <td>0.470</td>
+    </tr>
+    <tr>
+      <th>genre_3_Rap</th>
+      <td>-0.1484</td>
+      <td>0.026</td>
+      <td>-5.791</td>
+      <td>0.000</td>
+      <td>-0.199</td>
+      <td>-0.098</td>
+    </tr>
+    <tr>
+      <th>mood_1_Rowdy</th>
+      <td>-0.2223</td>
+      <td>0.051</td>
+      <td>-4.373</td>
+      <td>0.000</td>
+      <td>-0.322</td>
+      <td>-0.123</td>
+    </tr>
+    <tr>
+      <th>mood_2_Rowdy</th>
+      <td>-0.1655</td>
+      <td>0.039</td>
+      <td>-4.267</td>
+      <td>0.000</td>
+      <td>-0.242</td>
+      <td>-0.089</td>
+    </tr>
+    <tr>
+      <th>mood_2_Aggressive</th>
+      <td>-0.1323</td>
+      <td>0.030</td>
+      <td>-4.345</td>
+      <td>0.000</td>
+      <td>-0.192</td>
+      <td>-0.073</td>
+    </tr>
+    <tr>
+      <th>genre_2_Spoken &amp; Audio</th>
+      <td>0.3211</td>
+      <td>0.068</td>
+      <td>4.717</td>
+      <td>0.000</td>
+      <td>0.188</td>
+      <td>0.455</td>
+    </tr>
+    <tr>
+      <th>genre_1_New Age</th>
+      <td>0.2391</td>
+      <td>0.062</td>
+      <td>3.863</td>
+      <td>0.000</td>
+      <td>0.118</td>
+      <td>0.360</td>
+    </tr>
+    <tr>
+      <th>genre_2_Jazz</th>
+      <td>0.1958</td>
+      <td>0.043</td>
+      <td>4.533</td>
+      <td>0.000</td>
+      <td>0.111</td>
+      <td>0.280</td>
+    </tr>
+    <tr>
+      <th>genre_2_Pop</th>
+      <td>0.0819</td>
+      <td>0.016</td>
+      <td>4.999</td>
+      <td>0.000</td>
+      <td>0.050</td>
+      <td>0.114</td>
+    </tr>
+    <tr>
+      <th>genre_3_Rock</th>
+      <td>-0.0849</td>
+      <td>0.020</td>
+      <td>-4.290</td>
+      <td>0.000</td>
+      <td>-0.124</td>
+      <td>-0.046</td>
+    </tr>
+    <tr>
+      <th>mood_1_Cool</th>
+      <td>-0.1212</td>
+      <td>0.035</td>
+      <td>-3.464</td>
+      <td>0.001</td>
+      <td>-0.190</td>
+      <td>-0.053</td>
+    </tr>
+    <tr>
+      <th>mood_1_Gritty</th>
+      <td>-0.1494</td>
+      <td>0.044</td>
+      <td>-3.386</td>
+      <td>0.001</td>
+      <td>-0.236</td>
+      <td>-0.063</td>
+    </tr>
+    <tr>
+      <th>mood_1_Easygoing</th>
+      <td>-0.2261</td>
+      <td>0.074</td>
+      <td>-3.056</td>
+      <td>0.002</td>
+      <td>-0.371</td>
+      <td>-0.081</td>
+    </tr>
+    <tr>
+      <th>genre_3_Dance &amp; House</th>
+      <td>-0.0910</td>
+      <td>0.025</td>
+      <td>-3.595</td>
+      <td>0.000</td>
+      <td>-0.141</td>
+      <td>-0.041</td>
+    </tr>
+    <tr>
+      <th>mood_1_Excited</th>
+      <td>0.0583</td>
+      <td>0.018</td>
+      <td>3.248</td>
+      <td>0.001</td>
+      <td>0.023</td>
+      <td>0.093</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">summ</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+
+<table class="simpletable">
+<caption>Logit Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>           <td>y</td>        <th>  No. Observations:  </th>   <td>403366</td>   
+</tr>
+<tr>
+  <th>Model:</th>                 <td>Logit</td>      <th>  Df Residuals:      </th>   <td>403309</td>   
+</tr>
+<tr>
+  <th>Method:</th>                 <td>MLE</td>       <th>  Df Model:          </th>   <td>    56</td>   
+</tr>
+<tr>
+  <th>Date:</th>            <td>Sun, 24 Apr 2022</td> <th>  Pseudo R-squ.:     </th>   <td>0.04795</td>  
+</tr>
+<tr>
+  <th>Time:</th>                <td>18:07:32</td>     <th>  Log-Likelihood:    </th> <td>-1.2475e+05</td>
+</tr>
+<tr>
+  <th>converged:</th>             <td>True</td>       <th>  LL-Null:           </th> <td>-1.3104e+05</td>
+</tr>
+<tr>
+  <th>Covariance Type:</th>     <td>nonrobust</td>    <th>  LLR p-value:       </th>   <td> 0.000</td>   
+</tr>
+</table>
+
+<div class="codehilite"><pre><span></span><code><span class="n">basemodel</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../../scripts/new_basemodel.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;new_success&#39;</span><span class="p">]</span>
+<span class="n">X2</span> <span class="o">=</span> <span class="n">basemodel</span><span class="o">.</span><span class="n">values</span>
+<span class="n">est</span> <span class="o">=</span> <span class="n">Logit</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X2</span><span class="p">)</span>
+<span class="n">est2</span> <span class="o">=</span> <span class="n">est</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">disp</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">summ</span> <span class="o">=</span> <span class="n">est2</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+
+<span class="n">res_table</span> <span class="o">=</span> <span class="n">summ</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">res_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">res_table</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="n">res_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">]</span>
+<span class="n">res_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">res_df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">res_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">cols</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+<span class="n">res_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">basemodel</span><span class="o">.</span><span class="n">columns</span>
+<span class="n">display</span><span class="p">(</span><span class="n">res_df</span><span class="p">)</span>
+<span class="n">res_df</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="s2">&quot;new_success_log_model.xlsx&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>coef</th>
+      <th>std err</th>
+      <th>z</th>
+      <th>P&gt;|z|</th>
+      <th>[0.025</th>
+      <th>0.975]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>intercept</th>
+      <td>-2.4336</td>
+      <td>0.012</td>
+      <td>-201.725</td>
+      <td>0.000</td>
+      <td>-2.457</td>
+      <td>-2.410</td>
+    </tr>
+    <tr>
+      <th>genre_3_-</th>
+      <td>-0.6766</td>
+      <td>0.025</td>
+      <td>-27.158</td>
+      <td>0.000</td>
+      <td>-0.725</td>
+      <td>-0.628</td>
+    </tr>
+    <tr>
+      <th>n_albums</th>
+      <td>0.1399</td>
+      <td>0.015</td>
+      <td>9.597</td>
+      <td>0.000</td>
+      <td>0.111</td>
+      <td>0.169</td>
+    </tr>
+    <tr>
+      <th>genre_1_Indie Rock</th>
+      <td>0.2702</td>
+      <td>0.016</td>
+      <td>17.240</td>
+      <td>0.000</td>
+      <td>0.240</td>
+      <td>0.301</td>
+    </tr>
+    <tr>
+      <th>mood_1_Defiant</th>
+      <td>0.2505</td>
+      <td>0.018</td>
+      <td>14.035</td>
+      <td>0.000</td>
+      <td>0.215</td>
+      <td>0.285</td>
+    </tr>
+    <tr>
+      <th>genre_1_Dance &amp; House</th>
+      <td>0.3042</td>
+      <td>0.021</td>
+      <td>14.388</td>
+      <td>0.000</td>
+      <td>0.263</td>
+      <td>0.346</td>
+    </tr>
+    <tr>
+      <th>mood_1_Excited</th>
+      <td>0.1917</td>
+      <td>0.017</td>
+      <td>11.607</td>
+      <td>0.000</td>
+      <td>0.159</td>
+      <td>0.224</td>
+    </tr>
+    <tr>
+      <th>mood_1_Upbeat</th>
+      <td>0.2698</td>
+      <td>0.028</td>
+      <td>9.713</td>
+      <td>0.000</td>
+      <td>0.215</td>
+      <td>0.324</td>
+    </tr>
+    <tr>
+      <th>genre_2_Indie Rock</th>
+      <td>0.1527</td>
+      <td>0.019</td>
+      <td>7.854</td>
+      <td>0.000</td>
+      <td>0.115</td>
+      <td>0.191</td>
+    </tr>
+    <tr>
+      <th>genre_1_Rap</th>
+      <td>0.1876</td>
+      <td>0.019</td>
+      <td>9.843</td>
+      <td>0.000</td>
+      <td>0.150</td>
+      <td>0.225</td>
+    </tr>
+    <tr>
+      <th>genre_1_Religious</th>
+      <td>0.2676</td>
+      <td>0.030</td>
+      <td>8.877</td>
+      <td>0.000</td>
+      <td>0.209</td>
+      <td>0.327</td>
+    </tr>
+    <tr>
+      <th>mood_2_Romantic</th>
+      <td>-0.2858</td>
+      <td>0.044</td>
+      <td>-6.533</td>
+      <td>0.000</td>
+      <td>-0.372</td>
+      <td>-0.200</td>
+    </tr>
+    <tr>
+      <th>mood_1_Yearning</th>
+      <td>0.1965</td>
+      <td>0.020</td>
+      <td>9.809</td>
+      <td>0.000</td>
+      <td>0.157</td>
+      <td>0.236</td>
+    </tr>
+    <tr>
+      <th>mood_1_Romantic</th>
+      <td>-0.2540</td>
+      <td>0.045</td>
+      <td>-5.620</td>
+      <td>0.000</td>
+      <td>-0.343</td>
+      <td>-0.165</td>
+    </tr>
+    <tr>
+      <th>mood_3_Romantic</th>
+      <td>-0.2249</td>
+      <td>0.042</td>
+      <td>-5.304</td>
+      <td>0.000</td>
+      <td>-0.308</td>
+      <td>-0.142</td>
+    </tr>
+    <tr>
+      <th>mood_1_Other</th>
+      <td>-0.6658</td>
+      <td>0.134</td>
+      <td>-4.954</td>
+      <td>0.000</td>
+      <td>-0.929</td>
+      <td>-0.402</td>
+    </tr>
+    <tr>
+      <th>mood_2_Yearning</th>
+      <td>0.1714</td>
+      <td>0.019</td>
+      <td>9.044</td>
+      <td>0.000</td>
+      <td>0.134</td>
+      <td>0.209</td>
+    </tr>
+    <tr>
+      <th>mood_3_Yearning</th>
+      <td>0.1290</td>
+      <td>0.019</td>
+      <td>6.682</td>
+      <td>0.000</td>
+      <td>0.091</td>
+      <td>0.167</td>
+    </tr>
+    <tr>
+      <th>mood_2_Defiant</th>
+      <td>0.1263</td>
+      <td>0.019</td>
+      <td>6.645</td>
+      <td>0.000</td>
+      <td>0.089</td>
+      <td>0.164</td>
+    </tr>
+    <tr>
+      <th>mood_2_Excited</th>
+      <td>0.1043</td>
+      <td>0.018</td>
+      <td>5.871</td>
+      <td>0.000</td>
+      <td>0.069</td>
+      <td>0.139</td>
+    </tr>
+    <tr>
+      <th>genre_1_Electronica</th>
+      <td>0.1490</td>
+      <td>0.030</td>
+      <td>5.018</td>
+      <td>0.000</td>
+      <td>0.091</td>
+      <td>0.207</td>
+    </tr>
+    <tr>
+      <th>n_artists</th>
+      <td>-0.0723</td>
+      <td>0.015</td>
+      <td>-4.776</td>
+      <td>0.000</td>
+      <td>-0.102</td>
+      <td>-0.043</td>
+    </tr>
+    <tr>
+      <th>mood_3_Urgent</th>
+      <td>-0.1036</td>
+      <td>0.022</td>
+      <td>-4.766</td>
+      <td>0.000</td>
+      <td>-0.146</td>
+      <td>-0.061</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 Wesley Beckner
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.361d90f1.min.js"}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.289a2a4b.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+    
+  </body>
+</html>
