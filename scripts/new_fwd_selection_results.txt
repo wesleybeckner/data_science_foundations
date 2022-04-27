@@ -12,3 +12,12 @@ new r2max, genre_1_Religious, 0.01259
 new r2max, mood_2_Romantic, 0.01283
 new r2max, mood_1_Yearning, 0.01303
 new r2max, mood_1_Romantic, 0.0132
+new r2max, mood_3_Romantic, 0.01337
+new r2max, mood_1_Other, 0.0135
+new r2max, mood_2_Yearning, 0.01363
+new r2max, mood_3_Yearning, 0.0138
+new r2max, mood_2_Defiant, 0.01392
+new r2max, mood_2_Excited, 0.01405
+new r2max, genre_1_Electronica, 0.01415
+new r2max, n_artists, 0.01424
+new r2max, mood_3_Urgent, 0.01433
