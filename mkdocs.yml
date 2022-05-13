@@ -38,7 +38,7 @@ nav:
       - Probability: extras/X1_Bayesian_Probability.md
       - Airbnb: extras/X2_Airbnb.md
       - AB Tests: extras/X3_AB_Testing.md
-      - Spotify: extras/X4_Spotify.md
+      - Spotify: extras/X4_Spotify_Appendix.md
       
 markdown_extensions:
   - admonition

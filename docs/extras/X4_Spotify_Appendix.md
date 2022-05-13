@@ -10,6 +10,8 @@
 
 Prompt: What makes a playlist successful? 
 
+Deck: [PDF](https://github.com/wesleybeckner/data_science_foundations/raw/main/assets/Spotify%20Final%20Presentation_WAB.pdf)
+
 <br>
 
 ---

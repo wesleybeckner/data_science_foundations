@@ -10,7 +10,18 @@
 
 <br>
 
-In this session we will look at the utility of EDA combined with inferential statistics.
+<p align="center">
+<img src="https://luminousmen.com/media/descriptive-and-inferential-statistics.jpeg" width=400px></img>
+</p>
+
+<small>[img src](https://luminousmen.com/post/descriptive-and-inferential-statistics)</small>
+
+
+> Descriptive statistics describes data (for example, a chart or graph) and inferential statistics allows you to make predictions (“inferences”) from that data. With inferential statistics, you take data from samples and make generalizations about a population 
+
+[statshowto](https://www.statisticshowto.com/probability-and-statistics/statistics-definitions/inferential-statistics/)
+
+In this session we will explore inferential statistics.
 
 <br>
 
@@ -289,18 +300,29 @@ for col in df.columns[:-2]:
     
 
 
-## 2.1 Many Flavors of Statistical Tests
+## 2.1 Navigating the Many Forms of Hypothesis Testing
 
-<p align="center">
-<img src="https://luminousmen.com/media/descriptive-and-inferential-statistics.jpeg" width=400px></img>
+### 2.1.1 A Refresher on Data Types
+
+Before we dive in, lets remind ourselves of the different data types. The acronym is NOIR: Nominal, Ordinal, Invterval, Ratio. And as we proceed along the acronym, more information is encapsulated in the data type. For this notebook the important distinction is between discrete (nominal/ordinal) and continuous (interval/ratio) data types. Depending on whether we are discrete or continuous, in either the target or predictor variable, we will proceed with a given set of hypothesis tests. 
+
+<p align=center>
+<img src="https://raw.githubusercontent.com/wesleybeckner/technology_explorers/main/assets/data_science/ds2.png"></img>
 </p>
 
-<small>[img src](https://luminousmen.com/post/descriptive-and-inferential-statistics)</small>
+### 2.1.2 The Roadmap
 
+Taking the taxonomy of datatypes and considering each of the predictor and outcome variables, we can concieve a roadmap 
 
-> Descriptive statistics describes data (for example, a chart or graph) and inferential statistics allows you to make predictions (“inferences”) from that data. With inferential statistics, you take data from samples and make generalizations about a population 
+<img src="https://cdn.scribbr.com/wp-content/uploads//2020/01/flowchart-for-choosing-a-statistical-test.png" width=800px></img>
 
-[statshowto](https://www.statisticshowto.com/probability-and-statistics/statistics-definitions/inferential-statistics/)
+<small>source: [scribbr](https://www.scribbr.com/statistics/statistical-tests/)</small>
+
+The above diagram is imperfect (e.g. ANOVA is a comparison of variances, not of means) and non-comprehensive (e.g. where does moods median fit in this?). It will have to do until I make my own. 
+
+There are many modalities of hypothesis testing. We will not cover them all. The goal here, is to cover enough that you can leave this notebook with a basic idea of how the different hypothesis tests relate to one another as well as their basic ingredients. What you will find is that among all these tests, a sample statistic is produced. The sample statistic itself is comprised typically of some expected value (for instance a mean) divided by a standard error of measure (for instance a standard deviation). In fact, we saw this in the previous notebook when discussing the confidence intervals around linear [regression coefficients](https://wesleybeckner.github.io/data_science_foundations/S1_Regression_and_Analysis/#1321-standard-errors) (and yes linear regression IS a form of hypothesis testing 😉)
+
+In this notebook, we will touch on each of the following:
 
 * Non-parametric tests
     * [Moods Median](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.median_test.html) (Comparison of Medians)
@@ -319,11 +341,12 @@ for col in df.columns[:-2]:
         * MANOVA
         * Factorial ANOVA
 
-When do I use each of these? We will talk about this as we proceed through the examples. [This page](https://support.minitab.com/en-us/minitab/20/help-and-how-to/statistics/nonparametrics/supporting-topics/which-test-should-i-use/) from minitab has good rules of thumb on the subject.
+When do I use each of these? We will talk about this as we proceed through the examples. [Visit this Minitab Post](https://support.minitab.com/en-us/minitab/20/help-and-how-to/statistics/nonparametrics/supporting-topics/which-test-should-i-use/) for additional reading.
+
+Finally, before we dive in and in the shadow of my making this hypothesis test decision tree a giant landmark on our journey, I invite you to read an excerpt from [Chapter 1 of Statistical Rethinking (McElreath 2016)](https://docs.google.com/document/d/1daYaEaAo7AVqxITspemGKoJTcundjWoJH8e_CkskMN4/edit#heading=h.pvgmj8cqxjgp). In this excerpt, McElreath tells a cautionary tale of using such roadmaps. Sorry McElreath. And if [videos](https://www.youtube.com/watch?v=cclUd_HoRlo) are more your bag, there you go.
 
 
-
-### 2.1.1 What is Mood's Median?
+## 2.2 What is Mood's Median?
 
 > You can use Chi-Square to test for a goodness of fit (whether a sample of data represents a distribution) or whether two variables are related (using a contingency table, which we will create below!)
 
@@ -487,7 +510,7 @@ table
 
 
 
-### 2.1.2 When to Use Mood's?
+### 2.2.1 When to Use Mood's?
 
 **Mood's Median Test is highly flexible** but has the following assumptions:
 
@@ -651,7 +674,7 @@ ax = sns.boxplot(x='Base Cake', y='EBITDA/KG', data=df, color='#A0cbe8')
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_46_0.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_48_0.png)
     
 
 
@@ -737,47 +760,47 @@ for desc in descriptors:
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_0.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_53_0.png)
     
 
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_1.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_53_1.png)
     
 
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_2.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_53_2.png)
     
 
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_3.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_53_3.png)
     
 
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_4.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_53_4.png)
     
 
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_5.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_53_5.png)
     
 
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_51_6.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_53_6.png)
     
 
 
-### 2.1.3 What is a T-test?
+## 2.3 What is a T-test?
 
 There are 1-sample and 2-sample T-tests 
 
@@ -806,7 +829,7 @@ A full discussion on T-tests is outside the scope of this session, but we can re
 
 * [student's T-test](https://en.wikipedia.org/wiki/Student%27s_t-test#Dependent_t-test_for_paired_samples)
 
-#### 2.1.3.1 Demonstration of T-tests
+### 2.3.1 Demonstration of T-tests
 
 [back to top](#top)
 
@@ -887,7 +910,9 @@ scipy.stats.ttest_ind(shift_two, shift_one, equal_var=True)
 
 
 
-### 2.1.4 What are F-statistics and the F-test?
+## 2.4 What is ANOVA?
+
+### 2.4.1 But First... What are F-statistics and the F-test?
 
 The F-statistic is simply a ratio of two variances, or the ratio of _mean squares_
 
@@ -895,7 +920,7 @@ _mean squares_ is the estimate of population variance that accounts for the degr
 
 We will explore this in the context of ANOVA
 
-#### 2.1.4.1 What is Analysis of Variance? 
+### 2.4.2 What is Analysis of Variance? 
 
 ANOVA uses the F-test to determine whether the variability between group means is larger than the variability within the groups. If that statistic is large enough, you can conclude that the means of the groups are not equal.
 
@@ -973,11 +998,11 @@ shifts.boxplot()
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_65_1.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_68_1.png)
     
 
 
-#### 2.1.4.2 SNS Boxplot
+#### 2.4.2.1 SNS Boxplot
 
 this is another great way to view boxplot data. Notice how sns also shows us the raw data alongside the box and whiskers using a _swarmplot_.
 
@@ -992,7 +1017,7 @@ ax = sns.swarmplot(x="shift", y="rate", data=shift_melt, color='#79706e')
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_67_0.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_70_0.png)
     
 
 
@@ -1098,7 +1123,7 @@ print(w, pvalue)
     1.3763632854696672 0.711084540821183
 
 
-#### 2.1.4.3 ANOVA Interpretation
+#### 2.4.2.2 ANOVA Interpretation
 
 The _p_ value form ANOVA analysis is significant (_p_ < 0.05) and we can conclude there are significant difference between the shifts. But we do not know which shift(s) are different. For this we need to perform a post hoc test. There are a multitude of these that are beyond the scope of this discussion ([Tukey-kramer](https://www.real-statistics.com/one-way-analysis-of-variance-anova/unplanned-comparisons/tukey-kramer-test/) is one such test) 
 
@@ -1106,17 +1131,9 @@ The _p_ value form ANOVA analysis is significant (_p_ < 0.05) and we can conclud
 <img src="https://media.tenor.com/images/4da4d46c8df02570a9a1219cac42bf27/tenor.gif"></img>
 </p>
 
-### 2.1.5 Putting it all together
+## 🍒 2.5 Enrichment: Evaluate statistical significance of product margin: a snake in the garden
 
-In summary, there are many statistical tests at our disposal when performing inferential statistical analysis. In times like these, a simple decision tree can be extraordinarily useful!
-
-<img src="https://cdn.scribbr.com/wp-content/uploads//2020/01/flowchart-for-choosing-a-statistical-test.png" width=800px></img>
-
-<small>source: [scribbr](https://www.scribbr.com/statistics/statistical-tests/)</small>
-
-## 🍒 2.2 Enrichment: Evaluate statistical significance of product margin: a snake in the garden
-
-### 2.2.1 Mood's Median on product descriptors
+### 2.5.1 Mood's Median on product descriptors
 
 The first issue we run into with moods is... what? 
 
@@ -2070,7 +2087,7 @@ moodsdf
 
 
 
-### 🍒🍒 2.2.2 **Enrichment**: Broad Analysis of Categories: ANOVA
+### 2.5.2 Broad Analysis of Categories: ANOVA
 
 
 
@@ -2561,7 +2578,7 @@ for col in df.columns[:5]:
     
 
 
-### 🍒🍒 2.2.3 **Enrichment**: Visual Analysis of Residuals: QQ-Plots
+### 2.5.3 Visual Analysis of Residuals: QQ-Plots
 
 This can be distressing and is often why we want visual methods to see what is going on with our data!
 
@@ -2590,13 +2607,13 @@ plt.show()
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_102_0.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_104_0.png)
     
 
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_102_1.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_104_1.png)
     
 
 
