@@ -63,7 +63,7 @@ import scipy
 
 [back to top](#top)
 
-For this session, we will use dummy datasets from sklearn.
+For this session, we will use the truffletopia dataset
 
 
 ```python
@@ -320,7 +320,7 @@ Taking the taxonomy of datatypes and considering each of the predictor and outco
 
 The above diagram is imperfect (e.g. ANOVA is a comparison of variances, not of means) and non-comprehensive (e.g. where does moods median fit in this?). It will have to do until I make my own. 
 
-There are many modalities of hypothesis testing. We will not cover them all. The goal here, is to cover enough that you can leave this notebook with a basic idea of how the different hypothesis tests relate to one another as well as their basic ingredients. What you will find is that among all these tests, a sample statistic is produced. The sample statistic itself is comprised typically of some expected value (for instance a mean) divided by a standard error of measure (for instance a standard deviation). In fact, we saw this in the previous notebook when discussing the confidence intervals around linear [regression coefficients](https://wesleybeckner.github.io/data_science_foundations/S1_Regression_and_Analysis/#1321-standard-errors) (and yes linear regression IS a form of hypothesis testing 😉)
+There are many modalities of hypothesis testing. We will not cover them all. The goal here, is to cover enough that you can leave this notebook with a basic idea of how the different tests relate to one another as well as their basic ingredients. What you will find is that among all these tests, a sample statistic is produced. The sample statistic itself is comprised typically of some expected value (for instance a mean) divided by a standard error of measure (for instance a standard deviation). In fact, we saw this in the previous notebook when discussing the confidence intervals around linear [regression coefficients](https://wesleybeckner.github.io/data_science_foundations/S1_Regression_and_Analysis/#1321-standard-errors) (and yes linear regression IS a form of hypothesis testing 😉)
 
 In this notebook, we will touch on each of the following:
 
@@ -345,10 +345,190 @@ When do I use each of these? We will talk about this as we proceed through the e
 
 Finally, before we dive in and in the shadow of my making this hypothesis test decision tree a giant landmark on our journey, I invite you to read an excerpt from [Chapter 1 of Statistical Rethinking (McElreath 2016)](https://docs.google.com/document/d/1daYaEaAo7AVqxITspemGKoJTcundjWoJH8e_CkskMN4/edit#heading=h.pvgmj8cqxjgp). In this excerpt, McElreath tells a cautionary tale of using such roadmaps. Sorry McElreath. And if [videos](https://www.youtube.com/watch?v=cclUd_HoRlo) are more your bag, there you go.
 
+> For some, the toolbox of pre-manufactured golems is all they will ever need. Provided they stay within well-tested contexts, using only a few different procedures in appropriate tasks, a lot of good science can be completed. This is similar to how plumbers can do a lot of useful work without knowing much about fluid dynamics. Serious trouble begins when scholars move on to conducting innovative research, pushing the boundaries of their specialties. It's as if we got our hydraulic engineers by promoting plumbers.
 
-## 2.2 What is Mood's Median?
+_Statistical Rethinking, McElreath 2016_
 
-> You can use Chi-Square to test for a goodness of fit (whether a sample of data represents a distribution) or whether two variables are related (using a contingency table, which we will create below!)
+
+## 2.2 What is Chi-Square?
+
+You can use Chi-Square (pronounced with a hard _ch_ as in _sky_) to test for a goodness of fit (whether a sample of data represents a distribution) or whether two variables are related (using a contingency table, which we will create below!)
+
+Let's take an example. Imagine that you play Pokémon Go, in fact you _love_ Pokémon Go. In your countless hours of study you've read that certain Pokémon will spawn under certain weather conditions. Rain, for instance, increases spawns of Water-, Electric, and Bug-type Pokémon. You decide to test this out. You record Pokémon sightings in the same locations on days with and without rain and observe the following
+
+
+```python
+random.seed(12)
+types = ['electric', 'psychic', 'dark', 'bug', 'dragon', 'fire',
+         'flying', 'ghost', 'grass', 'water']*1000
+without_rain = random.sample(types, k=200)
+types = ['electric', 'electric', 'electric', 'psychic', 'dark', 'bug', 'bug', 'bug', 'dragon', 'fire',
+         'flying', 'ghost', 'grass', 'water', 'water', 'water']*1000
+with_rain = random.sample(types, k=200)
+```
+
+given your observation of pokemon with rain (`with_rain`) and pokemon without rain (`without_rain`) how can you tell if these observations are statistically significant? i.e. that there actually is a difference in spawn rates for certain pokemon when it is and isn't raining? Enter the \\(\chi^2\\) test.
+
+The chi-square test statistic:
+
+$$x^2 = \sum{\frac{(O-E)^2}{E}}$$
+
+Where \\(O\\) is the observed frequency and \\(E\\) is the expected frequency.
+
+In our case, we are going to use the regular, sunny days as our expected values and the rainy days as our observed. See the data manipulation below:
+
+
+```python
+rain = pd.DataFrame(np.unique(np.array(with_rain), 
+                       return_counts=True)).T
+rain.columns=['type', 'O']
+rain = rain.set_index('type')
+sun = pd.DataFrame(np.unique(np.array(without_rain), 
+                       return_counts=True)).T
+sun.columns=['type', 'E']
+sun = sun.set_index('type')
+table = rain.join(sun)
+table
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>O</th>
+      <th>E</th>
+    </tr>
+    <tr>
+      <th>type</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>bug</th>
+      <td>42</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <th>dark</th>
+      <td>13</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <th>dragon</th>
+      <td>15</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>electric</th>
+      <td>41</td>
+      <td>26</td>
+    </tr>
+    <tr>
+      <th>fire</th>
+      <td>10</td>
+      <td>26</td>
+    </tr>
+    <tr>
+      <th>flying</th>
+      <td>12</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>ghost</th>
+      <td>9</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>grass</th>
+      <td>12</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>psychic</th>
+      <td>11</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <th>water</th>
+      <td>35</td>
+      <td>23</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+Now that we have our observed and expected table we can compute the \\(\chi^2\\) test statistic
+
+
+```python
+chi2 = ((table['O'] - table['E'])**2 / table['E']).sum()
+print(f"the chi2 statistic: {chi2:.2f}")
+```
+
+    the chi2 statistic: 55.37
+
+
+Usually, a test statistic is not enough. We need to translate this into a probability; concretely, what is the probability of observing this test statistic under the null hypothesis? In order to answer this question we need to produce a distribution of test statistics. The steps are as follows:
+
+1. calculate the degrees of fredom (DoF)
+2. use the DoF to generate a probability distribution (PDF) for this particular test statistic (we will use scipy to do this)
+3. calculate (1 - the cumulative distribution (CDF) up to the test statistic)
+    * this value is the 1-sided probability of observing this test statistic or anything greater than it under the PDF
+4. multiply this value by 2 if we are interested in the 2-sided test (we usually are, unless we have a strong reason to believe the alternate hypothesis should appear on the right or left side of the null hypothesis)
+    * in our case, we believe that electric, bug, and water pokemon INCREASE with rain, so we will perform a 1-sided test
+
+Our degrees of freedom can be calculated from the contingency table:
+
+$$ Dof = (columns-1) * (rows-1) $$
+
+Which in our case DoF = 9
+
+
+```python
+model = stats.chi2(df=9)
+p = (1-model.cdf(chi2))
+print(f"p value: {p:.2e}")
+```
+
+    p value: 1.04e-08
+
+
+We can verify our results with scipy's automagic:
+
+
+```python
+stats.chisquare(f_obs = table['O'], f_exp = table['E'])
+```
+
+
+
+
+    Power_divergenceResult(statistic=55.367939030839494, pvalue=1.0362934508722476e-08)
+
+
+
+## 2.3 What is Mood's Median?
 
 **A special case of Pearon's Chi-Squared Test:** We create a table that counts the observations above and below the global median for **two or more groups**. We then perform a *chi-squared test of significance* on this *contingency table* 
 
@@ -510,7 +690,7 @@ table
 
 
 
-### 2.2.1 When to Use Mood's?
+### 2.3.1 When to Use Mood's?
 
 **Mood's Median Test is highly flexible** but has the following assumptions:
 
@@ -527,7 +707,7 @@ Other considerations:
 #### 🏋️ Exercise 1: Use Mood's Median Test
 
 
-##### **Part A** Perform moods median test on Base Cake (Categorical Variable) and EBITDA/KG (Continuous Variable) in Truffle data
+**Part A** Perform moods median test on Base Cake (Categorical Variable) and EBITDA/KG (Continuous Variable) in Truffle data
 
 We're also going to get some practice with pandas groupby.
 
@@ -655,7 +835,7 @@ print("the grand median: {:.2e}".format(m))
     the grand median: 1.55e+01
 
 
-##### **Part B** View the distributions of the data using matplotlib and seaborn
+**Part B** View the distributions of the data using matplotlib and seaborn
 
 What a fantastic statistical result we found! Can we affirm our result with some visualizations? I hope so! Create a boxplot below using pandas. In your call to `df.boxplot()` the `by` parameter should be set to `Base Cake` and the `column` parameter should be set to `EBITDA/KG`
 
@@ -674,11 +854,11 @@ ax = sns.boxplot(x='Base Cake', y='EBITDA/KG', data=df, color='#A0cbe8')
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_48_0.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_58_0.png)
     
 
 
-##### **Part C** Perform Moods Median on all the other groups
+**Part C** Perform Moods Median on all the other groups
 
 
 ```python
@@ -747,7 +927,7 @@ for desc in descriptors:
     
 
 
-##### **Part D** Many boxplots
+**Part D** Many boxplots
 
 And finally, we will confirm these visually. Complete the Boxplot for each group:
 
@@ -760,47 +940,47 @@ for desc in descriptors:
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_53_0.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_63_0.png)
     
 
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_53_1.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_63_1.png)
     
 
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_53_2.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_63_2.png)
     
 
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_53_3.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_63_3.png)
     
 
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_53_4.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_63_4.png)
     
 
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_53_5.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_63_5.png)
     
 
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_53_6.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_63_6.png)
     
 
 
-## 2.3 What is a T-test?
+## 2.4 What is a T-test?
 
 There are 1-sample and 2-sample T-tests 
 
@@ -829,7 +1009,7 @@ A full discussion on T-tests is outside the scope of this session, but we can re
 
 * [student's T-test](https://en.wikipedia.org/wiki/Student%27s_t-test#Dependent_t-test_for_paired_samples)
 
-### 2.3.1 Demonstration of T-tests
+### 2.4.1 Demonstration of T-tests
 
 [back to top](#top)
 
@@ -910,9 +1090,9 @@ scipy.stats.ttest_ind(shift_two, shift_one, equal_var=True)
 
 
 
-## 2.4 What is ANOVA?
+## 2.5 What is ANOVA?
 
-### 2.4.1 But First... What are F-statistics and the F-test?
+### 2.5.1 But First... What are F-statistics and the F-test?
 
 The F-statistic is simply a ratio of two variances, or the ratio of _mean squares_
 
@@ -920,7 +1100,7 @@ _mean squares_ is the estimate of population variance that accounts for the degr
 
 We will explore this in the context of ANOVA
 
-### 2.4.2 What is Analysis of Variance? 
+### 2.5.2 What is Analysis of Variance? 
 
 ANOVA uses the F-test to determine whether the variability between group means is larger than the variability within the groups. If that statistic is large enough, you can conclude that the means of the groups are not equal.
 
@@ -998,11 +1178,11 @@ shifts.boxplot()
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_68_1.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_78_1.png)
     
 
 
-#### 2.4.2.1 SNS Boxplot
+#### 2.5.2.1 SNS Boxplot
 
 this is another great way to view boxplot data. Notice how sns also shows us the raw data alongside the box and whiskers using a _swarmplot_.
 
@@ -1017,7 +1197,7 @@ ax = sns.swarmplot(x="shift", y="rate", data=shift_melt, color='#79706e')
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_70_0.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_80_0.png)
     
 
 
@@ -1123,7 +1303,7 @@ print(w, pvalue)
     1.3763632854696672 0.711084540821183
 
 
-#### 2.4.2.2 ANOVA Interpretation
+#### 2.5.2.2 ANOVA Interpretation
 
 The _p_ value form ANOVA analysis is significant (_p_ < 0.05) and we can conclude there are significant difference between the shifts. But we do not know which shift(s) are different. For this we need to perform a post hoc test. There are a multitude of these that are beyond the scope of this discussion ([Tukey-kramer](https://www.real-statistics.com/one-way-analysis-of-variance-anova/unplanned-comparisons/tukey-kramer-test/) is one such test) 
 
@@ -1131,9 +1311,9 @@ The _p_ value form ANOVA analysis is significant (_p_ < 0.05) and we can conclud
 <img src="https://media.tenor.com/images/4da4d46c8df02570a9a1219cac42bf27/tenor.gif"></img>
 </p>
 
-## 🍒 2.5 Enrichment: Evaluate statistical significance of product margin: a snake in the garden
+## 🍒 2.6 Enrichment: Evaluate statistical significance of product margin: a snake in the garden
 
-### 2.5.1 Mood's Median on product descriptors
+### 2.6.1 Mood's Median on product descriptors
 
 The first issue we run into with moods is... what? 
 
@@ -2087,7 +2267,7 @@ moodsdf
 
 
 
-### 2.5.2 Broad Analysis of Categories: ANOVA
+### 2.6.2 Broad Analysis of Categories: ANOVA
 
 
 
@@ -2578,7 +2758,7 @@ for col in df.columns[:5]:
     
 
 
-### 2.5.3 Visual Analysis of Residuals: QQ-Plots
+### 2.6.3 Visual Analysis of Residuals: QQ-Plots
 
 This can be distressing and is often why we want visual methods to see what is going on with our data!
 
@@ -2607,13 +2787,13 @@ plt.show()
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_104_0.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_114_0.png)
     
 
 
 
     
-![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_104_1.png)
+![png](S2_Inferential_Statistics_files/S2_Inferential_Statistics_114_1.png)
     
 
 
